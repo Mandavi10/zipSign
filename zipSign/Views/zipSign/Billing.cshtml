@@ -1,0 +1,328 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/Content/css/sweetalert.css" />
+<style>
+    .navbar, .sidebar, .block-header, .maintle {
+        display: none
+    }
+    #main-content{width:100% !important; margin-top:0px}
+    .maintle {
+        font-weight: 700;
+        color: var(--dark-color);
+    }
+    
+    .selectmethod {
+        border: 1px solid #cdcdcd;
+        width: 33%;
+        text-align: center;
+        padding: 15px;
+        margin-right: 2px;
+        cursor: pointer;
+    }
+
+    .activemethod {
+        border-color: #0058b1;
+    }
+
+    .rightdiv {
+        background-color: #e0f0ff;
+        padding: 5px;
+    }
+
+    .tittxt {
+        font-weight: 700;
+        color: var(--dark-color);
+        font-size: 22px;
+    }
+
+    .changetxt {
+        color: #0058b1;
+        cursor: pointer;
+    }
+
+    .firstdiv {
+        border-bottom: 1px solid #cdcdcd;
+        padding: 15px 0px;
+    }
+
+    .editpay {
+        position: absolute;
+        right: 0px;
+        top: 3px;
+        cursor: pointer;
+        color: #0058b1;
+    }
+
+    .righttxt {
+        text-align: right;
+    }
+
+    .cddiv, .upidiv, .nbdiv {
+        height: 37vh;
+    }
+
+    .dotlbl label::before {
+        content: '--   ';
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Billing</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">Billing</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i> Send report</button>*@
+                        @*<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                @*<div class="header">
+                        <h2>Basic Validation</h2>
+                    </div>*@
+
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+                        <div class="col-md-12">
+                            <div class="col-md-12 pe-2">
+                                <h2 class="maintle">Add billing details</h2>
+
+                                <div class="col-md-12">
+                                    <label class="col-md-12 mt-2">Payment method</label>
+                                    <div class="col-md-12 d-flex flex-wrap selectoptfpay">
+
+                                        <div class="selectmethod activemethod crdr">
+                                            <label class="">Credit/Debit</label>
+                                        </div>
+                                        <div class="selectmethod upi">
+                                            <label class="">UPI</label>
+                                        </div>
+                                        <div class="selectmethod nbank">
+                                            <label class="">Net Banking</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 mt-3">
+                                        <label>Payment information</label>
+
+                                        <div class="cddiv">
+                                            <div class="form-group mt-2">
+                                                <label for="text-input2">Name on Card</label>
+                                                <input type="text" id="text-input2" class="form-control" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="text-input2">Card Number</label>
+                                                <input type="text" id="text-input2" class="form-control" required>
+                                            </div>
+                                            <div class="col-md-12 d-flex flex-wrap">
+                                                <div class="col-md-6 pe-1">
+                                                    <div class="form-group">
+                                                        <label for="text-input2">MM/YY</label>
+                                                        <input type="text" id="text-input2" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 ps-1">
+                                                    <div class="form-group">
+                                                        <label for="text-input2">CVV</label>
+                                                        <input type="text" id="text-input2" class="form-control" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="upidiv" style="display:none">
+                                            <div class="form-group mt-2">
+                                                <label for="text-input2">UPI ID</label>
+                                                <input type="text" id="text-input2" class="form-control" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="nbdiv" style="display:none">
+                                            <div class="form-group mt-2">
+                                                <label for="text-input2">Net Banking ID</label>
+                                                <input type="text" id="text-input2" class="form-control" required>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary js-sweetalert pull-right mt-3 mb-2" data-type="cancel">Pay ( &#8377;1518 )</button>
+                                        @*<button type="button" class="btn btn-light pull-right" onclick="window.location.href='';"><i class="fa fa-angle-double-left"></i> Back</button>*@
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            @*<div class="col-md-4 rightdiv p-2">
+
+
+                                <div class="forenterprise position-relative" style="display:none">
+                                    <div class="col-md-12 firstdiv pt-0">
+                                        <label class="col-md-12">Order summary</label>
+                                        <label class="col-md-12 tittxt">Standard</label>
+                                        <i class="fa fa-pencil-square-o editpay" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <label class="col-md-12">John Doe</label>
+                                        <label class="col-md-12">Johndoe@gmail.com</label>
+                                    </div>
+                                    <div class="col-md-12 firstdiv dotlbl">
+                                        <label class="col-md-12">Package Summary</label>
+                                        <label class="col-md-12">15 signatures per month</label>
+                                        <label class="col-md-12">4 users allowed</label>
+                                        <label class="col-md-12">Shared templates</label>
+                                        <label class="col-md-12">Collaborative commenting</label>
+                                        <label class="col-md-12">Customized branding</label>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <div class="col-md-12 d-flex flex-wrap justify-content-end">
+                                            <div class="col-md-3"><label class="col-md-12" style="text-align:right">Total:</label></div>
+                                            <div class="col-md-3"><label class="col-md-12 righttxt">&#8377; 1518</label></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="forsigns">
+                                    <div class="col-md-12 firstdiv pt-0 position-relative">
+                                        <label class="col-md-12">Order summary</label>
+                                        <i class="fa fa-pencil-square-o editpay" aria-hidden="true"></i>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <label class="col-md-12">John Doe</label>
+                                        <label class="col-md-12">Johndoe@gmail.com</label>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <label class="col-md-12 tittxt">eSign Aadhaar</label>
+                                        <div class="col-md-12 d-flex flex-wrap">
+                                            <div class="col-md-6"><label class="col-md-12">Quantity:<span class="ps-2">15</span></label></div>
+                                            <div class="col-md-6"><label class="col-md-12 righttxt">&#8377; 750</label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <label class="col-md-12 tittxt">DSC Sign</label>
+                                        <div class="col-md-12 d-flex flex-wrap">
+                                            <div class="col-md-6"><label class="col-md-12">Quantity:<span class="ps-2">15</span></label></div>
+                                            <div class="col-md-6"><label class="col-md-12 righttxt">&#8377; 750</label></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 firstdiv">
+                                        <div class="col-md-12 d-flex flex-wrap justify-content-end">
+                                            <div class="col-md-3"><label class="col-md-12" style="text-align:right">GST:</label></div>
+                                            <div class="col-md-3"><label class="col-md-12 righttxt">&#8377; 18</label></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 firstdiv">
+                                        <div class="col-md-12 d-flex flex-wrap justify-content-end">
+                                            <div class="col-md-3"><label class="col-md-12" style="text-align:right">Total:</label></div>
+                                            <div class="col-md-3"><label class="col-md-12 righttxt">&#8377; 1518</label></div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+
+                            </div>*@
+                        </div>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script src="~/Content/js/sweetalert.min.js"></script>
+<script src="~/Content/js/dialogs.js"></script>
+
+<script>
+    $('.selectoptfpay').on('click', '.selectmethod', function () {
+        $('.selectoptfpay .selectmethod').removeClass('activemethod');
+        $(this).addClass('activemethod');
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $(".crdr").click(function () {
+            $(".cddiv").show();
+            $(".upidiv").hide();
+            $(".nbdiv").hide();
+        });
+        $(".upi").click(function () {
+            $(".cddiv").hide();
+            $(".upidiv").show();
+            $(".nbdiv").hide();
+        });
+        $(".nbank").click(function () {
+            $(".cddiv").hide();
+            $(".upidiv").hide();
+            $(".nbdiv").show();
+        });
+    });
+</script>
+
+
+<script>
+    function showSuccessMessage() {
+        swal({
+            confirmButtonColor: "#0058b1",
+            closeOnConfirm: false
+        }, function () {
+            swal("", "Saved Successfully.", "success");
+        });
+
+    }
+    function showCancelMessage() {
+        swal({
+            title: "Are you sure?",
+            text: "You want to pay.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#0058b1",
+            confirmButtonText: "Yes, pay!",
+            cancelButtonText: "No, cancel it!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                SignInsert();
+                swal("Saved Successfully", "", "success");
+
+                window.location.href = '../ZipSign/Draft'
+            } else {
+
+                swal("Cancelled", "Your payment cancelled successfully :)", "error");
+                return false;
+            }
+        });
+    }
+</script>

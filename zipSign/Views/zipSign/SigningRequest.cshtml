@@ -1,0 +1,1848 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>zipSign</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/css/plugin.css" rel="stylesheet" />
+    <link href="~/Content/css/ag-grid.css" rel="stylesheet" />
+    <link href="~/Content/css/ag-theme-alpine.css" rel="stylesheet" />
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
+        <link rel="stylesheet" href="assets/vendor/charts-c3/plugin.css" />*@
+
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <style>
+        #Trail_Div {
+            overflow-y: auto;
+            max-height: 78vh;
+        }
+
+        .fancy-radio.custom-color-green input[type="radio"]:checked + span i:after {
+            background-color: #0058b1 !important;
+        }
+
+        .green-blink {
+            background-color: green;
+            /*animation: blink 1s infinite alternate;*/
+        }
+
+        .txtarea {
+            border: 1px solid #d3d3d3;
+            padding: 10px;
+            outline: none;
+        }
+
+        .iframeDiv {
+            min-height: 80vh;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        #PreviewSignImage1 {
+            height: 76vh;
+        }
+
+        .doc-details {
+            padding: 8px;
+            border-bottom: 1px dashed grey;
+        }
+
+        .signaturetypewidth {
+            max-width: 1024px !important;
+        }
+
+        .sidebar .nav-tabs .nav-link.active, .sidebar .nav-tabs .nav-link:hover, .sidebar .nav-tabs .nav-link:focus {
+            color: #fff !important
+        }
+
+        .btn-primary {
+            background-color: #0058b1 !important;
+            border-color: #0058b1 !important
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1.5rem;
+        }
+
+        #toast-container {
+            display: none !important
+        }
+
+        .inidiv {
+            margin-left: 8px;
+            border: 1px solid #0058b1;
+            border-radius: 50%;
+            padding: 4px;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+        }
+
+            .inidiv span {
+                font-weight: 700;
+                color: #0058b1;
+            }
+
+            .inidiv span {
+                font-weight: 700;
+                color: #0058b1;
+            }
+
+            .inidiv ul {
+                position: absolute;
+                padding-left: 0px;
+                right: 9px;
+                top: 55px;
+                padding: 5px;
+                border-radius: 6px;
+                background-color: #fff;
+                text-align: left;
+                list-style: none;
+                box-shadow: 1px 1px 6px 0px #000;
+                display: none;
+            }
+
+                .inidiv ul li {
+                    padding: 3px 7px;
+                }
+
+                    .inidiv ul li:hover {
+                        background-color: #e0f0ff;
+                    }
+
+        .mainLogo {
+            /*color: #0058b1;*/
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .layout-fullwidth #wrapper #main-content {
+            width: calc(100% - 0px);
+        }
+
+        .breadcrumb {
+            display: none !important;
+        }
+
+        .opencorp {
+            border: 1px solid #0058b1;
+            color: #0058b1;
+            padding: 3px 8px !important;
+            border-radius: 2px;
+            margin-right: 5px;
+        }
+
+        .ulofcorp {
+            padding-left: 0px;
+            list-style: none;
+            margin-bottom: 0px;
+            font-size: 14px;
+            width: 260px;
+            border: 1px solid #cdcdcd;
+            border-radius: 2px;
+            position: absolute;
+            top: 25px;
+            background-color: #fff;
+        }
+
+        #main-content {
+            width: 100%
+        }
+
+        .navbar-fixed-top {
+            width: 100%;
+            left: 0px;
+        }
+
+        .leftimgdiv {
+            /*max-height: 76vh;*/
+            width: 100%;
+            overflow-y: auto;
+        }
+
+            .leftimgdiv img {
+                width: 100%;
+            }
+
+        .signerdiv {
+            border: 1px solid #dfdfdf;
+            border-radius: 0.25rem;
+            margin-bottom: 5px;
+            cursor: move;
+            position: relative;
+        }
+
+        #columns {
+            padding-left: 0px;
+            margin-bottom: 0px;
+            padding-bottom: 20px;
+        }
+
+            #columns li {
+                list-style: none;
+            }
+
+        .txtsign {
+            font-weight: 700;
+        }
+
+        .draggable {
+            position: absolute;
+            right: 8px;
+            top: 5px;
+        }
+
+        /*        .signer {
+                    position: absolute;
+                    border: 1px dashed #b5b0b0;
+                    padding: 10px;
+                    width: 200px;
+                    text-align: center;
+                    background: #fff;
+                    display: none;
+                    top: 40px;
+                }
+
+                    .signer .cross {
+                        position: absolute;
+                        right: -7px;
+                        font-size: 15px;
+                        color: #fff;
+                        font-weight: 600;
+                        top: -7px;
+                        cursor: pointer;
+                        background-color: #d73131;
+                        border-radius: 50%;
+                        width: 18px;
+                        height: 18px;
+                        text-align: center;
+                        line-height: 16px;
+                        display: none
+                    }
+        */
+        .signer:hover .cross {
+            display: block
+        }
+        /*.firsthalfmdl {
+                    border-right: 1px solid #cdcdcd;
+                    height: 80vh;
+                }*/
+        .btnSign {
+            line-height: 1;
+            font-size: 12px;
+        }
+
+        .signersList {
+            margin-bottom: 10px;
+        }
+
+        .select-container {
+            position: relative;
+            margin: 0 auto;
+            width: 100%;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+            .select-container .select {
+                position: relative;
+                background: #ffffff;
+                height: 30px;
+                border: 1px solid #8998a7;
+            }
+
+                .select-container .select::after {
+                    position: absolute;
+                    content: "";
+                    width: 11px;
+                    height: 11px;
+                    top: 40%;
+                    right: 11px;
+                    transform: translateY(-50%) rotate(45deg);
+                    border-bottom: 2px solid #0058b1;
+                    border-right: 2px solid #0058b1;
+                    cursor: pointer;
+                    transition: border-color 0.4s;
+                }
+
+            .select-container.active .select::after {
+                top: 57%;
+                border: none;
+                border-left: 2px solid #0058b1;
+                border-top: 2px solid #0058b1;
+            }
+
+            .select-container .select input {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                padding: 0 10px;
+                background: none;
+                outline: none;
+                border: none;
+                font-size: 14px;
+                color: #0058b1;
+                cursor: pointer;
+            }
+
+            .select-container .option-container {
+                position: relative;
+                background: #6c757d;
+                height: 0;
+                overflow-y: auto;
+                transition: 0.4s;
+                position: absolute;
+                width: 100%;
+            }
+
+
+            .select-container.active .option-container {
+                height: 84px;
+                z-index: 999;
+            }
+
+            .select-container .option-container::-webkit-scrollbar {
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+                width: 10px;
+            }
+
+            .select-container .option-container::-webkit-scrollbar-thumb {
+                background: #0f0e11;
+            }
+
+            .select-container .option-container .option {
+                position: relative;
+                padding-left: 10px;
+                height: 40px;
+                border-top: 1px solid rgb(209 199 199 / 30%);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                transition: 0.2s;
+            }
+
+                .select-container .option-container .option.selected {
+                    background: rgba(0, 0, 0, 0.5);
+                    pointer-events: none;
+                }
+
+                .select-container .option-container .option:hover {
+                    background: #0058b1;
+                    padding-left: 20px;
+                }
+
+                .select-container .option-container .option label {
+                    font-size: 14px;
+                    color: white;
+                    cursor: pointer;
+                }
+
+        .user-account {
+            margin: 0px !important;
+        }
+
+        iframe {
+            width: 100%;
+            height: 81vh;
+            margin-top: 10px;
+        }
+
+        #document-preview-frame {
+            height: 76vh
+        }
+
+        .element-box-tp {
+            margin-top: -10px;
+        }
+
+        .activity-boxes-w .activity-box-w {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0;
+            position: relative;
+        }
+
+        .activity-box-w:before {
+            display: block;
+            width: 3px;
+            background-color: #c0cadd;
+            top: 0;
+            bottom: 0;
+            left: 75px;
+        }
+
+        .activity-boxes-w .activity-box-w:after, .activity-boxes-w .activity-box-w:before, .activity-boxes-w .activity-box:before {
+            position: absolute;
+            content: "";
+        }
+
+        .activity-boxes-w .activity-time {
+            flex: 0 0 100px;
+            font-size: .63rem;
+            text-transform: uppercase;
+            color: rgba(0,0,0,.4);
+            text-align: right;
+            padding-right: 40px;
+        }
+
+        .document-detail .activity-boxes-w .activity-box {
+            max-width: 260px;
+        }
+
+        /*.activity-boxes-w .activity-box-w:first-child:before {
+                    top: 50% !important;
+                }*/
+
+        .activity-boxes-w .activity-box-w:before {
+            top: 0% !important;
+        }
+
+        #NSDLiframe footer {
+            display: none !important
+        }
+
+
+
+
+        .activity-boxes-w .activity-box {
+            padding: 0.8rem;
+            display: flex;
+            flex: 1;
+            position: relative;
+            align-items: center;
+        }
+
+        .activity-boxes-w .activity-box, .big-error-w, .box-style, .element-box, .invoice-w, .post-box, .projects-list .project-box, .user-profile {
+            border-radius: 6px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(126,142,177,.12);
+        }
+
+        .activity-boxes-w .activity-box-w:after {
+            display: block;
+            width: 20px;
+            background-color: #c0cadd;
+            top: 50%;
+            height: 1px;
+            left: 80px;
+            z-index: 1;
+        }
+
+        .activity-boxes-w .activity-box:before {
+            top: 50%;
+            left: -30px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid #60769f;
+            background-color: #f2f4f8;
+            border-radius: 20px;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+
+        .activity-boxes-w .activity-box-w:after, .activity-boxes-w .activity-box-w:before, .activity-boxes-w .activity-box:before {
+            position: absolute;
+            content: "";
+        }
+
+        .footer-tabs {
+            top: auto;
+            height: 50px;
+            bottom: 0;
+            z-index: 1030;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(60,72,88,.15);
+            border-top: 1px solid #ced4da;
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        .footer-tabs, .step-progress {
+            width: 100%;
+            position: fixed;
+            right: 0;
+            left: 0;
+        }
+
+        .align-items-center {
+            align-items: center !important;
+        }
+
+        .recbtn {
+            border: 1px solid #555555;
+            padding: 5px 20px;
+        }
+
+            .recbtn i {
+                font-size: 18px;
+                color: #555555;
+                vertical-align: middle;
+            }
+
+        .usericon i {
+            font-size: 40px;
+        }
+
+        .recactivebtn {
+            border: 1px solid #008000;
+            background-color: #f0f8ff;
+            color: #008000;
+            border-radius: 8px;
+            padding: 2px 10px;
+        }
+
+        .recnotsignebtn {
+            border: 1px solid red;
+            background-color: #f0f8ff;
+            color: red;
+            border-radius: 8px;
+            padding: 2px 10px;
+        }
+
+        .recipients {
+            border-bottom: 1px dashed;
+            padding-bottom: 10px;
+        }
+
+        .signer {
+            position: absolute;
+            border: 1px dashed #b5b0b0;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            background: #fff;
+            display: none;
+            top: 40px;
+        }
+
+            .signer .cross {
+                position: absolute;
+                right: 3px;
+                font-size: 15px;
+                color: #b13535;
+                font-weight: 600;
+                top: -5px;
+                cursor: pointer;
+                background: transparent;
+            }
+
+        .loaderOverlaysr {
+            display: block;
+            position: absolute;
+            background-color: #fff;
+            width: 75%;
+            height: 93%;
+            top: 2%;
+            left: 12.5%;
+            z-index: 99999;
+            opacity: 0.5;
+        }
+
+        .loadersr {
+            position: absolute !important;
+            border: 5px solid #cacaca;
+            border-radius: 50%;
+            border-top: 5px solid #006fba;
+            width: 75px !important;
+            height: 75px !important;
+            z-index: 9999;
+            margin-top: 21%;
+            left: 50%;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+
+        #CancelBtn, #AgreeBtnProceed, #btnAgree {
+            position: absolute;
+            bottom: 21px;
+            right: 30px;
+        }
+        .signaturetypewidth .modal-content {
+            min-height: 90vh;
+        }
+
+        .iframeDiv {
+            min-height: 87vh !important;
+        }
+    </style>
+</head>
+<body data-theme="light" class="font-nunito">
+
+    <div class="loaderOverlaysr" style="display: none" id="overlay"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none" id="loader">
+        <div class="col-md-12 col-sm-12 col-xs-12 loadersr">
+        </div>
+    </div>
+    <input type="text" hidden id="hdnFilePath" />
+    <div id="wrapper" class="theme-cyan">
+
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="sidebar-scroll">
+                    <div class="user-account">
+                        <h2 class="mainLogo">zipSign</h2>
+
+                    </div>
+
+
+                </div>
+                <div class="navbar-right">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="d-flex flex-row-reverse">
+                            <div class="page_action">
+
+
+                                <button type="button" class="btn recbtn" data-toggle="modal" data-target="#recipients" id="Btn_rec" title="Recipients">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                </button>
+
+                                <button type="button" class="btn recbtn" title="Download" id="btnDownload" onclick="Download()">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </button>
+                                <div class="inidiv" onclick="SignOut()" title="Sign Out">
+                                    <span class="fa fa-sign-out"></span>
+
+
+                                </div>
+                                @*<button type="button" class="btn btn-secondary me-2"> Recipients</button>
+                                    <button type="button" class="btn btn-secondary"> Download</button>*@
+                            </div>
+
+
+                        </div>
+                    </div>
+                    @*<form id="navbar-search" class="navbar-form search-form">
+                            <input value="" class="form-control" placeholder="Search here..." type="text">
+                            <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                        </form>*@
+
+                </div>
+            </div>
+        </nav>
+
+
+
+
+
+
+        <div id="main-content">
+
+
+            <div class="container-fluid">
+
+
+                <div class="row clearfix">
+                    <div class="col-lg-12">
+                        <div class="card">
+
+                            <div class="body">
+
+                                <div class="row clearfix ps-3">
+
+
+
+                                    <div class="col-lg-9 col-md-9 p-0 d-flex flex-wrap justify-content-around">
+
+                                        <div class="col-md-3" id="docdetails" style="">
+
+                                            <div class="col-md-12 pb-2 pt-2">
+                                                <button type="button" class="btn recbtn col-md-12 btnSign" data-toggle="tooltip" data-placement="bottom" title="" id="">
+                                                    Add Signer
+                                                </button>
+                                            </div>
+
+                                            <div class="card ">
+                                                <div class="col-md-12">
+                                                    <div class="doc-details">
+                                                        <label class="col-md-12 titletxt" id="uploadedFileID">Document ID :</label>
+                                                        <span class="col-md-12"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
+                                                    <label class="col-md-12 titletxt" id="Txnno">Txn ID.:</label>
+                                                    <span></span>
+                                                </div>
+                                                <div class="col-md-12 doc-details" id="hdnSigningmode" style="display:none;">
+                                                    <label class="col-md-12 titletxt" id="signingmode">Signing Mode:</label>
+                                                    <span></span>
+                                                </div>
+                                                <div class="col-md-12 doc-details">
+                                                    <label class="col-md-12 titletxt" id="uploadedFileName">Name :</label>
+                                                    <span></span>
+                                                </div>
+                                                <div class="col-md-12 doc-details">
+                                                    <label class="col-md-12 titletxt" id="uploadedFileDate">Last Activity Date :</label>
+                                                    <span></span>
+                                                </div>
+                                                <div class="col-md-12 doc-details">
+                                                    <label class="col-md-12 titletxt" id="uploadedFileStatus">Status :</label>
+                                                    <span></span>
+                                                </div>
+                                                <div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
+                                                    <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                                                    <span>Signed</span>
+
+
+                                                    <span></span>
+
+                                                </div>
+
+                                                @*<div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
+                        <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                        <span>Signed</span>
+                    </div>*@
+
+                                                @*<span>Signed</span>*@
+                                            </div>
+                                            <div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
+                                                <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                                                <span>Signed</span>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-8 addingsigner position-relative">
+
+
+
+                                            <div class="leftimgdiv firsthalfmdl">
+                                                @*<div class="signer">Signer 1 <span class="cross">x</span></div>*@
+                                                @*<iframe src="" id="document-preview-frame"></iframe>*@
+
+                                                @*<img src="~/Content/images/document.png" />*@
+
+                                                <iframe id="PreviewSignedDoc" src="" alt="Preview Image" hidden></iframe>
+
+                                                <iframe id="PreviewSignImage1" src="" alt="Preview Image" frameborder="0" scrolling="no"></iframe>
+
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                    @*----------popup part----------*@
+
+                                    @*<div class="signersList">
+            <p class="mb-0">Signature Type</p>
+            <div class="select-container">
+                <div class="select">
+                    <input type="text" id="input" placeholder="select" onfocus="this.blur();">
+                </div>
+                <div class="option-container">
+                    <div class="option">
+                        <label> Aadhaar eSign</label>
+                    </div>
+                    <div class="option">
+                        <label> DSC eSign </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>*@
+                                    <!--<div class="col-md-12 col-sm-12 col-xs-12 bodybtn firstbtn ">-->
+                                    @*<div class="col-md-12 ">
+            <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>By continuing, I agree to do eKYC using aadhaar to eSign with one of ESPs ( NSDL e-Gov or verasys ) Digio is registered as ASP.</label>
+        </div>
+        <div class="col-md-12 p-0 mt-3">
+            <input type="text" class="col-md-12 form-control" placeholder="Enter Name as on Aadhaar card">
+        </div>*@
+                                    <!--<div class="col-md-12 p-0 mt-2">
+            <button type="button" class="btn btn-primary" style="width: 100%" disabled="">Continue</button>
+        </div>
+    </div>-->
+                                    @*<iframe src="https://www.google.com" id=""></iframe>*@
+
+                                    @*----------popup part----------*@
+
+                                    @*<div class="col-md-12 mb-2">
+            <button type="button" class="btn btn-primary btnSign col-md-12"> Add Signature</button>
+        </div>*@
+
+
+                                    @*<ul id="columns">
+            <li class="column" draggable="true">
+                <div class="col-md-12 signerdiv">
+                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                    <div class="col-md-12 p-1">
+                        <label class="txtsign">Signer 1</label>
+                    </div>
+                    <div class="col-md-12 d-flex flex-wrap">
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Email ID">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Mobile Number">
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="column" draggable="true">
+                <div class="col-md-12 signerdiv">
+                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                    <div class="col-md-12 p-1">
+                        <label class="txtsign">Signer 2</label>
+                    </div>
+                    <div class="col-md-12 d-flex flex-wrap">
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Email ID">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Mobile Number">
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="column" draggable="true">
+                <div class="col-md-12 signerdiv">
+                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                    <div class="col-md-12 p-1">
+                        <label class="txtsign">Signer 3</label>
+                    </div>
+                    <div class="col-md-12 d-flex flex-wrap">
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Email ID">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Mobile Number">
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="column" draggable="true">
+                <div class="col-md-12 signerdiv">
+                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                    <div class="col-md-12 p-1">
+                        <label class="txtsign">Signer 4</label>
+                    </div>
+                    <div class="col-md-12 d-flex flex-wrap">
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Email ID">
+                        </div>
+                        <div class="form-group col-md-4 p-1">
+                            <input type="text" class="form-control" placeholder="Mobile Number">
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+
+        </ul>*@
+
+
+                                    @*<div class="col-md-12 d-flex justify-content-end">
+            <button type="button" class="btn btn-primary newsign"> Add Signer</button>
+
+        </div>*@
+                                    <div class="col-lg-3 col-md-3" id="Trail_Div">
+                                        @*<div class="element-box-tp">
+                <div class="activity-boxes-w">
+                    <div class="activity-box-w">
+                        <div class="activity-time">02/08/2023 04:32 PM</div>
+                        <div class="activity-box">
+                            <div class="activity-info">
+                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
+                                <strong class="activity-title font-weight-400">Invitation sent</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="element-box-tp">
+                <div class="activity-boxes-w">
+                    <div class="activity-box-w">
+                        <div class="activity-time">02/08/2023 04:32 PM</div>
+                        <div class="activity-box">
+                            <div class="activity-info">
+                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
+                                <strong class="activity-title font-weight-400">Invitation sent</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+                                    </div>
+                                </div>
+
+                                @*<div class="col-lg-3 col-md-12">
+                                        <div class="leftimgdiv firsthalfmdl">
+                                            <div class="signer">Signer  <span class="cross">x</span></div>
+                                            <iframe src="" id="document-preview-frame"></iframe>
+                                        </div>
+                                    </div>*@
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <footer class="footer-tabs footer-spaces text-center">
+        <div class="text-center">
+            <div class="align-items-center row pt-2">
+                <div class="row ps-3 pe-0">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <button type="button" class="btn btn-light pull-left" onclick="window.location.href='../zipSign/Upload';"><i class="fa fa-angle-double-left"></i> Back</button>
+                        <div class="d-flex flex-row-reverse">
+                            <div class="page_action">
+                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#confirmationpopup" id="btnreject"> Reject</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signaturetype" id="btnproceed"> Proceed</button>
+                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#completePopup" id="btncomplete"> Complete</button>
+                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#completePopup" id="btncomplete1"> Complete</button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    @*--------Signature type------------*@
+
+    <div class="modal fade" id="signaturetype" role="dialog" aria-modal="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog modal-dialog-centered signaturetypewidth" role="document" style="margin-top:15px">
+
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+                    </div>*@
+
+                <div class="modal-body pt-2 pb-2">
+                    <div class="col-12 text-center d-flex flex-wrap">
+                        <div class="signersList col-5 pe-4">
+                            <p class="text-start headingPop mb-1">Signature Type</p>
+
+                            <div class="col-md-12 d-flex flex-wrap">
+                                <div class="col-md-6 d-flex flex-wrap mb-2">
+                                    <label class="fancy-radio custom-color-green">
+                                        <input type="radio" name="signtype" id="aadhaar">
+                                        <span>
+                                            <i></i>
+                                            Aadhaar eSign
+                                            @*<img src="~/Content/images/adr.png" />*@
+                                        </span>
+                                    </label>
+                                </div>
+                                <div class="col-md-6 d-flex flex-wrap mb-2">
+                                    <label class="fancy-radio custom-color-green">
+                                        <input type="radio" name="signtype" id="dsc">
+                                        <span>
+                                            <i></i>
+                                            DSC eSign
+                                            @*<img src="~/Content/images/dsceSign.jpg" />*@
+                                        </span>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <div id="dscmsg"></div>
+
+                            @*<div class="select-container">
+                                    <div class="select">
+                                        <input type="text" id="input1" placeholder="select" onfocus="this.blur();">
+                                    </div>
+                                    <div class="option-container">
+                                        <div class="option">
+                                            <label id="aadhaar"> Aadhaar eSign</label>
+                                        </div>
+                                        <div class="option">
+                                            <label id="dsc"> DSC eSign </label>
+                                        </div>
+
+                                    </div>
+                                </div>*@
+                        </div>
+                        @*<div class="col-md-12 ">
+                                <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>By continuing, I agree to do eKYC using aadhaar to eSign with one of ESPs ( NSDL e-Gov or verasys ) Digio is registered as ASP.</label>
+                            </div>
+                            <div class="col-md-12 p-0 mt-3">
+                                <input type="text" class="col-md-12 form-control" placeholder="Enter Name as on Aadhaar card">
+                            </div>*@
+                        <div class="col-md-4 pt-3 mt-1 buttonCon">
+
+                            <button type="button" class="btn btn-primary" style="width: 100%" onclick="Continue()" id="continueButton">Continue</button>
+
+                        </div>
+                        @*/<iframe src="https://www.google.com" id=""></iframe>*@
+                        <div class="col-12 iframeDiv" style="display:none">
+                            <div id="iDiv">
+
+                                <div class="col-md-12 col-sm-12 col-xs-12" id="consentDiv" style="text-align: justify; height: 372px;">
+                                    <h3 style="text-align: center">
+                                        Consent for Authentication
+                                    </h3>
+                                    <p style="text-align: center; font-family: 'Roboto-Bold';">
+                                        Yoeki Soft Private Limited
+                                    </p>
+                                    <p>
+                                        Please check the box to provide your consent to the below option.
+                                    </p>
+                                    <p>
+                                        @*<asp:RadioButton ID="rdo1" GroupName="rdo" runat="server" Checked="true" />*@
+                                        <input type="radio" id="rdo1" checked />
+                                        By continuing, I agree to do eKyc using Aadhaar to eSign with one of ESPs (NSDL).
+                                        Yoeki Soft is registered as ASP.
+                                    </p>
+                                    <p style="text-align: center; font-weight: bold;">
+                                        OR
+                                    </p>
+                                    <p style="margin: 0;">
+                                        @*<asp:RadioButton ID="rdo2" GroupName="rdo" runat="server" />*@
+                                        <input type="radio" id="rdo2" />
+                                        I do not wish to authenticate myself with the Aadhaar based Authentication system
+                                        for Authentication of my identity. However, I do understand that if at any time
+                                        I wish to authenticate myself with the Aadhaar based Authentication system I need
+                                        to provide consent to Yoeki Soft Private Limited to provide my Aadhaar number, and
+                                        Authentication Mode (Biometric and/or OTP).
+                                    </p>
+                                    @*<asp:Button ID="btnAgree" OnClick="btnAgree_Click" runat="server" Text="Submit" OnClientClick="Showloader();"
+                                                    class="btn btn-primary  pull-right" Style="margin-bottom: 8px; position: absolute;
+                                        bottom: 10px; right: 0;" />*@
+                                    <button class="btn btn-primary pull-right mt-5" id="AgreeBtnProceed" onclick="AgreeBtnOnProceed()">
+                                        Submit
+                                    </button>
+                                    <button class="btn btn-primary pull-right mt-5" id="btnAgree" onclick="AgreeBtn()">
+                                        Submit
+                                    </button>
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 divcont" id="AllDiv">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                        <div class="col-md-12 col-sm-12 col-xs-12" id="AuthMode" style="margin-top: 2%; display: none; ">
+                                            <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                Authentication Mode
+                                            </h4>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 authenticationimg" style="text-align: center">
+                                                <img src="~/Content/images/touch-icon.png" alt="" />
+                                            </div>
+
+                                            <div class="pophead" style="height: 20px;">
+                                            </div>
+                                            <div class="col-md-11 col-sm-11 col-xs-11 text-center" style="margin-left: 6%">
+                                                <div class="form-group">
+                                                    <label class="col-sm-12 col-md-12 col-xs-12 control-label text-center" for="form-field-1">
+                                                        Choose Authentication Mode
+                                                    </label>
+                                                    <div id="Div13" class="col-sm-12 col-md-12 col-xs-12 d-flex flex-wrap radio text-left">
+                                                        <label id="lblotp" class="lblradiobtnss col-md-6 col-sm-12 col-xs-12 me-2">
+                                                            @*<asp:RadioButton ID="rdoOtp" GroupName="rdomethod" runat="server" Checked="true" />*@
+                                                            <input type="radio" id="rdoOtp" name="a" GroupName="rdomethod" />
+                                                            <span>OTP</span>
+                                                        </label>
+                                                        <label id="lblfinger" class="lblradiobtnss col-md-6 col-sm-12 col-xs-12">
+                                                            @*<asp:RadioButton ID="rdoFin" GroupName="rdomethod" runat="server" />*@
+                                                            <input type="radio" id="rdoFin" name="a" GroupName="rdomethod" />
+                                                            <span>Finger-Print</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                                @*<asp:Button ID="btnauthencationMode" OnClick="btnAuth_Click" runat="server" Text="Submit"
+                                                    class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-right: 2%;
+                                                    margin-left: 7%;" OnClientClick="Showloader()" />*@
+
+
+
+                                                <input type="submit" name="btnauthencationMode" value="Submit" onclick="btnAuth_Click();" id="btnauthencationMode" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" style="margin-top: 3%; margin-right: 2%; margin-left: 7%;">
+
+
+
+                                                @*<asp:Button ID="Button3" runat="server" Text="Cancel" OnClick="btnCancel_Click" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                    Style="margin-top: 3%; margin-left: 2%;" />*@
+
+                                                <input type="submit" name="Button3" value="Cancel" id="Button3" OnClick="btnCancel_Click()" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" style="margin-top: 3%; margin-left: 2%;">
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" id="detaildiv" style="margin-top: 6%; display:none;">
+                                            <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                Mobile Verification
+                                            </h4>
+                                            <h2 class="col-md-12 col-sm-12 col-xs-12" style="font-size: 15px; margin-top: 0px;
+                                    margin-bottom: 8px; border-bottom: #cdcdcd; text-align: center;">
+                                                Enter your mobile number to get an OTP
+                                            </h2>
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                                                <img src="../images/Mobile.png" alt="" style="margin: 2% 0 3% 0" />
+                                            </div>
+                                            <div class="pophead" style="height: 20px;">
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12 text-center no-padding-right">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                                                        Mobile No.
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-8 col-xs-8 no-padding">
+                                                        <input type="text" onkeyup="REMOVE();" runat="server" id="txtMobileNo" maxlength="10"
+                                                               onkeypress="return isNumberKey(event)" class="col-sm-12 col-md-12 col-xs-12" />
+                                                        <label id="MobileLenth" style="color: red; text-align: left; margin-top: 1%; font-weight: bold"
+                                                               class="col-sm-12 col-md-12 col-xs-12 no-padding">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="display: none">
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 col-md-3 col-xs-4 control-label no-padding" for="form-field-1">
+                                                        Email ID
+                                                    </label>
+                                                    <div class="col-sm-7 col-md-7 col-xs-9 no-padding-right">
+                                                        <input type="text" runat="server" id="txtEmail" class="col-sm-12 col-md-12 col-xs-12" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <asp:Button ID="btnSubmit" OnClientClick="return Validation();" OnClick="btnSubmit_Click"
+                                                            runat="server" Text="Submit" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                            Style="margin-top: 3%; margin-right: 2%; margin-left: 7%;" />
+                                                <asp:Button ID="btnCancels" runat="server" OnClick="btnCancel_Click" Text="Cancel"
+                                                            class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-left: 2%;" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" runat="server" visible="false" id="DivOTP"
+                                             style="margin-top: 6%; display:none;">
+                                            <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                OTP Verification
+                                            </h4>
+                                            <h2 class="col-md-12 col-sm-12 col-xs-12" style="font-size: 15px; margin-top: 0px;
+                                    margin-bottom: 8px; border-bottom: #cdcdcd; text-align: center;">
+                                                We have sent you an access code via sms for mobile number verification
+                                            </h2>
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                                                <img src="../images/Mobile.png" alt="" />
+                                            </div>
+                                            <div class="pophead" style="height: 20px;">
+                                                <h2 runat="server" id="heading" class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;
+                                        margin-top: 8px; margin-bottom: 8px; font-weight: bold; color: #1c416f; border-bottom: #cdcdcd;
+                                        display: none">
+                                                    Please enter the OTP to verify your Mobile No.
+                                                </h2>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12" style="display: none">
+                                                <div class="form-group" style="margin-top: 3%;">
+                                                    <label class="col-sm-2 col-md-2 col-xs-12 control-label no-padding" for="form-field-1"
+                                                           style="font-size: 12px!important;">
+                                                        OTP
+                                                    </label>
+                                                    <div class="col-sm-8 col-md-8 col-xs-12 no-padding">
+                                                        <input type="text" id="txtOTP" runat="server" maxlength="6" onkeyup="REMOVE();" class="col-sm-10 col-md-9 col-xs-9"
+                                                               onkeypress="return isNumberKey(event)" />
+                                                        <asp:LinkButton runat="server" ID="btnResend" OnClick="btnResend_Click" Style="margin-left: 4%;">Resend</asp:LinkButton>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-sm-12 col-xs-10 otp">
+                                                <div class="form-group" style="margin-top: 3%;">
+                                                    <label class="col-sm-2 col-md-2 col-xs-1 control-label no-padding" for="form-field-1"
+                                                           style="font-size: 12px!important;">
+                                                        OTP
+                                                    </label>
+                                                    <div class="col-sm-8 col-md-10 col-xs-9 no-padding otpbox">
+                                                        <input name="ctl00$ContentPlaceHolder1$txtOTP" type="text" id="ContentPlaceHolder1_txtOTP"
+                                                               maxlength="6" onkeyup="REMOVE();" class="col-sm-10 col-md-9 col-xs-9" onkeypress="return isNumberKey(event)"
+                                                               style="display: none;" />
+                                                        <input onkeyup="REMOVE();" id="txtotp1" runat="server" maxlength="1" onkeypress="return isNumberKey(event)"
+                                                               type="text" class="col-md-1" />
+                                                        <input onkeyup="REMOVE();" id="txtotp2" runat="server" maxlength="1" onkeypress="return isNumberKey(event)"
+                                                               type="text" class="col-md-1" />
+                                                        <input onkeyup="REMOVE();" id="txtotp3" runat="server" maxlength="1" type="text"
+                                                               class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                        <input onkeyup="REMOVE();" id="txtotp4" runat="server" maxlength="1" type="text"
+                                                               class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                        <input onkeyup="REMOVE();" id="txtotp55" runat="server" maxlength="1" type="text"
+                                                               class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                        <input onkeyup="REMOVE();" id="txtotp6" runat="server" maxlength="1" type="text"
+                                                               class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                        <div style="float: left;" class="col-xs-4 divbtn">
+                                                            <a id="ContentPlaceHolder1_btnResend" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$btnResend','')"
+                                                               class="no-padding col-xs-12 resendOTP">Resend OTP</a>
+                                                            <asp:LinkButton ID="btnvoice" Text="" OnClick="btnVoice_Click" runat="server" CssClass="col-xs-12 no-padding voiceOTP">Voice OTP</asp:LinkButton>
+                                                        </div>
+                                                        <asp:Label runat="server" ID="lblotpwarn" class="col-md-12 col-sm-12 col-xs-12 no-padding"
+                                                                   Style="color: Red; margin-top: 2%; font-weight: bold;"></asp:Label>
+                                                    </div>
+                                                </div>
+                                                <span id="ContentPlaceHolder1_lblotpwarn" style="color: Red; margin-left: 94px;">
+                                                </span>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <asp:Button ID="btnOTPValidation" runat="server" Text="Validate OTP" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                            OnClick="btnOTPValidation_Click" OnClientClick="return OTPValidation()" Style="margin-top: 3%;
+                                        margin-right: 2%; margin-left: 7%;" />
+                                                <asp:Button ID="btnCancel1" runat="server" Text="Cancel" OnClick="btnCancel_Click"
+                                                            class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-left: 2%;" />
+
+                                                <div class="container-fluid">
+                                                    <div class="mainForm">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12" id="consentDiv" style="text-align: justify; height: 465px;">
+                                                            <h3 style="text-align: center">
+                                                                Consent for Authentication
+                                                            </h3>
+                                                            <p style="text-align: center; font-weight: bold;">
+                                                                Yoeki Soft Private Limited
+                                                            </p>
+                                                            <p>
+                                                                Please check the box to provide your consent to the below option.
+                                                            </p>
+                                                            <p>
+                                                                @*<asp:RadioButton ID="rdo1" GroupName="rdo" runat="server" Checked="true" />*@
+                                                                <input type="radio" id="rdo3" checked />
+                                                                By continuing, I agree to do eKyc using Aadhaar to eSign with one of ESPs (NSDL).
+                                                                Yoeki Soft is registered as ASP.
+                                                            </p>
+                                                            <p style="text-align: center; font-weight: bold;">
+                                                                OR
+                                                            </p>
+                                                            <p style="margin: 0;">
+                                                                @*<asp:RadioButton ID="rdo2" GroupName="rdo" runat="server" />*@
+                                                                <input type="radio" id="rdo4" />
+                                                                I do not wish to authenticate myself with the Aadhaar based Authentication system
+                                                                for Authentication of my identity. However, I do understand that if at any time
+                                                                I wish to authenticate myself with the Aadhaar based Authentication system I need
+                                                                to provide consent to Yoeki Soft Private Limited to provide my Aadhaar number, and
+                                                                Authentication Mode (Biometric and/or OTP).
+                                                            </p>
+                                                            @*<asp:Button ID="btnAgree" OnClick="btnAgree_Click" runat="server" Text="Submit" OnClientClick="Showloader();"
+                                                                            class="btn btn-primary  pull-right" Style="margin-bottom: 8px; position: absolute;
+                                                                bottom: 10px; right: 0;" />*@
+                                                            <button class="btn btn-primary" id="btnAgree" onclick="btnAgree_Click()">
+                                                                Submit
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 divcont" id="AllDiv">
+                                                            <div class="col-md-12 col-sm-12 col-xs-12 no-padding">
+                                                                <div class="col-md-12 col-sm-12 col-xs-12" id="AuthMode" style="margin-top: 2%; display: none; ">
+                                                                    <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                                        Authentication Mode
+                                                                    </h4>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 authenticationimg" style="text-align: center">
+                                                                        <img src="~/Content/images/touch-icon.png" alt="" />
+                                                                    </div>
+
+                                                                    <div class="pophead" style="height: 20px;">
+                                                                    </div>
+                                                                    <div class="col-md-11 col-sm-11 col-xs-11 text-center" style="margin-left: 6%">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-12 col-md-12 col-xs-12 control-label text-center" for="form-field-1">
+                                                                                Choose Authentication Mode
+                                                                            </label>
+                                                                            <div id="Div13" class="col-sm-12 col-md-12 col-xs-12 d-flex flex-wrap radio justify-content-around">
+                                                                                <label id="lblotp" class="lblradiobtnss col-md-6 col-sm-12 col-xs-12 me-2">
+                                                                                    @*<asp:RadioButton ID="rdoOtp" GroupName="rdomethod" runat="server" Checked="true" />*@
+                                                                                    <input type="radio" id="rdoOtp" name="a" GroupName="rdomethod" />
+                                                                                    <span>OTP</span>
+                                                                                </label>
+                                                                                <label id="lblfinger" class="lblradiobtnss col-md-6 col-sm-12 col-xs-12">
+                                                                                    @*<asp:RadioButton ID="rdoFin" GroupName="rdomethod" runat="server" />*@
+                                                                                    <input type="radio" id="rdoFin" name="a" GroupName="rdomethod" />
+                                                                                    <span>Finger-Print</span>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                                                        @*<asp:Button ID="btnauthencationMode" OnClick="btnAuth_Click" runat="server" Text="Submit"
+                                                                            class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-right: 2%;
+                                                                            margin-left: 7%;" OnClientClick="Showloader()" />*@
+
+                                                                        <input type="submit" name="btnauthencationMode" value="Submit" onclick="Showloader();" id="btnauthencationMode" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" style="margin-top: 3%; margin-right: 2%;
+                                        margin-left: 7%;">
+
+
+                                                                        @*<asp:Button ID="Button3" runat="server" Text="Cancel" OnClick="btnCancel_Click" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                                            Style="margin-top: 3%; margin-left: 2%;" />*@
+
+                                                                        <input type="submit" name="Button3" value="Cancel" id="Button3" OnClick="btnCancel_Click" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" style="margin-top: 3%; margin-left: 2%;">
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="col-md-12 col-sm-12 col-xs-12" id="detaildiv" style="margin-top: 6%; display:none;">
+                                                                    <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                                        Mobile Verification
+                                                                    </h4>
+                                                                    <h2 class="col-md-12 col-sm-12 col-xs-12" style="font-size: 15px; margin-top: 0px;
+                                    margin-bottom: 8px; border-bottom: #cdcdcd; text-align: center;">
+                                                                        Enter your mobile number to get an OTP
+                                                                    </h2>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                                                                        <img src="../images/Mobile.png" alt="" style="margin: 2% 0 3% 0" />
+                                                                    </div>
+                                                                    <div class="pophead" style="height: 20px;">
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 text-center no-padding-right">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-md-3 col-xs-3 control-label no-padding" for="form-field-1">
+                                                                                Mobile No.
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-8 col-xs-8 no-padding">
+                                                                                <input type="text" onkeyup="REMOVE();" runat="server" id="txtMobileNo" maxlength="10"
+                                                                                       onkeypress="return isNumberKey(event)" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                                <label id="MobileLenth" style="color: red; text-align: left; margin-top: 1%; font-weight: bold"
+                                                                                       class="col-sm-12 col-md-12 col-xs-12 no-padding">
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none">
+                                                                        <div class="form-group">
+                                                                            <label class="col-sm-4 col-md-3 col-xs-4 control-label no-padding" for="form-field-1">
+                                                                                Email ID
+                                                                            </label>
+                                                                            <div class="col-sm-7 col-md-7 col-xs-9 no-padding-right">
+                                                                                <input type="text" runat="server" id="txtEmail" class="col-sm-12 col-md-12 col-xs-12" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <asp:Button ID="btnSubmit" OnClientClick="return Validation();" OnClick="btnSubmit_Click"
+                                                                                    runat="server" Text="Submit" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                                                    Style="margin-top: 3%; margin-right: 2%; margin-left: 7%;" />
+                                                                        <asp:Button ID="btnCancels" runat="server" OnClick="btnCancel_Click" Text="Cancel"
+                                                                                    class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-left: 2%;" />
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-12 col-sm-12 col-xs-12" runat="server" visible="false" id="DivOTP"
+                                                                     style="margin-top: 6%; display:none;">
+                                                                    <h4 style="text-align: center; font-size: 24px; font-weight: bold;">
+                                                                        OTP Verification
+                                                                    </h4>
+                                                                    <h2 class="col-md-12 col-sm-12 col-xs-12" style="font-size: 15px; margin-top: 0px;
+                                    margin-bottom: 8px; border-bottom: #cdcdcd; text-align: center;">
+                                                                        We have sent you an access code via sms for mobile number verification
+                                                                    </h2>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+                                                                        <img src="../images/Mobile.png" alt="" />
+                                                                    </div>
+                                                                    <div class="pophead" style="height: 20px;">
+                                                                        <h2 runat="server" id="heading" class="col-md-12 col-sm-12 col-xs-12" style="font-size: 13px;
+                                        margin-top: 8px; margin-bottom: 8px; font-weight: bold; color: #1c416f; border-bottom: #cdcdcd;
+                                        display: none">
+                                                                            Please enter the OTP to verify your Mobile No.
+                                                                        </h2>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none">
+                                                                        <div class="form-group" style="margin-top: 3%;">
+                                                                            <label class="col-sm-2 col-md-2 col-xs-12 control-label no-padding" for="form-field-1"
+                                                                                   style="font-size: 12px!important;">
+                                                                                OTP
+                                                                            </label>
+                                                                            <div class="col-sm-8 col-md-8 col-xs-12 no-padding">
+                                                                                <input type="text" id="txtOTP" runat="server" maxlength="6" onkeyup="REMOVE();" class="col-sm-10 col-md-9 col-xs-9"
+                                                                                       onkeypress="return isNumberKey(event)" />
+                                                                                <asp:LinkButton runat="server" ID="btnResend" OnClick="btnResend_Click" Style="margin-left: 4%;">Resend</asp:LinkButton>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-8 col-sm-12 col-xs-10 otp">
+                                                                        <div class="form-group" style="margin-top: 3%;">
+                                                                            <label class="col-sm-2 col-md-2 col-xs-1 control-label no-padding" for="form-field-1"
+                                                                                   style="font-size: 12px!important;">
+                                                                                OTP
+                                                                            </label>
+                                                                            <div class="col-sm-8 col-md-10 col-xs-9 no-padding otpbox">
+                                                                                <input name="ctl00$ContentPlaceHolder1$txtOTP" type="text" id="ContentPlaceHolder1_txtOTP"
+                                                                                       maxlength="6" onkeyup="REMOVE();" class="col-sm-10 col-md-9 col-xs-9" onkeypress="return isNumberKey(event)"
+                                                                                       style="display: none;" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp1" runat="server" maxlength="1" onkeypress="return isNumberKey(event)"
+                                                                                       type="text" class="col-md-1" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp2" runat="server" maxlength="1" onkeypress="return isNumberKey(event)"
+                                                                                       type="text" class="col-md-1" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp3" runat="server" maxlength="1" type="text"
+                                                                                       class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp4" runat="server" maxlength="1" type="text"
+                                                                                       class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp55" runat="server" maxlength="1" type="text"
+                                                                                       class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                                                <input onkeyup="REMOVE();" id="txtotp6" runat="server" maxlength="1" type="text"
+                                                                                       class="col-md-1" onkeypress="return isNumberKey(event)" />
+                                                                                <div style="float: left;" class="col-xs-4 divbtn">
+                                                                                    <a id="ContentPlaceHolder1_btnResend" href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$btnResend','')"
+                                                                                       class="no-padding col-xs-12 resendOTP">Resend OTP</a>
+                                                                                    <asp:LinkButton ID="btnvoice" Text="" OnClick="btnVoice_Click" runat="server" CssClass="col-xs-12 no-padding voiceOTP">Voice OTP</asp:LinkButton>
+                                                                                </div>
+                                                                                <asp:Label runat="server" ID="lblotpwarn" class="col-md-12 col-sm-12 col-xs-12 no-padding"
+                                                                                           Style="color: Red; margin-top: 2%; font-weight: bold;"></asp:Label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <span id="ContentPlaceHolder1_lblotpwarn" style="color: Red; margin-left: 94px;">
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                                        <asp:Button ID="btnOTPValidation" runat="server" Text="Validate OTP" class="col-md-5 col-sm-5 col-xs-5 btn btn-primary"
+                                                                                    OnClick="btnOTPValidation_Click" OnClientClick="return OTPValidation()" Style="margin-top: 3%;
+                                        margin-right: 2%; margin-left: 7%;" />
+                                                                        <asp:Button ID="btnCancel1" runat="server" Text="Cancel" OnClick="btnCancel_Click"
+                                                                                    class="col-md-5 col-sm-5 col-xs-5 btn btn-primary" Style="margin-top: 3%; margin-left: 2%;" />
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div id="Diverr" style="display: none" class="popupmandate">
+                                                <div class="col-md-12 col-sm-12 col-xs-12 no-padding" style="text-align: center">
+                                                    <a href="UploadFiles.aspx" class="btn btn-danger">Upload Files</a>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 1% 0 1% 0;">
+                                                        <div class="form-group">
+                                                            <label id="lblerr" class="col-md-12 col-sm-12 col-xs-12 control-label no-padding"
+                                                                   for="form-field-1">
+                                                                Request File does not exist
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="popclose close" id="errpopclose" style="right: 2px;" onclick="closePopup()">
+                                                    <label class="">
+                                                        X
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <iframe src="" id="NSDLiframe" style="display:none">
+                                </iframe>
+                                @*<button type="button" class="btn btn-primary" style="width: 100%" onclick="btnAuth1_Click();">Continue</button>*@
+                                @*<button type="button" class="btn btn-primary" style="width: 100%" onclick="btnAuth_Click();">Continue</button>*@
+                            </div>
+
+                        </div>
+                        <button class="btn btn-danger" id="CancelBtn" data-dismiss="modal">Cancel</button>
+
+                    </div>
+
+                </div>
+
+                @*<div class="modal-footer p-2">
+
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    @*--------Signature type------------*@
+
+
+
+    @*----------------Recipients-----------------*@
+
+    <div class="modal fade" id="recipients" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Recipients</h4>
+
+                </div>
+                <div class="modal-body pt-2">
+                    <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap recipients pt-2">
+                        <div class="col-lg-2 col-md-2 col-sm-5 d-flex flex-wrap usericon">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-5 d-flex flex-wrap">
+                            <div class="activity-info">
+                                <div class="activity-role">Mandavi</div>
+                                <div class="activity-role">(mandavi@yoekisoft.com) </div>
+                                <div>
+                                    <button type="button" class="recactivebtn">Already signed</button>
+
+                                    <button type="button" class="recactivebtn">Active</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap recipients pt-2">
+                        <div class="col-lg-2 col-md-2 col-sm-5 d-flex flex-wrap usericon">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-5 d-flex flex-wrap">
+                            <div class="activity-info">
+                                <div class="activity-role">Sandeep</div>
+                                <div class="activity-role">(sandeep@yoekisoft.com) </div>
+                                <div>
+                                    <button type="button" class="recnotsignebtn">Not Signed</button>
+                                    <button type="button" class="recactivebtn">Active</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancel</button>
+                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#successpopup" id="">Yes, reject</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*----------------Recipients-----------------*@
+
+
+    @*----------------Reject modal-----------------*@
+    <div class="modal fade" id="confirmationpopup" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="title m-0" id="defaultModalLabel">Are you sure you want to reject?</h5>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12">
+                        @*<label class="modcontxt"></label>*@
+                        <textarea class="txtarea" rows="2" cols="58" placeholder="Rejection reason" maxlength="180"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancel</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#successpopup" id="">Yes, reject</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="successpopup" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Success</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">Rejected successfully.</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnok" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="completePopup" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Complete</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">Signing process completed successfully.</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnok1" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="dscPopup" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Available Soon</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">DSC functionality will be available soon..!</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnok1" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="AlreadySigned" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                        <h4 class="title m-0" id="defaultModalLabel"></h4>
+                    </div>*@
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">You have already signed the document.</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnok2" data-dismiss="modal">OK</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+    @*<script src="~/JavaScript/RequestSign.js"></script>*@
+    <script src="~/JavaScript/SigningRequest.js"></script>
+    @*<script src="~/JavaScript/Page_Load.js"></script>*@
+    @*<script src="~/JavaScript/Upload.js"></script>*@
+    <script>var jquery_3_6 = jQuery.noConflict();</script>
+    <script src="~/Content/js/libscripts.bundle.js"></script>
+    <script src="~/Content/js/vendorscripts.bundle.js"></script>
+    @*<script src="~/Content/js/toastr.js"></script>*@
+    @*<script src="~/Content/js/c3.bundle.js"></script>*@
+    <script src="~/Content/js/mainscripts.bundle.js"></script>
+    <script src="~/Content/js/index.js"></script>
+    <script src="~/Content/js/ag-grid-community.min.js"></script>
+    <script src="~/Content/js/sweetalert.min.js"></script>
+
+
+
+    <script>
+        jquery_3_6(document).ready(function () {
+            jquery_3_6(".opencorp").click(function () {
+                jquery_3_6(".allcorp").toggle();
+                event.stopPropagation()
+            });
+        });
+
+    </script>
+    <script>
+        //$(document).ready(function () {
+        //    //
+        //    if (getUrlParameter1('File') != null) {
+        //        RowClickEventHandler1();
+        //    }
+
+        //});
+
+
+
+
+
+        //function RowClickEventHandler1() {
+        //    //
+        //    var fileId = getUrlParameter1('File');
+        //    //var SignUploadId1='';
+        //    $.ajax({
+        //        url: '/zipSign/GetFileData1',
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        data: {
+        //            SignUploadId1: fileId,
+        //        },
+        //        async: false,
+        //        success: function (result) {
+        //            //
+
+        //            var filename = result.filePath.split('\\').pop();
+        //            var webURL = '/Uploads/SignUpload/' + filename;
+        //            $("#hdnfilepath").val(webURL);
+        //            //$("#document-preview-frame").attr("src", webURL);
+        //            //$("#hdnfilepath").val(relativeFilePath);
+        //            $("#document-preview-frame").attr("src", webURL);
+        //        },
+        //        error: function () {
+        //            alert('Something Went Wrong');
+        //        }
+        //    });
+        //}
+
+        jquery_3_6(document).ready(function () {
+            let url = window.location.href;
+            jquery_3_6('#main-menu li a').each(function () {
+                if (this.href === url) {
+                    jquery_3_6('#main-menu li').removeClass('active');
+                    jquery_3_6(this).parent().addClass('active');
+                }
+            })
+            jquery_3_6('#main-menu li ul li a').each(function () {
+                if (this.href === url) {
+                    jquery_3_6('#main-menu li').removeClass('active');
+                    jquery_3_6(this).parent().addClass('active');
+                    jquery_3_6(this).closest('ul').addClass('in');
+                    jquery_3_6(this).closest('ul').parent().addClass('active');
+                }
+            })
+        })
+    </script>
+    <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+    <script>var jquery_3_6 = jQuery.noConflict();</script>
+    <script src="~/Content/js/code.jquery.com_ui_1.10.4_jquery-ui.js"></script>
+    <script>var jquery_ui = jQuery.noConflict();</script>
+    @*<script>
+            jquery_3_6(document).ready(function () {
+                jquery_3_6(".newsign").click(function () {
+                    jquery_3_6(".newsigner").show();
+                });
+            });
+
+            let selectContainer = document.querySelector(".select-container");
+            let select = document.querySelector(".select");
+            let input = document.getElementById("input");
+            let options = document.querySelectorAll(".select-container .option");
+
+            select.onclick = () => {
+                selectContainer.classList.toggle("active");
+            };
+
+            //options.forEach((e) => {
+            //    e.addEventListener("click", () => {
+            //        input.value = e.innerText;
+            //        selectContainer.classList.remove("active");
+            //        options.forEach((e) => {
+            //            e.classList.remove("selected");
+            //        });
+            //        e.classList.add("selected");
+            //    });
+            //});
+        </script>*@
+
+    <script>
+        var dragSrcEl = null;
+
+        function handleDragStart(e) {
+
+            dragSrcEl = this;
+
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', this.outerHTML);
+
+            this.classList.add('dragElem');
+        }
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            this.classList.add('over');
+
+            e.dataTransfer.dropEffect = 'move';
+
+            return false;
+        }
+
+        function handleDragEnter(e) {
+
+            e.preventDefault();
+
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('over');
+        }
+
+        function handleDrop(e) {
+
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            if (dragSrcEl != this) {
+
+                dragSrcEl.parentNode.removeChild(dragSrcEl);
+                var dropHTML = e.dataTransfer.getData('text/html');
+                this.insertAdjacentHTML('beforebegin', dropHTML);
+                var dropElem = this.previousSibling;
+                addDnDHandlers(dropElem);
+
+            }
+            this.classList.remove('over');
+            return false;
+        }
+
+        function handleDragEnd(e) {
+
+            this.classList.remove('over');
+
+        }
+
+        function addDnDHandlers(elem) {
+            elem.addEventListener('dragstart', handleDragStart, false);
+            elem.addEventListener('dragenter', handleDragEnter, false)
+            elem.addEventListener('dragover', handleDragOver, false);
+            elem.addEventListener('dragleave', handleDragLeave, false);
+            elem.addEventListener('drop', handleDrop, false);
+            elem.addEventListener('dragend', handleDragEnd, false);
+
+        }
+
+        var cols = document.querySelectorAll('#columns .column');
+        [].forEach.call(cols, addDnDHandlers);
+
+
+        var cols_1 = document.querySelectorAll('#columns_1 .column');
+        [].forEach.call(cols_1, addDnDHandlers);
+    </script>
+
+
+
+    <script>
+        jquery_3_6(document).ready(function () {
+            jquery_3_6('.btnSign').click(function () {
+
+                jquery_3_6('.firsthalfmdl').append("<div class='signer' style='display:block'>Signer 1<span class='cross'>x</span></div>");
+                jquery_3_6(function () {
+                    jquery_ui(".signer").draggable();
+                    jquery_ui(".signer").resizable();
+                });
+                jquery_3_6('.cross').click(function () {
+                    jquery_3_6(this).parent().hide();
+                })
+            })
+        });
+    </script>
+
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+     div.dataTables_filter {
+        text-align: right;
+    }
+        div.dataTables_filter label {
+            font-weight: normal;
+            white-space: nowrap;
+            text-align: left;
+        }
+     div.dataTables_filter input {
+            margin-left: 0.5em;
+            display: inline-block;
+            width: auto;
+        }
+</style>
+<script>
+
+    var columnDefs = [
+        { headerName: '', field: '', width: 40, checkboxSelection: true },
+        { headerName: 'Sr No.', field: 'srNo', width: 80, suppressMovable: true, sortable: true, },
+        { headerName: 'File Name', field: 'dname', width: 250, suppressMovable: true, sortable: true, },
+        { headerName: 'Document Name', field: 'aname', width: 250, suppressMovable: true, sortable: true, },
+        { headerName: 'Status', field: 'stat', width: 200, suppressMovable: true, sortable: true, },
+        //{ headerName: 'Document Uploaded On', field: 'don', width: 200, suppressMovable: true, sortable: true, },
+        //{ headerName: 'Document Uploaded By', field: 'dby', width: 200, suppressMovable: true, sortable: true, },
+        //{ headerName: 'Document Received On', field: 'ron', width: 200, suppressMovable: true, sortable: true, },
+        //{ headerName: 'Document Signed On', field: 'son', width: 200, suppressMovable: true, sortable: true, },
+        {
+            headerName: 'Action', field: '', width: 230, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>'
+            }
+        },
+    ];
+
+
+    var rowData = [
+        { srNo: '1', dcode: '4a56dfs6a', desc: '', stat: '' },
+
+
+
+
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Received</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">Documents</li>
+                    <li class="breadcrumb-item active">Received</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn  btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Sign</button>*@
+                        @*<button type="button" class="btn  btn-secondary"><i class="fa fa-file-excel-o"></i> Excel</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-12">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative">
+                                                Search:
+                                                <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="myGrid" style="height: 63vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+<div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rejected Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;">
+                <div class="col-md-12 d-flex flex-wrap flex-wrap">
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">File Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">2562126888888</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Document Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Status:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw"> Uploaded On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw"> Uploaded By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">Jai Prkash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Document Received On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Document Signed On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @*<div class="col-md-12 d-flex justify-content-end fixeddiv">
+                            <button type="button" class="btn btn-primary"> Update</button>
+                        </div>*@
+
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>

@@ -1,0 +1,725 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <title>zipSign</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/css/plugin.css" rel="stylesheet" />
+    <link href="~/Content/css/ag-grid.css" rel="stylesheet" />
+    <link href="~/Content/css/ag-theme-alpine.css" rel="stylesheet" />
+    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+
+    @*<link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
+        <link rel="stylesheet" href="assets/vendor/charts-c3/plugin.css" />*@
+
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <style>
+        .sidebar .nav-tabs .nav-link.active, .sidebar .nav-tabs .nav-link:hover, .sidebar .nav-tabs .nav-link:focus {
+            color: #fff !important
+        }
+
+        .fa-sign-out, .fa-user {
+            width: 15px;
+            text-align: left
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1.5rem;
+        }
+
+        #toast-container {
+            display: none !important
+        }
+
+        .inidiv {
+            border: 1px solid #0058b1;
+            border-radius: 50%;
+            padding: 4px;
+            height: 30px;
+            width: 30px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .user-photo {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        .alermsg {
+            color: #de4848 !important;
+            font-size: 12px !important;
+            margin-top: 3px !important;
+            font-family: Roboto-Medium;
+        }
+
+        .inidiv span {
+            font-weight: 700;
+            color: #0058b1;
+        }
+
+        .inidiv span {
+            font-weight: 700;
+            color: #0058b1;
+        }
+
+        .inidiv ul {
+            position: absolute;
+            padding-left: 0px;
+            right: 9px;
+            top: 45px;
+            padding: 10px 5px;
+            border-radius: 6px;
+            background-color: #fff;
+            text-align: left;
+            list-style: none;
+            box-shadow: 1px 1px 6px 0px #000;
+            display: none;
+            width: 140px;
+        }
+
+            .inidiv ul li {
+                padding: 10px 10px;
+                border-bottom: 1px solid rgba(0,0,0,.05);
+            }
+
+                .inidiv ul li:hover {
+                    background-color: #f6fbff;
+                }
+
+        .profileInfo h5 {
+            margin-bottom: 3px
+        }
+
+        .profileInfo p {
+            margin-bottom: 0px
+        }
+
+        .mainLogo {
+            /*color: #0058b1;*/
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .layout-fullwidth #wrapper #main-content {
+            width: calc(100% - 0px);
+        }
+
+        .breadcrumb {
+            display: none !important;
+        }
+
+        .opencorp {
+            border: 1px solid #0058b1;
+            color: #0058b1;
+            padding: 3px 8px !important;
+            border-radius: 2px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .ulofcorp {
+            padding-left: 0px;
+            list-style: none;
+            margin-bottom: 0px;
+            font-size: 14px;
+            width: 260px;
+            border: 1px solid #cdcdcd;
+            border-radius: 2px;
+            position: absolute;
+            top: 25px;
+            background-color: #fff;
+            left: 20px;
+        }
+
+        .scrolli li {
+            padding: 3px 9px;
+            cursor: default;
+        }
+
+                .ulofcorp li:hover {
+                    background-color: #e0f0ff;
+                }
+
+        .breadtxt {
+            font-size: 14px;
+        }
+
+        .searchofcorp {
+            padding: 3px 23px 3px 5px !important;
+            height: 23px !important;
+            border: 1px solid #cdcdcd;
+            border-radius: 0px;
+        }
+
+        .visitxt {
+            color: #555555 !important;
+        }
+
+        .serrcorp {
+            position: absolute;
+            right: 7px;
+            top: 4px;
+            cursor: pointer;
+            color: #b9b9b9;
+        }
+
+        .scrolli {
+            max-height: 150px;
+            overflow: auto;
+            list-style: none;
+            padding-left: 3px;
+            margin-bottom: 0px;
+        }
+
+        .editphoto {
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            color: #0058b1;
+            cursor: pointer;
+        }
+
+        .sidebar-nav .metismenu > li:hover a {
+            transform: translateX(8px);
+        }
+    </style>
+
+</head>
+<body data-theme="light">
+
+    <input type="text" id="txtname" hidden />
+    <input type="text" id="txtemail" hidden />
+    <input type="text" id="txtphone" hidden />
+    <script>
+        function Loader() {
+            if ($(".loaderOverlay").css('display') == 'none') {
+                $(".loaderOverlay").css('display', 'block');
+            }
+            else {
+                $(".loaderOverlay").css('display', 'none');
+            }
+        }
+    </script>
+    <div class="loaderOverlay" style="display: none" id="overlay"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12" style="display: none" id="loader">
+        <div class="col-md-12 col-sm-12 col-xs-12 loader">
+        </div>
+    </div>
+
+
+    <div id="wrapper" class="theme-cyan">
+
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-brand col-md-8">
+                    @*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+                        <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
+                    @*   <a href="index.html">zipSign</a>*@
+                    <nav aria-label="breadcrumb" class="position-relative breadtxt">
+                        <ol class="breadcrumb m-0" style="display:block !important;">
+                            <li class="breadcrumb-item active visitxt" aria-current="page">
+                                <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+                                <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
+                                
+                            </li>
+                            <li style="display:none"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>
+                        </ol>
+                        <div class="allcorp" style="display:none">
+
+                            <div class="ulofcorp">
+                                <div class="col-12 position-relative">
+                                    <input type="text" class="form-control searchofcorp" style="width:100% !important" />
+                                    <i class="fa fa-search serrcorp" aria-hidden="true"></i>
+                                </div>
+                                <ul class="scrolli">
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <div class="navbar-right">
+                    @*<form id="navbar-search" class="navbar-form search-form">
+                            <input value="" class="form-control" placeholder="Search here..." type="text">
+                            <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                        </form>*@
+
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="notification-dot"></span>
+                                </a>
+                                <ul class="dropdown-menu notifications">
+                                    <li class="header"><strong>You have 4 new Notifications</strong></li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-info text-warning"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
+                                                    <span class="timestamp">10:00 AM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-like text-success"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
+                                                    <span class="timestamp">11:30 AM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-pie-chart text-info"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Website visits from Twitter is 27% higher than last week.</p>
+                                                    <span class="timestamp">04:00 PM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-info text-danger"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Error on website analytics configurations</p>
+                                                    <span class="timestamp">Yesterday</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                @*<a href="page-login.html" class="icon-menu"><i class="fa fa-power-off"></i></a>*@
+                                <div class="inidiv">
+                                    <span class="fa fa-user-o"></span>
+
+                                    <ul class="profiletoggle">
+                                        <li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
+
+                                        @*<li>Change Password</li>*@
+                                        <li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div id="left-sidebar" class="sidebar">
+            <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-arrow-left"></i></button>
+            <div class="sidebar-scroll">
+                <div class="user-account">
+                    <h2 class="mainLogo">zipSign</h2>
+                    <hr />
+                </div>
+                @*<div class="user-account">
+                        <img src="../Content/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+                        <div class="dropdown">
+                            <span>Welcome,</span>
+                            <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Pamela Petrus</strong></a>
+                            <ul class="dropdown-menu dropdown-menu-right account">
+                                <li><a href="page-profile2.html"><i class="icon-user"></i>My Profile</a></li>
+                                <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+                                <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+                                <li class="divider"></li>
+                                <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                        <hr>
+
+                    </div>*@
+
+
+                @*<ul class="nav nav-tabs">
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i class="icon-book-open"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i class="icon-question"></i></a></li>
+                    </ul>*@
+
+
+                <div class="tab-content padding-0">
+                    <div class="tab-pane active" id="menu">
+                        <nav id="left-sidebar-nav" class="sidebar-nav">
+                            <ul id="main-menu" class="metismenu li_animation_delay">
+                                @*
+                                                        <li class="active">
+                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                            <ul>
+
+                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+
+
+                                    <div class="tab-content padding-0">
+                                        <div class="tab-pane active" id="menu">
+                                            <nav id="left-sidebar-nav" class="sidebar-nav">
+                                                <ul id="main-menu" class="metismenu li_animation_delay">
+                                                    @*
+                                                        <li class="active">
+                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                            <ul>
+
+
+                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+
+
+
+                                                            </ul>
+                                                        </li>*@
+                                <li class="active">
+                                    <a href="/Dashboard/Index2"><i class="fa fa-dashboard"></i><span>Home</span></a>
+
+                                </li>
+
+                                <li>
+                                    <a href="/zipSign/Upload"><i class="fa fa-upload"></i><span>Sign Document </span></a>
+
+                                </li>
+                                <li>
+                                    <a href="#" class="has-arrow"><i class="fa fa-th-large"></i><span>My Documents</span></a>
+                                    <ul>
+                                        <li><a href="/zipSign/Draft" title="Open to draft records">Drafts</a></li>
+                                        <li><a href="/zipSign/In_Progress" title="Open to track progress of signing">In-Progress</a></li>
+                                        <li><a href="/zipSign/Signed" title="Open to signed documents">Signed</a></li>
+                                        <li><a href="/zipSign/Received">Received</a></li>
+                                        <li><a href="/zipSign/Rejected" title="Either one or all signing recipients">Rejected</a></li>
+                                        <li><a href="/zipSign/Expired" title="Either one or all signing recipients">Expired</a></li>
+                                        @*<li><a href="/zipSign/SignRequest">Sign Request</a></li>*@
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="has-arrow"><i class="fa fa-cog"></i><span>Settings</span></a>
+                                    <ul>
+                                        <li><a href="/Masters/AllDepartments">Department Master</a></li>
+                                        <li><a href="/Masters/GSTInformation">GST Information</a></li>
+                                        @*<li><a href="/Masters/DomainControl">Domain Control</a></li>*@
+                                        <li><a href="/Users/AllUsers">Users</a></li>
+                                        @*<li><a href="/zipSign/ViewDocument">View Document</a></li>*@
+
+                                    </ul>
+                                </li>
+                                @*<li>
+                                        <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
+
+                                    </li>*@
+
+                                <li>
+                                    <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
+
+                                </li>
+                                <li>
+                                    <a href="/zipSign/BuyEnterprisePack"><i class="fa fa-rupee"></i><span>Buy Enterprise Pack</span></a>
+
+                                </li>
+                                <li>
+                                    <a href="#" class="has-arrow"><i class="fa fa-history"></i><span>History</span></a>
+                                    <ul>
+                                        <li><a href="/zipSign/SignUsesHistory">Sign Uses History</a></li>
+                                        <li><a href="/zipSign/PurchaseHistory">Purchase History</a></li>
+
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div id="main-content">
+
+            @RenderBody()
+
+
+        </div>
+
+
+        <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+        <script src="~/JavaScript/Login.js"></script>
+
+        <script>var jquery_3_6 = jQuery.noConflict();</script>
+        <script src="~/Content/js/libscripts.bundle.js"></script>
+        <script src="~/Content/js/vendorscripts.bundle.js"></script>
+        <script src="~/Content/js/toastr.js"></script>
+        <script src="~/Content/js/c3.bundle.js"></script>
+        <script src="~/Content/js/mainscripts.bundle.js"></script>
+        <script src="~/Content/js/index.js"></script>
+        <script src="~/Content/js/ag-grid-community.min.js"></script>
+        <script src="~/Content/js/sweetalert.min.js"></script>
+        <script src="~/Content/js/bootstrap.min.js"></script>
+
+        <div class="modal" id="profilemodal" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title m-0" id="defaultModalLabel">Profile</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="body">
+                                        @*<h6>Profile Photo</h6>*@
+                                        <div class="media col-md-12 d-flex justify-content-center">
+                                            <div class="media-left col-md-3 position-relative" style="overflow: hidden;">
+                                                <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
+                                                <i class="fa fa-pencil-square-o editphoto"></i>
+                                            </div>
+
+                                            @*<div class="media-body">
+                                                    <p>
+                                                        Upload your photo.
+                                                        <br> <em>Image should be at least 140px x 140px</em>
+                                                    </p>
+                                                    <button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
+
+                                                    <input type="file" id="filePhoto" class="sr-only" style="display:none;">
+                                                    <input type="text" id="ProId" hidden />
+                                                </div>*@
+                                        </div>
+
+                                        <div class="media col-md-12 text-center profileInfo">
+
+
+                                            <h5 @*id="usernameDisplay"*@>John Doe</h5>
+                                            <p @*id="emailDisplay"*@>johndoe@gmail.com</p>
+                                            <p id="phoneDisplay">9988776655</p>
+
+
+                                        </div>
+                                    </div>
+
+                                    @*<div class="body pt-0">
+                                                                    <h6>Basic Information</h6>
+                                                                    <div class="row clearfix">
+                                                                        <div class="col-lg-6 col-md-12">
+                                                                            <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="First Name" id="fname">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Last Name" id="lname">
+                                        </div>
+                                                                            <div class="form-group">
+                                                                                <div class="radioBox pt-2" id="gender">
+                                                                                    <label class="fancy-radio">
+                                                                                        <input name="gender2" value="male" type="radio" id="chckmale" checked>
+                                                                                        <span><i></i>Male</span>
+                                                                                    </label>
+                                                                                    <label class="fancy-radio">
+                                                                                        <input name="gender2" value="female" type="radio" id="chckfemale">
+                                                                                        <span><i></i>Female</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control" placeholder="India" disabled />
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-12">
+
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text" style="padding: 0.4rem 0.75rem !important;"><i class="icon-calendar"></i></span>
+                                                                                    </div>
+                                                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate" id="caldob">
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-12">
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Address Line 1" id="add1">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="Address Line 2" id="add2">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" placeholder="PIN" id="pincode">
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="form-control" disabled id="state">
+                                                    <option value="0">Select State</option>
+                                                    <option value="1">Andaman and Nicobar Islands</option>
+                                                    <option value="2">Andhra Pradesh</option>
+                                                    <option value="3">Arunachal Pradesh</option>
+                                                    <option value="4">Assam</option>
+                                                    <option value="5">Bangalore</option>
+                                                    <option value="6">Bihar</option>
+                                                    <option value="7">Chandigarh</option>
+                                                    <option value="8">Chhattisgarh</option>
+                                                    <option value="9">Chennai</option>
+                                                    <option value="10">Dadra & Nagar Haveli and Daman & Diu</option>
+                                                    <option value="11">Delhi</option>
+                                                    <option value="12">Goa</option>
+                                                    <option value="13">Gujarat</option>
+                                                    <option value="14">Haryana</option>
+                                                    <option value="15">Himachal Pradesh</option>
+                                                    <option value="16">Jammu and Kashmir</option>
+                                                    <option value="17">Jharkhand</option>
+                                                    <option value="18">Karnataka</option>
+                                                    <option value="19">Kerala</option>
+                                                    <option value="20">Ladakh</option>
+                                                    <option value="21">Lakshadweep Islands</option>
+                                                    <option value="22">Madhya Pradesh</option>
+                                                    <option value="23">Maharashtra</option>
+                                                    <option value="24">Manipur</option>
+                                                    <option value="25">Meghalaya</option>
+                                                    <option value="26">Mizoram</option>
+                                                    <option value="27">Nagaland</option>
+                                                    <option value="28">Odisha</option>
+                                                    <option value="29">Other Territory</option>
+                                                    <option value="30">Pondicherry</option>
+                                                    <option value="31">Punjab</option>
+                                                    <option value="32">Rajasthan</option>
+                                                    <option value="33">Sikkim</option>
+                                                    <option value="34">Tamil Nadu</option>
+                                                    <option value="35">Telangana</option>
+                                                    <option value="36">Tripura</option>
+                                                    <option value="37">Uttar Pradesh</option>
+                                                    <option value="38">Uttarakhand</option>
+                                                    <option value="39">West Bengal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                                                    </div>
+                                                                </div>*@
+                                    <div class="body">
+                                        <div class="row clearfix">
+                                            <h6>Change Password</h6>
+                                            <div class="col-lg-12 col-md-12">
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Old Password" id="gst">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="New Password" id="comweburl">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-lg-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="edomain">
+                                                </div>
+                                            </div>
+                                            @*<div class="col-lg-6 col-md-12">
+                                                    <h6>Account Data</h6>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="JohnDoe" disabled placeholder="Username" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" value="john.doe@yourdomain.com" disabled placeholder="Email" />
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
+                                                    </div>
+                                                </div>*@
+                                        </div>
+                                        <div class="col-md-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            jquery_3_6(document).ready(function () {
+                jquery_3_6(".opencorp").click(function () {
+                    jquery_3_6(".allcorp").toggle();
+                    event.stopPropagation()
+                });
+            });
+
+        </script>
+        <script>
+            jquery_3_6(document).ready(function () {
+                let url = window.location.href;
+                jquery_3_6('#main-menu li a').each(function () {
+                    if (this.href === url) {
+                        jquery_3_6('#main-menu li').removeClass('active');
+                        jquery_3_6(this).parent().addClass('active');
+                    }
+                })
+                jquery_3_6('#main-menu li ul li a').each(function () {
+                    if (this.href === url) {
+                        jquery_3_6('#main-menu li').removeClass('active');
+                        jquery_3_6(this).parent().addClass('active');
+                        jquery_3_6(this).closest('ul').addClass('in');
+                        jquery_3_6(this).closest('ul').parent().addClass('active');
+                    }
+                })
+            })
+        </script>
+        <script>
+            jquery_3_6(document).ready(function () {
+                jquery_3_6(".inidiv").click(function () {
+                    jquery_3_6(".profiletoggle").toggle();
+                    event.stopPropagation()
+                });
+            });
+            $('body').click(function () {
+                $('.profiletoggle').hide();
+            })
+        </script>
+</div></body>
+</html>

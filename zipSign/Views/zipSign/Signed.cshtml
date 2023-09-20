@@ -1,0 +1,771 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #usermodal label{
+        word-break:break-all;
+    }
+    .modal-content {
+        height: 91vh;
+    }
+
+    .card {
+        height: 58vh;
+    }
+
+    .previewcardimg {
+        width: 57%;
+        margin: auto;
+    }
+
+        .previewcardimg img {
+            width: 100%;
+        }
+
+    .modal-body {
+        padding-bottom: 0px;
+    }
+
+    .panel {
+        border: none;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: none;
+    }
+    /*
+    Template Name: Monster Admin
+    Author: Themedesigner
+    Email: niravjoshi87@gmail.com
+    File: css
+    */
+    .wizard > .steps a {
+        margin: 0 10px 0 0;
+    }
+
+        .wizard > .steps a:hover, .wizard > .steps a:active {
+            margin: 0 10px 0 0;
+        }
+
+    .wizard > .steps > ul > li {
+        float: none;
+    }
+
+
+    .wizard-content .wizard > .content {
+        display: none;
+    }
+
+    .wizard-content .wizard > .actions {
+        display: none !important;
+    }
+
+    .wizard-content .wizard > .steps > ul > li:after,
+    .wizard-content .wizard > .steps > ul > li:before {
+        content: '';
+        z-index: 9;
+        display: block;
+        position: absolute
+    }
+
+    .wizard-content .wizard {
+        width: 100%;
+        overflow: hidden
+    }
+
+        .wizard-content .wizard .content {
+            margin-left: 0 !important
+        }
+
+        .wizard-content .wizard > .steps {
+            position: relative;
+            display: block;
+            width: 100%
+        }
+
+            .wizard-content .wizard > .steps .current-info {
+                position: absolute;
+                left: -99999px
+            }
+
+            .wizard-content .wizard > .steps > ul {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+                margin: 0;
+                padding: 0;
+                list-style: none
+            }
+
+                .wizard-content .wizard > .steps > ul > li {
+                    display: table-cell;
+                    width: auto;
+                    vertical-align: top;
+                    text-align: center;
+                    position: relative
+                }
+
+                    .wizard-content .wizard > .steps > ul > li a {
+                        position: relative;
+                        padding-top: 52px;
+                        margin-top: 20px;
+                        display: block
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:before {
+                        left: 0
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:after {
+                        right: 0
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:first-child:before,
+                    .wizard-content .wizard > .steps > ul > li:last-child:after {
+                        content: none
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.current > a {
+                        color: #fff;
+                        cursor: default;
+                        /*height: 10vh;*/
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.current .step {
+                        border-color: #009efb;
+                        background-color: #fff;
+                        color: #009efb
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.disabled a,
+                    .wizard-content .wizard > .steps > ul > li.disabled a:focus,
+                    .wizard-content .wizard > .steps > ul > li.disabled a:hover {
+                        color: #999;
+                        cursor: default
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.done a,
+                    .wizard-content .wizard > .steps > ul > li.done a:focus,
+                    .wizard-content .wizard > .steps > ul > li.done a:hover {
+                        color: #999
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.done .step {
+                        background-color: #009efb;
+                        border-color: #009efb;
+                        color: #fff
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.error .step {
+                        border-color: #f62d51;
+                        color: #f62d51
+                    }
+
+            .wizard-content .wizard > .steps .step {
+                background-color: #fff;
+                display: inline-block;
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                margin-left: -24px;
+                z-index: 10;
+                text-align: center
+            }
+
+        .wizard-content .wizard > .content {
+            overflow: hidden;
+            position: relative;
+            width: auto;
+            padding: 0;
+            margin: 0
+        }
+
+            .wizard-content .wizard > .content > .title {
+                position: absolute;
+                left: -99999px
+            }
+
+            .wizard-content .wizard > .content > .body {
+                padding: 0 20px
+            }
+
+            .wizard-content .wizard > .content > iframe {
+                border: 0;
+                width: 100%;
+                height: 100%
+            }
+
+        .wizard-content .wizard > .actions {
+            position: relative;
+            display: block;
+            text-align: right;
+            padding: 0 20px 20px
+        }
+
+            .wizard-content .wizard > .actions > ul {
+                float: right;
+                list-style: none;
+                padding: 0;
+                margin: 0
+            }
+
+                .wizard-content .wizard > .actions > ul:after {
+                    content: '';
+                    display: table;
+                    clear: both
+                }
+
+                .wizard-content .wizard > .actions > ul > li {
+                    float: left
+                }
+
+                    .wizard-content .wizard > .actions > ul > li + li {
+                        margin-left: 10px
+                    }
+
+                    .wizard-content .wizard > .actions > ul > li > a {
+                        background: #009efb;
+                        color: #fff;
+                        display: block;
+                        padding: 7px 12px;
+                        border-radius: 4px;
+                        border: 1px solid transparent
+                    }
+
+                        .wizard-content .wizard > .actions > ul > li > a:focus,
+                        .wizard-content .wizard > .actions > ul > li > a:hover {
+                            -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .05) inset;
+                            box-shadow: 0 0 0 100px rgba(0, 0, 0, .05) inset
+                        }
+
+                        .wizard-content .wizard > .actions > ul > li > a:active {
+                            -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .1) inset;
+                            box-shadow: 0 0 0 100px rgba(0, 0, 0, .1) inset
+                        }
+
+                        .wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
+                            background-color: #fff;
+                            color: #54667a;
+                            border: 1px solid #d9d9d9
+                        }
+
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:focus,
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:hover {
+                                -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .02) inset;
+                                box-shadow: 0 0 0 100px rgba(0, 0, 0, .02) inset
+                            }
+
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:active {
+                                -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .04) inset;
+                                box-shadow: 0 0 0 100px rgba(0, 0, 0, .04) inset
+                            }
+
+                    .wizard-content .wizard > .actions > ul > li.disabled > a,
+                    .wizard-content .wizard > .actions > ul > li.disabled > a:focus,
+                    .wizard-content .wizard > .actions > ul > li.disabled > a:hover {
+                        color: #999
+                    }
+
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"],
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"]:focus,
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"]:hover {
+                            -webkit-box-shadow: none;
+                            box-shadow: none
+                        }
+
+        .wizard-content .wizard.wizard-circle > .steps > ul > li:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li:before {
+            top: 50px;
+            width: 50%;
+            height: 3px;
+            background-color: #009efb
+        }
+
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:before {
+            background-color: #F3F3F3
+        }
+
+        .wizard-content .wizard.wizard-circle > .steps .step {
+            width: 40px;
+            height: 40px;
+            line-height: 35px;
+            border: 3px solid #F3F3F3;
+            font-size: 1.3rem;
+            border-radius: 50%
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li:before {
+            top: 39px;
+            width: 50%;
+            height: 2px;
+            background-color: #009efb
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current .step {
+            border: 2px solid #009efb;
+            color: #009efb;
+            line-height: 36px
+        }
+
+            .wizard-content .wizard.wizard-notification > .steps > ul > li.current .step:after,
+            .wizard-content .wizard.wizard-notification > .steps > ul > li.done .step:after {
+                border-top-color: #009efb
+            }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current ~ li:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current ~ li:before {
+            background-color: #F3F3F3
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.done .step {
+            color: #FFF
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps .step {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 1.3rem;
+            border-radius: 15%;
+            background-color: #F3F3F3
+        }
+
+            .wizard-content .wizard.wizard-notification > .steps .step:after {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                margin-left: -8px;
+                margin-bottom: -8px;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-top: 8px solid #F3F3F3
+            }
+
+        .wizard-content .wizard.vertical > .steps {
+            display: inline;
+            float: left;
+            width: 20%
+        }
+
+            .wizard-content .wizard.vertical > .steps > ul > li {
+                display: block;
+                width: 100%
+            }
+
+                .wizard-content .wizard.vertical > .steps > ul > li.current:after,
+                .wizard-content .wizard.vertical > .steps > ul > li.current:before,
+                .wizard-content .wizard.vertical > .steps > ul > li.current ~ li:after,
+                .wizard-content .wizard.vertical > .steps > ul > li.current ~ li:before,
+                .wizard-content .wizard.vertical > .steps > ul > li:after,
+                .wizard-content .wizard.vertical > .steps > ul > li:before {
+                    background-color: transparent
+                }
+
+    @@media (max-width:768px) {
+        .wizard-content .wizard > .steps > ul {
+            margin-bottom: 20px
+        }
+
+            .wizard-content .wizard > .steps > ul > li {
+                display: block;
+                float: left;
+                width: 50%
+            }
+
+                .wizard-content .wizard > .steps > ul > li > a {
+                    margin-bottom: 0
+                }
+
+                .wizard-content .wizard > .steps > ul > li:first-child:before {
+                    content: ''
+                }
+
+                .wizard-content .wizard > .steps > ul > li:last-child:after {
+                    content: '';
+                    background-color: #009efb
+                }
+
+        .wizard-content .wizard.vertical > .steps {
+            width: 15%
+        }
+    }
+
+    @@media (max-width:480px) {
+        .wizard-content .wizard > .steps > ul > li {
+            width: 100%
+        }
+
+            .wizard-content .wizard > .steps > ul > li.current:after {
+                background-color: #009efb
+            }
+
+        .wizard-content .wizard.vertical > .steps > ul > li {
+            display: block;
+            float: left;
+            width: 50%
+        }
+
+        .wizard-content .wizard.vertical > .steps {
+            width: 100%;
+            float: none;
+        }
+    }
+
+    #usermodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+    .lowfw {
+        font-weight: 400;
+    }
+
+    .highfw {
+        font-weight: bolder !important;
+        color: #000;
+    }
+
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+</style>
+
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'File Name', field: 'dname', width: 250, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Document Name', field: 'aname', width: 250, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Status', field: 'stat', width: 200, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false, sortable: true,suppressMovable: true   },
+        //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false, sortable: true,suppressMovable: true   },
+        //{ headerName: 'Signing Initiated On', field: 'sio', width: 200, resizable: false, sortable: true, suppressMovable: true   },
+        //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false, sortable: true, suppressMovable: true   },
+        //{ headerName: 'Signing Completed On', field: 'sco', width: 200, resizable: false, sortable: true, suppressMovable: true  },
+        {
+            headerName: 'Action', field: '', width: 240, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button>  <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>'
+            }
+        },
+
+    ];
+
+
+    var rowData = [
+        { srNo: '1', dcode: '4a56dfs6a', desc: '', stat: '' },
+
+
+
+
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid1');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Signed</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">Signed</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action ">
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#previewmodal"><i class="fa fa-eye"></i> Preview</button>*@
+                    </div>
+                    <div class="page_action me-1">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>*@
+                    </div>
+
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card" style="height: 77vh;">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-12">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative">
+                                                Search:
+                                                <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="myGrid1" style="height: 63vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="Ddd" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="pagination1">
+                                    @*<ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Signed Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;">
+                <div class="col-md-12 d-flex flex-wrap flex-wrap">
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >File Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="FileName">2562126888888</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Document Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="DocumentName"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Status:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="Status">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Uploaded On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="UploadedOn">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Uploaded By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="UploadedBy">Jai Prkash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Sign Initiated On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="Signedate">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Sign Inititated By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="SignedBy">Jai Prakash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Sign Completed On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="SignedOn">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="col-md-12 d-flex justify-content-end fixeddiv">
+                            <button type="button" class="btn btn-primary"> Update</button>
+                        </div>*@
+
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+
+@*----------------------------------------------Preview Modal-------------------------------------------------*@
+
+<div class="modal fade" id="previewmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header pt-0">
+                <div class="container">
+                    <div class="panel">
+                        <div class="panel-body wizard-content">
+                            <form id="example-form" action="#" class="tab-wizard wizard-circle wizard">
+                                <h6>Document uploaded<br>(12-May-2023)</h6>
+                                <section>
+                                    <br />
+                                </section>
+
+                                <h6>Pending for signature<br>(15-May-2023)</h6>
+                                <section>
+                                    <br />
+                                </section>
+
+                                <h6>Pending from one signer<br>(18-May-2023)</h6>
+                                <section></section>
+
+                                <h6>All signer signed<br>(22-May-2023)</h6>
+                                <section></section>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @*<h5 class="modal-title" id="exampleModalLabel">New message</h5>*@
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12 col-sm-12 col-xs-12 d-flex flex-wrap justify-content-evenly">
+
+
+
+                    <div class="col-md-7 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="body">
+                                <div class="previewcardimg">
+                                    <img src="~/Content/images/user.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="body">
+                                <small class="text-muted">Document Name: </small>
+                                <p class="mb-0">Passport</p>
+                                <hr>
+                                <small class="text-muted">Alias Name: </small>
+                                <p class="mb-0">John Doe</p>
+                                <hr>
+                                <small class="text-muted">Document Uplodaed On: </small>
+                                <p class="mb-0">15-aug-1947</p>
+                                <hr>
+                                <small class="text-muted">Document Uplodaed By: </small>
+                                <p class="mb-0">John Doe</p>
+                                <hr>
+                                <small class="text-muted">Signing Initiated On: </small>
+                                <p class="mb-0">26-jan-1950</p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer pt-0">
+                <button type="button" class="btn btn-secondary" style="line-height: 1.1;" data-dismiss="modal">Close</button>
+                @*<button type="button" class="btn btn-primary">Send message</button>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@*----------------------------------------------Preview Modal-------------------------------------------------*@
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/Signed.js"></script>
+@*<script src="~/JavaScript/SigningRequest.js"></script>*@
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+
+<script>
+    var form = $("#example-form");
+
+    form.steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#'
+    });
+</script>
+

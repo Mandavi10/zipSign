@@ -1,0 +1,340 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/css/parsley.css" rel="stylesheet" />
+<style>
+    #usermodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+    .lowfw {
+        font-weight: 400;
+    }
+
+    
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+</style>
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr. No.', field: 'srNo', width: 80, sortable: true, resizable: false, suppressMovable: true },
+        {
+            headerName: 'User Code', field: 'ucode', width: 150, resizable: false, sortable: true, suppressMovable: true, cellRenderer: function (params) {
+                return '<a href="UserCreation" rel="noopener" class="gridhyperlink" >' + params.value + '</a>';
+            }
+        },
+        { headerName: 'User Name', field: 'uname', width: 200, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'User Type', field: 'usertype', width: 150, resizable: false, sortable: true, suppressMovable: true, },
+        //{ headerName: 'Email ID', field: 'email', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+        //{ headerName: 'Mobile No.', field: 'phone', width: 150, resizable: false, sortable: true, suppressMovable: true,},
+
+        //{ headerName: 'Department', field: 'depart', width: 150, resizable: false, sortable: true, suppressMovable: true,},
+        //{ headerName: 'Designation', field: 'desi', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+
+        //{ headerName: 'Account Blocked', field: 'accblock', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+        //{ headerName: 'Created By', field: 'cby', width: 150, resizable: false, sortable: true, suppressMovable: true,},
+        //{ headerName: 'Created On', field: 'con', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+        //{ headerName: 'Updated By', field: 'uby', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+        //{ headerName: 'Updated On', field: 'uon', width: 150, resizable: false, sortable: true,suppressMovable: true, },
+        { headerName: 'Mobile App', field: 'mapp', width: 150, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Status', field: 'status', width: 150, resizable: false, sortable: true, suppressMovable: true, },
+        {
+            headerName: 'Action', field: '', width: 140, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button> '
+            }
+        },
+
+    ];
+
+
+    var rowData = [];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false,
+
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>All Users</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">Users</li>
+                    <li class="breadcrumb-item active">All Users</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn  btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>*@
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='../Users/UserCreation';"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-12"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label class="position-relative">Search:<input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off"><i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i></label></div></div>
+                                    <div id="myGrid" style="height: 67vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2" id="DivPagination">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="Ddd" role="status" aria-live="polite"></div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="pagination1">
+                                    @*<ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                            <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                            <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </ul>*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/AllUsers.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+
+<div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;">
+                <div class="col-md-12 d-flex flex-wrap flex-wrap">
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">User Code:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"  id="usercode"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">User Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="username"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">User Type:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="usertype"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Email ID:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="emailid"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Mobile Number:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="mobile"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Department:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="department"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Designation:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="designation"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Account Blocked:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="active"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Created By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="createdby"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Created On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="createdon"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Updated By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"id="updatedby"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw" >Updated On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="updatedon"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Mobile App:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"id="mobileapp"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Status:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="status"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Block:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-inline fancy-checkbox">
+                                    <input type="checkbox" name="control" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="blockCheckbox">
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Domain Control:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw" id="domaincontrol"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 d-flex justify-content-end fixeddiv">
+                        <button type="button" class="btn btn-primary" id="updateButton" onclick="update()"> Update</button>
+                    </div>
+
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+             </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+

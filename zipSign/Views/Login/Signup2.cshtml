@@ -1,0 +1,329 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+
+
+    <title></title>
+    <style>
+        .capdiv {
+            width: 127px;
+            height: 37px;
+            overflow: hidden;
+            border: 1px solid #e2e2e2;
+            margin-left: 14px;
+            border-radius: 0.25rem;
+        }
+
+        .refcap {
+            position: absolute;
+            right: 11px;
+            top: 7px;
+            font-size: 20px;
+            color: #0058b1;
+            cursor: pointer;
+        }
+
+        .pages {
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page {
+            /*width: 100%;*/
+            transition: all 0.7s;
+            color: white;
+        }
+        .wizard, .tabcontrol{margin-bottom:30px}
+        .auth-box {
+            overflow: hidden;
+        }
+        .wizard > .steps > ul > li {
+            width: 33.3%;
+            float: left;
+        }
+        .auth-box {
+            width: 410px;
+        }
+            .auth-main .card {
+            height: 490px !important;
+            overflow:hidden;
+            width:380px
+        }
+
+        .alert {
+            padding: 0.3rem 1.25rem !important;
+        }
+
+        a {
+            color: #0058b1 !important;
+        }
+
+        .resendotp {
+            color: #0058b1;
+            margin-left: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .captchainput {
+            width: 40%;
+        }
+
+        .alermsg {
+            color: #de4848;
+            font-size: 0.9em;
+            margin-top: 3px;
+        }
+
+        .erdiv {
+            margin-bottom: 0.3rem !important;
+        }
+
+        .ccode {
+            position: absolute;
+            top: 7px;
+            left: 14px;
+        }
+
+        .ccinput {
+            padding-left: 45px;
+        }
+
+        .card .header {
+            padding: 10px 0px;
+        }
+
+        .formHeight {
+            height: 315px;
+            overflow:hidden;
+        }
+        .wizard > .steps .current a {
+        color:#fff !important;
+        font-size:13px !important;
+        }
+        .wizard > .steps a {
+            padding: 0.5em 0.5em !important;
+        }
+        .wizard > .steps .done a {
+           color:#fff !important;
+        }
+        .wizard > .actions a:hover, .wizard > .actions a:active, .wizard > .actions a {
+            color: #fff !important;
+        }
+        .wizard > .actions .disabled a, .wizard > .actions .disabled a:hover {
+            color: #000 !important;
+        }
+        .wizard > .steps .number {
+          display:none;
+        }
+        .fa-eye, .fa-eye-slash {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
+        .fa-eye-slash {
+            display: none
+        }
+        .wizard > .steps .disabled a, .wizard > .steps .done a {
+            font-size: 13px;
+        }
+        .card {
+            border: none !important;
+        }
+            .card:hover {
+                box-shadow: 2px 0px 5px 0px #9b9898 !important; 
+            }
+    </style>
+</head>
+<body data-theme="light" class="font-nunito">
+    <div id="wrapper" class="theme-cyan">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle auth-main">
+                <div class="auth-box">
+                    <div class="top">
+                        @*<img src="assets/images/logo-white.svg" alt="Iconic">*@
+                        <h3 style="color:#fff">zipSign</h3>
+                    </div>
+                    <div class="pages">
+                        <div class="page">
+                            <div class="card pt-0 pb-0">
+                                <div class="header">
+                                    <p class="lead">Create an account</p>
+                                </div>
+
+                                <div id="wizard_horizontal">
+                                    <h2>Step 1</h2>
+                                    <section>
+                                        <div class="formHeight">
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="60" placeholder="Name">
+                                            </div>
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="60" placeholder="Email">
+                                            </div>
+
+                                            <div class="form-group  position-relative">
+                                                <input type="text" class="form-control ccinput" id="signin-email" maxlength="10" placeholder="Mobile Number">
+                                                <span class="ccode">+91</span>
+                                            </div>
+                                            <div class="form-group ">
+                                                <select class="form-control">
+                                                    <option>Select State</option>
+                                                    <option>Andaman and Nicobar Islands</option>
+                                                    <option>Andhra Pradesh</option>
+                                                    <option>Arunachal Pradesh</option>
+                                                    <option>Assam</option>
+                                                    <option>Bangalore</option>
+                                                    <option>Bihar</option>
+                                                    <option>Chandigarh</option>
+                                                    <option>Chhattisgarh</option>
+                                                    <option>Chennai</option>
+                                                    <option>Dadra & Nagar Haveli and Daman & Diu</option>
+                                                    <option>Delhi</option>
+                                                    <option>Goa</option>
+                                                    <option>Gujarat</option>
+                                                    <option>Haryana</option>
+                                                    <option>Himachal Pradesh</option>
+                                                    <option>Jammu and Kashmir</option>
+                                                    <option>Jharkhand</option>
+                                                    <option>Karnataka</option>
+                                                    <option>Kerala</option>
+                                                    <option>Ladakh</option>
+                                                    <option>Lakshadweep Islands</option>
+                                                    <option>Madhya Pradesh</option>
+                                                    <option>Maharashtra</option>
+                                                    <option>Manipur</option>
+                                                    <option>Meghalaya</option>
+                                                    <option>Mizoram</option>
+                                                    <option>Nagaland</option>
+                                                    <option>Odisha</option>
+                                                    <option>Other Territory</option>
+                                                    <option>Pondicherry</option>
+                                                    <option>Punjab</option>
+                                                    <option>Rajasthan</option>
+                                                    <option>Sikkim</option>
+                                                    <option>Tamil Nadu</option>
+                                                    <option>Telangana</option>
+                                                    <option>Tripura</option>
+                                                    <option>Uttar Pradesh</option>
+                                                    <option>Uttarakhand</option>
+                                                    <option>West Bengal</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Address Line 1">
+                                            </div>
+                                            <div class="form-group erdiv">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Address Line 2">
+                                            </div>
+                                            <div class="alermsg col-md-12 p-0" role="alert">Please enter correct information.</div>
+                                        </div>
+                                    </section>
+                                    <h2>Step 2</h2>
+                                    <section>
+                                        <div class="formHeight">
+
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" placeholder="India" disabled>
+                                            </div>
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="10" placeholder="PAN">
+                                            </div>
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="15" placeholder="GST">
+                                            </div>
+                                            <div class="form-group ">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="60" placeholder="Company Website URL">
+                                            </div>
+                                            <div class="form-group  erdiv">
+                                                <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Email Domain">
+                                            </div>
+                                            <div class="alermsg col-md-12 p-0" role="alert">Please enter correct information.</div>
+                                        </div>
+                                    </section>
+                                    <h2>Step 3</h2>
+                                    <section>
+                                        <div class="formHeight">
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="signin-email" placeholder="Email OTP">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="signin-email" placeholder="Mobile OTP">
+                                            </div>
+                                            <div class="form-group position-relative">
+                                                <input type="password" class="form-control" id="signup-password" placeholder="Password">
+                                                <i class="fa fa-eye eye1"></i>
+                                                <i class="fa fa-eye-slash eyesp1"></i>
+                                            </div>
+                                            <div class="form-group erdiv position-relative">
+                                                <input type="password" class="form-control" id="signincon-password" placeholder="Confirm Password">
+                                                <i class="fa fa-eye eye2"></i>
+                                                <i class="fa fa-eye-slash eyesp2"></i>
+                                            </div>
+                                            <div class="alermsg col-md-12 p-0" role="alert">
+                                                Please enter the correct OTP.
+                                            </div>
+                                            <div class="timerdiv d-flex justify-content-end col-md-12 p-0">
+                                                <label class="mb-0 timer" id="">00:30</label><label class="resendotp mb-0">Resend OTP</label>
+                                            </div>
+
+                                        </div>
+                                    </section>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/libscripts.bundle.js"></script>
+    <script src="~/Content/js/vendorscripts.bundle.js"></script>
+
+    <script src="~/Content/js/jquery.steps.js"></script>
+    <script src="~/Content/js/mainscripts.bundle.js"></script>
+    <script src="~/Content/js/form-wizard.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.eye1').click(function () {
+                $(this).hide();
+                $('.eyesp1').show();
+                $('#signup-password').attr('type', 'text')
+            })
+            $('.eyesp1').click(function () {
+                $(this).hide();
+                $('.eye1').show();
+                $('#signup-password').attr('type', 'password')
+            })
+            $('.eye2').click(function () {
+                $(this).hide();
+                $('.eyesp2').show();
+                $('#signincon-password').attr('type', 'text')
+            })
+            $('.eyesp2').click(function () {
+                $(this).hide();
+                $('.eye2').show();
+                $('#signincon-password').attr('type', 'password')
+            })
+        })
+    </script>
+</body>
+</html>
