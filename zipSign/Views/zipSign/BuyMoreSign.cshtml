@@ -5,6 +5,9 @@
 
 
 <style>
+    .body {
+        min-height: 81vh;
+    }
     .headtxt {
         font-size: 20px;
         color: #323a45;
@@ -87,6 +90,7 @@
     .signaturetypewidth {
         max-width: 800px;
     }
+    .amountGrid{margin-top:12%}
 </style>
 
 <div class="container-fluid">
@@ -127,48 +131,48 @@
 
                         <div class="col-md-12 topdiv">
                             @*<div class="col-md-12 d-flex flex-wrap">
-                                    <div class="col-md-6 pe-1">
-                                        <div class="col-md-12 d-flex flex-wrap">
+            <div class="col-md-6 pe-1">
+                <div class="col-md-12 d-flex flex-wrap">
 
-                                            <label class="control-inline fancy-checkbox">
-                                                <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
-                                                <span>eSign Aadhaar</span>
-                                            </label>
-                                        </div>
-                                        <div class="col-md-12 d-flex flex-wrap mt-2">
-                                            <label>Quantity</label><input type="text" class="form-control inputofnumbers">
-                                        </div>
-                                        <div class="col-md-12 d-flex flex-wrap mt-2">
-                                            <label>Amount</label><input type="text" class="form-control inputofnumbers" disabled placeholder="750">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 ps-1">
-                                        <div class="col-md-12 d-flex flex-wrap">
-                                       <label class="control-inline fancy-checkbox">
-                                                <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
-                                                <span>DSC Sign</span>
-                                            </label>
+                    <label class="control-inline fancy-checkbox">
+                        <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
+                        <span>eSign Aadhaar</span>
+                    </label>
+                </div>
+                <div class="col-md-12 d-flex flex-wrap mt-2">
+                    <label>Quantity</label><input type="text" class="form-control inputofnumbers">
+                </div>
+                <div class="col-md-12 d-flex flex-wrap mt-2">
+                    <label>Amount</label><input type="text" class="form-control inputofnumbers" disabled placeholder="750">
+                </div>
+            </div>
+            <div class="col-md-6 ps-1">
+                <div class="col-md-12 d-flex flex-wrap">
+               <label class="control-inline fancy-checkbox">
+                        <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
+                        <span>DSC Sign</span>
+                    </label>
 
-                                        </div>
-                                        <div class="col-md-12 d-flex flex-wrap mt-2">
-                                            <label>Quantity</label><input type="text" class="form-control inputofnumbers">
-                                        </div>
-                                        <div class="col-md-12 d-flex flex-wrap mt-2">
-                                            <label>Amount</label><input type="text" class="form-control inputofnumbers" disabled placeholder="750">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-12 mt-5 mb-5">
-                                        <label style="font-size:16px">Total amount to be paid</label><label class="totaltxt ps-2">&#8377;1500</label>
-                                    </div>
+                </div>
+                <div class="col-md-12 d-flex flex-wrap mt-2">
+                    <label>Quantity</label><input type="text" class="form-control inputofnumbers">
+                </div>
+                <div class="col-md-12 d-flex flex-wrap mt-2">
+                    <label>Amount</label><input type="text" class="form-control inputofnumbers" disabled placeholder="750">
+                </div>
+            </div>
 
 
-                                    <div class="col-md-12 d-flex justify-content-between">
-                                        <button type="button" class="btn btn-light" onclick="window.location.href='../Masters/AllDepartments';"><i class="fa fa-angle-double-left"></i> Back</button>
-                                        <button type="submit" class="btn btn-primary">Confirm</button>
-                                    </div>
-                                </div>*@
+            <div class="col-md-12 mt-5 mb-5">
+                <label style="font-size:16px">Total amount to be paid</label><label class="totaltxt ps-2">&#8377;1500</label>
+            </div>
+
+
+            <div class="col-md-12 d-flex justify-content-between">
+                <button type="button" class="btn btn-light" onclick="window.location.href='../Masters/AllDepartments';"><i class="fa fa-angle-double-left"></i> Back</button>
+                <button type="submit" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>*@
 
                             <div class="col-12 ">
                                 @*<div class="col-12"><label class="headtxt">Purchase</label></div>*@
@@ -203,91 +207,58 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12 d-flex flex-wrap ">
-                                        <div class="col-md-4 d-flex justify-content-center equaldiv">
-                                            <div class="col-md-9 pt-3">
-                                                <label>2.</label><label class="ps-4 pt-2">DSC Sign</label>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-4 d-flex justify-content-center equaldiv">
-                                            <div class="col-md-9 d-flex flex-wrap pt-3">
-                                                <div class="col-12">
-                                                    <label>Quantity</label>
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" class="form-control styleinput">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 d-flex justify-content-center">
-                                            <div class="col-md-9 d-flex flex-wrap pt-3">
-                                                <div class="col-12">
-                                                    <label>Amount</label>
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" class="form-control styleinput" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                     <div class="col-12 d-flex justify-content-end mt-5">
-                                        <button type="button" class="btn btn-primary">Proceed</button>
+                                        <button type="button" class="btn btn-primary" id="proceedBtn">Proceed</button>
                                     </div>
 
                                 </div>
                             </div>
 
+                            <div class="amountGrid" style="display:none">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item</th>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th class="righttxt">Cost (&#8377)</th>
+                                                    <th class="righttxt">GST (&#8377)</th>
+                                                    <th class="righttxt">Total (&#8377)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="boldtxt">Aadhaar eSign</td>
+                                                    <td></td>
+                                                    <td>10</td>
+                                                    <td class="righttxt">250</td>
+                                                    <td class="righttxt">45</td>
+                                                    <td class="righttxt">295</td>
+                                                </tr>
 
-                            <div class="col-12">
-                                <div class="body table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Item</th>
-                                                <th>Description</th>
-                                                <th>Quantity</th>
-                                                <th class="righttxt">Cost (&#8377)</th>
-                                                <th class="righttxt">GST (&#8377)</th>
-                                                <th class="righttxt">Total (&#8377)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="boldtxt">Aadhaar eSign</td>
-                                                <td></td>
-                                                <td>10</td>
-                                                <td class="righttxt">250</td>
-                                                <td class="righttxt">45</td>
-                                                <td class="righttxt">295</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="boldtxt">DSC Sign</td>
-                                                <td></td>
-                                                <td>10</td>
-                                                <td class="righttxt">250</td>
-                                                <td class="righttxt">45</td>
-                                                <td class="righttxt">295</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2" class="invisibletd"></td>
-                                                <td tabindex="1" class="boldtxt ">Grand Total (&#8377)</td>
-                                                <td class="righttxt">250</td>
-                                                <td class="righttxt">45</td>
-                                                <td class="righttxt">295</td>
-                                            </tr>
+                                                <tr>
+                                                    <td colspan="2" class="invisibletd"></td>
+                                                    <td tabindex="1" class="boldtxt ">Grand Total (&#8377)</td>
+                                                    <td class="righttxt">250</td>
+                                                    <td class="righttxt">45</td>
+                                                    <td class="righttxt">295</td>
+                                                </tr>
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-12 d-flex justify-content-end mt-2">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentGateway">Proceed to Payment</button>
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="col-12 d-flex justify-content-end">
-                            <button type="button" id="paymentProceed" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentGateway">Proceed to Payment</button>
-                        </div>
+                       
 
                 </div>
 
@@ -331,11 +302,14 @@
     </div>
 </div>
     </div>
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
 <script>
 
     $(document).ready(function () {
-        $("#paymentProceed").click() {
+        $("#proceedBtn").click(function () {
+            $(".amountGrid").css('display', 'block');
 
-        }
+        })
     })
 </script>
