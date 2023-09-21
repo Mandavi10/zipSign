@@ -10211,3 +10211,7 @@ div.dataTables_filter {
     -webkit-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 }
+
+.searchokBtn {
+    padding: 3px 10px !important;
+}
