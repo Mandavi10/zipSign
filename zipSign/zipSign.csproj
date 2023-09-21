@@ -275,6 +275,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
     <Compile Include="Controllers\zipSignController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -655,6 +656,7 @@
     <Content Include="Views\zipSign\ZipSignTest.cshtml" />
     <Content Include="Views\NSDL\PDFSignature.cshtml" />
     <Content Include="Views\NSDL\Page_Load.cshtml" />
+    <Content Include="Views\MySigns\SignUses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
