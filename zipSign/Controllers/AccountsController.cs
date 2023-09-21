@@ -13,5 +13,9 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        public ActionResult TransactionDetails()
+        {
+            return View();
+        }
     }
 }
