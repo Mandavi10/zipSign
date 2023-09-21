@@ -29,8 +29,13 @@
         //{ headerName: 'Document Received On', field: 'ron', width: 200, suppressMovable: true, sortable: true, },
         //{ headerName: 'Document Signed On', field: 'son', width: 200, suppressMovable: true, sortable: true, },
         {
-            headerName: 'Action', field: '', width: 230, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
-                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>'
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button>'
+            }
+        },
+        {
+            headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<span class="fa fa-trash gridIcon" id=""></span>'
             }
         },
     ];
