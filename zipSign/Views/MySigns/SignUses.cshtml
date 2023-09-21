@@ -8,10 +8,9 @@
     var columnDefs = [
         { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Transaction ID', field: 'transID', width: 130, resizable: false, sortable: true, suppressMovable: true  },
-        { headerName: 'Entity Name', field: 'entityName', width: 150, resizable: false, sortable: true, suppressMovable: true  },
+        { headerName: 'Entity Name', field: 'entityName', width: 250, resizable: false, sortable: true, suppressMovable: true  },
         { headerName: 'Entity ID', field: 'entityID', width: 110, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Purchase Date', field: 'purchaseDate', width: 130, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Expiry Date', field: 'expireDate', width: 110, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Date', field: 'purchaseDate', width: 130, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'status', width: 100, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Balance eSign', field: 'balanceSign', width: 130, resizable: false, sortable: true, suppressMovable: true },
         {
@@ -22,8 +21,8 @@
     ];
 
     var rowData = [
-        { srNo: '1', stype: 'eSign Aadhaar', dname: 'document 1', sDate: '15/06/2023' },
-        { srNo: '2', stype: 'eSign Aadhaar', dname: 'document 2', sDate: '16/06/2023' },
+        { srNo: '1', transID: '236541258454', entityName: 'Entity 1', entityID: '545699669', purchaseDate: '12/09/2023', expireDate: '22/09/2023', status: 'Active', balanceSign: '2' },
+        { srNo: '2', transID: '236546321542', entityName: 'Entity 2', entityID: '363215488', purchaseDate: '01/10/2023', expireDate: '10/10/2023', status: 'Active', balanceSign: '1' },
 
     ];
 
@@ -44,10 +43,6 @@
         max-width: 1024px !important;
     }
 
-    .lowfw {
-        font-family: Roboto-Regualr;
-    }
-
 
     .fixeddiv {
         position: absolute;
@@ -59,11 +54,11 @@
     <div class="block-header">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <h2>Sign Uses </h2>
+                <h2>Sign Usage Log</h2>
                 <ul class="breadcrumb">
                     @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
                     <li class="breadcrumb-item">Buy More Sign</li>
-                    <li class="breadcrumb-item active">Sign Uses</li>
+                    <li class="breadcrumb-item active">Sign Usage Log</li>
                 </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
@@ -140,7 +135,7 @@
                                 <label class="text-input1 highfw">Trnsaction ID:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">236541258454</label>
                             </div>
                         </div>
                     </div>
@@ -150,7 +145,7 @@
                                 <label class="text-input1 highfw">Corporate Name:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">Corporate 1</label>
                             </div>
                         </div>
                     </div>
@@ -160,37 +155,28 @@
                                 <label class="text-input1 highfw">Corporate ID:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">362541855533</label>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 col-12 mt-2">
                         <div class="form-group d-flex flex-wrap">
                             <div class="col-md-5 col-12">
-                                <label class="text-input1 highfw">Purchase Date:</label>
+                                <label class="text-input1 highfw">Date:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">12/09/2023</label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-12 mt-2">
-                        <div class="form-group d-flex flex-wrap">
-                            <div class="col-md-5 col-12">
-                                <label class="text-input1 highfw">Expiry Date:</label>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
-                            </div>
-                        </div>
-                    </div>
+                
                     <div class="col-md-4 col-12 mt-2">
                         <div class="form-group d-flex flex-wrap">
                             <div class="col-md-5 col-12">
                                 <label class="text-input1 highfw">Status:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">Active</label>
                             </div>
                         </div>
                     </div>
@@ -200,7 +186,7 @@
                                 <label class="text-input1 highfw">eSigns Utilized:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">3</label>
                             </div>
                         </div>
                     </div>
@@ -210,7 +196,7 @@
                                 <label class="text-input1 highfw">No. of Fail:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id=""></label>
+                                <label class="lowfw" id="">1</label>
                             </div>
                         </div>
                     </div>
@@ -220,7 +206,7 @@
                                 <label class="text-input1 highfw">Total Transactions:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="createdby"></label>
+                                <label class="lowfw" id="createdby">3600</label>
                             </div>
                         </div>
                     </div>
@@ -230,7 +216,7 @@
                                 <label class="text-input1 highfw">Balance eSigns:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="createdon"></label>
+                                <label class="lowfw" id="createdon">1</label>
                             </div>
                         </div>
                     </div>

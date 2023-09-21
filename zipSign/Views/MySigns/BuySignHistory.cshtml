@@ -1,0 +1,124 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Purchase ID', field: 'pID', width: 150, resizable: false, sortable: true, suppressMovable: true  },
+        { headerName: 'Sign Type', field: 'stype', width: 140, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Purchase Date', field: 'pdate', width: 130, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Expiry Date', field: 'edate', width: 120, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Purchase Value (in Rs.)', field: 'pval', width: 190, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Purchase Qty', field: 'pqty', width: 150, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Balance', field: 'bal', width: 90, resizable: false, sortable: true, suppressMovable: true },
+
+    ];
+
+    var rowData = [
+        { srNo: '1', pID: '125854785455', stype: 'eSign Aadhaar', pdate: '12/09/2023', edate: '20/09/2023', pval: '500', pqty: '2', bal: '1' },
+    
+
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+<style>
+    #Signmodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Buy Sign History</h2>
+                <ul class="breadcrumb">
+
+                    <li class="breadcrumb-item">Buy More Sign</li>
+                    <li class="breadcrumb-item active">Sign Usage Log</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+
+
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div id="myGrid" style="height: 70vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

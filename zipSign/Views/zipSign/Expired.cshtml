@@ -7,8 +7,8 @@
 
     var columnDefs = [
         { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'File Name', field: 'dname', width: 250, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Document Name', field: 'aname', width: 250, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'File Name', field: 'dname', width: 280, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Document Name', field: 'aname', width: 300, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'stat', width: 240, resizable: false, suppressMovable: true, sortable: true },
         //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false, sortable: true,suppressMovable: true },
         //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false, sortable: true,suppressMovable: true },
@@ -16,8 +16,13 @@
         //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false, sortable: true,suppressMovable: true },
         //{ headerName: 'Document Expired On', field: 'deo', width: 200, resizable: false, sortable: true, suppressMovable: true},
         {
-            headerName: 'Action', field: '', width: 230, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
-                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>'
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button>'
+            }
+        },
+        {
+            headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<span class="fa fa-trash gridIcon" id=""></span>'
             }
         },
     ];
