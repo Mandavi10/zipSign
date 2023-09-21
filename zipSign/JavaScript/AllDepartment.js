@@ -30,8 +30,8 @@ function GetData(pagecount, keyword) {
     $("#myGrid").html("");
     var columnDefs = [
         { headerName: 'Sr No.', field: 'SR No.', width: 80, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
-        { headerName: 'Department Code', field: 'DepartmentCode', width: 250, resizable: false, suppressMovable: true, sortable: true, cellRenderer: function (params) { return '<a href="#" onclick="Click(\'' + params.data.DepartmentId + '\')" id="EditData">' + params.data.DepartmentCode + '</a>'; }, },
-        { headerName: 'Department Name', field: 'DepartmentName', width: 330, resizable: false, suppressMovable: true, sortable: true },
+        { headerName: 'Department Code', field: 'DepartmentCode', width:  310, resizable: false, suppressMovable: true, sortable: true, cellRenderer: function (params) { return '<a href="#" onclick="Click(\'' + params.data.DepartmentId + '\')" id="EditData">' + params.data.DepartmentCode + '</a>'; }, },
+        { headerName: 'Department Name', field: 'DepartmentName', width: 350, resizable: false, suppressMovable: true, sortable: true },
         //{ headerName: 'Description', field: 'Description', width: 200, resizable: false,suppressMovable: true, sortable: true },
         //{ headerName: 'Created By', field: 'CreatedBy', width: 150, resizable: false,suppressMovable: true, sortable: true },
         //{ headerName: 'Created On', field: 'CreatedOn', width: 150, resizable: false,suppressMovable: true, sortable: true },
@@ -39,9 +39,15 @@ function GetData(pagecount, keyword) {
         //{ headerName: 'Updated On', field: 'UpdatedOn', width: 150, resizable: false,suppressMovable: true, sortable: true },
         { headerName: 'Status', field: 'IsActive', width: 160, resizable: false, suppressMovable: true, sortable: true },
         {
-            headerName: 'Action', field: '', width: 200, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
 
-                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-department-code="' + params.data.DepartmentCode + '" onclick="ShowMore(this)">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>';
+                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-department-code="' + params.data.DepartmentCode + '" onclick="ShowMore(this)">View More</button>';
+            }
+        },
+        {
+            headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
+
+                return '<span class="fa fa-trash gridIcon" id=""></span>';
             }
         },
     ];

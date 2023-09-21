@@ -13,5 +13,14 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        public ActionResult BuySignHistory()
+        {
+            return View();
+        }
+
+        public ActionResult SignTransactionLog()
+        {
+            return View();
+        }
     }
 }

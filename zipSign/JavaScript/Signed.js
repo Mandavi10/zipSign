@@ -11,18 +11,24 @@ function GetDataForSignedPDF(pagecount, keyword) {
     $("#myGrid1").html("");
     var columnDefs = [
         { headerName: 'Sr No.', field: 'DocumentUploadId', width: 80, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'File Name', field: 'Uploaded_Document_Name', width: 250, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Document Name', field: 'DocumentName', width: 250, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'File Name', field: 'Uploaded_Document_Name', width: 300, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Document Name', field: 'DocumentName', width: 320, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'SignStatus', width: 200, resizable: false, sortable: true, suppressMovable: true },
         //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false, sortable: true,suppressMovable: true   },
         //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false, sortable: true,suppressMovable: true   },
         //{ headerName: 'Signing Initiated On', field: 'sio', width: 200, resizable: false, sortable: true, suppressMovable: true   },
         //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false, sortable: true, suppressMovable: true   },
         {
-            headerName: 'Action', field: '', width: 240, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
                 //;
 
-                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-file-Code="' + params.data.DocumentUploadId + '" onclick="ShowMoreForSigned(this)">View More</button> <span class="fa fa-trash gridIcon" id=""></span>';
+                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-file-Code="' + params.data.DocumentUploadId + '" onclick="ShowMoreForSigned(this)">View More</button>';
+            }
+        },
+        {
+            headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
+            
+                return '<span class="fa fa-trash gridIcon" id=""></span>';
             }
         },
     ];

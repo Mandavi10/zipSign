@@ -3455,6 +3455,7 @@ html.fullscreen-bg, html.fullscreen-bg body, html.fullscreen-bg #wrapper {
     padding: 2px 15px 2px 5px;
     font-size: 16px;
     cursor: pointer;
+
 }
 .ag-cell .fa-sign-in {
     color: #648b64;
@@ -10130,7 +10131,7 @@ tbody tr td label{
 }
 
 .lowfw {
-    font-weight: 400;
+    font-family: Roboto-Regular;
 }
 
 .highfw {
