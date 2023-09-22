@@ -172,7 +172,7 @@ function startTimer(duration, display, ismobile) {
             //$('#mobileotp').val('');
 
             //$(".enterotpdiv1").hide();
-            startTimer().hide();
+            //startTimer().hide();
         }
     }, 1000);
 }
@@ -189,12 +189,12 @@ function startTimer1(duration, display, isemail) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         display.text(minutes + ":" + seconds);
         $('#lblemailresend').hide();
-        ////
+
         if (--timer1 < 0) {
             clearInterval(emailTimerIntervalId);
             $('#lblemailresend').show();
             //$('#emailOTP').val('');
-            $(".enterotpdiv2").hide();
+            //$(".enterotpdiv2").hide();
             //  startTimer1().hide();
         }
     }, 1000);
@@ -314,6 +314,7 @@ function SignUp() {
     });
 }
 function SendMobileOTP() {
+    
     var row = '';
     var ValidatorFor = []
     ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile"]);
@@ -338,7 +339,7 @@ function SendMobileOTP() {
     }
     else {
         //
-        
+
         $.ajax({
             url: '/Login/GetSMSData',
             type: 'POST',
@@ -361,7 +362,7 @@ function SendMobileOTP() {
                 $('#verifyBtn').show();
                 //$('#timer3').hide();
                 $('#Phoneno').attr('disabled', 'disabled');
-                startTimer(timerDuration, display);
+                startTimer(timerDuration, display, isMobileTimerRunning);
                 $("#lblsmsresend").hide();
                 $(".enterotpdiv1").show();
 
@@ -501,7 +502,7 @@ function VerifyOTP() {
             }
             else if (result === 2) {
                 $("#message").empty();
-                row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;
@@ -509,7 +510,7 @@ function VerifyOTP() {
             }
             else {
                 $("#message").empty();
-                row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;

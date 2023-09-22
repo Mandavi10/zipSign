@@ -1,5 +1,4 @@
-﻿/*purpose------ dated-------author----- * */
-using BusinessDataLayer;
+﻿using BusinessDataLayer;
 using BusinessLayerModel;
 using iTextSharp.text.pdf;
 using Pkcs7pdf_Multiple_EsignService;
@@ -7,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,9 +23,9 @@ namespace zipSign.Controllers
     {
         private string redirectUrl = "";
 
-        private ProcMaster pro = new ProcMaster();
-        private NSDLGetSet nsdlget = new NSDLGetSet();
-        private BusinessDataLayerClass bal = new BusinessDataLayerClass();
+        private readonly ProcMaster pro = new ProcMaster();
+        private readonly NSDLGetSet nsdlget = new NSDLGetSet();
+        private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
         public ActionResult NSDLPageAction(string xmlData)
         {
@@ -34,21 +34,6 @@ namespace zipSign.Controllers
         }
         public ActionResult PDFSignature(AuthViewModel objModel)
         {
-            //string DocID = objModel.Fileid;
-            //HttpCookie cookie = new HttpCookie("myCookie");
-            //cookie.Value = DocID;
-            //Response.Cookies.Add(cookie);
-            //HttpContext.Session["abc"] = DocID;
-            //Session["DocID"] = DocID;
-            //List<DataItems> obj2 = new List<DataItems>();
-            //obj2.Add(new DataItems("UniqueSignerID", objModel.documentid));
-            //obj2.Add(new DataItems("QuerySelector", "CoordinatesCheck"));
-            //statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj2);
-            //int IsSigned = Convert.ToInt32(statusClass.DataFetch.Tables[0].Rows[0]["IsSigned"]);
-
-            //Random rnd = new Random();
-            //string CreateText = rnd.Next(100000, 999999).ToString();
-            //   PageLoad();
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             string documentid = objModel.UploadedDocumentId;
             _ = $"{System.Configuration.ConfigurationManager.AppSettings["ConsumePath"]}{objModel.File}";
@@ -59,13 +44,12 @@ namespace zipSign.Controllers
             string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt";
             int pageCount = GetPdfPageCount(pdfPath);
             int Coordinates = objModel.Coordinates;
-            //CreatePageSequenceFile(txtFilePath, pageCount);
             string ekycId = "";// Aadhar number token /UID ID 72 digit its optional field
             string aspId = "ASPYSPLMUMTEST223";
             string authMode = "1";
-            string fileId = objModel.Fileid;
-            //string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
-            string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            _ = objModel.Fileid;
+            string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             string certificatePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\DSC_.p12\\YoekiDSC1.p12";
             string certificatePassward = "Creative0786!@#";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
@@ -185,18 +169,6 @@ namespace zipSign.Controllers
             }
 
         }
-
-        //static void CreatePageSequenceFile(string filePath, int pageCount)
-        //{
-        //    using (StreamWriter writer = new StreamWriter(filePath))
-        //    {
-        //        for (int page = 1; page <= pageCount; page++)
-        //        {
-        //            //writer.Write($"{page}{(page != pageCount ? "-10,10,50,150;" : "")}");
-        //            writer.Write($"{page}-10,10,50,150;");
-        //        }
-        //    }
-        //}
         public JsonResult CreatePageSequenceFile(string txtFilePath, int pageCount, int Coordinates, string documentid, string pdfPath, string TraceNumber)
         {
             using (StreamWriter writer = new StreamWriter(txtFilePath))
@@ -257,12 +229,9 @@ namespace zipSign.Controllers
             }
             return randomCode;
         }
-        public ActionResult Page_Load(AuthViewModel objModel, string filePathfromUpload)
+        public ActionResult Page_Load(string filePathfromUpload)
         {
-            //var DocID = Session["DocID"];
-
-
-            string pdfPath1 = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + filePathfromUpload;
+            _ = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + filePathfromUpload;
             string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
             string filePath = filePathfromUpload.Replace('/', '\\').TrimStart('\\'); // Replace forward slashes with backslashes
             string pdfReadServerPath = Path.Combine(baseDirectory, filePath);
@@ -284,7 +253,6 @@ namespace zipSign.Controllers
             string outputFinalPdfPath = "" /*@"D:\Project\ZipSign_New\zipSign\zipSign\NSDL_Request_Response\NSDL_Final_SignedPDF\"*/;
             try
             {
-                // get ResonseXml 
                 string responseXml = Request.Unvalidated["msg"].ToString();
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(responseXml);
@@ -307,7 +275,7 @@ namespace zipSign.Controllers
                     {
                         string errorCode = match.Groups[1].Value;
                         string errorMessage = match.Groups[2].Value;
-                        getCertificateFromRequestWithCancel(unsignedReqXmlpath, errorCode, errorMessage);
+                        GetCertificateFromRequestWithCancel(unsignedReqXmlpath, errorCode, errorMessage);
                     }
                     if (System.IO.File.Exists(System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt"))
                     {
@@ -352,7 +320,6 @@ namespace zipSign.Controllers
                     if (System.IO.File.Exists(sourceFilePatheSignRequestXml))
                     {
                         string destinationFilePath_RequestXml = Path.Combine(destinationFolderPathreq, PdfName + "_eSignRequestXml.txt");
-                        //string destinationFilePath_responseXML = Path.Combine(destinationFolderPathres, file_withoutExtn + "_responseXML.txt");
                         if (!System.IO.File.Exists(destinationFilePath_RequestXml))
                         {
                             System.IO.File.Move(sourceFilePatheSignRequestXml, destinationFilePath_RequestXml);
@@ -466,7 +433,7 @@ namespace zipSign.Controllers
                     }
                 }
 
-                getCertificateFromResponse(responsexmlPath, FilePath);
+                GetCertificateFromResponse(responsexmlPath, FilePath);
 
             }
             catch (Exception ex)
@@ -557,7 +524,7 @@ namespace zipSign.Controllers
         }
 
 
-        public string getCertificateFromResponse(string xmlFilePath, string FilePath)
+        public string GetCertificateFromResponse(string xmlFilePath, string FilePath)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlFilePath);
@@ -748,12 +715,9 @@ namespace zipSign.Controllers
                 };
 
             }
-
-            //redirectUrl = "http://localhost:50460//zipSign/SigningRequest?FilePath=" + Server.UrlEncode(FilePath);
             return redirectUrl;
-
         }
-        public void getCertificateFromRequestWithCancel(string xmlFilePath, string errorCode, string errorMessage)
+        public void GetCertificateFromRequestWithCancel(string xmlFilePath, string errorCode, string errorMessage)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlFilePath);
@@ -764,8 +728,7 @@ namespace zipSign.Controllers
             {
                 temp = elemList[i].InnerText;
             }
-            string base64EncodedString = temp;// "SGVsbG8gV29ybGQh"; // Replace this with your actual Base64-encoded string
-                                              // Convert the Base64-encoded string to bytes
+            string base64EncodedString = temp;
             byte[] bytes = Convert.FromBase64String(base64EncodedString);
             // Convert the bytes back to the original string
             string originalString = System.Text.Encoding.UTF8.GetString(bytes);
@@ -787,13 +750,12 @@ namespace zipSign.Controllers
                 {
                     string extractedData = originalString.Substring(startIndex, endIndex - startIndex);
                     Console.WriteLine("Extracted Data: " + extractedData);
-                    string input = extractedData;
                     string processedString = "";
                     if (extractedData.EndsWith("1"))
                     {
                         processedString = extractedData.Substring(0, extractedData.Length - 1);
                     }
-                    input = processedString;
+                    string input = processedString;
                     for (int i = 0; i < input.Length; i++)
                     {
                         if (char.IsUpper(input[i]))
@@ -842,58 +804,25 @@ namespace zipSign.Controllers
             {
                 status = statusClass.StatusCode
             };
-            //retur();
         }
-        //public JsonResult SendVerifyLinkByEmail(string Email, string fileid, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
-        //{
-        //    using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
-        //    {
-        //        Email = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
-        //        fileid = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileid));
-        //        SignerName = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(SignerName));
-        //        //SignerID = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToInt32(SignerID));
-        //        FilePath = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(FilePath));
-        //        UploadedDocumentId = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UploadedDocumentId));
-        //        msg.Subject = "Invitation to eSign the document";
-        //        string mss = "http://localhost:50460/Login/SignLogin";
-        //        string urlWithEncodedFileId = mss + "?Emailid=" + Email + "&File=" + FilePath + "&Fileid=" + fileid + "&SignerName=" + SignerName + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
-        //        DateTime expirationDate = DateTime.Today.AddDays(3);
-        //        string linkText = "Click here to view & sign the document";
-        //        string linkHtml = $"<a href=\"{urlWithEncodedFileId}\">{linkText}</a>";
-        //        string messageWithExpiration = $"This link will expire on {expirationDate:d}. Please make sure to sign the document before that date.";
-        //        msg.Body = $"{linkHtml}<br/><br/>{messageWithExpiration}";
-        //        msg.IsBodyHtml = true;
-        //        SmtpClient smtp = new SmtpClient();
-        //        smtp.Host = "smtp.gmail.com";
-        //        smtp.EnableSsl = true;
-        //        NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = networkCredential;
-        //        smtp.Port = 587;
-        //        smtp.Send(msg);
-
-        //        return Json("");
-        //    }
-        //}
-
         public JsonResult SendVerifyLinkByEmail(string Email, string fileid, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
         {
             string FileName = Path.GetFileNameWithoutExtension(FilePath);
             string OriginalSignerName = SignerName;
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
+                msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
                 Email = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
                 fileid = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileid));
                 SignerName = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(SignerName));
-                //SignerID = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToInt32(SignerID));
                 FilePath = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(FilePath));
-                UploadedDocumentId = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UploadedDocumentId));
-                msg.Subject = "Invitation to eSign the document";
-                //string mss = "http://localhost:50460/Login/SignLogin";
-                string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
-                string urlWithEncodedFileId = mss + "?Emailid=" + Email + "&File=" + FilePath + "&Fileid=" + fileid + "&SignerName=" + SignerName + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
-                DateTime expirationDate = DateTime.Today.AddDays(3);
-                string linkText = "Accept Invitation";
+                Guid uniqueIdentifier = Guid.NewGuid();
+                // Store the mapping between the identifier and the parameters in your database
+                StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId);
+                msg.Subject = "Invitation to Electronically Sign a Document";
+                string mss = "http://localhost:50460/Login/SignLogin";
+                string urlWithEncodedFileId = $"{mss}?UId={uniqueIdentifier}";
+
                 string message = $@"
 <!DOCTYPE html>
 <html>
@@ -904,19 +833,21 @@ namespace zipSign.Controllers
     margin: 0;
     padding: 0;
     background-color: #f5f5f5;
-text-align: left;
+    text-align: left;
   }}
   
   .container {{
     max-width: 600px;
-   
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: left; /* Align content to the left within the container */
+    padding: 20px;
   }}
   
   h1 {{
     color: #007BFF;
+    font-size: 24px;
+    margin-bottom: 20px;
   }}
   
   p {{
@@ -925,29 +856,30 @@ text-align: left;
     margin-bottom: 20px;
   }}
   
+  a {{
+    color: #007BFF;
+    text-decoration: none;
+  }}
+  
   .disclaimer {{
     color: #999;
     font-size: 12px;
-  }}
-  
-  .footer {{
-    background-color: #007BFF;
-    color: #fff;
-    padding: 9px 0;
-    text-align: left; /* Align footer content to the left */
+    margin-top: 20px;
   }}
 </style>
 </head>
 <body>
 <div class='container'>
-  <p>Dear {OriginalSignerName},</p>
-  <p>You've received an invitation from {{Sender Name}} to electronically sign the document titled {FileName}.</p>
-  <h1 style='color: #007BFF; font-size: 18px;'>Click on the Link: <a href='{urlWithEncodedFileId}'>{linkText}</a></h1>
-  <p class='disclaimer'>This is an auto generated message, please do not reply.</p>
-  <p class='disclaimer'>In case you encounter any issues, feel free to contact us at <a href='mailto:customersupport@zipsign.com'>customersupport@zipsign.com</a>.</p>
+  <h1>Dear {OriginalSignerName},</h1>
+  <p>You've received an invitation from Team zipSign to electronically sign the document:</p>
+  <p><strong>{FileName}</strong></p>
+  <p>To accept the invitation and sign the document, please click on the following link:</p>
+  <p><a href='{urlWithEncodedFileId}'>Accept Invitation</a></p>
+  <p>If you encounter any issues or have any questions, feel free to contact our support team at <a href='mailto:customersupport@zipsign.com'>customersupport@zipsign.com</a>.</p>
   <p>Thank you for choosing zipSign!</p>
-  <p class='disclaimer'>Sincerely,</p>
-  <p class='disclaimer'>Team zipSign</p>
+  <div class='disclaimer'>
+    <p><em>This is an automated message. Please do not reply to this email.</em></p>
+  </div>
 </div>
 </body>
 </html>";
@@ -976,50 +908,56 @@ text-align: left;
 
         public JsonResult SendEmailAfterSuccess(string Email, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
         {
-            //List<DataItems> obj = new List<DataItems>();
-            //obj.Add(new DataItems("UploadedDocumentId", UploadedDocumentId));
-            //obj.Add(new DataItems("QuerySelector", "SendMultiEmail"));
-            //statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
-
-            //if (statusClass.StatusCode == 1)
-            //{
-            //    Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[1]["SignerEmail"]);
-            //}
-            //for (int i = 0; i <= Email.Count(); i++)
-            //{
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
-
+                msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
                 msg.Subject = "Document Sign Confirmation";
-                string messageWithExpiration = $"Dear {SignerName},";
-                messageWithExpiration += "";
-                messageWithExpiration += "Thankyou for signing the document.";
-                messageWithExpiration += "You can download the document, from the attached link.";
-                //string mss = "http://localhost:50460/zipSign/SigningRequest";
-                string mss = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
-                string urlWithEncodedFileId = mss + "?&FilePath=" + FilePath;
-                //DateTime expirationDate = DateTime.Today.AddDays(3);
-                string linkText = "Click here to download the document";
-                string linkHtml = $"<a href=\"{urlWithEncodedFileId}\">{linkText}</a>";
-                msg.Body = $"{linkHtml}<br/><br/>{messageWithExpiration}";
+
+                string messageWithExpiration = $"Dear {SignerName},\n\n";
+                messageWithExpiration += "Thank you for signing the document.\n\n";
+                messageWithExpiration += "You can download the document from the attached link.\n\n";
+
+                string baseUrl = "http://localhost:50460/zipSign/SigningRequest";
+                string urlWithEncodedFileId = $"{baseUrl}?FilePath={FilePath}";
+
+                string hiddenLink = $"<a href=\"{urlWithEncodedFileId}\" style=\"display: none;\">Download the document</a>";
+                string visibleLink = "<span style=\"color: transparent; font-size: 0;\">Download the document</span>";
+
+                string supportEmail = "support@zipsign.com";
+
+                string disclaimer = "\n\n---\n\n";
+                disclaimer += "This is an automated message. Please do not reply to this email.";
+
+                msg.Body = $"{messageWithExpiration}{hiddenLink} {visibleLink}\n\n";
+                msg.Body += $"If you encounter any issues or have any questions, please do not hesitate to contact our support team at {supportEmail}.\n\n";
+                msg.Body += "Regards,\nTeam zipSign\n\n{disclaimer}";
+
                 msg.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-                smtp.UseDefaultCredentials = true;
+                smtp.UseDefaultCredentials = false; // Set to false to use network credentials
                 smtp.Credentials = networkCredential;
                 smtp.Port = 587;
+
                 smtp.Send(msg);
-                //}
             }
+            redirectUrl = FilePath;
             return Json("");
         }
+
+
+
+
         public JsonResult GetSignerData(string UploadedDocumentId)
         {
             string UploadedDocument = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
 
-            SignMaster Sign = new SignMaster();
+            //SignMaster Sign = new SignMaster();
 
             List<DataItems> obj1 = new List<DataItems>
             {
@@ -1037,50 +975,68 @@ text-align: left;
 
             SignMaster result = new SignMaster();
 
-            List<DataItems> obj1 = new List<DataItems>();
-            obj1.Add(new DataItems("UploadedDocumentId", UploadedDocument));
-            obj1.Add(new DataItems("SignerID", SignerID));
-            obj1.Add(new DataItems("QuerySelector", "UpdateDocInfo"));
+            List<DataItems> obj1 = new List<DataItems>
+            {
+                new DataItems("UploadedDocumentId", UploadedDocument),
+                new DataItems("SignerID", SignerID),
+                new DataItems("QuerySelector", "UpdateDocInfo")
+            };
             statusClass = bal.PostFunction(pro.Sp_SignUpload, obj1);
-            //if(statusClass.StatusCode == 1)
-            //{
-            //    string DocumentName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentName"]);
-            //}
-            ////  string CoordinatesUpdate = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CoordinatesUpdate"]);
-
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetDocumentAllData(string UploadedDocumentId, string SignerID, string SignerName, string Emailid)
+        public JsonResult GetDocumentAllData(string Link)
         {
-            string UploadedDocument = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
-            string SignName = AESEncryption.AESEncryptionClass.DecryptAES(SignerName);
-            string EmailID = AESEncryption.AESEncryptionClass.DecryptAES(Emailid);
-            SignMaster result = new SignMaster();
-
-            List<DataItems> obj1 = new List<DataItems>();
-            obj1.Add(new DataItems("UploadedDocumentId", UploadedDocument));
-            obj1.Add(new DataItems("SignerID", SignerID));
-            obj1.Add(new DataItems("QuerySelector", "GetDocument"));
-            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
-            if (statusClass.StatusCode == 1)
+            List<DataItems> obj1 = new List<DataItems>
             {
-                result.DocumentName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentName"]);
-                result.IsDocumentOpen = Convert.ToInt32(statusClass.DataFetch.Tables[0].Rows[0]["IsDocumentOpened"]);
-                result.DocumentOpenOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentOpenOn"]);
-                result.IsSigned = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["IsSigned"]);
-            }
-            //  string CoordinatesUpdate = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CoordinatesUpdate"]);
-
-            return Json(new { result, UploadedDocument = UploadedDocument, SignName = SignName, EmailID = EmailID }, JsonRequestBehavior.AllowGet);
-            //result.IsDocumentOpen = Convert.ToInt32(statusClass.DataFetch.Tables[0].Rows[0]["IsDocumentOpened"]);
-            //result.DocumentOpenOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentOpenOn"]);
-            //result.IsSigned = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["IsSigned"]);
+                new DataItems("UniqueIdentifier", Link),
+                new DataItems("QuerySelector", "GetDocument")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
+            string EmailID = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]));
+            return Json(new { EmailID }, JsonRequestBehavior.AllowGet);
         }
-        //  string CoordinatesUpdate = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CoordinatesUpdate"]);
+        private void StoreMappingInDatabase(Guid uniqueIdentifier, string email, string fileId, string signerName, int signerId, string filePath, string uploadedDocumentId)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand("INSERT INTO LinkMappings (UniqueIdentifier, Email, FileId, SignerName, SignerId, FilePath, UploadedDocumentId,CreatedOn) VALUES (@UniqueIdentifier, @Email, @FileId, @SignerName, @SignerId, @FilePath, @UploadedDocumentId,@CreatedOn)", connection))
+                {
+                    command.Parameters.AddWithValue("@UniqueIdentifier", uniqueIdentifier);
+                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@FileId", fileId);
+                    command.Parameters.AddWithValue("@SignerName", signerName);
+                    command.Parameters.AddWithValue("@SignerId", signerId);
+                    command.Parameters.AddWithValue("@FilePath", filePath);
+                    command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
+                    command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
+                    //command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
+                    //command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
+                    //command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
+                    int I = command.ExecuteNonQuery();
+                }
+            }
+        }
+        public JsonResult GetDocumentAllData1(string Link)
+        {
+            List<DataItems> obj1 = new List<DataItems>
+            {
+                new DataItems("UniqueIdentifier", Link),
+                new DataItems("QuerySelector", "GetDocument")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
+            string EmailID = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]));
+            string FilePath = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["FilePath"]));
+            string FileID = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["FileID"]));
+            string SignerName = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerName"]));
+            string UploadedDocumentId = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedDocumentId"]);
+            string SignerId = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerId"]);
+            string UploadedFileName = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedFileName"]);
+            _ = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["DocumentUploadId"]);
+            string UploadedOn = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedOn"]);
+            return Json(new { UploadedDocumentId, SignerName, FileID, FilePath, EmailID, SignerId, UploadedFileName, UploadedOn }, JsonRequestBehavior.AllowGet);
+        }
     }
 
 }
-
-
-
-

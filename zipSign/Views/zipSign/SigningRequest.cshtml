@@ -669,7 +669,7 @@
 
                                             <div class="card ">
                                                 <div class="col-md-12">
-                                                    <div class="doc-details">
+                                                    <div class="doc-details" id="hdnuploadedFileID" style="display:none">
                                                         <label class="col-md-12 titletxt" id="uploadedFileID">Document ID :</label>
                                                         <span class="col-md-12"></span>
                                                     </div>
@@ -921,8 +921,12 @@
             <div class="align-items-center row pt-2">
                 <div class="row ps-3 pe-0">
                     <div class="col-lg-12 col-md-12 col-sm-12">
-
-
+                        <input type="hidden" id="hdnFilePath" />
+                        <input type="hidden" id="hdnUploadedDocumentId" />
+                        <input type="hidden" id="hdnSignerId" />
+                        <input type="hidden" id="hdnFileId" />
+                        <input type="hidden" id="hdnEmailId" />
+                        <input type="hidden" id="hdnSignerName" />
                     </div>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <button type="button" class="btn btn-light pull-left" onclick="window.location.href='../zipSign/Upload';"><i class="fa fa-angle-double-left"></i> Back</button>
