@@ -22,6 +22,10 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        public ActionResult RolesAndRights()
+        {
+            return View();
+        }
         public ActionResult RequestSign()
         {
             return View();
