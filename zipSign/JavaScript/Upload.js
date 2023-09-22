@@ -8,10 +8,8 @@ var keyword = $('#searchInput').val();
 var i;
 
 $(document).ready(function () {
-
-    ;
     $('#SendLink').click(function () {
-        ;
+        
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
             return false;
@@ -23,6 +21,7 @@ $(document).ready(function () {
     });
 
     $('#btnok').click(function () {
+        
         SignInsert();
         window.location.href = "/Dashboard/Index2";
     });
@@ -227,7 +226,7 @@ $("#viewrec").click(function () {
     updateGridData();
 });
 function isValidData() {
-    ;
+    
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -240,6 +239,7 @@ function isValidData() {
         if (value !== "") {
             if (uniqueValues[value]) {
                 isDuplicate = true;
+                $(this).focus();
                 return false;
             }
             uniqueValues[value] = true;
@@ -294,9 +294,6 @@ function isValidData() {
     }
 
 }
-
-
-
 function UploadImages(FileUploader, Preview, ColumnName) {
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
@@ -453,10 +450,10 @@ function AddRecipiants(a) {
         $("#hiddena").val(i);
         $("#viewrec").hide();
         RecipientEmail = $("#Email1").val();
-        SendLinkToRecipient(RecipientEmail);
+        //SendLinkToRecipient(RecipientEmail);
     }
     else {
-        //;
+        
         var i = parseInt($("#hiddena").val()) + 1;
         var Recipients = '<div class="d-flex flex-wrap MySigndiv">';
         Recipients += '<div class="col-md-1">';
@@ -503,21 +500,14 @@ function AddRecipiants(a) {
     });
 }
 function updateSignerNumbers() {
-    //
     var signerDivs = $("div.d-flex.flex-wrap.MySigndiv");
-
-    // Iterate over the remaining signer divs and update their signer numbers
     signerDivs.each(function (index) {
-        //;
-        var signerNumber = index + 2; // Signer numbers start from 1
+        var signerNumber = index + 2; 
         $(this).find(".numdiv").text("Signer " + signerNumber);
     });
     var i = i - 1;
     $("#hiddena").val(i);
 }
-
-
-
 function storeRecipientsData() {
     recipientsData = [];
     for (var i = 1; i <= parseInt($("#hiddena").val()); i++) {
@@ -552,14 +542,9 @@ function updateGridData() {
     };
 
     var gridDiv = document.querySelector('#myGrid1');
-
-    // Check if the ag-Grid is already initialized
     if (gridDiv.hasChildNodes()) {
-        // If the grid is already initialized, destroy the existing grid before re-initializing with new data
         agGrid.Grid.destroy(gridDiv);
     }
-
-    // Create the new ag-Grid instance with updated data
     new agGrid.Grid(gridDiv, gridOptions1);
 }
 
@@ -568,7 +553,6 @@ $("#viewrec").click(function () {
     updateGridData();
 });
 function GetData(pagecount, keyword) {
-    //;
     $("#myGrid").html("");
     var columnDefs = [
         { headerName: 'Sr. No.', field: 'Sr. No.', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
@@ -710,7 +694,7 @@ function Delete(DocumentUploadId) {
 
 
 function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId) {
-    ;
+    
     var FilePath = sessionStorage.getItem('LoaclPath');
     $.ajax({
         url: '/NSDL/SendVerifyLinkByEmail',
@@ -733,7 +717,7 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
 }
 
 function SignInsert() {
-    ;
+    
     var fileName = $("#SignImage").val();
     var cleanFileName = fileName.replace(/^.*\\/, "");
     console.log("DocumentName: " + cleanFileName);

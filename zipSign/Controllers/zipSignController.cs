@@ -1,14 +1,13 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
-using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,12 +15,9 @@ namespace zipSign.Controllers
 {
     public class zipSignController : Controller
     {
-        private BusinessDataLayerClass bal = new BusinessDataLayerClass();
+        private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-        private ProcMaster pro = new ProcMaster();
-        //Security objSecurity = new Security();
-
-
+        private readonly ProcMaster pro = new ProcMaster();
         public ActionResult Index()
         {
             return View();
@@ -111,23 +107,24 @@ namespace zipSign.Controllers
             return View();
         }
 
-        //public ActionResult NSDLPage()
-        //{
-        //    return View();
-        //}
-
         [HttpPost]
         public JsonResult SignInsert(SignMaster objsign, string UserType)
         {
-            List<SignMaster> result = new List<SignMaster>();
+            if (objsign == null || string.IsNullOrEmpty(objsign.DocumentName) || string.IsNullOrEmpty(objsign.UploadedDoc) || string.IsNullOrEmpty(objsign.filePath))
+            {
+                var errorResult = new
+                {
+                    status = "101",
+                    message = "Required fields are missing.",
+                };
+                return Json(errorResult, JsonRequestBehavior.AllowGet);
+            }
+            _ = new List<SignMaster>();
             List<DataItems> obj = new List<DataItems>();
             string UniqueSignerID = CreateRandomCode(5);
-
-
             if (UserType == "Single Signer")
             {
                 string UniqueID = "612000" + UniqueSignerID;
-                // Add common document details
                 obj.Add(new DataItems("DocumentName", objsign.DocumentName));
                 obj.Add(new DataItems("UploadedDoc", objsign.UploadedDoc));
                 obj.Add(new DataItems("UploadedFileName", objsign.DocumentName));
@@ -172,6 +169,15 @@ namespace zipSign.Controllers
                     int i = 1;
                     foreach (SignerInfo signer in objsign.signerInfos)
                     {
+                        if (string.IsNullOrEmpty(signer.Name) || string.IsNullOrEmpty(signer.Email) || string.IsNullOrEmpty(signer.MobileNumber) || string.IsNullOrEmpty(signer.signerType) || !Regex.IsMatch(signer.Email, @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$"))
+                        {
+                            var errorResult = new
+                            {
+                                status = "101",
+                                message = "Invalid or missing signer information.",
+                            };
+                            return Json(errorResult, JsonRequestBehavior.AllowGet);
+                        }
                         List<DataItems> obj1 = new List<DataItems>
                         {
                             new DataItems("SignerName", signer.Name),
@@ -204,7 +210,7 @@ namespace zipSign.Controllers
         [HttpPost]
         public ActionResult UploadFiles()
         {
-            List<DataItems> obj = new List<DataItems>();
+            _ = new List<DataItems>();
 
             HttpPostedFileBase file = Request.Files["HelpSectionImages"];
 
@@ -217,12 +223,17 @@ namespace zipSign.Controllers
                 {
                     return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
                 }
+                int maxFileSize = 10 * 1024 * 1024; // 10 MB
+                if (file.ContentLength > maxFileSize)
+                {
+                    return Json(new { status = "File size exceeds the maximum allowed limit." }, JsonRequestBehavior.AllowGet);
+                }
                 string originalFileName = Path.GetFileNameWithoutExtension(file.FileName);
                 string timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
                 string fileName = $"{originalFileName}_{timestamp}_{randomKey}{fileExtension}";
                 string localFilePath = "/Uploads/SignUpload/" + fileName;
                 string filePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), fileName);
-                string tempFilePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), originalFileName + "_temp.pdf");
+                _ = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), originalFileName + "_temp.pdf");
                 try
                 {
                     //file.SaveAs(tempFilePath);
@@ -289,7 +300,6 @@ namespace zipSign.Controllers
         public FileContentResult DownloadExcelFile()
         {
             List<SignMaster> result = new List<SignMaster>();
-            // Retrieve your data and populate the 'result' list
             List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("QuerySelector", "ShowData")
@@ -391,122 +401,15 @@ namespace zipSign.Controllers
                 return Json(result1, JsonRequestBehavior.AllowGet);
             }
         }
-
-        //[HttpPost]
-        //public ActionResult ConvertToPdf()
+        //public ActionResult ProxyExternalContent()
         //{
-        //    var file = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
-
-        //    // Replace "inputWordFilePath" and "outputPdfFilePath" with the actual file paths.
-        //    string inputWordFilePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), file.FileName);
-        //    string outputPdfFilePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"));
-
-        //    try
+        //    using (HttpClient client = new HttpClient())
         //    {
-        //        // Create a new PDF file using FileStream.
-        //        using (var outputStream = new FileStream(outputPdfFilePath, FileMode.Create))
-        //        {
-        //            using (var wordDocument = WordprocessingDocument.Open(inputWordFilePath, false))
-        //            {
-        //                // Create an instance of WordprocessingDocument and open the Word document.
-
-        //                // Create an instance of the PDF part.
-        //                var pdfPart = wordDocument.MainDocumentPart.ConvertToPdf(outputStream);
-
-        //                // Close the PDF part and the Word document.
-        //                pdfPart.PdfDocument.Close();
-        //            }
-        //        }
-
-        //        ViewBag.Message = "File converted successfully!";
+        //        string externalUrl = "https://pregw.esign.egov-nsdl.com/nsdl-esp/authenticate/esign-doc/";
+        //        string content = client.GetStringAsync(externalUrl).Result;
+        //        return Content(content, "text/html");
         //    }
-        //    catch (Exception ex)
-        //    {
-        //        ViewBag.Message = "Error converting the file: " + ex.Message;
-        //    }
-
-        //    return View();
         //}
-
-
-        //public JsonResult GetData1(SignerMaster objsigner)
-        //{
-        //    List<SignerMaster> result = new List<SignerMaster>();
-        //    List<DataItems> obj = new List<DataItems>();
-        //    obj.Add(new DataItems("QueryType", "ShowRecord"));
-        //    statusClass = bal.GetFunctionWithResult(pro.Sp_SignerMaster, obj);
-        //    if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
-        //    {
-        //        foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
-        //        {
-        //            result.Add(new SignerMaster
-        //            {
-        //                SignerName = Convert.ToString(dr["SignerName"]),
-        //                SignerEmail = Convert.ToString(dr["SignerEmail"]),
-        //                SignerMobile = Convert.ToString(dr["SignerMobile"]),
-
-        //            });
-        //        }
-        //        return Json(result, JsonRequestBehavior.AllowGet);
-        //    }
-        //    var result1 = new
-        //    {
-        //        status = "201",
-        //    };
-        //    return Json(result1, JsonRequestBehavior.AllowGet);
-        //}
-        //public ActionResult UploadFiles(SignMaster objsign)
-        //{
-        //    System.Web.HttpPostedFile file = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
-
-        //    if (file != null && file.ContentLength > 0)
-        //    {
-        //        string image = CreateRandomKey();
-        //        string fileExtension = Path.GetExtension(file.FileName).ToLower();
-        //        string[] allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".pdf", ".doc", ".docx" };
-
-        //        if (!allowedExtensions.Contains(fileExtension))
-        //        {
-        //            return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
-        //        }
-
-        //        string fileName = image + fileExtension;
-        //        string filePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), fileName);
-
-        //        if (fileExtension == ".pdf")
-        //        {
-        //            file.SaveAs(filePath);
-        //        }
-        //        else if (fileExtension == ".doc" || fileExtension == ".docx")
-        //        {
-        //            string pdfFilePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), image + ".pdf");
-        //            //ConvertWordToPdf(file.InputStream, pdfFilePath);
-        //            filePath = pdfFilePath;
-        //        }
-        //        else
-        //        {
-        //            string pdfFilePath = Path.Combine(Server.MapPath("~/Uploads/SignUpload"), image + ".pdf");
-        //            //ConvertImageToPdf(file.InputStream, pdfFilePath);
-        //            filePath = pdfFilePath;
-        //        }
-        //        //objsign.filePath = filePath;
-
-        //        return Json(new { status = filePath }, JsonRequestBehavior.AllowGet);
-        //    }
-
-        //    return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
-        //}
-
-
-        public ActionResult ProxyExternalContent()
-        {
-            using (HttpClient client = new HttpClient())
-            {
-                string externalUrl = "https://pregw.esign.egov-nsdl.com/nsdl-esp/authenticate/esign-doc/";
-                string content = client.GetStringAsync(externalUrl).Result;
-                return Content(content, "text/html");
-            }
-        }
 
         public static string CreateRandomCode(int CodeLength)
         {

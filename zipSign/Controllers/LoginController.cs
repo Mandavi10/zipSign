@@ -20,11 +20,11 @@ namespace zipSign.Controllers
     [SessionState(SessionStateBehavior.Required)]
     public class LoginController : Controller
     {
-        private BusinessAccesslayerClass bal = new BusinessAccesslayerClass();
+        private readonly BusinessAccesslayerClass bal = new BusinessAccesslayerClass();
         private CommonStatus statusClass = new CommonStatus();
 
         //Security objSecurity = new Security();
-        private ProcMaster pro = new ProcMaster();
+        private readonly ProcMaster pro = new ProcMaster();
         public ActionResult Index()
         {
             Session["CAPTCHA"] = GetRandomText();
@@ -55,76 +55,6 @@ namespace zipSign.Controllers
         //[ValidateAntiForgeryToken]
 
         [HttpPost]
-        //public JsonResult SignUp(SignUp objSignUpModel, string UserType)
-        //{
-        //    string clientIP = GetClientIP();
-        //    string Password = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Password));
-        //    string PhoneNumber = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Mobile));
-        //    try
-        //    {
-        //        SignUp Data = new SignUp();
-        //        List<DataItems> obj = new List<DataItems>();
-        //        obj.Add(new DataItems("Name", objSignUpModel.Name));
-        //        obj.Add(new DataItems("Email", objSignUpModel.Email));
-        //        obj.Add(new DataItems("MobileNumber", PhoneNumber));
-        //        obj.Add(new DataItems("MobileOTP", objSignUpModel.OTP));
-        //        obj.Add(new DataItems("State", objSignUpModel.State));
-        //        obj.Add(new DataItems("Password", Password));
-        //        obj.Add(new DataItems("UserType", UserType));
-        //        obj.Add(new DataItems("Login_IP_Address", clientIP));
-
-        //        if (UserType == "corporate")
-        //        {
-        //            obj.Add(new DataItems("PAN", objSignUpModel.panNumber));
-        //            obj.Add(new DataItems("CorpName", objSignUpModel.CorpName));
-        //        }
-        //        obj.Add(new DataItems("QueryType", "InsertRecord"));
-        //        statusClass = bal.PostFunction(pro.Signup, obj);
-        //        if (statusClass.StatusCode == 1)
-        //        {
-        //            var result = new
-        //            {
-        //                status = statusClass.StatusCode
-        //            };
-        //            return Json(result, JsonRequestBehavior.AllowGet);
-        //        }
-        //        else if (statusClass.StatusCode == 2)
-        //        {
-        //            var result = new
-        //            {
-        //                status = statusClass.StatusCode, //Duplicate PAN Number
-        //            };
-        //            return Json(result, JsonRequestBehavior.AllowGet);
-        //        }
-        //        else if (statusClass.StatusCode == 3)
-        //        {
-        //            var result = new
-        //            {
-        //                status = statusClass.StatusCode, //Duplicate Email
-        //            };
-        //            return Json(result, JsonRequestBehavior.AllowGet);
-
-        //        }
-        //        else if (statusClass.StatusCode == 4)
-        //        {
-        //            var result = new
-        //            {
-        //                status = statusClass.StatusCode, //Duplicate Phone Number
-        //            };
-        //            return Json(result, JsonRequestBehavior.AllowGet);
-        //        }
-        //    }
-        //    catch
-        //    {
-
-        //    }
-        //    var result1 = new
-        //    {
-        //        status = "101",
-        //    };
-        //    return Json(result1, JsonRequestBehavior.AllowGet);
-        //}
-
         public JsonResult SignUp(SignUp objSignUpModel, string UserType)
         {
             try
@@ -154,14 +84,16 @@ namespace zipSign.Controllers
                     }
                 }
                 SignUp Data = new SignUp();
-                List<DataItems> obj = new List<DataItems>();
-                obj.Add(new DataItems("Name", objSignUpModel.Name));
-                obj.Add(new DataItems("Email", objSignUpModel.Email));
-                obj.Add(new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Mobile))));
-                obj.Add(new DataItems("MobileOTP", objSignUpModel.OTP));
-                obj.Add(new DataItems("State", objSignUpModel.State));
-                obj.Add(new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Password))));
-                obj.Add(new DataItems("UserType", UserType));
+                List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("Name", objSignUpModel.Name),
+                    new DataItems("Email", objSignUpModel.Email),
+                    new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Mobile))),
+                    new DataItems("MobileOTP", objSignUpModel.OTP),
+                    new DataItems("State", objSignUpModel.State),
+                    new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objSignUpModel.Password))),
+                    new DataItems("UserType", UserType)
+                };
                 if (UserType == "corporate")
                 {
                     obj.Add(new DataItems("PAN", objSignUpModel.panNumber));
@@ -231,26 +163,14 @@ namespace zipSign.Controllers
 
         private bool IsValidPassword(string password)
         {
-            // Perform your password validation logic here
-            // For example, you can check for minimum length, special characters, etc.
-            // Replace the following placeholder logic with your actual password validation rules
             return password.Length >= 8;
         }
 
         private bool IsValidPAN(string pan)
         {
-            // Use regex to validate PAN format
             string pattern = @"^[A-Z]{5}[0-9]{4}[A-Z]{1}$";
             return Regex.IsMatch(pan, pattern);
         }
-
-
-
-
-
-
-
-
 
         [HttpPost]
         public JsonResult Login(Login objLoginModel, string captchaInput)
@@ -263,11 +183,13 @@ namespace zipSign.Controllers
                 {
                     SignUp Data = new SignUp();
                     List<Login> result = new List<Login>();
-                    List<DataItems> obj = new List<DataItems>();
-                    obj.Add(new DataItems("Email", objLoginModel.Email));
-                    obj.Add(new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))));
-                    obj.Add(new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))));
-                    obj.Add(new DataItems("QueryType", "LoginData"));
+                    List<DataItems> obj = new List<DataItems>
+                    {
+                        new DataItems("Email", objLoginModel.Email),
+                        new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
+                        new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
+                        new DataItems("QueryType", "LoginData")
+                    };
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                     if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
                     {
@@ -309,8 +231,6 @@ namespace zipSign.Controllers
                 return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
             }
         }
-
-
         private string GetRandomText()
         {
             StringBuilder randomText = new StringBuilder();
@@ -355,17 +275,20 @@ namespace zipSign.Controllers
                 }
             }
         }
+
         [HttpPost]
         public ActionResult GetSMSData(SMSModel Sm)
         {
             Random rnd = new Random();
             string OTP1 = rnd.Next(100000, 999999).ToString();
             Session["otp"] = OTP1;
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("UserName", Sm.CusName));
-            obj.Add(new DataItems("Phoneno", Sm.MobileNo));
-            obj.Add(new DataItems("OTP", OTP1));
-            obj.Add(new DataItems("QueryType", "GetSMSData"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("UserName", Sm.CusName),
+                new DataItems("Phoneno", Sm.MobileNo),
+                new DataItems("OTP", OTP1),
+                new DataItems("QueryType", "GetSMSData")
+            };
             statusClass = bal.GetFunctionWithResult(pro.USP_GetSMSData, obj);
             if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
             {
@@ -469,81 +392,7 @@ namespace zipSign.Controllers
             return Json(result1, JsonRequestBehavior.AllowGet);
 
         }
-        //public JsonResult GetEmailData(string Email)
-        //{
 
-        //    Random rnd = new Random();
-        //    string OTP = rnd.Next(100000, 999999).ToString();
-        //    Session["otp"] = OTP;
-        //    using (System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage("rohan153555@gmail.com", Email))
-        //    {
-        //        msg.Subject = "One Time Password :";
-        //        string mss = "Your One Time Password is:" + OTP;
-        //        msg.Body = mss.ToString();
-        //        msg.IsBodyHtml = true;
-        //        SmtpClient smtp = new SmtpClient();
-        //        smtp.Host = "smtp.gmail.com";
-        //        smtp.EnableSsl = true;
-        //        NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = networkCredential;
-        //        smtp.Port = 587;
-        //        smtp.Send(msg);
-        //        return Json("OTP send successfully !", OTP);
-        //    }
-        //}
-
-        //public JsonResult GetEmailData(string Email)
-        //{
-        //    Random rnd = new Random();
-        //    string OTP = rnd.Next(100000, 999999).ToString();
-        //    Session["otp"] = OTP;
-        //    using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
-        //    {
-        //        msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-        //        msg.Subject = "Your One Time Password (OTP) for Account Verification";
-        //        string message = "<html>";
-        //        message += "<head>";
-        //        message += "<style>";
-        //        message += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }";
-        //        message += ".container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
-        //        message += "h1 { color: #007BFF; }";
-
-        //        message += "p { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }";
-        //        message += ".disclaimer { color: #999; font-size: 12px; }";
-        //        message += ".footer { background-color: #007BFF; color: #fff; padding: 09px 0; text-align: center; }";
-        //        message += "</style>";
-        //        message += "</head>";
-        //        message += "<body>";
-        //        message += "<div class='container'>";
-        //        message += "<h1>Welcome to zipSign</h1>";
-        //        message += "<p>Dear User,</p>";
-        //        message += "<p>Your One Time Password (OTP) for accessing our service is:</p>";
-        //        message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-        //        message += "<p>Please use this OTP to complete your action.</p>";
-        //        message += "<p class='disclaimer'>If you did not request this OTP, please ignore this email.</p>";
-        //        message += "<p>Best regards,</p>";
-        //        message += "<p>Team zipSign</p>";
-        //        message += "<p class='disclaimer'>This is an auto-generated email. Please do not reply to this message.</p>";
-        //        message += "</div>";
-        //        message += "<div class='footer'>";
-        //        message += "<p>&copy; " + DateTime.Now.Year + " zipSign. All rights reserved.</p>";
-        //        message += "</div>";
-        //        message += "</body>";
-        //        message += "</html>";
-        //        msg.Body = message;
-        //        msg.IsBodyHtml = true;
-        //        SmtpClient smtp = new SmtpClient();
-        //        smtp.Host = "smtp.gmail.com";
-        //        smtp.EnableSsl = true;
-        //        NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = networkCredential;
-        //        smtp.Port = 587;
-        //        smtp.Send(msg);
-        //        return Json("OTP sent successfully!", OTP);
-        //    }
-        //}
         //For SignUp
 
         public ActionResult SendOTP(string CusName, string MobileNo, string Email)
@@ -636,33 +485,30 @@ namespace zipSign.Controllers
                 message += "</head>";
                 message += "<body>";
                 message += "<div class='container'>";
-                //message += "<img src='https://imgur.com/I9P7Zms' alt='Background Image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; background-repeat: no-repeat; background-size: cover;' />";
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
                 message += "<p>This password is valid for 10 minutes to complete sign-in, requested 07 September, 2023 at 12:01 PM IST.</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
-                //message += "<p>To Contact Us</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
                 message += "<p class='disclaimer'>Kindly contact our Customer Service Representative: customersupport@zipsign.com</p>";
                 message += "</div>";
-                //message += "<div class='footer'>";
-                //message += "<p>&copy; " + DateTime.Now.Year + " zipSign. All rights reserved.</p>";
                 message += "</div>";
                 message += "</body>";
                 message += "</html>";
                 msg.Body = message;
                 msg.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
                 smtp.Port = 587;
                 smtp.Send(msg);
-                // return Json("OTP sent successfully!", OTP);
             }
         }
 
@@ -688,7 +534,6 @@ namespace zipSign.Controllers
                 message += "</head>";
                 message += "<body>";
                 message += "<div class='container'>";
-                //message += "<img src='https://imgur.com/I9P7Zms' alt='Background Image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; background-repeat: no-repeat; background-size: cover;' />";
                 message += "<p>Dear User,</p>";
                 message += "<p>Thank you for signing up with zipSign. To complete your registration and enjoy all the benefits of our service, please verify your email address by entering the below One Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
@@ -698,16 +543,16 @@ namespace zipSign.Controllers
                 message += "<p class='disclaimer'>Sincerely,</p>";
                 message += "<p class='disclaimer'>Customer Support.</p>";
                 message += "</div>";
-                //message += "<div class='footer'>";
-                //message += "<p>&copy; " + DateTime.Now.Year + " zipSign. All rights reserved.</p>";
                 message += "</div>";
                 message += "</body>";
                 message += "</html>";
                 msg.Body = message;
                 msg.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
@@ -716,9 +561,7 @@ namespace zipSign.Controllers
                 return Json("OTP sent successfully!", OTP);
             }
         }
-
         //For Login
-
         public JsonResult GetEmailDataForLogin(string Email)
         {
             Random rnd = new Random();
@@ -741,27 +584,25 @@ namespace zipSign.Controllers
                 message += "</head>";
                 message += "<body>";
                 message += "<div class='container'>";
-                //message += "<img src='https://imgur.com/I9P7Zms' alt='Background Image' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; background-repeat: no-repeat; background-size: cover;' />";
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
                 message += "<p>This password is valid for 10 minutes to complete sign-in, requested 07 September, 2023 at 12:01 PM IST.</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
-                //message += "<p>To Contact Us</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
                 message += "<p class='disclaimer'>Kindly contact our Customer Service Representative: customersupport@zipsign.com</p>";
                 message += "</div>";
-                //message += "<div class='footer'>";
-                //message += "<p>&copy; " + DateTime.Now.Year + " zipSign. All rights reserved.</p>";
                 message += "</div>";
                 message += "</body>";
                 message += "</html>";
                 msg.Body = message;
                 msg.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
@@ -771,20 +612,80 @@ namespace zipSign.Controllers
             }
         }
 
+        //For SignLogin
+        public JsonResult GetEmailDataForSignLogin(string Email)
+        {
+            Random rnd = new Random();
+            string OTP = rnd.Next(100000, 999999).ToString();
+            Session["otp"] = OTP;
+            using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
+            {
+                msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
+                msg.Subject = "Verify Your Email Address – zipSign";
+
+                string message = "<html>";
+                message += "<head>";
+                message += "<style>";
+                message += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }";
+                message += ".container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
+                message += "h1 { color: #007BFF; }";
+                message += "p { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }";
+                message += ".disclaimer { color: #999; font-size: 12px; }";
+                message += ".footer { background-color: #007BFF; color: #fff; padding: 09px 0; text-align: center; }";
+                message += "</style>";
+                message += "</head>";
+                message += "<body>";
+                message += "<div class='container'>";
+                message += "<p>Dear User,</p>";
+                message += "<p>To complete your registration and enjoy all the benefits of our service, please verify your email address by entering the below One Time Password:</p>";
+                message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
+                message += "<p>Once your email is verified, you'll have full access to your account and can start signing documents securely.</p>";
+                message += "<p class='disclaimer'>If you have any questions or need assistance, please don't hesitate to contact our support team at customersupport@zipsign.com.</p>";
+                message += "<p>Thank you for choosing zipSign!</p>";
+                message += "<p class='disclaimer'>Sincerely,</p>";
+                message += "<p class='disclaimer'>Customer Support</p>";
+                message += "</div>";
+                message += "</body>";
+                message += "</html>";
+
+                msg.Body = message;
+                msg.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
+                NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = networkCredential;
+                smtp.Port = 587;
+                smtp.Send(msg);
+
+                return Json("OTP sent successfully!", OTP);
+            }
+        }
+
+
+
+
+
 
 
         public JsonResult VerifyOTP(string VOTP)
         {
             string LoginIPAddress = GetClientIP();
             object UserMasterId = Session["UserId"];
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("UserMasterID", UserMasterId));
-            obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
-            obj.Add(new DataItems("QueryType", "LoginOTP"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("UserMasterID", UserMasterId),
+                new DataItems("Login_IP_Address", LoginIPAddress),
+                new DataItems("QueryType", "LoginOTP")
+            };
 
             statusClass = bal.PostFunction(pro.Signup, obj);
             string temp = Session["otp"].ToString();
-            int msg = 0;
+            int msg;
             if (temp == VOTP)
             {
                 msg = 1;
@@ -799,9 +700,8 @@ namespace zipSign.Controllers
 
         public JsonResult VerifyMobileOTP(string VOTP)
         {
-            string LoginIPAddress = GetClientIP();
             string temp = Session["otp"].ToString();
-            int msg = 0;
+            int msg;
             if (temp == VOTP)
             {
                 msg = 1;
@@ -814,27 +714,27 @@ namespace zipSign.Controllers
         }
 
 
-        public JsonResult VerifyMobile(string VOTP, string FilePath, string SignerID, string UploadedDocumentId)
+        public JsonResult VerifyMobile(string VOTP)
         {
-            string FilePath1 = AESEncryption.AESEncryptionClass.DecryptAES(FilePath);
+            //string FilePath1 = AESEncryption.AESEncryptionClass.DecryptAES(FilePath);
             //string SignerId = AESEncryption.AESEncryptionClass.DecryptAES(SignerID);
-            string DocumentUploadedId = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
+            //string DocumentUploadedId = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
 
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("SignerID", SignerID));
-            obj.Add(new DataItems("UploadedDocumentId", DocumentUploadedId));
-            obj.Add(new DataItems("QuerySelector", "CheckDocSigned"));
-            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
-            int Status = statusClass.StatusCode;
-            string SignedPDF = "";
-            if (statusClass.StatusCode == 1)
-            {
-                SignedPDF = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignedPDFPath"]);
-            }
+            // List<DataItems> obj = new List<DataItems>();
+            //obj.Add(new DataItems("SignerID", SignerID));
+            //obj.Add(new DataItems("UploadedDocumentId", DocumentUploadedId));
+            //obj.Add(new DataItems("QuerySelector", "CheckDocSigned"));
+            //statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
+            //int Status = statusClass.StatusCode;
+            //string SignedPDF = "";
+            //if (statusClass.StatusCode == 1)
+            //{
+            //     SignedPDF = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignedPDFPath"]);
+            //}
 
-            string LoginIPAddress = GetClientIP();
+            _ = GetClientIP();
             string temp = Session["otp"].ToString();
-            int msg = 0;
+            int msg;
             if (temp == VOTP)
             {
                 msg = 1;
@@ -844,33 +744,15 @@ namespace zipSign.Controllers
                 msg = 2;
             }
 
-            return Json(new { Status = Status, msg = msg, Path = FilePath1, SignerId = SignerID, DocumentUploadedId = DocumentUploadedId, SignedPDF = SignedPDF }, JsonRequestBehavior.AllowGet);
+            return Json(new { msg, }, JsonRequestBehavior.AllowGet);
             //return Json(msg, FilePath);
         }
 
-        //public JsonResult VerifyMobile(string VOTP, string FilePath)
-        //{
-        //    string FilePath1 = AESEncryption.AESEncryptionClass.DecryptAES(FilePath);
-        //    string LoginIPAddress = GetClientIP();
-        //    string temp = Session["otp"].ToString();
-        //    int msg = 0;
-        //    if (temp == VOTP)
-        //    {
-        //        msg = 1;
-        //    }
-        //    else
-        //    {
-        //        msg = 2;
-        //    }
 
-        //    return Json(new { msg = msg, Path = FilePath1 }, JsonRequestBehavior.AllowGet);
-        //    //return Json(msg, FilePath);
-        //}
         public JsonResult VerifyEmailOTP(string VOTP)
         {
             string temp = Session["otp"].ToString();
-            int msg = 0;
-
+            int msg;
             if (temp == VOTP)
             {
                 msg = 1;
@@ -881,28 +763,7 @@ namespace zipSign.Controllers
             }
             return Json(msg);
         }
-        //public JsonResult SendVerfifyLinkByEmail(string Email, string fileId)
-        //{
-        //    using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
-        //    {
-        //        string Emailid = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
-        //        String File = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileId));
-        //        msg.Subject = "Document for signing";
-        //        string mss = "http://localhost:50460/zipSign/SignatureRequest";
-        //        string urlWithEncodedFileId = mss + "?File=" + File;
-        //        msg.Body = urlWithEncodedFileId.ToString();
-        //        msg.IsBodyHtml = true;
-        //        SmtpClient smtp = new SmtpClient();
-        //        smtp.Host = "smtp.gmail.com";
-        //        smtp.EnableSsl = true;
-        //        NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-        //        smtp.UseDefaultCredentials = true;
-        //        smtp.Credentials = networkCredential;
-        //        smtp.Port = 587;
-        //        smtp.Send(msg);
-        //        return Json("");
-        //    }s
-        //}
+
         public JsonResult SendVerifyLinkByEmail(string Email, string fileId, int expday)
         {
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
@@ -919,9 +780,11 @@ namespace zipSign.Controllers
                 string messageWithExpiration = $"This link will expire on {expirationDate:d}. Please make sure to sign the document before that date.";
                 msg.Body = $"{linkHtml}<br/><br/>{messageWithExpiration}";
                 msg.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = networkCredential;
@@ -932,53 +795,9 @@ namespace zipSign.Controllers
             }
         }
 
-        //public JsonResult SendEmailAfterSuccess(string Email, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
-        //{
-        //    List<DataItems> obj = new List<DataItems>();
-        //    obj.Add(new DataItems("UploadedDocumentId", UploadedDocumentId));
-        //    obj.Add(new DataItems("QuerySelector", "SendMultiEmail"));
-        //    statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
 
-        //    if (statusClass.StatusCode == 1)
-        //    {
-        //        Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
-        //    }
-        //    for (int i = 0; i <= Email.Count(); i++)
-        //    {
-        //        using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
-        //        {
-        //            //Email = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
-        //            //fileid = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileid));
-        //            //SignerName = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(SignerName));
-        //            ////SignerID = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToInt32(SignerID));
-        //            //FilePath = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(FilePath));
-        //            //UploadedDocumentId = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UploadedDocumentId));
-        //            msg.Subject = "Document Sign Confirmation";
-        //            string messageWithExpiration = $"Dear User,";
-        //            messageWithExpiration += "";
-        //            messageWithExpiration += "Thankyou for signing the document.";
-        //            messageWithExpiration += "You can download the document, from the attached link.";
-        //            string mss = "http://localhost:50460/";
-        //            //string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
-        //            string urlWithEncodedFileId = mss + "?&File=" + FilePath;
-        //            //DateTime expirationDate = DateTime.Today.AddDays(3);
-        //            string linkText = "Click here to download the document";
-        //            string linkHtml = $"<a href=\"{urlWithEncodedFileId}\">{linkText}</a>";
-        //            msg.Body = $"{linkHtml}<br/><br/>{messageWithExpiration}";
-        //            msg.IsBodyHtml = true;
-        //            SmtpClient smtp = new SmtpClient();
-        //            smtp.Host = "smtp.gmail.com";
-        //            smtp.EnableSsl = true;
-        //            NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-        //            smtp.UseDefaultCredentials = true;
-        //            smtp.Credentials = networkCredential;
-        //            smtp.Port = 587;
-        //            smtp.Send(msg);
 
-        //        }
-        //    }
-        //    return Json("");
-        //}
+
 
 
         public ActionResult SignOut(string UserMasterID)
