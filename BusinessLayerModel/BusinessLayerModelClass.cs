@@ -14,6 +14,7 @@ namespace BusinessLayerModel
         public string Mobile { get; set; }
         public string State { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public string panNumber { get; set; }
         public string CorpName { get; set; }
         public object Ref1 { get; set; }

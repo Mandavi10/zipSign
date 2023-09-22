@@ -172,7 +172,7 @@ function startTimer(duration, display, ismobile) {
             //$('#mobileotp').val('');
 
             //$(".enterotpdiv1").hide();
-            startTimer().hide();
+            //startTimer().hide();
         }
     }, 1000);
 }
@@ -189,12 +189,12 @@ function startTimer1(duration, display, isemail) {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         display.text(minutes + ":" + seconds);
         $('#lblemailresend').hide();
-        ////
+
         if (--timer1 < 0) {
             clearInterval(emailTimerIntervalId);
             $('#lblemailresend').show();
             //$('#emailOTP').val('');
-            $(".enterotpdiv2").hide();
+            //$(".enterotpdiv2").hide();
             //  startTimer1().hide();
         }
     }, 1000);
@@ -221,6 +221,7 @@ $('#lblsmsresend').click(function () {
     $(".verifybtn1").hide();
 })
 function SignUp() {
+    var row = '';
     $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
         $("#message").empty();
         row = '';
@@ -228,7 +229,7 @@ function SignUp() {
     $("#State").on('change', function () {
         $("#message").empty(); // Clear the message when a state is selected
     });
-    var row = '';
+
     var UserType = $('input[name="selectone"].selectonerad:checked').val();
     $.ajax({
         type: 'POST',
@@ -243,18 +244,19 @@ function SignUp() {
             MobileOTP: $("mobileotp").val(),
             State: $("#State").val(),
             Password: $("#password").val(),
+            ConfirmPassword: $("#ConfirmPassword").val(),
             panNumber: $("#panNumber").val(),
         },
         success: function (result) {
-            ;
             if (result.status == "Validation failed") {
                 $.each(result.errors, function (index, error) {
                     row += '<div class="alermsg col-md-12 p-1" role="alert">' + error + '</div>';
                     $('#confirmationpopup').modal('hide');
                 });
-            } else if (result.status == "Invalid email format" || result.status == "Invalid mobile format" || result.status == "Invalid PAN format" || result.status == "Invalid password format") {
+            } else if (result.status == "Enter Name" || result.status == "Invalid email format" || result.status == "Mobile Number should be 10 Digits and only starts with 6/7/8/9" || result.status == "Please select state" || result.status == "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" || result.status == "Invalid Confirm password format" || result.status == "Invalid PAN format" || result.status == "Password and Confirm Password do not match") {
                 row += '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
                 $('#confirmationpopup').modal('hide');
+
             } else if (result.status == 1) {
                 $("#UserName").val('');
                 $("#CorpName").val('');
@@ -314,6 +316,7 @@ function SignUp() {
     });
 }
 function SendMobileOTP() {
+
     var row = '';
     var ValidatorFor = []
     ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile"]);
@@ -338,7 +341,7 @@ function SendMobileOTP() {
     }
     else {
         //
-        
+
         $.ajax({
             url: '/Login/GetSMSData',
             type: 'POST',
@@ -361,7 +364,7 @@ function SendMobileOTP() {
                 $('#verifyBtn').show();
                 //$('#timer3').hide();
                 $('#Phoneno').attr('disabled', 'disabled');
-                startTimer(timerDuration, display);
+                startTimer(timerDuration, display, isMobileTimerRunning);
                 $("#lblsmsresend").hide();
                 $(".enterotpdiv1").show();
 
@@ -501,7 +504,7 @@ function VerifyOTP() {
             }
             else if (result === 2) {
                 $("#message").empty();
-                row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;
@@ -509,7 +512,7 @@ function VerifyOTP() {
             }
             else {
                 $("#message").empty();
-                row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;
@@ -585,7 +588,6 @@ function VerifyEmailOTP() {
     return isVerified;
 }
 function isValidData() {
-    //
     var row = '';
     $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
         $("#message").empty();

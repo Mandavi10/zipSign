@@ -59,13 +59,15 @@ $('#lblresend').click(function () {
 })
 //Login Function
 function Login() {
-
+    //;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
     });
-    //;
     validations();
+    if (isvalidate === 0) {
+        return false;
+    }
     var textbox = $("#email").val();
     var password = $("#password").val();
     window.textbox1 = textbox;
@@ -79,7 +81,6 @@ function Login() {
             Mobile: textbox,
             Password: password,
         },
-
         success: function (result) {
             //;
             if (result && result.length > 0) {
@@ -99,9 +100,6 @@ function Login() {
                     $("#txtphone").val(mobile));
 
                 SendLoginEmailOTP(email, username, mobile);
-
-
-
 
                 //To check if Textbox is filled With Email Or Mobile
                 //var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -124,16 +122,30 @@ function Login() {
                 //    startTimer(timerDuration, display);
                 //}
             }
-            else if (isvalidate === 0) {
-                return false;
-            }
-            else if (result.success === false) {
-                $("#message").empty();
-                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
-                $("#message").append(row);
-                //ReloadCaptcha();
-                $("#signin-password").val('');
-                return false;
+            //else if (isvalidate === 0) {
+            //    return false;
+            //}
+            else if (typeof result.status === 'string') {
+                if (result.status == "Validation failed") {
+                    // Handle validation errors
+                    $.each(result.errors, function (index, error) {
+                        row += '<div class="alermsg col-md-12 p-1" role="alert">' + error + '</div>';
+                        $('#confirmationpopup').modal('hide');
+                    });
+                }
+                else if (result.status == "Email/Mobile can't Empty" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
+                    // Handle the "Email/Mobile can't Empty" case
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
+                    $("#message").append(row);
+                }
+                else if (result.success === false) {
+                    $("#message").empty();
+                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
+                    $("#message").append(row);
+                    //ReloadCaptcha();
+                    $("#signin-password").val('');
+                    return false;
+                }
             }
             else {
                 var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
@@ -180,7 +192,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
                     localPart = localPart[0] + xChars + localPart[localPart.length - 1];
                 }
                 var formattedEmail = localPart + domainPart;
-                var formattedMobile = "xxxxx" +"xxx00";
+                var formattedMobile = "xxxxx" + "xxx00";
 
                 var span = $("#lblemail .enterddata");
                 span.text("Please enter the OTP sent to " + formattedEmail + " or ending in " + formattedMobile);
@@ -223,7 +235,7 @@ function SendLoginMobileOTP(username, textbox) {
     });
 }
 function validations() {
-
+    //;
     var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     var mobileRegex = /^\d{10}$/;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
