@@ -659,13 +659,11 @@
     <Content Include="Views\NSDL\Page_Load.cshtml" />
     <Content Include="Views\Accounts\TransactionDetails.cshtml" />
     <Content Include="Views\MySigns\SignUses.cshtml" />
-
     <Content Include="Views\MySigns\SignPricingMechanism.cshtml" />
     <Content Include="Views\MySigns\SignsPricing.cshtml" />
-
     <Content Include="Views\MySigns\BuySignHistory.cshtml" />
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
-
+    <Content Include="Views\zipSign\RolesAndRights.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
