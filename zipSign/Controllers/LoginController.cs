@@ -536,7 +536,8 @@ namespace zipSign.Controllers
                     }
                 }
             }
-            var result1 = new
+
+            _ = new
             {
                 status = "201",
             };
@@ -941,6 +942,21 @@ namespace zipSign.Controllers
             statusClass = bal.PostFunction(pro.Signup, obj);
             return Json(new { success = true });
         }
+
+
+        public ActionResult ForgotPassword(string Email)
+        {
+            List<DataItems> obj = new List<DataItems>();
+            string clientIP = GetClientIP();
+            obj.Add(new DataItems("LogOut_IP_Address", clientIP));
+            obj.Add(new DataItems("UserMasterID", Email));
+            obj.Add(new DataItems("QueryType", "SignOut"));
+            statusClass = bal.PostFunction(pro.Signup, obj);
+            return Json(new { success = true });
+        }
+
+
+
 
     }
 }

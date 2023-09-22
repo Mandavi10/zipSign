@@ -798,9 +798,7 @@ namespace zipSign.Controllers
                 new DataItems("QueryType", "SaveLog")
             };
             statusClass = bal.PostFunction(pro.SignatureResponseLog, obj);
-
-
-            var result1 = new
+            _ = new
             {
                 status = statusClass.StatusCode
             };
