@@ -664,6 +664,7 @@
     <Content Include="Views\MySigns\BuySignHistory.cshtml" />
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
     <Content Include="Views\zipSign\RolesAndRights.cshtml" />
+    <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
