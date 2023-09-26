@@ -493,6 +493,7 @@
     <Content Include="JavaScript\NSDL.js" />
     <Content Include="JavaScript\Page_Load.js" />
     <Content Include="JavaScript\RequestSign.js" />
+    <Content Include="JavaScript\ResetPassword.js" />
     <Content Include="JavaScript\Signed.js" />
     <Content Include="JavaScript\SigningRequest.js" />
     <Content Include="JavaScript\SignUp.js" />
@@ -659,12 +660,13 @@
     <Content Include="Views\NSDL\Page_Load.cshtml" />
     <Content Include="Views\Accounts\TransactionDetails.cshtml" />
     <Content Include="Views\MySigns\SignUses.cshtml" />
-
     <Content Include="Views\MySigns\SignPricingMechanism.cshtml" />
     <Content Include="Views\MySigns\SignsPricing.cshtml" />
-
     <Content Include="Views\MySigns\BuySignHistory.cshtml" />
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
+
+   
+    <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
 
   </ItemGroup>
   <ItemGroup>

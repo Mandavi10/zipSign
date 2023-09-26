@@ -15,6 +15,7 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
+
     var UId = getParameterByName('UId');
     if (UId !== null) {
         
@@ -337,7 +338,7 @@ function RowClickEventHandler1(UId)
         },
         async: false,
         success: function (result) {
-            //;
+
             var EmailID = result.EmailID;
             $("#PreviewSignImage1").attr("src", "");
             $("#PreviewSignImage1").attr("src",result.FilePath);
