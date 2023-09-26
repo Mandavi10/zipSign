@@ -10,7 +10,6 @@ $(document).ready(function () {
         row = '';
     });
 });
-var row = '';
 var isvalidate = 0;
 //To Reload Captcha
 function ReloadCaptcha() {
@@ -341,8 +340,6 @@ function ShowProfile() {
     $("#emailDisplay").text($("#txtemail").val());
     $("#phoneDisplay").text($("#txtmobile").val());
 }
-
-
 function SignOut() {
     UserMasterID = sessionStorage.getItem('UserId')
     $.ajax({
@@ -361,87 +358,74 @@ function SignOut() {
         }
     });
 }
-
 function ForgotPassword() {
+    
     var email = $("#emailresetpassword").val();
+    var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!emailRegex.test(email)) {
+        $("#message").empty();
+        var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Email Format.</div>';
+        $("#message").append(row);
+        $("#emailresetpassword").val('');
+        return false;
+    }
+    else
+    {
+        $.ajax({
+            url: '/Login/ResetPassword',
+            type: 'POST',
+            data: {
+                Email: email,
+            },
+            success: function (result) {
+                
+                if (result.StatusCode === 7) {
+                    SendPasswordResetLink(result.UserCode, result.UserEmail);
+                }
+                else if (result.success === false) {
+                    $("#message").empty();
+                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
+                    $("#message").append(row);
+                    //ReloadCaptcha();
+                    $("#signin-password").val('');
+                    return false;
+                }
+                else {
+                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
+                    $("#message").empty();
+                    $("#message").append(row);
+                    $("#password").val('');
+                    //ReloadCaptcha();
+                    $("#signin-password").val('');
+                    return false;
+                }
+            },
+            error: function (error) {
+                alert("Login Failed");
+                console.log(error);
+            }
+        });
+    }
+}
+
+function SendPasswordResetLink(UserCode, Email) {
+    
     $.ajax({
-        url: '/Login/ForgotPassword',
+        url: '/Login/SendLinkviaEmail',
         type: 'POST',
         data: {
-            
-            Email: email,
-            
+            Email: Email,
+            UserCode: UserCode
         },
-
-        success: function (result) {
-            //;
-            if (result && result.length > 0) {
-                sessionStorage.setItem('UserId', result[0].UserId);
-
-                var username = result[0].UserName;
-                var email = result[0].Email;
-                var mobile = result[0].Mobile;
-                $("#txtname").val(username);
-                $("#txtemail").val(email);
-                $("#txtphone").val(mobile);
-
-                window.username1 = username;
-                window.mobile1 = mobile;
-                ShowProfile($("#txtname").val(username),
-                    $("#txtemail").val(email),
-                    $("#txtphone").val(mobile));
-
-                SendLoginEmailOTP(email, username, mobile);
-
-
-
-
-                //To check if Textbox is filled With Email Or Mobile
-                //var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-                //var mobileRegex = /^\d{10}$/;
-                //if (emailRegex.test(textbox)) {
-
-                //    slide('next');
-                //    $("#password").val('');
-                //    $('#signin-password').val('');
-                //    var timerDuration = 60;
-                //    var display = $('#resmobotp');
-                //    startTimer(timerDuration, display);
-                //} else if (mobileRegex.test(textbox)) {
-                //    SendLoginMobileOTP(username, mobile);
-                //    slide('next');
-                //    $("#password").val('');
-                //    $('#signin-password').val('');
-                //    var timerDuration = 60;
-                //    var display = $('#resmobotp');
-                //    startTimer(timerDuration, display);
-                //}
-            }
-            else if (isvalidate === 0) {
-                return false;
-            }
-            else if (result.success === false) {
-                $("#message").empty();
-                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
-                $("#message").append(row);
-                //ReloadCaptcha();
-                $("#signin-password").val('');
-                return false;
-            }
-            else {
-                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
-                $("#message").empty();
-                $("#message").append(row);
-                $("#password").val('');
-                //ReloadCaptcha();
-                $("#signin-password").val('');
-                return false;
-            }
+        success: function (response) {
+            var mobile = textbox;
+            var formattedMobile = "xxxxx" + mobile.slice(-5);
+            var span = $("#lblemail .enterddata");
+            span.text(formattedMobile);
+            console.log(response);
         },
         error: function (error) {
-            alert("Login Failed");
             console.log(error);
         }
     });
 }
-
