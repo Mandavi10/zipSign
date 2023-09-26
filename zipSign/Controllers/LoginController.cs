@@ -749,6 +749,7 @@ namespace zipSign.Controllers
             }
         }
 
+
         public JsonResult VerifyOTP(string VOTP)
         {
             string temp = Session["otp"].ToString();
