@@ -9,7 +9,7 @@ var i;
 
 $(document).ready(function () {
     $('#SendLink').click(function () {
-        
+        //;
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
             return false;
@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
     $('#btnok').click(function () {
-        
+
         SignInsert();
         window.location.href = "/Dashboard/Index2";
     });
@@ -206,7 +206,7 @@ function addRecipientData() {
 
 
 $("#Proceed").click(function () {
-    ////;
+    var checkedRadioButtonId = $('input[name="control"]:checked').attr('id');
     if (isValidData() == false) {
         return false;
     }
@@ -226,25 +226,31 @@ $("#viewrec").click(function () {
     updateGridData();
 });
 function isValidData() {
-    
+
+    //;
+    var checkedRadioButtonId = $('input[name="control"]:checked').attr('id');
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
     });
     $("#message").empty();
-    var isDuplicate = false;
-    var uniqueValues = {};
-    $('input[id^="Email"], input[id^="phone"]').each(function () {
-        var value = $(this).val().trim();
-        if (value !== "") {
-            if (uniqueValues[value]) {
-                isDuplicate = true;
-                $(this).focus();
-                return false;
+    if (checkedRadioButtonId == "AddRecipient") {
+
+
+        var isDuplicate = false;
+        var uniqueValues = {};
+        $('input[id^="Email"], input[id^="phone"]').each(function () {
+            var value = $(this).val().trim();
+            if (value !== "") {
+                if (uniqueValues[value]) {
+                    isDuplicate = true;
+                    $(this).focus();
+                    return false;
+                }
+                uniqueValues[value] = true;
             }
-            uniqueValues[value] = true;
-        }
-    });
+        });
+    }
 
     if (isDuplicate) {
         var row = '<div class="alermsg col-md-12 p-1" role="alert">Duplicate email or phone number found.</div>';
@@ -270,27 +276,29 @@ function isValidData() {
     //    $("#ExpDate").focus();
     //    return false;
     //}
-    var Email = $("#Email1").val();
-    var expday = $("#ExpDate1").val();
-    var ValidatorFor = [];
-    ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
-    ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
-    ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
-    var i = $("#hiddena").val();
-    for (var j = 1; j <= i; j++) {
-        ValidatorFor.push(["Name" + j, "Required", "", "Please enter Recipient " + j + " name"]);
-        ValidatorFor.push(["Email" + j, "Required", "", "Please enter Recipient " + j + " Email"]);
-        ValidatorFor.push(["Email" + j, "Email", "", "Please enter Recipient " + j + " valid email-id"]);
-        ValidatorFor.push(["phone" + j, "Required", "", "Please enter Recipient " + j + " Mobile no."]);
-        ValidatorFor.push(["ExpDate" + j, "Required", "", "Please enter Expiry Day " + j + ""]);
-    }
-    var status = ValidateMe(ValidatorFor);
-    if (status == false) {
-        return false;
-    }
+    if (checkedRadioButtonId == "AddRecipient") {
+        var Email = $("#Email1").val();
+        var expday = $("#ExpDate1").val();
+        var ValidatorFor = [];
+        ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
+        ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
+        ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
+        var i = $("#hiddena").val();
+        for (var j = 1; j <= i; j++) {
+            ValidatorFor.push(["Name" + j, "Required", "", "Please enter Recipient " + j + " name"]);
+            ValidatorFor.push(["Email" + j, "Required", "", "Please enter Recipient " + j + " Email"]);
+            ValidatorFor.push(["Email" + j, "Email", "", "Please enter Recipient " + j + " valid email-id"]);
+            ValidatorFor.push(["phone" + j, "Required", "", "Please enter Recipient " + j + " Mobile no."]);
+            ValidatorFor.push(["ExpDate" + j, "Required", "", "Please enter Expiry Day " + j + ""]);
+        }
+        var status = ValidateMe(ValidatorFor);
+        if (status == false) {
+            return false;
+        }
 
-    else {
-        return true;
+        else {
+            return true;
+        }
     }
 
 }
@@ -453,7 +461,7 @@ function AddRecipiants(a) {
         //SendLinkToRecipient(RecipientEmail);
     }
     else {
-        
+
         var i = parseInt($("#hiddena").val()) + 1;
         var Recipients = '<div class="d-flex flex-wrap MySigndiv">';
         Recipients += '<div class="col-md-1">';
@@ -502,7 +510,7 @@ function AddRecipiants(a) {
 function updateSignerNumbers() {
     var signerDivs = $("div.d-flex.flex-wrap.MySigndiv");
     signerDivs.each(function (index) {
-        var signerNumber = index + 2; 
+        var signerNumber = index + 2;
         $(this).find(".numdiv").text("Signer " + signerNumber);
     });
     var i = i - 1;
@@ -694,7 +702,7 @@ function Delete(DocumentUploadId) {
 
 
 function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId) {
-    
+
     var FilePath = sessionStorage.getItem('LoaclPath');
     $.ajax({
         url: '/NSDL/SendVerifyLinkByEmail',
@@ -717,7 +725,7 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
 }
 
 function SignInsert() {
-    
+
     var fileName = $("#SignImage").val();
     var cleanFileName = fileName.replace(/^.*\\/, "");
     console.log("DocumentName: " + cleanFileName);
@@ -748,7 +756,7 @@ function SignInsert() {
         type: 'POST',
         url: '/zipSign/SignInsert',
         data: {
-            DocumentName: $("#text-input1").val(),
+            DocumentName1: $("#text-input1").val(),
             ReferenceNumber: $("#text-input2").val(),
             DocumentName: cleanFileName,
             UploadedDoc: cleanFileName,

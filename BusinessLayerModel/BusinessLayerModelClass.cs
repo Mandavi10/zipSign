@@ -58,7 +58,6 @@ namespace BusinessLayerModel
         public string UploadedFileName { get; set; }
         public int ReferenceNumber { get; set; }
         public string UploadedDoc { get; set; }
-        public string UploadedOn { get; set; }
         public string UploadedBy { get; set; }
         public string CreatedBy { get; set; }
         public string CreatedOn { get; set; }
@@ -70,6 +69,8 @@ namespace BusinessLayerModel
         public int IsDocumentOpen { get; set; }
         public string DocumentOpenOn { get; set; }
         public string IsSigned { get; set; }
+        public string DocumentName1 { get; set; }
+        public string UploadedOn { get; set; }
     }
     public class ResultData
     {

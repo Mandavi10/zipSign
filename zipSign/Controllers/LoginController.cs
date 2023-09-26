@@ -226,7 +226,7 @@ namespace zipSign.Controllers
                 if (string.IsNullOrEmpty(objLoginModel.Email))
                 {
                     return Json(new { status = "Email/Mobile can't Empty" });
-                }
+                } 
                 else if (string.IsNullOrEmpty(objLoginModel.Password))
                 {
                     return Json(new { status = "Password can't Empty" });
@@ -742,63 +742,6 @@ namespace zipSign.Controllers
                 return Json("OTP sent successfully!", OTP);
             }
         }
-
-        //For SignLogin
-        public JsonResult GetEmailDataForSignLogin(string Email)
-        {
-            Random rnd = new Random();
-            string OTP = rnd.Next(100000, 999999).ToString();
-            Session["otp"] = OTP;
-            using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
-            {
-                msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-                msg.Subject = "Verify Your Email Address – zipSign";
-
-                string message = "<html>";
-                message += "<head>";
-                message += "<style>";
-                message += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }";
-                message += ".container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
-                message += "h1 { color: #007BFF; }";
-                message += "p { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }";
-                message += ".disclaimer { color: #999; font-size: 12px; }";
-                message += ".footer { background-color: #007BFF; color: #fff; padding: 09px 0; text-align: center; }";
-                message += "</style>";
-                message += "</head>";
-                message += "<body>";
-                message += "<div class='container'>";
-                message += "<p>Dear User,</p>";
-                message += "<p>To complete your registration and enjoy all the benefits of our service, please verify your email address by entering the below One Time Password:</p>";
-                message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-                message += "<p>Once your email is verified, you'll have full access to your account and can start signing documents securely.</p>";
-                message += "<p class='disclaimer'>If you have any questions or need assistance, please don't hesitate to contact our support team at customersupport@zipsign.com.</p>";
-                message += "<p>Thank you for choosing zipSign!</p>";
-                message += "<p class='disclaimer'>Sincerely,</p>";
-                message += "<p class='disclaimer'>Customer Support</p>";
-                message += "</div>";
-                message += "</body>";
-                message += "</html>";
-
-                msg.Body = message;
-                msg.IsBodyHtml = true;
-
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = networkCredential;
-                smtp.Port = 587;
-                smtp.Send(msg);
-
-
-                return Json("OTP sent successfully!", OTP);
-            }
-        }
-
-
-
-
 
         public JsonResult VerifyOTP(string VOTP)
         {
