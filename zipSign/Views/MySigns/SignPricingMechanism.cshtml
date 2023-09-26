@@ -5,9 +5,10 @@
 }
 
 <style>
-    .body {
+/*    .body {
         min-height: 81vh;
-    }
+    }*/
+
     .form-control {
         width: 97%
     }
@@ -45,13 +46,16 @@
         right: 32px;
         bottom: 25px;
     }
+    .rangeappdiv {
+        display: none;
+    }
 </style>
 <div class="container-fluid">
     <div class="block-header">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2>Sign Pricing Mechanism</h2>
-               
+
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="d-flex flex-row-reverse">
@@ -82,9 +86,9 @@
                                 <label for="text-input2">Corporate Name</label>
                                 <div class="c_multiselect">
                                     <select name="single_selection" class="form-control">
-                                       
+
                                         <option value="">Retail</option>
-                                      
+
                                     </select>
                                 </div>
 
@@ -92,34 +96,129 @@
                             <div class="form-group col-md-6">
                                 <label for="text-input2">Corporate ID</label>
                                 <input type="text" id="" class="form-control" autocomplete="off" />
-                                
+
 
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="text-input2">Sign Range</label>
-                                <div class="c_multiselect">
-                                    <select name="single_selection" class="form-control">
-                                        <option value="">Select</option>
-                                        <option value="">1 - 100</option>
-                                        <option value="">101 - 500</option>
-                                        <option value="">501 - 1000</option>
-                                        <option value="">1001 - 1500</option>
-                                        <option value="">1501 - 2000</option>
-                                    </select>
+
+
+
+
+                            <div class="col-md-12 d-flex justify-content-end pe-3"><button type="button" class="btn btn-primary addran" id="">Add More</button></div>
+                            <div class="col-md-12  pagesdiv">
+                                <div class="body pt-0">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:60px">Sr. No.</th>
+                                                    <th style="width:200px">Sign Range</th>
+                                                    <th style="width:150px">UIDAI Price</th>
+                                                    <th style="width:150px">Our Rate</th>
+                                                    <th style="width:150px">Net Price</th>
+                                                    <th style="width:150px">Amount with tax</th>
+                                                    <th style="width:100px">Validity in days</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:100px">1</td>
+                                                    <td style="width:200px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+
+
+
+
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
 
                             </div>
-                            <div class="form-group col-md-6">
+
+
+
+
+
+                            <div class="form-group col-md-12 d-flex flex-wrap">
+
+
+                                <!--<div class="col-md-12  ">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="form-group col-md-6">
+                                            <label for="text-input2">Sign Range</label>
+                                            <div class="c_multiselect col-md-12 d-flex">
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                <div class="col-md-1 text-center pt-1"> To</div>
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" placeholder="Validity" /></div>
+                                                <div class="col-md-1 pt-1">Days</div>-->
+                                                @*<div class="col-md-2 text-center"><button type="button" class="btn btn-primary" id="btnsave">Add More</button></div>*@
+                                                @*<select name="single_selection" class="form-control">
+                                <option value="">Select</option>
+                                <option value="">1 - 100</option>
+                                <option value="">101 - 500</option>
+                                <option value="">501 - 1000</option>
+                                <option value="">1001 - 1500</option>
+                                <option value="">1501 - 2000</option>
+                            </select>*@
+                                            <!--</div>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="text-input2">Our Rate</label>
+
+
+                                            <input type="text" id="" class="form-control" autocomplete="off" />
+
+                                        </div>
+                                    </div>
+                                </div>-->
+
+                                <div class="col-md-12 rangeappdiv ">
+                                    <div class="d-flex flex-wrap">
+                                        <div class="form-group col-md-6">
+                                            <label for="text-input2">Sign Range</label>
+                                            <div class="c_multiselect col-md-12 d-flex">
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                <div class="col-md-1 text-center pt-1"> To</div>
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                <div class="col-md-3"><input type="text" id="" class="form-control" autocomplete="off" placeholder="Validity" /></div>
+                                                <div class="col-md-1 pt-1">Days</div>
+                                       
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="text-input2">Our Rate</label>
+
+
+                                            <input type="text" id="" class="form-control" autocomplete="off" />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*<div class="form-group col-md-6">
                                 <label for="text-input2">UIDAI Price</label>
                                 <input type="text" id="" class="form-control" autocomplete="off" />
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="text-input2">Our Rate</label>
 
-
-                                <input type="text" id="" class="form-control" autocomplete="off" />
-
-                            </div>
                             <div class="form-group col-md-6">
                                 <label for="text-input2">Net Price</label>
                                 <input type="text" id="" class="form-control" autocomplete="off" />
@@ -127,12 +226,12 @@
                             <div class="form-group col-md-6">
                                 <label for="text-input2">Amount with Tax</label>
                                 <input type="text" id="" class="form-control" autocomplete="off" />
-                            </div>
+                            </div>*@
 
-                            <div class="form-group col-md-6">
-                                <label for="text-input2">Validity (in Days)</label>
-                                <input type="text" id="" class="form-control" autocomplete="off" />
-                            </div>
+                            @*<div class="form-group col-md-6">
+            <label for="text-input2">Validity (in Days)</label>
+            <input type="text" id="" class="form-control" autocomplete="off" />
+        </div>*@
 
                             <div class="col-md-12 p-1" role="alert" id="message"></div>
 
@@ -154,4 +253,12 @@
     </div>
 
 </div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+@*<script>
+    $(document).ready(function () {
+        $(".addran").click(function () {
+            $(".rangeappdiv").show();
+        });
+    });
+</script>*@
 
