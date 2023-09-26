@@ -649,12 +649,10 @@
     <Content Include="Views\Masters\DomainControl.cshtml" />
     <Content Include="Views\zipSign\ViewDocument.cshtml" />
     <Content Include="Views\Login\SignLogin.cshtml" />
-    <Content Include="Views\zipSign\SignatureRequest.cshtml" />
     <Content Include="Views\zipSign\AllEntities.cshtml" />
     <Content Include="Views\zipSign\NSDLPage.cshtml" />
     <Content Include="Views\zipSign\SigningRequest.cshtml" />
     <Content Include="Content\DSC_.p12\YoekiDSC1.p12" />
-    <Content Include="Views\zipSign\SignatureRequestNew.cshtml" />
     <Content Include="Views\zipSign\ZipSignTest.cshtml" />
     <Content Include="Views\NSDL\PDFSignature.cshtml" />
     <Content Include="Views\NSDL\Page_Load.cshtml" />
@@ -664,10 +662,7 @@
     <Content Include="Views\MySigns\SignsPricing.cshtml" />
     <Content Include="Views\MySigns\BuySignHistory.cshtml" />
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
-
-   
     <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
