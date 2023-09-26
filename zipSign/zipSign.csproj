@@ -430,6 +430,7 @@
     <Content Include="Content\images\fridge.png" />
     <Content Include="Content\images\hospital_auth_bg.jpg" />
     <Content Include="Content\images\hr_auth_bg.jpg" />
+    <Content Include="Content\images\link_Expired.png" />
     <Content Include="Content\images\logo-icon.svg" />
     <Content Include="Content\images\logo-white.svg" />
     <Content Include="Content\images\logo.svg" />
@@ -665,6 +666,7 @@
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
     <Content Include="Views\zipSign\RolesAndRights.cshtml" />
     <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
+    <Content Include="Views\zipSign\Link_Expired.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
