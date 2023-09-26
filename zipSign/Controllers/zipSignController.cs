@@ -134,7 +134,7 @@ namespace zipSign.Controllers
             if (UserType == "Single Signer")
             {
                 string UniqueID = "612000" + UniqueSignerID;
-                obj.Add(new DataItems("DocumentName", objsign.DocumentName));
+                obj.Add(new DataItems("DocumentName", objsign.DocumentName1));
                 obj.Add(new DataItems("UploadedDoc", objsign.UploadedDoc));
                 obj.Add(new DataItems("UploadedFileName", objsign.DocumentName));
                 obj.Add(new DataItems("ReferenceNumber", objsign.ReferenceNumber));

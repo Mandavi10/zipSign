@@ -81,7 +81,6 @@ function Login() {
             Password: password,
         },
         success: function (result) {
-            //;
             if (result && result.length > 0) {
                 sessionStorage.setItem('UserId', result[0].UserId);
 
@@ -137,7 +136,8 @@ function Login() {
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
                     $("#message").append(row);
                 }
-                else if (result.success === false) {
+                else if (result.success === false)
+                {
                     $("#message").empty();
                     var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
                     $("#message").append(row);
@@ -145,6 +145,16 @@ function Login() {
                     $("#signin-password").val('');
                     return false;
                 }
+            }
+            else if (result.status == 7)
+            {
+                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Account Blocked.Kindly Contact to Admin</div>';
+                $("#message").empty();
+                $("#message").append(row);
+                $("#password").val('');
+                //ReloadCaptcha();
+                $("#signin-password").val('');
+                return false;
             }
             else {
                 var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
