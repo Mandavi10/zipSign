@@ -10215,3 +10215,15 @@ div.dataTables_filter {
 .searchokBtn {
     padding: 3px 10px !important;
 }
+
+.actbtnn {
+    background-color: transparent !important;
+    border: 1px solid #0058b1 !important;
+    border-radius: 3px !important;
+    color: #0058b1 !important;
+    padding: 7px 8px !important;
+    line-height: 12px !important;
+    font-size: 13px;
+    font-family: 'Roboto-Medium';
+    margin-top: 6px !important;
+}
