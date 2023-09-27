@@ -7,9 +7,9 @@
 
     var columnDefs = [
         { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Transaction ID', field: 'transID', width: 130, resizable: false, sortable: true, suppressMovable: true  },
-        { headerName: 'Corporate Name', field: 'entityName', width: 230, resizable: false, sortable: true, suppressMovable: true  },
-        { headerName: 'Corporate ID', field: 'entityID', width: 120, resizable: false, sortable: true, suppressMovable: true },
+       /* { headerName: 'Transaction ID', field: 'transID', width: 130, resizable: false, sortable: true, suppressMovable: true  },*/
+        { headerName: 'Corporate Name', field: 'entityName', width: 300, resizable: false, sortable: true, suppressMovable: true  },
+        { headerName: 'Corporate ID', field: 'entityID', width: 180, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Date', field: 'purchaseDate', width: 130, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'status', width: 100, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Balance eSign', field: 'balanceSign', width: 130, resizable: false, sortable: true, suppressMovable: true },
@@ -124,12 +124,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sign Uses Details</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sign Usage Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="height:78vh;position:relative;">
                 <div class="col-md-12 d-flex flex-wrap flex-wrap">
-                    <div class="col-md-4 col-12 mt-2">
+                    @*<div class="col-md-4 col-12 mt-2">
                         <div class="form-group d-flex flex-wrap">
                             <div class="col-md-5 col-12">
                                 <label class="text-input1 highfw">Transaction ID:</label>
@@ -138,7 +138,7 @@
                                 <label class="lowfw" id="">236541258454</label>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                     <div class="col-md-4 col-12 mt-2">
                         <div class="form-group d-flex flex-wrap">
                             <div class="col-md-5 col-12">
@@ -186,7 +186,7 @@
                                 <label class="text-input1 highfw">eSigns Utilized:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="">3</label>
+                                <label class="lowfw" id="">1500</label>
                             </div>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                                 <label class="text-input1 highfw">No. of Fail:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="">1</label>
+                                <label class="lowfw" id="">100</label>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                                 <label class="text-input1 highfw">Total Transactions:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="createdby">3600</label>
+                                <label class="lowfw" id="createdby">1600</label>
                             </div>
                         </div>
                     </div>
@@ -216,7 +216,7 @@
                                 <label class="text-input1 highfw">Balance eSigns:</label>
                             </div>
                             <div class="col-md-6">
-                                <label class="lowfw" id="createdon">1</label>
+                                <label class="lowfw" id="createdon">800</label>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -926,12 +925,13 @@ namespace zipSign.Controllers
         }
 
 
-        public ActionResult ResetPassword(string Email, string captchaInput)
+        public ActionResult ResetPassword(string Email)
         {
             if (string.IsNullOrEmpty(Email))
             {
                 return Json(new { status = "Email/Mobile can't Empty" });
             }
+
             else
             {
                 string pattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
@@ -940,6 +940,7 @@ namespace zipSign.Controllers
                     return Json(new { status = "Invalid Email format" });
                 }
             }
+
             if (string.IsNullOrEmpty(captchaInput))
             {
                 return Json(new { status = "Please enter captcha" });
@@ -948,6 +949,7 @@ namespace zipSign.Controllers
             bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.Ordinal);
             if (isCaptchaValid)
             {
+
                 List<DataItems> obj = new List<DataItems>();
                 //string clientIP = GetClientIP();
                 //obj.Add(new DataItems("IP", clientIP));
@@ -967,55 +969,86 @@ namespace zipSign.Controllers
 
         public string SendLinkviaEmail(string Email, string UserCode)
         {
+
             string EncUserCode = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UserCode));
             string LinkText = GenerateResetLink(EncUserCode);
+
+            //string LinkText = GenerateResetLink(UserCode);
+
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-                msg.Subject = "Sign-in into zipSign";
-                string message = "<html>";
-                message += "<head>";
-                message += "<style>";
-                message += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; }";
-                message += ".container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }";
-                message += "h1 { color: #007BFF; }";
-                message += "p { font-size: 16px; line-height: 1.5; margin-bottom: 20px; }";
-                message += ".disclaimer { color: #999; font-size: 12px; }";
-                message += ".footer { background-color: #007BFF; color: #fff; padding: 09px 0; text-align: center; }";
-                message += "</style>";
-                message += "</head>";
-                message += "<body>";
-                message += "<div class='container'>";
-                message += "<p>Dear User,</p>";
-                message += "<p>Below is your One-Time Password:</p>";
-                message += "<a href style='color: #007BFF;'>" + LinkText + "</a>";
-                message += "<p>This password is valid for 10 minutes to complete sign-in, requested 07 September, 2023 at 12:01 PM IST.</p>";
-                message += "<p>Never share this password with anyone.</p>";
-                message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
-                message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
-                message += "<p class='disclaimer'>Kindly contact our Customer Service Representative: customersupport@zipsign.com</p>";
-                message += "</div>";
-                message += "</div>";
-                message += "</body>";
-                message += "</html>";
+                msg.Subject = "Password Reset Request";
+
+                string message = @"
+            <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 0;
+                        padding: 0;
+                        background-color: #f5f5f5;
+                    }
+                    .container {
+                        max-width: 600px;
+                        margin: 0 auto;
+                        padding: 20px;
+                        background-color: #fff;
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    }
+                    h1 {
+                        color: #007BFF;
+                    }
+                    p {
+                        font-size: 16px;
+                        line-height: 1.5;
+                        margin-bottom: 20px;
+                    }
+                    .disclaimer {
+                        color: #999;
+                        font-size: 12px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='container'>
+                    <h1>Password Reset Request</h1>
+                    <p>Dear User,</p>
+                    <p>You have requested to reset your password. Below is your password reset link:</p>
+                    <a href='" + LinkText + @"' style='color: #007BFF;'>" + LinkText + @"</a>
+                    <p>This link is valid for 10 minutes from the time of this email.</p>
+                    <p><strong>Do not share this link with anyone.</strong></p>
+                    <p class='disclaimer'>If you did not request this password reset, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us immediately</a>.</p>
+                    <p class='disclaimer'>Please do not reply to this email for any inquiries – messages sent to this address cannot be answered.</p>
+                    <p class='disclaimer'>For assistance, kindly contact our Customer Service Representative at customersupport@zipsign.com</p>
+                </div>
+            </body>
+            </html>";
+
+
                 msg.Body = message;
                 msg.IsBodyHtml = true;
+
                 SmtpClient smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",
-                    EnableSsl = true
+                    EnableSsl = true,
+                    Port = 587,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx")
                 };
-                NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = networkCredential;
-                smtp.Port = 587;
+
                 smtp.Send(msg);
+
                 DateTime createdOn = DateTime.Now;
-                DateTime expiryTime = createdOn.AddMinutes(15);
+                DateTime expiryTime = createdOn.AddMinutes(10); // Changed to 10 minutes for link validity
                 InsertLinkIntoDatabase(UserCode, Email, createdOn, expiryTime, LinkText);
             }
-            return ("");
+
+            return "";
         }
+
         private string GenerateResetLink(string userCode)
         {
 
@@ -1076,6 +1109,7 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("QueryType", "ForgotPassword"));
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 
+
             // Assuming your statusClass contains information about the result of the password update operation
             if (statusClass.StatusCode == 7)
             {
@@ -1085,6 +1119,7 @@ namespace zipSign.Controllers
             {
                 return Json(new { error = "Failed to update password." }, JsonRequestBehavior.AllowGet);
             }
+
         }
 
     }

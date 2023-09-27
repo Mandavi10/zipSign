@@ -4,6 +4,7 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,11 +28,18 @@ namespace zipSign.Controllers
             return View();
 
         }
-            public ActionResult RolesAndRights2()
+
+        public ActionResult Link_Expired()
+        {
+            return View();
+
+        }
+        public ActionResult RolesAndRights2()
             {
                 return View();
             }
             public ActionResult RequestSign()
+
         {
             return View();
         }
@@ -168,9 +176,10 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
-
+                LogTrail("", "DocumentUpload", "User", "User@gmail.com", UploadedDocumentId);
                 if (statusClass.StatusCode >= 0)
                 {
+                    string SignerExpiry = "";
                     string EmailToSend = "";
                     string SignerID = "";
                     string SignerName = "";
@@ -188,7 +197,7 @@ namespace zipSign.Controllers
                             return Json(errorResult, JsonRequestBehavior.AllowGet);
                         }
                         List<DataItems> obj1 = new List<DataItems>
-                        {
+                        { 
                             new DataItems("SignerName", signer.Name),
                             new DataItems("UploadedDocumentId", UploadedDocumentId),
                             new DataItems("SignerEmail", signer.Email),
@@ -204,9 +213,11 @@ namespace zipSign.Controllers
                         EmailToSend = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerEmail"]);
                         SignerID = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerID"]);
                         SignerName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerName"]);
+                        SignerExpiry = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerExpiryDay"]);
                         i = 0;
+                        //LogTrail(SignerID, "Link Sent", EmailToSend, SignerName, UploadedDocumentId);
                     }
-                    return Json(new { UploadedDocumentId, EmailToSend, SignerID, SignerName, UniqueID }, JsonRequestBehavior.AllowGet);
+                    return Json(new { UploadedDocumentId, EmailToSend, SignerID, SignerName, UniqueID, SignerExpiry }, JsonRequestBehavior.AllowGet);
                 }
                 var result1 = new
                 {
@@ -215,7 +226,41 @@ namespace zipSign.Controllers
                 return Json(result1, JsonRequestBehavior.AllowGet);
             }
         }
+        public void LogTrail(string SignerID, string description, string signername, string Email, int UploadedDocumentId)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "INSERT INTO TblSignerDetailTrailLog (UniqueSignerID, Action, UserName, EmailID,UploadedDocumentId,CreatedOn) " + "VALUES (@UniqueSignerID, @Action, @UserName, @EmailID,@UploadedDocumentId,@CreatedOn)";
 
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@UniqueSignerID", SignerID);
+                        command.Parameters.AddWithValue("@Action", description);
+                        command.Parameters.AddWithValue("@UserName", signername);
+                        command.Parameters.AddWithValue("@EmailID", Email);
+                        command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
+                        command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Trail logged successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Trail logging failed.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
         [HttpPost]
         public ActionResult UploadFiles()
         {
@@ -261,7 +306,6 @@ namespace zipSign.Controllers
                     Console.WriteLine("Error: " + ex.Message);
                     return Json(new { status = "Error: " + ex.Message }, JsonRequestBehavior.AllowGet);
                 }
-
                 return Json(new { status = filePath, LocalPath = localFilePath, uniquefileName = fileName }, JsonRequestBehavior.AllowGet);
             }
 
