@@ -693,7 +693,7 @@ function Delete(DocumentUploadId) {
 
 
 
-function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId) {
+function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId,SignerExpiry) {
     
     var FilePath = sessionStorage.getItem('LoaclPath');
     $.ajax({
@@ -706,6 +706,7 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
             SignerID: SignerID,
             UploadedDocumentId: UploadedDocumentId,
             FilePath: FilePath,
+            SignerExpiry: SignerExpiry
         },
         success: function (result) {
             //alert('success');
@@ -757,7 +758,7 @@ function SignInsert() {
             UserType: signerType
         },
         success: function (result) {
-            ;
+            
             //sessionStorage.setItem('UploadedDocumentId', result.UploadedDocumentId);
             //sessionStorage.setItem('UniqueSignerID', result.UniqueID);;
             var UploadedDocumentId = result.UploadedDocumentId
@@ -778,8 +779,9 @@ function SignInsert() {
                 var SignerID = result.SignerID;
                 var SignerName = result.SignerName;
                 var signerT = result.UserType;
+                var ExpireInDays = result.SignerExpiry;
                 //$("#successpopup").modal("show");
-                SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId);
+                SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, ExpireInDays);
             }
         },
         error: function (ex) {
