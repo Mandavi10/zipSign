@@ -12,6 +12,7 @@ $(document).ready(function () {
     $("#successmsg1").empty();
     var UId = getParameterByName('UId');
     if (UId !== null) {
+        
         RowClickEventHandler(UId);
     }
     $submitButton.on("click", function (e) {
@@ -49,8 +50,14 @@ function RowClickEventHandler(UId) {
         async: false,
         success: function (result) {
             
-            var EmailID = result.EmailID;
-            $("#hdnEmail").val(EmailID);
+            if (result.IsExpired == 'True') {
+                alert("Link Expired");
+                return false;
+            }
+            else {
+                var EmailID = result.EmailID;
+                $("#hdnEmail").val(EmailID);
+            }
         },
         error: function () {
             alert('Something Went Wrong');

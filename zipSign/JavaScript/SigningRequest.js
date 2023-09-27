@@ -18,15 +18,14 @@ $(document).ready(function () {
 
     var UId = getParameterByName('UId');
     if (UId !== null) {
-        
+
         RowClickEventHandler1(UId);
     }
     $('#btncomplete').hide();
     $('#btncomplete1').hide();
     $('#continueButton').prop('disabled', true);
     signerType = sessionStorage.getItem('Single_Signer');
-    if (signerType == "Single_Signer")
-    {
+    if (signerType == "Single_Signer") {
         $('#Btn_rec').hide();
         $('#btnDownload').attr('disabled', true);
         $("#btnreject").hide();
@@ -91,9 +90,9 @@ $(document).ready(function () {
     TxnId = getParameterByName("TxnId");
     DateTime = getParameterByName("Date");
     DateTimeParsed = convertDateFormat(DateTime);
-    if (filePath != null && filePath != "")
-    {
-        appendActivity(DateTimeParsed, "Mandavi (mandavi@yoekisoft.com)", "File Signed");
+    if (filePath != null && filePath != "") {
+        
+        $("#btnproceed").hide();
         $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
@@ -104,9 +103,10 @@ $(document).ready(function () {
         $("#PreviewSignImage1").removeAttr("src");
         $("#PreviewSignImage1").attr("src", filePath);
         $('#Btn_rec').hide();
-        $('#btncomplete').show();
-        if (signerType == "Single_Signer")
-        {
+        $('#btncomplete').hide();
+        $('#btncomplete1').hide();
+        $("#btnreject").hide();
+        if (signerType == "Single_Signer") {
             appendActivity(DateTimeParsed, "Mandavi", "mandavi@yoekisoft.com", "Document Signed");
             $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
@@ -118,9 +118,8 @@ $(document).ready(function () {
             $('#Btn_rec').hide();
             $('#btncomplete').show();
         }
-        else
-        {
-            appendActivity(DateTimeParsed, SignerName, Emailid, "Document Signed");
+        else {
+            //appendActivity(DateTimeParsed, SignerName, Emailid, "Document Signed");
             $(".btnSign").hide();
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
@@ -134,16 +133,13 @@ $(document).ready(function () {
         $("#btnproceed").hide();
         $('#Btn_rec').hide();
         $('#btnDownload').prop('disabled', false);
-        $('#btncomplete').click(function ()
-        {
+        $('#btncomplete').click(function () {
             $('#completePopup').modal('show');
         });
-        $('#btnok1').click(function ()
-        {
+        $('#btnok1').click(function () {
             sessionStorage.clear();
             window.location.href = "/zipSign/Signed";
-            $.each(sessionStorage, function (key)
-            {
+            $.each(sessionStorage, function (key) {
                 sessionStorage.removeItem(key);
             });
         });
@@ -169,7 +165,7 @@ $(document).ready(function () {
 
         signerType = sessionStorage.getItem('Single_Signer');
         if (signerType == "Single_Signer") {
-            
+
             $(".btnSign").hide();
 
             $('#Btn_rec').hide();
@@ -289,20 +285,16 @@ function Continue() {
     //$("#iNSDL").val(filePathss);
 }
 
-function AgreeBtnOnProceed()
-{
-    if (selectedRadio == 'rdo2')
-    {
+function AgreeBtnOnProceed() {
+    if (selectedRadio == 'rdo2') {
         window.location.href = "/zipSign/SigningRequest";
         return;
     }
-    else
-    {
+    else {
         SignerID = sessionStorage.getItem('SignerID');
         documentid = sessionStorage.getItem('UploadedDocumentId');
         //var Coordinates = result.UploadedName;
-        if (signerType == "Single_Signer" && !iframeSrcSet)
-        {
+        if (signerType == "Single_Signer" && !iframeSrcSet) {
             var Coordinates = 0;
             documentid = sessionStorage.getItem('UploadedDocumentId');
             UniqueSignerID = sessionStorage.getItem('UniqueSignerID');
@@ -315,19 +307,16 @@ function AgreeBtnOnProceed()
         }
     }
 }
-function AgreeBtn()
-{
-    
-    if (!iframeSrcSet)
-    {
+function AgreeBtn() {
+
+    if (!iframeSrcSet) {
         iframeSrcSet = true;
         $('#consentDiv').hide();
         $("#NSDLiframe").show();
         $("#NSDLiframe").attr("src", "/NSDL/PDFSignature?file=" + encodeURIComponent($("#hdnFilePath").val()) + "&Fileid=" + encodeURIComponent($("#hdnFileId").val()) + "&Emailid=" + encodeURIComponent($("#hdnEmailId").val()) + "&SignerID=" + encodeURIComponent($("#hdnSignerId").val()) + "&SignerName=" + encodeURIComponent($("#hdnSignerName").val()) + "&UploadedDocumentId=" + encodeURIComponent($("#hdnUploadedDocumentId").val()) + "&Coordinates=" + encodeURIComponent(0));
     }
 }
-function RowClickEventHandler1(UId)
-{
+function RowClickEventHandler1(UId) {
     
     $.ajax({
         url: '/NSDL/GetDocumentAllData1',
@@ -339,30 +328,114 @@ function RowClickEventHandler1(UId)
         async: false,
         success: function (result) {
 
+            
+
+            var linkExpiredOn = result.responseData.LinkExpiredOn;
+            var currentDateTime = getCurrentDateTime();
+            var txtfrom = [];
+            txtfrom = linkExpiredOn.split(' ')[0].split('-');
+            var txtfromnew = txtfrom[2] + '-' + txtfrom[1] + '-' + txtfrom[0];
+            var txtTo = [];
+            txtTo = currentDateTime.split(' ')[0].split('-');
+            var txtTonew = txtTo[2] + '-' + txtTo[1] + '-' + txtTo[0];
+            var _datetxtFrom = new Date(txtfromnew)
+            var _datetxtTo = new Date(txtTonew) //txtFrom //txtTo
+            if (_datetxtTo > _datetxtFrom) {
+                alert("Link Expired");
+                return false;
+                window.location.href = "/Login/SignLogin";
+            }
+            else {
+                var table3Data = result.responseData.Table3Data;
+                var trailDiv = $("#Trail_Div");
+
+                // Clear any existing content in the Trail_Div
+                trailDiv.empty();
+
+
+
+                // Extract data from the rowData
+                for (var i = 0; i < table3Data.length; i++) {
+                    var rowData = table3Data[i];
+
+                    // Extract data from the rowData
+                    //  var activityTime = rowData["CreatedOn"]; // Assuming "CreatedOn" is the column name for activity time
+                    //var activityRole = rowData["UserName"]; // Assuming "UserName" is the column name for activity role
+                    //var activityTitle = rowData["Action"]; // Assuming "Action" is the column name for activity title
+                    // Extract data from the rowData
+                    var activityTime1 = rowData["CreatedOn"]; // Assuming "CreatedOn" is the column name for activity time
+                    var userName = rowData["UserName"]; // Assuming "UserName" is the column name for user name
+                    var userEmail = rowData["EmailID"]; // Assuming "EmailID" is the column name for email
+                    var date = new Date(parseInt(activityTime1));
+
+                    // Format the date components
+                    var formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/
+                  ${date.getDate().toString().padStart(2, '0')}/
+                  ${date.getFullYear()}`;
+
+                    // Format the time components
+                    var hours = date.getHours() % 12 || 12; // Convert to 12-hour format
+                    var amPm = date.getHours() >= 12 ? 'PM' : 'AM';
+                    var formattedTime = `${hours.toString().padStart(2, '0')}:
+                     ${date.getMinutes().toString().padStart(2, '0')} ${amPm}`;
+
+                    // Combine date and time
+                    var activityTime = `${formattedDate} ${formattedTime}`;
+                    // Concatenate user's name and email
+                    var activityRole = `${userName} (${userEmail})`;
+
+                    var activityTitle = rowData["Action"]; // Assuming "Action" is the column name for activity title
+
+                    // Create a new activity box
+                    var activityBox = $(
+                        `<div class="col-lg-3 col-md-3">
+        <div class="element-box-tp">
+            <div class="activity-boxes-w">
+                <div class="activity-box-w">
+                    <div class="activity-time">${activityTime}</div>
+                    <div class="activity-box">
+                        <div class="activity-info">
+                            <div class="activity-role">${activityRole}</div>
+                            <strong class="activity-title font-weight-400">${activityTitle}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div >
+    </div>`
+                    );
+
+
+                    // Append the activityBox to the Trail_Div
+                    trailDiv.append(activityBox);
+                }
+            }
+
+            //// Update other elements with data as needed
+
             var EmailID = result.EmailID;
             $("#PreviewSignImage1").attr("src", "");
-            $("#PreviewSignImage1").attr("src",result.FilePath);
-            $("#hdnFilePath").val(result.FilePath);
-            $("#hdnUploadedDocumentId").val(result.UploadedDocumentId);
-            $("#hdnSignerId").val(result.SignerId);
-            $("#hdnFileId").val(result.FileID);
-            $("#hdnEmailId").val(result.EmailID);
-            $("#hdnSignerName").val(result.SignerName);
-            $("label#uploadedFileName").next("span").text(result.UploadedFileName);
+            $("#PreviewSignImage1").attr("src", result.responseData.FilePath);
+            $("#hdnFilePath").val(result.responseData.FilePath);
+            $("#hdnUploadedDocumentId").val(result.responseData.UploadedDocumentId);
+            $("#hdnSignerId").val(result.responseData.SignerId);
+            $("#hdnFileId").val(result.responseData.FileID);
+            $("#hdnEmailId").val(result.responseData.EmailID);
+            $("#hdnSignerName").val(result.responseData.SignerName);
+            $("label#uploadedFileName").next("span").text(result.responseData.UploadedFileName);
             $("label#uploadedFileStatus").next("span").text("Unsigned");
-            $("label#uploadedFileDate").next("span").text(result.UploadedOn);
+            $("label#uploadedFileDate").next("span").text(result.responseData.UploadedOn);
+            //}
         },
         error: function () {
             alert('Something Went Wrong');
         }
     });
 }
-$('#btncomplete1').click(function ()
-{
+$('#btncomplete1').click(function () {
     window.location.href = "/zipSign/SignLogin";
 })
-function Download()
-{
+function Download() {
     window.location.href = '/zipsign/downloadfile?filepath=' + decodeURIComponent(filePath);
 }
 function appendActivity(time, role, title) {
@@ -422,3 +495,18 @@ function convertDateFormat(inputDate) {
     hours = hours ? hours : 12; // Handle midnight (12:00 AM)
     return day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.toString().padStart(2, '0') + ' ' + ampm;
 }
+
+function getCurrentDateTime() {
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Months are zero-based
+    var day = ('0' + currentDate.getDate()).slice(-2);
+    var hours = ('0' + currentDate.getHours()).slice(-2);
+    var minutes = ('0' + currentDate.getMinutes()).slice(-2);
+    var seconds = ('0' + currentDate.getSeconds()).slice(-2);
+
+    var formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+    return formattedDateTime;
+}
+
+
