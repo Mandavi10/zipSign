@@ -153,6 +153,7 @@ $('input[type="radio"]').click(function () {
     }
 });
 function startTimer(duration, display, ismobile) {
+    //;
     if (isMobileTimerRunning) {
         clearInterval(mobileTimerIntervalId);
     }
@@ -177,6 +178,7 @@ function startTimer(duration, display, ismobile) {
     }, 1000);
 }
 function startTimer1(duration, display, isemail) {
+    //;
     if (isEmailTimerRunning) {
         clearInterval(emailTimerIntervalId);
     }
@@ -200,6 +202,7 @@ function startTimer1(duration, display, isemail) {
     }, 1000);
 }
 $('#lblemailresend').click(function () {
+    //;
     if (emailTimerIntervalId) {
         clearInterval(emailTimerIntervalId);
     }
@@ -207,7 +210,7 @@ $('#lblemailresend').click(function () {
     var display = $('#timeremail');
     isTimerRunning = true;
     startTimer1(timerDuration, display);
-    SendEmailOTP();
+    //SendEmailOTP();
     $(".enterotpdiv").show();
     $(".verifybtn").hide();
 })
@@ -366,6 +369,8 @@ function SendMobileOTP() {
                 $('#Phoneno').attr('disabled', 'disabled');
                 startTimer(timerDuration, display, isMobileTimerRunning);
                 $("#lblsmsresend").hide();
+                $("#timer3").show();
+                $(".timer1").show();
                 $(".enterotpdiv1").show();
 
             },

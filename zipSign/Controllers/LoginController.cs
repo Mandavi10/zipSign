@@ -226,7 +226,7 @@ namespace zipSign.Controllers
                 if (string.IsNullOrEmpty(objLoginModel.Email))
                 {
                     return Json(new { status = "Email/Mobile can't Empty" });
-                }
+                } 
                 else if (string.IsNullOrEmpty(objLoginModel.Password))
                 {
                     return Json(new { status = "Password can't Empty" });

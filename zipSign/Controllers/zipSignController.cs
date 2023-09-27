@@ -28,11 +28,18 @@ namespace zipSign.Controllers
             return View();
 
         }
-        public ActionResult RolesAndRights2()
+
+        public ActionResult Link_Expired()
         {
             return View();
+
         }
-        public ActionResult RequestSign()
+        public ActionResult RolesAndRights2()
+            {
+                return View();
+            }
+            public ActionResult RequestSign()
+
         {
             return View();
         }
@@ -135,7 +142,7 @@ namespace zipSign.Controllers
             if (UserType == "Single Signer")
             {
                 string UniqueID = "612000" + UniqueSignerID;
-                obj.Add(new DataItems("DocumentName", objsign.DocumentName));
+                obj.Add(new DataItems("DocumentName", objsign.DocumentName1));
                 obj.Add(new DataItems("UploadedDoc", objsign.UploadedDoc));
                 obj.Add(new DataItems("UploadedFileName", objsign.DocumentName));
                 obj.Add(new DataItems("ReferenceNumber", objsign.ReferenceNumber));
