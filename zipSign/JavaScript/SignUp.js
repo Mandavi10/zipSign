@@ -99,6 +99,7 @@ $(document).ready(function () {
     });
 
     $('#btnSign').click(function () {
+        debugger;
         if (isValidData() == false) {
             return false;
         }
@@ -108,6 +109,7 @@ $(document).ready(function () {
     });
 
     $('#btnsave').click(function () {
+        debugger;
         SignUp();
     });
 
@@ -116,7 +118,6 @@ $(document).ready(function () {
     });
 });
 $('input[type="radio"]').click(function () {
-    ////
     if ($(this).attr('id') == 'corpradio') {
         var anyInputFilled = $("#UserName").val() != '' || $("#Email").val() != '' || $("#Phoneno").val() != '' || $("#password").val() != '' || $("#ConfirmPassword").val() != '';
         if (anyInputFilled) {
@@ -256,7 +257,7 @@ function SignUp() {
                     row += '<div class="alermsg col-md-12 p-1" role="alert">' + error + '</div>';
                     $('#confirmationpopup').modal('hide');
                 });
-            } else if (result.status == "Enter Name" || result.status == "Invalid email format" || result.status == "Mobile Number should be 10 Digits and only starts with 6/7/8/9" || result.status == "Please select state" || result.status == "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" || result.status == "Invalid Confirm password format" || result.status == "Invalid PAN format" || result.status == "Password and Confirm Password do not match") {
+            } else if (result.status == "Enter Name" || result.status == "Invalid email format" || result.status == "Mobile Number should be 10 Digits and only starts with 6/7/8/9" || result.status == "Please select state" || result.status == "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" || result.status == "Invalid Confirm password format" || result.status == "Password and Confirm Password do not match" || result.status =="Invalid PAN format") {
                 row += '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
                 $('#confirmationpopup').modal('hide');
 
@@ -343,8 +344,6 @@ function SendMobileOTP() {
         $("#UserName").focus();
     }
     else {
-        //
-
         $.ajax({
             url: '/Login/GetSMSData',
             type: 'POST',
@@ -532,7 +531,6 @@ function VerifyOTP() {
     });
 }
 function VerifyEmailOTP() {
-    //
     var otp = $("#emailOTP").val();
     var isVerified = false;
     var row = '';
@@ -705,7 +703,7 @@ function isValidData() {
     }
 
     if ($("#password").val() !== $("#ConfirmPassword").val()) {
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Not Matching</div>';
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Password and Confirm Should Matching</div>';
         $("#message").empty().append(row);
         $("#ConfirmPassword").focus();
         return false;

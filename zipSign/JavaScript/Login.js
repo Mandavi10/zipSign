@@ -1,5 +1,7 @@
 ﻿var row = '';
 $(document).ready(function () {
+    $("#message").empty();
+    row = '';
     //;
     //$("#email, #password, #signin-password", "#mobileotp").on('change', function () {
     //    $("#message").empty();
@@ -58,7 +60,6 @@ $('#lblresend').click(function () {
 })
 //Login Function
 function Login() {
-    //;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
@@ -120,9 +121,6 @@ function Login() {
                 //    startTimer(timerDuration, display);
                 //}
             }
-            //else if (isvalidate === 0) {
-            //    return false;
-            //}
             else if (typeof result.status === 'string') {
                 if (result.status == "Validation failed") {
                     // Handle validation errors
@@ -132,12 +130,12 @@ function Login() {
                     });
                 }
                 else if (result.status == "Email/Mobile can't Empty" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
+                    $("#message").empty();
                     // Handle the "Email/Mobile can't Empty" case
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
                     $("#message").append(row);
                 }
-                else if (result.success === false)
-                {
+                else if (result.success === false) {
                     $("#message").empty();
                     var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
                     $("#message").append(row);
@@ -146,8 +144,7 @@ function Login() {
                     return false;
                 }
             }
-            else if (result.status == 7)
-            {
+            else if (result.status == 7) {
                 var row = '<div class="alermsg  col-md-12 p-1" role="alert">Account Blocked.Kindly Contact to Admin</div>';
                 $("#message").empty();
                 $("#message").append(row);
@@ -244,36 +241,38 @@ function SendLoginMobileOTP(username, textbox) {
     });
 }
 function validations() {
-    //;
     var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     var mobileRegex = /^\d{10}$/;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
     });
-    if ($("#email").val() === "" && $("#password").val() === "") {
-        if ($("#message").children().length === 0) {
-            var row = '<div class="alermsg col-md-12 p-1" role="alert">Email and Password are required.</div>';
-            $("#message").append(row);
-            $("#email").focus();
-            return false;
-        }
-    }
+    //if ($("#email").val() === "" && $("#password").val() === "") {
+    //    if ($("#message").children().length === 0) {
+    //        var row = '<div class="alermsg col-md-12 p-1" role="alert">Email and Password are required.</div>';
+    //        $("#message").append(row);
+    //        $("#email").focus();
+    //        isvalidate = 0;
+    //        return false;
+    //    }
+    //}
 
     if ($("#email").val() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Email is Required.</div>';
+        $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
-        return false;
         isvalidate = 0;
+        return false;
     }
-    //else if (!emailRegex.test($("#email").val())) {
-    //    row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. xxxx@gmail.com)".</div>';
-    //    $("#message").append(row);
-    //    $("#textbox").focus();
-    //    return false;
-    //    isvalidate = 0;
-    //}
+    else if (!emailRegex.test($("#email").val())) {
+        row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. xxxx@gmail.com)".</div>';
+        $("#message").empty();
+        $("#message").append(row);
+        $("#textbox").focus();
+        isvalidate = 0;
+        return false;
+    }
     //else if (!mobileRegex.test($("#email").val())) {
     //    row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid Mobile Number".</div>';
     //    $("#message").append(row);
@@ -287,16 +286,24 @@ function validations() {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
         $("#message").append(row);
         $("#password").focus();
-        return false;
         isvalidate = 0;
+        return false;
+    }
+    else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test($("#password").val())) {
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        $("#message").empty();
+        $("#message").append(row);
+        $("#password").focus();
+        isvalidate = 0;
+        return false;
     }
     else if ($('#signin-password').val() === "") {
         $("#message").empty();
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
         $("#message").append(row);
         $("#signin-password").focus();
-        return false;
         isvalidate = 0;
+        return false;
     }
     else {
         isvalidate = 1;
@@ -369,27 +376,43 @@ function SignOut() {
     });
 }
 function ForgotPassword() {
-    
     var email = $("#emailresetpassword").val();
+    var captchaInput = $("#signin-password").val();
+
+    if (email.trim() === '') {
+        $("#message").empty();
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Email cannot be empty.</div>';
+        $("#message").append(row);
+        return false;
+    }
+
     var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(email)) {
         $("#message").empty();
-        var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Email Format.</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid Email Format.</div>';
         $("#message").append(row);
-        $("#emailresetpassword").val('');
+        $("#emailresetpassword").focus;
         return false;
     }
-    else
-    {
+
+    if (captchaInput.trim() === '') {
+        $("#message").empty();
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Captcha.</div>';
+        $("#message").append(row);
+        return false;
+    }
+
+    else {
         $.ajax({
             url: '/Login/ResetPassword',
             type: 'POST',
             data: {
                 Email: email,
+                captchaInput: captchaInput
             },
             success: function (result) {
-                
-                if (result.StatusCode === 7) {
+                debugger;
+                if (result.StatusCode === 9) {
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
                 }
                 else if (result.success === false) {
@@ -400,8 +423,8 @@ function ForgotPassword() {
                     $("#signin-password").val('');
                     return false;
                 }
-                else {
-                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
+                else if (result.status == "Email/Mobile can't Empty" || result.status == "Invalid Email format" || result.status == "Please enter captcha" || result.status =="Invalid captcha input") {
+                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">'+ result.status+'</div>';
                     $("#message").empty();
                     $("#message").append(row);
                     $("#password").val('');
@@ -419,7 +442,7 @@ function ForgotPassword() {
 }
 
 function SendPasswordResetLink(UserCode, Email) {
-    
+    debugger;
     $.ajax({
         url: '/Login/SendLinkviaEmail',
         type: 'POST',
@@ -428,10 +451,8 @@ function SendPasswordResetLink(UserCode, Email) {
             UserCode: UserCode
         },
         success: function (response) {
-            var mobile = textbox;
-            var formattedMobile = "xxxxx" + mobile.slice(-5);
-            var span = $("#lblemail .enterddata");
-            span.text(formattedMobile);
+            window.location.href = '/Login/Index';
+            sessionStorage.clear();
             console.log(response);
         },
         error: function (error) {

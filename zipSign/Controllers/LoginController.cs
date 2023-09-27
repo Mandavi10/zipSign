@@ -226,7 +226,7 @@ namespace zipSign.Controllers
                 if (string.IsNullOrEmpty(objLoginModel.Email))
                 {
                     return Json(new { status = "Email/Mobile can't Empty" });
-                } 
+                }
                 else if (string.IsNullOrEmpty(objLoginModel.Password))
                 {
                     return Json(new { status = "Password can't Empty" });
@@ -244,7 +244,7 @@ namespace zipSign.Controllers
                     return Json(new { status = "Please enter captcha" });
                 }
                 string expectedCaptcha = Session["CAPTCHA"] as string;
-                bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.OrdinalIgnoreCase);
+                bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.Ordinal);
                 if (isCaptchaValid)
                 {
                     SignUp Data = new SignUp();
@@ -301,16 +301,51 @@ namespace zipSign.Controllers
         //        return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
         //    }
         //}
+        //public static string GetClientIP()
+        //{
+        //    string hostName = Dns.GetHostName();
+        //    Console.WriteLine(hostName);
+        //    //string IP="";
+        //    // Get the IP from GetHostByName method of dns class.
+        //    string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
+        //    Console.WriteLine("IP Address is : " + IP);
+        //    return IP;
+        //}
+        //public static string GetClientIP()
+        //{
+        //    using (var client = new WebClient())
+        //    {
+        //        // Use a public IP address service to get your public IP
+        //        string publicIP = client.DownloadString("https://api64.ipify.org?format=text");
+        //        return publicIP;
+        //    }
+        //}
         public static string GetClientIP()
         {
-            string hostName = Dns.GetHostName();
-            Console.WriteLine(hostName);
-            //string IP="";
-            // Get the IP from GetHostByName method of dns class.
-            string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
-            Console.WriteLine("IP Address is : " + IP);
-            return IP;
+            try
+            {
+                string publicIP = string.Empty;
+
+                // Check for Internet connectivity
+                if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+                {
+                    using (var client = new WebClient())
+                    {
+                        // Use a public DNS server to resolve your public IP address
+                        publicIP = client.DownloadString("https://icanhazip.com").Trim();
+                    }
+                }
+
+                return publicIP;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions here
+                Console.WriteLine("Error: " + ex.Message);
+                return null;
+            }
         }
+
 
         private string GetRandomText()
         {
@@ -905,34 +940,40 @@ namespace zipSign.Controllers
                     return Json(new { status = "Invalid Email format" });
                 }
             }
-            //if (string.IsNullOrEmpty(captchaInput))
-            //{
-            //    return Json(new { status = "Please enter captcha" });
-            //}
-            //string expectedCaptcha = Session["CAPTCHA"] as string;
-            ////bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.OrdinalIgnoreCase);
-            //if (isCaptchaValid)
-            //{
+
+            if (string.IsNullOrEmpty(captchaInput))
+            {
+                return Json(new { status = "Please enter captcha" });
+            }
+            string expectedCaptcha = Session["CAPTCHA"] as string;
+            bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.Ordinal);
+            if (isCaptchaValid)
+            {
+
                 List<DataItems> obj = new List<DataItems>();
                 //string clientIP = GetClientIP();
-                //obj.Add(new DataItems("LogOut_IP_Address", clientIP));
+                //obj.Add(new DataItems("IP", clientIP));
                 obj.Add(new DataItems("Email", Email));
-                obj.Add(new DataItems("QueryType", "ForgotPassword"));
+                obj.Add(new DataItems("QueryType", "GetDataForUser"));
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                 string UserCode = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterId"]);
                 string UserEmail = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
                 return Json(new { statusClass.StatusCode, UserCode, UserEmail });
-            //}
-            //else
-            //{
-            //    return Json(new { status = "Invalid captcha input" });
-            //}
+            }
+            else
+            {
+                return Json(new { status = "Invalid captcha input" });
+            }
         }
 
 
         public string SendLinkviaEmail(string Email, string UserCode)
         {
-            string LinkText = GenerateResetLink(UserCode);
+
+            string EncUserCode = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UserCode));
+            string LinkText = GenerateResetLink(EncUserCode);
+
+            //string LinkText = GenerateResetLink(UserCode);
 
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
@@ -985,6 +1026,7 @@ namespace zipSign.Controllers
             </body>
             </html>";
 
+
                 msg.Body = message;
                 msg.IsBodyHtml = true;
 
@@ -1027,8 +1069,10 @@ namespace zipSign.Controllers
         [HttpGet]
         public ActionResult GetDataForPasswordReset(string userCode)
         {
+            string DecUserCode = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(userCode));
+
             List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CreatedBy", userCode));
+            obj.Add(new DataItems("CreatedBy", DecUserCode));
             obj.Add(new DataItems("QueryType", "GetPasswordData"));
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             string CreatedOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"]);
@@ -1040,15 +1084,44 @@ namespace zipSign.Controllers
         }
         public ActionResult UpdatePassword(string userCode, string Email, string NewPassword, string confirmPassword)
         {
+            if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                return Json(new { error = "All fields are required." }, JsonRequestBehavior.AllowGet);
+            }
+            if (NewPassword != confirmPassword)
+            {
+                return Json(new { error = "Password and confirm password do not match." }, JsonRequestBehavior.AllowGet);
+            }
+            string passwordPattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
+            if (!Regex.IsMatch(NewPassword, passwordPattern))
+            {
+                return Json(new { error = "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." }, JsonRequestBehavior.AllowGet);
+            }
+
+            string clientIP = GetClientIP();
+            string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(NewPassword));
             List<DataItems> obj = new List<DataItems>();
             obj.Add(new DataItems("UserMasterID", userCode));
             obj.Add(new DataItems("Email", Email));
-            obj.Add(new DataItems("NewPassword", NewPassword));
+            obj.Add(new DataItems("NewPassword", EncNewPassword));
             obj.Add(new DataItems("CreatedBy", userCode));
+            obj.Add(new DataItems("IP", clientIP));
             obj.Add(new DataItems("QueryType", "ForgotPassword"));
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
-            return Json(new { statusClass.StatusCode }, JsonRequestBehavior.AllowGet);
+
+
+            // Assuming your statusClass contains information about the result of the password update operation
+            if (statusClass.StatusCode == 7)
+            {
+                return Json(new { success = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { error = "Failed to update password." }, JsonRequestBehavior.AllowGet);
+            }
+
         }
+
     }
 }
 
