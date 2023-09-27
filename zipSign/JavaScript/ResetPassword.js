@@ -1,34 +1,32 @@
-﻿$(document).ready(function () {
-    
+﻿var row = '';
+$(document).ready(function () {
+    debugger;
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
     if (userCode) {
         $('#oldpassword').hide();
-        
         $.ajax({
             url: '/Login/GetDataForPasswordReset?UserCode=' + userCode,
             type: 'GET',
             dataType: 'json',
-            success: function (result) { // Use 'result' here instead of 'data'
-                
-                var linkCreatedOn = result.CreatedOn; // Use 'result' here instead of 'data'
-                var linkExpiredOn = result.ExpiredOn; // Use 'result' here instead of 'data'
+            success: function (result) {
+                debugger;
+                var linkCreatedOn = result.CreatedOn;
+                var linkExpiredOn = result.ExpiredOn;
                 var currentDateTime = getCurrentDateTime();
                 if (result.IsExpired == true) {
                     alert("Link Has Expired");
                 }
-                //else if (currentDateTime > linkExpiredOn) {
-                   // alert("Link Has Expired");
-                //}
+                else if (currentDateTime > linkExpiredOn) {
+                    alert("Link Has Expired");
+                }
                 else {
                     sessionStorage.setItem('UserCode', result.CreatedBy);
                     sessionStorage.setItem('Email', result.Email);
-                    //UpdatePassword(result.CreatedBy, result.Email);
-                    //alert('Link is still valid');
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-                
+
                 console.log('AJAX Error:');
                 console.log('Status:', textStatus);
                 console.log('Error:', errorThrown);
@@ -47,61 +45,80 @@ function getUrlParameter(name) {
 }
 
 function getCurrentDateTime() {
-    
     var currentDate = new Date();
     var year = currentDate.getFullYear();
     var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Months are zero-based
     var day = ('0' + currentDate.getDate()).slice(-2);
-    var hours = currentDate.getHours();
+    var hours = ('0' + currentDate.getHours()).slice(-2);
     var minutes = ('0' + currentDate.getMinutes()).slice(-2);
     var seconds = ('0' + currentDate.getSeconds()).slice(-2);
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // If hours is 0, set it to 12
-    var formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds} ${ampm}`;
+
+    var formattedDateTime = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
     return formattedDateTime;
 }
 
 
+
 function UpdatePassword() {
-    
-    Newpassword = $("#newpassword").val();
-    confirmpassword = $("#confirmpassword").val();
-    UserCode = sessionStorage.getItem('UserCode');
-    Email = sessionStorage.getItem('Email');
+    debugger;
+    var Newpassword = $("#newpassword").val();
+    var confirmpassword = $("#confirmpassword").val();
+    var UserCode = sessionStorage.getItem('UserCode');
+    var Email = sessionStorage.getItem('Email');
+    $("#message").empty();
+    if (Newpassword === "") {
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter a password</div>';
+        $("#message").append(row);
+        $("#newpassword").focus();
+        return false;
+    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        $("#message").append(row);
+        $("#newpassword").focus();
+        return false;
+    }
+
+    if (confirmpassword === "") {
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please confirm the password</div>';
+        $("#message").append(row);
+        $("#confirmpassword").focus();
+        return false;
+    }
+
+    if (Newpassword !== confirmpassword) {
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Passwords do not match</div>';
+        $("#message").append(row);
+        $("#confirmpassword").focus();
+        return false;
+    }
     $.ajax({
         url: '/Login/UpdatePassword',
-        type: 'GET',
+        type: 'POST', 
         dataType: 'json',
         data: {
             userCode: UserCode,
             Email: Email,
-            Newpassword,
-            confirmpassword
+            NewPassword: Newpassword, 
+            confirmPassword: confirmpassword 
         },
-        success: function (result) { // Use 'result' here instead of 'data'
-            
-            var linkCreatedOn = result.CreatedOn; // Use 'result' here instead of 'data'
-            var linkExpiredOn = result.ExpiredOn; // Use 'result' here instead of 'data'
-            var currentDateTime = getCurrentDateTime();
-            if (result.IsExpired == true) {
-                alert("Link Has Expired");
-            }
-            else if (currentDateTime > linkExpiredOn) {
-
-            }
-            else {
-                //UpdatePassword(result.CreatedBy, result.Email);
-                //alert('Link is still valid');
+        success: function (result) {
+            if (result.success) {
+                console.log('Password updated successfully');
+                window.location.href = '/Login/Index';
+                sessionStorage.clear();
+            } else if (result.error) {
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.error + '</div>';
+                $("#message").append(row);
             }
         },
         error: function (xhr, textStatus, errorThrown) {
-            
-            console.log('AJAX Error:');
-            console.log('Status:', textStatus);
-            console.log('Error:', errorThrown);
+            // AJAX request to server failed
+            // Display a generic error message
+            var row = '<div class="alermsg col-md-12 p-1" role="alert">An error occurred while processing your request.</div>';
+            $("#message").append(row);
         }
     });
 }
+
 
 
