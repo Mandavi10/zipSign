@@ -1,6 +1,5 @@
 ﻿var row = '';
 $(document).ready(function () {
-    debugger;
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
     if (userCode) {
@@ -10,7 +9,6 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-                debugger;
                 var linkCreatedOn = result.CreatedOn;
                 var linkExpiredOn = result.ExpiredOn;
                 var currentDateTime = getCurrentDateTime();
@@ -60,37 +58,36 @@ function getCurrentDateTime() {
 
 
 function UpdatePassword() {
-    debugger;
     var Newpassword = $("#newpassword").val();
     var confirmpassword = $("#confirmpassword").val();
     var UserCode = sessionStorage.getItem('UserCode');
     var Email = sessionStorage.getItem('Email');
-    $("#message").empty();
-    if (Newpassword === "") {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter a password</div>';
-        $("#message").append(row);
-        $("#newpassword").focus();
-        return false;
-    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
-        $("#message").append(row);
-        $("#newpassword").focus();
-        return false;
-    }
+    //$("#message").empty();
+    //if (Newpassword === "") {
+    //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter a password</div>';
+    //    $("#message").append(row);
+    //    $("#newpassword").focus();
+    //    return false;
+    //} else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
+    //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+    //    $("#message").append(row);
+    //    $("#newpassword").focus();
+    //    return false;
+    //}
 
-    if (confirmpassword === "") {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please confirm the password</div>';
-        $("#message").append(row);
-        $("#confirmpassword").focus();
-        return false;
-    }
+    //if (confirmpassword === "") {
+    //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please confirm the password</div>';
+    //    $("#message").append(row);
+    //    $("#confirmpassword").focus();
+    //    return false;
+    //}
 
-    if (Newpassword !== confirmpassword) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Passwords do not match</div>';
-        $("#message").append(row);
-        $("#confirmpassword").focus();
-        return false;
-    }
+    //if (Newpassword !== confirmpassword) {
+    //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Passwords do not match</div>';
+    //    $("#message").append(row);
+    //    $("#confirmpassword").focus();
+    //    return false;
+    //}
     $.ajax({
         url: '/Login/UpdatePassword',
         type: 'POST', 
@@ -107,6 +104,7 @@ function UpdatePassword() {
                 window.location.href = '/Login/Index';
                 sessionStorage.clear();
             } else if (result.error) {
+                $("#message").empty();
                 var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.error + '</div>';
                 $("#message").append(row);
             }

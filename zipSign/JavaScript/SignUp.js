@@ -99,7 +99,6 @@ $(document).ready(function () {
     });
 
     $('#btnSign').click(function () {
-        debugger;
         if (isValidData() == false) {
             return false;
         }
@@ -109,7 +108,6 @@ $(document).ready(function () {
     });
 
     $('#btnsave').click(function () {
-        debugger;
         SignUp();
     });
 
