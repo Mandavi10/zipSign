@@ -925,13 +925,12 @@ namespace zipSign.Controllers
         }
 
 
-        public ActionResult ResetPassword(string Email)
+        public ActionResult ResetPassword(string Email, string captchaInput)
         {
             if (string.IsNullOrEmpty(Email))
             {
                 return Json(new { status = "Email/Mobile can't Empty" });
             }
-
             else
             {
                 string pattern = @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$";
@@ -940,7 +939,6 @@ namespace zipSign.Controllers
                     return Json(new { status = "Invalid Email format" });
                 }
             }
-
             if (string.IsNullOrEmpty(captchaInput))
             {
                 return Json(new { status = "Please enter captcha" });
@@ -949,7 +947,6 @@ namespace zipSign.Controllers
             bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.Ordinal);
             if (isCaptchaValid)
             {
-
                 List<DataItems> obj = new List<DataItems>();
                 //string clientIP = GetClientIP();
                 //obj.Add(new DataItems("IP", clientIP));
