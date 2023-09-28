@@ -10235,5 +10235,6 @@ div.dataTables_filter {
     background-color: #2c7ac9 !important;
 }
 .ui-state-active, .ui-widget-content .ui-state-active {
-    background-color:#2c7ac9 !important
+    background-color: #2c7ac9;
+    color: #fff;
 }
