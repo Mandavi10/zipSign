@@ -10227,3 +10227,13 @@ div.dataTables_filter {
     font-family: 'Roboto-Medium';
     margin-top: 6px !important;
 }
+.ui-datepicker-prev ,.ui-datepicker-next {
+    background-color: #fff ;
+}
+
+.ui-datepicker-header {
+    background-color: #2c7ac9 !important;
+}
+.ui-state-active, .ui-widget-content .ui-state-active {
+    background-color:#2c7ac9 !important
+}
