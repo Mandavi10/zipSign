@@ -107,7 +107,7 @@ $(document).ready(function () {
         $('#btncomplete1').hide();
         $("#btnreject").hide();
         if (signerType == "Single_Signer") {
-            appendActivity(DateTimeParsed, "Mandavi", "mandavi@yoekisoft.com", "Document Signed");
+           // appendActivity(DateTimeParsed, "Mandavi", "mandavi@yoekisoft.com", "Document Signed");
             $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
@@ -178,7 +178,7 @@ $(document).ready(function () {
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();
         }
-        appendActivity(uploadedFileDate, "Mandavi (mandavi@yoekisoft.com)", "File Uploaded");
+        //appendActivity(uploadedFileDate, "Mandavi (mandavi@yoekisoft.com)", "File Uploaded");
         //$("#PreviewSignImage1").attr("src", filepathsss);
         $('.select').click(function () {
             $('.select-container').toggleClass('active');
@@ -341,50 +341,34 @@ function RowClickEventHandler1(UId) {
             var _datetxtFrom = new Date(txtfromnew)
             var _datetxtTo = new Date(txtTonew) //txtFrom //txtTo
             if (_datetxtTo > _datetxtFrom) {
-                alert("Link Expired");
-                return false;
-                window.location.href = "/Login/SignLogin";
+                
+                window.location.href = "/zipSign/Link_Expired";
             }
             else {
+                
                 var table3Data = result.responseData.Table3Data;
                 var trailDiv = $("#Trail_Div");
-
                 // Clear any existing content in the Trail_Div
                 trailDiv.empty();
-
-
-
-                // Extract data from the rowData
                 for (var i = 0; i < table3Data.length; i++) {
                     var rowData = table3Data[i];
+                    var activityTime1 = rowData["CreatedOn"]; 
+                    var userName = rowData["UserName"]; 
+                    var userEmail = rowData["EmailID"]; 
+                    var date1 = parseInt(activityTime1.match(/\d+/)[0]);;
+                    var date = new Date(date1);
+                    var formattedDate =
+                        ('0' + date.getDate()).slice(-2) + '/' +
+                        ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+                        ('' + date.getFullYear()).slice(-2) + ' ' +
+                        ('0' + (date.getHours() % 12 || 12)).slice(-2) + ':' +
+                        ('0' + date.getMinutes()).slice(-2) + ' ' +
+                        (date.getHours() >= 12 ? 'PM' : 'AM');
 
-                    // Extract data from the rowData
-                    //  var activityTime = rowData["CreatedOn"]; // Assuming "CreatedOn" is the column name for activity time
-                    //var activityRole = rowData["UserName"]; // Assuming "UserName" is the column name for activity role
-                    //var activityTitle = rowData["Action"]; // Assuming "Action" is the column name for activity title
-                    // Extract data from the rowData
-                    var activityTime1 = rowData["CreatedOn"]; // Assuming "CreatedOn" is the column name for activity time
-                    var userName = rowData["UserName"]; // Assuming "UserName" is the column name for user name
-                    var userEmail = rowData["EmailID"]; // Assuming "EmailID" is the column name for email
-                    var date = new Date(parseInt(activityTime1));
-
-                    // Format the date components
-                    var formattedDate = `${(date.getMonth() + 1).toString().padStart(2, '0')}/
-                  ${date.getDate().toString().padStart(2, '0')}/
-                  ${date.getFullYear()}`;
-
-                    // Format the time components
-                    var hours = date.getHours() % 12 || 12; // Convert to 12-hour format
-                    var amPm = date.getHours() >= 12 ? 'PM' : 'AM';
-                    var formattedTime = `${hours.toString().padStart(2, '0')}:
-                     ${date.getMinutes().toString().padStart(2, '0')} ${amPm}`;
-
-                    // Combine date and time
-                    var activityTime = `${formattedDate} ${formattedTime}`;
-                    // Concatenate user's name and email
+                    var activityTime = `${formattedDate}`;
                     var activityRole = `${userName} (${userEmail})`;
 
-                    var activityTitle = rowData["Action"]; // Assuming "Action" is the column name for activity title
+                    var activityTitle = rowData["Action"]; 
 
                     // Create a new activity box
                     var activityBox = $(

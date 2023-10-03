@@ -250,15 +250,16 @@ namespace zipSign.Controllers
                     SignUp Data = new SignUp();
                     List<Login> result = new List<Login>();
                     List<DataItems> obj = new List<DataItems>
-                    {
-                        new DataItems("Email", objLoginModel.Email),
-                        new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
-                        new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
-                        new DataItems("QueryType", "LoginData")
-                    };
+            {
+                new DataItems("Email", objLoginModel.Email),
+                new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
+                new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
+                new DataItems("QueryType", "LoginData")
+            };
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                     if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
                     {
+                        List<profile> userDataList = new List<profile>(); // Create a list to store user data
                         foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
                         {
                             result.Add(new Login
@@ -268,8 +269,20 @@ namespace zipSign.Controllers
                                 Mobile = Convert.ToString(dr["MobileNumber"]),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
                             });
+                            profile userData = new profile
+                            {
+                                UserName = Convert.ToString(dr["Name"]),
+                                Email = Convert.ToString(dr["Email"]),
+                                Mobile =AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
+                                UserId = Convert.ToString(dr["UserMasterID"]),
+                            };
+
+                            userDataList.Add(userData);
                             this.Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
+
                         }
+                        this.Session["UserData"] = userDataList; // Store the list of user data in the session
+
                         return Json(result, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -287,6 +300,23 @@ namespace zipSign.Controllers
             };
             return Json(result1, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetUserProfile()
+        {
+            // Retrieve user profile data from the session
+            var userData = Session["UserData"] as List<profile>;
+
+            if (userData != null)
+            {
+                return Json(userData, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { status = "error", message = "User data not found" });
+            }
+        }
+
+
         //public static string GetClientIP()
         //{
         //    string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];

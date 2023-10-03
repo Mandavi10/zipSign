@@ -411,7 +411,7 @@ function ForgotPassword() {
                 captchaInput: captchaInput
             },
             success: function (result) {
-                debugger;
+                
                 if (result.StatusCode === 9) {
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
                 }
@@ -442,7 +442,7 @@ function ForgotPassword() {
 }
 
 function SendPasswordResetLink(UserCode, Email) {
-    debugger;
+    
     $.ajax({
         url: '/Login/SendLinkviaEmail',
         type: 'POST',

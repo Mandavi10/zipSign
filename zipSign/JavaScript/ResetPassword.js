@@ -1,6 +1,6 @@
 ﻿var row = '';
 $(document).ready(function () {
-    debugger;
+    
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
     if (userCode) {
@@ -10,15 +10,15 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-                debugger;
+                
                 var linkCreatedOn = result.CreatedOn;
                 var linkExpiredOn = result.ExpiredOn;
                 var currentDateTime = getCurrentDateTime();
                 if (result.IsExpired == true) {
-                    alert("Link Has Expired");
+                    window.location.href = "/zipSign/Link_Expired";
                 }
                 else if (currentDateTime > linkExpiredOn) {
-                    alert("Link Has Expired");
+                    window.location.href = "/zipSign/Link_Expired";
                 }
                 else {
                     sessionStorage.setItem('UserCode', result.CreatedBy);
@@ -60,7 +60,7 @@ function getCurrentDateTime() {
 
 
 function UpdatePassword() {
-    debugger;
+    
     var Newpassword = $("#newpassword").val();
     var confirmpassword = $("#confirmpassword").val();
     var UserCode = sessionStorage.getItem('UserCode');
