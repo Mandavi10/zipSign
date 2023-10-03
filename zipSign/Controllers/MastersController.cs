@@ -24,6 +24,10 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        public ActionResult SigningControl()
+        {
+            return View();
+        }
         public ActionResult DepartmentMaster()
         {
             return View();
