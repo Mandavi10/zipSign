@@ -28,6 +28,13 @@ namespace zipSign.Controllers
             return View();
 
         }
+  
+
+        public ActionResult RolesAndRights3()
+        {
+            return View();
+
+        }
 
         public ActionResult Link_Expired()
         {
