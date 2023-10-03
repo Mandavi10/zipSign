@@ -64,7 +64,7 @@ namespace zipSign.Controllers
                     IEnumerable<string> errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
                     return Json(new { status = "Validation failed", errors });
                 }
-                if (string.IsNullOrEmpty(objSignUpModel.Name))
+                if (string.IsNullOrWhiteSpace(objSignUpModel.Name))
                 {
                     return Json(new { status = "Enter Name" });
                 }
@@ -166,7 +166,7 @@ namespace zipSign.Controllers
         private bool IsValidEmail(string email)
         {
             // Check if the email is null or empty
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return false;
             }
@@ -178,7 +178,7 @@ namespace zipSign.Controllers
         private bool IsValidMobile(string mobile)
         {
             //Check if the mobile no is null or empty
-            if (string.IsNullOrEmpty(mobile))
+            if (string.IsNullOrWhiteSpace(mobile))
             {
                 return false;
             }
@@ -189,7 +189,7 @@ namespace zipSign.Controllers
 
         private bool IsValidPassword(string password)
         {
-            if (string.IsNullOrEmpty(password))
+            if (string.IsNullOrWhiteSpace(password))
             {
                 return false;
             }
@@ -198,7 +198,7 @@ namespace zipSign.Controllers
         }
         private bool IsValidConfirmPassword(string ConfirmPassword)
         {
-            if (string.IsNullOrEmpty(ConfirmPassword))
+            if (string.IsNullOrWhiteSpace(ConfirmPassword))
             {
                 return false;
             }
@@ -210,7 +210,7 @@ namespace zipSign.Controllers
 
         private bool IsValidPAN(string pan)
         {
-            if (string.IsNullOrEmpty(pan))
+            if (string.IsNullOrWhiteSpace(pan))
             {
                 return false;
             }
@@ -1079,7 +1079,7 @@ namespace zipSign.Controllers
             string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
             return Json(new { statusClass.StatusCode, CreatedOn, CreatedBy, IsExpired, ExpiredOn, Email }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdatePassword(string userCode, string Email, string NewPassword, string confirmPassword)
+        public ActionResult UpdatePassword(string userCode, string Email, string OldPassword,string NewPassword, string confirmPassword)
         {
             if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmPassword))
             {

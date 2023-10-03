@@ -257,7 +257,7 @@ function validations() {
     //    }
     //}
 
-    if ($("#email").val() === "") {
+    if ($("#email").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Email is Required.</div>';
         $("#message").empty();
         $("#message").append(row);
@@ -281,7 +281,7 @@ function validations() {
     //    isvalidate = 0;
     //}
 
-    else if ($("#password").val() === "") {
+    else if ($("#password").val().trim() === "") {
         $("#message").empty();
         row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
         $("#message").append(row);
@@ -297,7 +297,7 @@ function validations() {
         isvalidate = 0;
         return false;
     }
-    else if ($('#signin-password').val() === "") {
+    else if ($('#signin-password').val().trim() === "") {
         $("#message").empty();
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
         $("#message").append(row);

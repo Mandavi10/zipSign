@@ -31,9 +31,7 @@ $(document).ready(function () {
     //startTimer().hide();
 
 
-
     $(".verifybtn").click(function () {
-        //
         if ($("#UserName").val() === '') {
             $("#message").empty();
             row = '<div class="alermsg col-md-12 p-1" role="alert">Enter User Name</div>';
@@ -606,7 +604,7 @@ function isValidData() {
     var UserType = $('input[name="selectone"].selectonerad:checked').val();
 
     if (UserType != 'individual') {
-        if ($("#CorpName").val() === "") {
+        if ($("#CorpName").val().trim() === "") {
             row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Corporate Name</div>';
             $("#message").empty().append(row);
             $("#CorpName").focus();
@@ -619,7 +617,7 @@ function isValidData() {
         }
     }
 
-    if ($("#UserName").val() === "") {
+    if ($("#UserName").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Name</div>';
         $("#message").empty().append(row);
         $("#UserName").focus();
@@ -631,7 +629,7 @@ function isValidData() {
         return false;
     }
 
-    if ($("#Email").val() === "") {
+    if ($("#Email").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Email</div>';
         $("#message").empty().append(row);
         $("#Email").focus();
@@ -647,13 +645,13 @@ function isValidData() {
         $("#message").empty().append(row);
         $("#emailOTP").focus();
         return false;
-    } else if ($("#emailOTP").val() === "") {
+    } else if ($("#emailOTP").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Email OTP</div>';
         $("#message").empty().append(row);
         $("#emailOTP").focus();
         return false;
     }
-    if ($("#Phoneno").val() === "") {
+    if ($("#Phoneno").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Mobile</div>';
         $("#message").empty().append(row);
         $("#Phoneno").focus();
@@ -668,7 +666,7 @@ function isValidData() {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify Mobile Number</div>';
         $("#message").empty().append(row);
         return false;
-    } else if ($("#mobileotp").val() === "") {
+    } else if ($("#mobileotp").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Mobile OTP</div>';
         $("#message").empty().append(row);
         $("#mobileotp").focus();
@@ -681,7 +679,7 @@ function isValidData() {
         return false;
     }
 
-    if ($("#password").val() === "") {
+    if ($("#password").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter password</div>';
         $("#message").empty().append(row);
         $("#password").focus();
@@ -693,14 +691,14 @@ function isValidData() {
         return false;
     }
 
-    if ($("#ConfirmPassword").val() === "") {
+    if ($("#ConfirmPassword").val().trim() === "") {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Please Confirm password</div>';
         $("#message").empty().append(row);
         $("#ConfirmPassword").focus();
         return false;
     }
 
-    if ($("#password").val() !== $("#ConfirmPassword").val()) {
+    if ($("#password").val().trim() !== $("#ConfirmPassword").val().trim()) {
         row = '<div class="alermsg col-md-12 p-1" role="alert">Password and Confirm Should Matching</div>';
         $("#message").empty().append(row);
         $("#ConfirmPassword").focus();

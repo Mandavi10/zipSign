@@ -180,7 +180,7 @@ $("#OnlySigner").click(function () {
 //});
 // Function to add recipients to the data array
 function addRecipientData() {
-    //
+    
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -226,8 +226,7 @@ $("#viewrec").click(function () {
     updateGridData();
 });
 function isValidData() {
-
-    //;
+    
     var checkedRadioButtonId = $('input[name="control"]:checked').attr('id');
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
@@ -235,8 +234,6 @@ function isValidData() {
     });
     $("#message").empty();
     if (checkedRadioButtonId == "AddRecipient") {
-
-
         var isDuplicate = false;
         var uniqueValues = {};
         $('input[id^="Email"], input[id^="phone"]').each(function () {
@@ -258,7 +255,7 @@ function isValidData() {
         return false;
     }
 
-    if ($("#text-input1").val() === '') {
+    if ($("#text-input1").val().trim() === '') {
         var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Document Name</div>';
         $("#message").append(row);
         $("#text-input1").focus();
@@ -277,14 +274,61 @@ function isValidData() {
     //    return false;
     //}
     if (checkedRadioButtonId == "AddRecipient") {
-        var Email = $("#Email1").val();
-        var expday = $("#ExpDate1").val();
         var ValidatorFor = [];
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         var i = $("#hiddena").val();
         for (var j = 1; j <= i; j++) {
+            var nameField = $("#Name" + j).val().trim();
+            var emailField = $("#Email" + j).val().trim();
+            var phoneField = $("#phone" + j).val().trim();
+            var expiryday = $("#ExpDate" + j).val().trim();
+            if (nameField === "") {
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' name should not be empty.</div>';
+                $("#message").append(row);
+                $("#Name" + j).focus();
+                return false;
+            }
+
+            if (emailField === "") {
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' email should not be empty.</div>';
+                $("#message").append(row);
+                $("#Email" + j).focus();
+                return false;
+            }
+            else if (!/^[\w\.\-]+@[a-zA-Z\d\-]+(\.[a-zA-Z]+)*\.[a-zA-Z]{2,}$/.test(emailField)) {
+                row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
+                $("#message").append(row);
+                $("#Email").focus();
+                return false;
+            }
+
+            if (phoneField === "") {
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' mobile no. should not be empty.</div>';
+                $("#message").append(row);
+                $("#phone" + j).focus();
+                return false;
+            }
+            else if (!/^[6-9]\d{9}$/.test(phoneField)) {
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Mobile Number should be 10 Digits and only starts with 6/7/8/9</div>';
+                $("#message").append(row);
+                $("#Phoneno").focus();
+                return false;
+            }
+            if (expiryday === "") {
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' Expiry day should not be empty.</div>';
+                $("#message").append(row);
+                $("#ExpDate" + j).focus();
+                return false;
+            }
+            else if (!/^[0-9]+$/.test(expiryday)) {
+                row = '<div class="alermsg col-md-12 p-1" role="alert">Give expiry days in day</div>';
+                $("#message").append(row);
+                $("#ExpDate" + j).focus();
+                return false;
+            }
+            
             ValidatorFor.push(["Name" + j, "Required", "", "Please enter Recipient " + j + " name"]);
             ValidatorFor.push(["Email" + j, "Required", "", "Please enter Recipient " + j + " Email"]);
             ValidatorFor.push(["Email" + j, "Email", "", "Please enter Recipient " + j + " valid email-id"]);
@@ -294,13 +338,12 @@ function isValidData() {
         var status = ValidateMe(ValidatorFor);
         if (status == false) {
             return false;
-        }
-
-        else {
+        } else {
             return true;
         }
-    }
 
+
+    }
 }
 function UploadImages(FileUploader, Preview, ColumnName) {
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
@@ -408,13 +451,11 @@ function formatBytes(bytes) {
 
 var recipientsData = [];
 $("#MoreRecipient").click(function () {
-    //
     AddRecipiants(2);
 });
 
 $(".suggestions-list").hide();
 function AddRecipiants(a) {
-    //
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -501,7 +542,6 @@ function AddRecipiants(a) {
 
     }
     $(".delbtn").off().on("click", function () {
-        //;
         $(this).closest("div.d-flex.flex-wrap.MySigndiv").remove();
         updateSignerNumbers();
         updateGridData();
@@ -513,7 +553,10 @@ function updateSignerNumbers() {
         var signerNumber = index + 2;
         $(this).find(".numdiv").text("Signer " + signerNumber);
     });
-    var i = i - 1;
+    //var i = i - 1;
+    //$("#hiddena").val(i);
+    var i = $("#hiddena").val();
+    i = i - 1;
     $("#hiddena").val(i);
 }
 function storeRecipientsData() {
@@ -530,7 +573,6 @@ function storeRecipientsData() {
 }
 
 function updateGridData() {
-
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -581,13 +623,6 @@ function GetData(pagecount, keyword) {
                 return '<span class="fa fa-sign-in gridIcon" id=""></span><span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
             }
         },
-        //{
-        //    headerName: 'Action', field: '', width: 200, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
-
-        //        return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-department-code="' + params.data.DepartmentCode + '" onclick="ShowMore(this)">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>';
-        //    }
-        //},
-
     ];
     var rowData = [];
     //
@@ -600,7 +635,6 @@ function GetData(pagecount, keyword) {
             keyword: keyword
         },
         success: function (result) {
-
             var jsonData = result.Table1;
             var jsonData1 = result.Table2;
             $.each(jsonData, function (i, value) {
@@ -702,8 +736,8 @@ function Delete(DocumentUploadId) {
 
 
 
-function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId,SignerExpiry) {
-    
+function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, SignerExpiry) {
+
 
     var FilePath = sessionStorage.getItem('LoaclPath');
     $.ajax({
@@ -768,7 +802,7 @@ function SignInsert() {
             UserType: signerType
         },
         success: function (result) {
-            
+
             //sessionStorage.setItem('UploadedDocumentId', result.UploadedDocumentId);
             //sessionStorage.setItem('UniqueSignerID', result.UniqueID);;
             var UploadedDocumentId = result.UploadedDocumentId

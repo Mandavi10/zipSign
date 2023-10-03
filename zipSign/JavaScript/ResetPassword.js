@@ -58,17 +58,21 @@ function getCurrentDateTime() {
 
 
 function UpdatePassword() {
+    
+    var OldPassword = $("#oldpassword").val();
     var Newpassword = $("#newpassword").val();
     var confirmpassword = $("#confirmpassword").val();
     var UserCode = sessionStorage.getItem('UserCode');
     var Email = sessionStorage.getItem('Email');
     $("#message").empty();
+
     if (Newpassword === "") {
         var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter a password</div>';
         $("#message").append(row);
         $("#newpassword").focus();
         return false;
-    } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
+    }
+    else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
         var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
         $("#message").append(row);
         $("#newpassword").focus();
@@ -90,13 +94,13 @@ function UpdatePassword() {
     }
     $.ajax({
         url: '/Login/UpdatePassword',
-        type: 'POST', 
+        type: 'POST',
         dataType: 'json',
         data: {
             userCode: UserCode,
             Email: Email,
-            NewPassword: Newpassword, 
-            confirmPassword: confirmpassword 
+            NewPassword: Newpassword,
+            confirmPassword: confirmpassword
         },
         success: function (result) {
             if (result.success) {
