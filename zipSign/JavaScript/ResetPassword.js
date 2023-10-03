@@ -1,6 +1,6 @@
 ﻿var row = '';
 $(document).ready(function () {
-    
+
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
     if (userCode) {
@@ -10,7 +10,7 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-                
+
                 var linkCreatedOn = result.CreatedOn;
                 var linkExpiredOn = result.ExpiredOn;
                 var currentDateTime = getCurrentDateTime();
@@ -60,7 +60,7 @@ function getCurrentDateTime() {
 
 
 function UpdatePassword() {
-    
+
     var Newpassword = $("#newpassword").val();
     var confirmpassword = $("#confirmpassword").val();
     var UserCode = sessionStorage.getItem('UserCode');
@@ -107,6 +107,7 @@ function UpdatePassword() {
                 window.location.href = '/Login/Index';
                 sessionStorage.clear();
             } else if (result.error) {
+                $("#message").empty();
                 var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.error + '</div>';
                 $("#message").append(row);
             }

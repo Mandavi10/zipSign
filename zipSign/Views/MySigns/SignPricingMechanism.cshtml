@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <style>
 /*    .body {
         min-height: 81vh;
@@ -49,6 +50,10 @@
     .rangeappdiv {
         display: none;
     }
+    .pricetxt {
+        text-align: right;
+        padding-right: 14px !important;
+    }
 </style>
 <div class="container-fluid">
     <div class="block-header">
@@ -82,7 +87,7 @@
                 <div class="body fulldiv">
                     <form id="advanced-form" data-parsley-validate novalidate>
                         <div class="col-md-12 d-flex flex-wrap formDiv">
-                            <div class="form-group col-md-6">
+                            @*<div class="form-group col-md-6">
                                 <label for="text-input2">Corporate Name</label>
                                 <div class="c_multiselect">
                                     <select name="single_selection" class="form-control">
@@ -98,47 +103,121 @@
                                 <input type="text" id="" class="form-control" autocomplete="off" />
 
 
-                            </div>
+                            </div>*@
 
 
 
 
-                            <div class="col-md-12 d-flex justify-content-end pe-3"><button type="button" class="btn btn-primary addran" id="">Add More</button></div>
-                            <div class="col-md-12  pagesdiv">
+                            <div class="col-md-12 d-flex justify-content-end pe-3"><button type="button" class="btn btn-primary addran actbtnn" id="">Add More</button></div>
+                            <div class="col-md-12  pagesdiv" style="min-height: 63vh;">
                                 <div class="body pt-0">
                                     <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead>
+                                        <table class="table mb-0" style="overflow: hidden;">
+                                            <thead style="display: inline-block; width: 100%;">
                                                 <tr>
-                                                    <th style="width:60px">Sr. No.</th>
-                                                    <th style="width:200px">Sign Range</th>
-                                                    <th style="width:150px">UIDAI Price</th>
-                                                    <th style="width:150px">Our Rate</th>
-                                                    <th style="width:150px">Net Price</th>
-                                                    <th style="width:150px">Amount with tax</th>
-                                                    <th style="width:100px">Validity in days</th>
+                                                    @*<th style="width:60px">Sr. No.</th>*@
+                                                    <th style="width:240px">Sign Range</th>
+                                                    <th style="width:150px" class="pricetxt">UIDAI Price</th>
+                                                    <th style="width:150px" class="pricetxt">Our Rate</th>
+                                                    <th style="width:150px" class="pricetxt">Net Price</th>
+                                                    <th style="width:180px" class="pricetxt">Amount with tax</th>
+                                                    <th style="width:150px">Validity in days</th>
 
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody style="overflow-y: auto; max-height: 56vh; display: inline-block; width: 100%;">
                                                 <tr>
-                                                    <td style="width:100px">1</td>
-                                                    <td style="width:200px">
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
                                                         <div class="col-md-12 d-flex flex-wrap">
                                                             <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
                                                             <div class="col-md-2 text-center pt-1"> To</div>
                                                             <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
                                                         </div>
                                                     </td>
-                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
-                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
-                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
-                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
                                                     <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
                                                 </tr>
 
-
-
+                                                <tr>
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+                                                <tr>
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+                                                <tr>
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+                                                <tr>
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+                                                <tr>
+                                                    @*<td style="width:100px">1</td>*@
+                                                    <td style="width:240px">
+                                                        <div class="col-md-12 d-flex flex-wrap">
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                            <div class="col-md-2 text-center pt-1"> To</div>
+                                                            <div class="col-md-5"> <input type="text" id="" class="form-control" autocomplete="off" /></div>
+                                                        </div>
+                                                    </td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:180px"> <input type="text" id="" class="form-control pricetxt" autocomplete="off" /></td>
+                                                    <td style="width:150px"> <input type="text" id="" class="form-control" autocomplete="off" /></td>
+                                                </tr>
+                                       
 
 
 

@@ -8,21 +8,24 @@
     var columnDefs = [
         { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
        /* { headerName: 'Transaction ID', field: 'transID', width: 130, resizable: false, sortable: true, suppressMovable: true  },*/
-        { headerName: 'Corporate Name', field: 'entityName', width: 300, resizable: false, sortable: true, suppressMovable: true  },
-        { headerName: 'Corporate ID', field: 'entityID', width: 180, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Date', field: 'purchaseDate', width: 130, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Status', field: 'status', width: 100, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Balance eSign', field: 'balanceSign', width: 130, resizable: false, sortable: true, suppressMovable: true },
-        {
-            headerName: 'Action', field: '', width: 110,  resizable: false, suppressMovable: true, cellRenderer: function (params) {
-                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#Signmodal">View More</button>'
-            }
-        }
+        //{ headerName: 'Corporate Name', field: 'entityName', width: 300, resizable: false, sortable: true, suppressMovable: true  },
+        //{ headerName: 'Corporate ID', field: 'entityID', width: 180, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Date', field: 'purchaseDate', width: 150, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'eSign Utilised', field: 'eut', width: 170, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'No. of Fail', field: 'nof', width: 170, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Total Transactions', field: 'ttran', width: 180, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Balance eSign', field: 'balanceSign', width: 170, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Status', field: 'status', width: 130, resizable: false, sortable: true, suppressMovable: true },
+        //{
+        //    headerName: 'Action', field: '', width: 110,  resizable: false, suppressMovable: true, cellRenderer: function (params) {
+        //        return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#Signmodal">View More</button>'
+        //    }
+        //}
     ];
 
     var rowData = [
-        { srNo: '1', transID: '236541258454', entityName: 'Entity 1', entityID: '545699669', purchaseDate: '12/09/2023', expireDate: '22/09/2023', status: 'Active', balanceSign: '2' },
-        { srNo: '2', transID: '236546321542', entityName: 'Entity 2', entityID: '363215488', purchaseDate: '01/10/2023', expireDate: '10/10/2023', status: 'Active', balanceSign: '1' },
+        { srNo: '1', eut: '1500', nof: '12', ttran: '200', balanceSign: '200', expireDate: '22/09/2023', status: 'Active', balanceSign: '2' },
+     
 
     ];
 
@@ -48,6 +51,9 @@
         position: absolute;
         right: 32px;
         bottom: 23px;
+    }
+    .choscorp{
+        display:block;
     }
 </style>
 <div class="container-fluid">

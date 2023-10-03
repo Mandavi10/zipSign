@@ -448,6 +448,7 @@
     <Content Include="Content\images\space-ship.png" />
     <Content Include="Content\images\tick.jpg" />
     <Content Include="Content\images\touch-icon.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
     <Content Include="Content\images\university_auth_bg.jpg" />
     <Content Include="Content\images\user-small.png" />
     <Content Include="Content\images\user.png" />
@@ -469,10 +470,12 @@
     <Content Include="Content\js\horizontal-timeline.js" />
     <Content Include="Content\js\index.js" />
     <Content Include="Content\js\jquery-3.6.4.min.js" />
+    <Content Include="Content\js\jquery-ui.js" />
     <Content Include="Content\js\jquery.steps.js" />
     <Content Include="Content\js\jquery.validate.js" />
     <Content Include="Content\js\libscripts.bundle.js" />
     <Content Include="Content\js\mainscripts.bundle.js" />
+    <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\MyValidator.js" />
     <Content Include="Content\js\parsley.min.js" />
     <Content Include="Content\js\sweetalert-dev.js" />
@@ -664,11 +667,7 @@
     <Content Include="Views\MySigns\BuySignHistory.cshtml" />
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
     <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
-
-
     <Content Include="Views\zipSign\Link_Expired.cshtml" />
-
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

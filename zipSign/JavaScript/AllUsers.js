@@ -37,11 +37,17 @@ function GetData(pagecount, keyword) {
         { headerName: 'Mobile App', field: 'Mobileapp', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Status', field: 'Active', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         {
-            headerName: 'Action', field: '', width: 180, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
 
-                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-User-Code="' + params.data.UserCode + '" onclick="ShowMore(this)">View More</button> <button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#">Delete</button>';
+                return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-User-Code="' + params.data.UserCode + '" onclick="ShowMore(this)">View More</button>';
             }
         
+        },
+        {
+            headerName: '', field: '', width: 70, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
+
+                return '<span class="fa fa-trash gridIcon" id=""></span>';
+            }
         },
 
     ];

@@ -564,15 +564,15 @@ function GetData(pagecount, keyword) {
     $("#myGrid").html("");
     var columnDefs = [
         { headerName: 'Sr. No.', field: 'Sr. No.', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
-        { headerName: 'Uploaded Document Name', field: 'DocumentName', width: 200, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Uploaded Document Name', field: 'DocumentName', width: 210, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'DocumentName', field: 'DocumentName', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Status', field: 'SignStatus', width: 140, resizable: false, sortable: true, suppressMovable: true, },
-        { headerName: 'Uploaded On', field: 'UploadedOn', width: 150, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Uploaded On', field: 'UploadedOn', width: 170, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Uploaded By', field: 'UploadedBy', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         {
             headerName: 'Action',
             field: '',
-            width: 180,
+            width: 150,
             sortable: true,
             resizable: false,
             suppressMovable: true,
