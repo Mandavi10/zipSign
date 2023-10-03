@@ -51,7 +51,7 @@ function RowClickEventHandler(UId) {
         success: function (result) {
             
             if (result.IsExpired == 'True') {
-                alert("Link Expired");
+                window.location.href = "/zipSign/Link_Expired";
                 return false;
             }
             else {

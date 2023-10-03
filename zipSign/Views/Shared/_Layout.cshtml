@@ -385,29 +385,31 @@
                         <nav id="left-sidebar-nav" class="sidebar-nav">
                             <ul id="main-menu" class="metismenu li_animation_delay">
                                 @*
-                                                    <li class="active">
-                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                        <ul>
 
-                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+                                                        <li class="active">
+                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                            <ul>
 
-
-                                <div class="tab-content padding-0">
-                                    <div class="tab-pane active" id="menu">
-                                        <nav id="left-sidebar-nav" class="sidebar-nav">
-                                            <ul id="main-menu" class="metismenu li_animation_delay">
-                                                @*
-                                                    <li class="active">
-                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                        <ul>
+                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
 
 
-                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+                                    <div class="tab-content padding-0">
+                                        <div class="tab-pane active" id="menu">
+                                            <nav id="left-sidebar-nav" class="sidebar-nav">
+                                                <ul id="main-menu" class="metismenu li_animation_delay">
+                                                    @*
+                                                        <li class="active">
+                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                            <ul>
+
+
+                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
 
 
 
-                                                        </ul>
-                                                    </li>*@
+                                                            </ul>
+                                                        </li>*@
+
                                 <li class="active">
                                     <a href="/Dashboard/Index2"><i class="fa fa-dashboard"></i><span>Home</span></a>
                                 </li>
@@ -463,14 +465,16 @@
                                     </ul>
                                 </li>
                                 @*<li>
-                                    <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
 
-                                </li>*@
+                                        <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
+
+                                    </li>*@
 
                                 @*<li>
-                                    <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
+                                        <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
 
-                                </li>*@
+                                    </li>*@
+
                                 <li>
                                     <a href="/zipSign/BuyEnterprisePack"><i class="fa fa-rupee"></i><span>Buy Enterprise Pack</span></a>
 
@@ -553,8 +557,8 @@
                                         <div class="media col-md-12 text-center profileInfo">
 
 
-                                            <h5 @*id="usernameDisplay"*@>John Doe</h5>
-                                            <p @*id="emailDisplay"*@>johndoe@gmail.com</p>
+                                            <h5 id="usernameDisplay1">John Doe</h5>
+                                            <p id="emailDisplay1">johndoe@gmail.com</p>
                                             <p id="phoneDisplay">9988776655</p>
 
 
@@ -664,20 +668,20 @@
                                             <div class="col-lg-12 col-md-12">
 
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Old Password" id="gst">
+                                                    <input type="text" class="form-control" placeholder="Old Password" id="oldPassword">
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-12 col-md-12">
 
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="New Password" id="comweburl">
+                                                    <input type="text" class="form-control" placeholder="New Password" id="newPassword">
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="edomain">
+                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword">
                                                 </div>
                                             </div>
                                             @*<div class="col-lg-6 col-md-12">
@@ -694,7 +698,7 @@
                                             </div>*@
                                         </div>
                                         <div class="col-md-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            <button type="submit" class="btn btn-primary" id="changePasswordButton">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -737,6 +741,85 @@
                 })
             })
         </script>
+        <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                loadUserProfile(); // Call the function when the page is ready
+
+                function loadUserProfile() {
+                    
+                    $.ajax({
+                        url: '/Login/GetUserProfile',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function (response) {
+                            
+                            if (response.length > 0) {
+                                var userData = response[0];
+                                $('#usernameDisplay1').text(userData.UserName);
+                                $('#emailDisplay1').text(userData.Email);
+                                $('#phoneDisplay').text(userData.Mobile);
+                                // Populate other fields as needed
+                            } else {
+                                // Handle error if user data is not found
+                                alert("User data not found");
+                            }
+                        },
+                        error: function () {
+                            // Handle AJAX error
+                            alert("An error occurred while loading user data.");
+                        }
+                    });
+                }
+            });
+            function changePassword() {
+                var oldPassword = $('#oldPassword').val();
+                var newPassword = $('#newPassword').val();
+                var confirmPassword = $('#confirmPassword').val();
+                if (oldPassword.trim() === '') {
+                    alert('Please enter your old password.');
+                    return;
+                }
+                var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+                if (newPassword.trim() === '') {
+                    alert('Please enter a new password.');
+                    return;
+                } else if (!newPassword.match(passwordPattern)) {
+                    alert('Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.');
+                    return;
+                }
+                if (confirmPassword.trim() === '') {
+                    alert('Please confirm your new password.');
+                    return;
+                } else if (newPassword !== confirmPassword) {
+                    alert('New password and confirm password do not match.');
+                    return;
+                }
+                $.ajax({
+                    url: '/Login/ChangePasswordFromProfile',
+                    type: 'POST', 
+                    data: {
+                        oldPassword: oldPassword,
+                        newPassword: newPassword
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status === 'success') {
+                            alert('Password changed successfully.');
+                            $('#oldPassword').val('');
+                            $('#newPassword').val('');
+                            $('#confirmPassword').val('');
+                        } else {
+                            alert('Password change failed. Please try again later.');
+                        }
+                    },
+                    error: function () {
+                        alert('An error occurred while changing the password.');
+                    }
+                });
+            }
+
+        </script>
         <script>
             jquery_3_6(document).ready(function () {
                 jquery_3_6(".inidiv").click(function () {
@@ -748,5 +831,10 @@
                 $('.profiletoggle').hide();
             })
         </script>
-    </div></body>
+
+    </div>
+</body>
+
+    
+
 </html>

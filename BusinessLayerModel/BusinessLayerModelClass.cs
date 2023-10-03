@@ -111,6 +111,7 @@ namespace BusinessLayerModel
     }
     public class profile
     {
+        public string UserName { get; set; }
         public int ProId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -123,6 +124,9 @@ namespace BusinessLayerModel
         public string ComWebURL { get; set; }
         public string EDomian { get; set; }
         public byte[] UserPhoto { get; set; }
+        public string Email { get; set; }
+        public string Mobile { get; set; }
+        public string UserId { get; set; }
     }
     public class UserInsert1
     {
