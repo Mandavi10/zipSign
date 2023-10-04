@@ -394,10 +394,37 @@
     }
 
     .pagesdiv {
-        height: 58vh;
+    
         border:1px solid #cdcdcd;
         padding:4px;
-        overflow:auto;
+     
+    }
+    .scrld {
+        width:100%;
+        padding-top:2px;
+        height: 51vh;
+        overflow: auto;
+    }
+    .partipage {
+        border-bottom: 1px solid #efe9e9;
+        padding-bottom: 2px;
+    }
+    .newsearch{
+        width:100%;
+    }
+    .newsearch input{
+        width:97% !important;
+    }
+        .newsearch .iconinsearch {
+            right: 14px;
+        }
+    .readwr .fancy-checkbox input[type="checkbox"] + span:before {
+        height: 15px;
+        width: 15px;
+        line-height: 13px;
+    }
+    .readwr span{
+        font-size:12px;
     }
 </style>
 
@@ -498,34 +525,194 @@
                             <div class="col-md-12  pagesdiv">
                                 <div class="d-flex flex-wrap">
                                     <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Draft</span>
-                                        </label>
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative newsearch">
+                                                <input type="text" class="form-control" placeholder="Search..." aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Expired</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Buy Sign History</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Signs Pricing</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Sign Uses</span>
-                                        </label>
+                                    <div class="scrld">
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Sign Usage Log</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Buy Sign History</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Sign Transaction Log</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>All Signs Pricing</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Sign Pricing Mechanism</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Department Master</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Users</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Sign Uses History</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Purchase History</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -541,40 +728,120 @@
                             <div class="col-md-12  pagesdiv">
                                 <div class="d-flex flex-wrap">
                                     <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Draft</span>
-                                        </label>
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative newsearch">
+                                                <input type="text" class="form-control" placeholder="Search..." aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Expired</span>
-                                        </label>
+                                    <div class="scrld">
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Draft</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Signed</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Received</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Rejected</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                            <div class="col-md-8">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Expired</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Read</span>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-2 readwr">
+                                                <label class="fancy-checkbox custom-color-green">
+                                                    <input type="checkbox" name="control" required id="OnlySigner">
+                                                    <span><i></i>Write</span>
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Buy Sign History</span>
-                                        </label>
                                     </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Signs Pricing</span>
-                                        </label>
-                                    </div>
-                                    <div class="col-md-12 mb-2">
-                                        <label class="fancy-checkbox custom-color-green">
-                                            <input type="checkbox" name="control" required id="OnlySigner">
-                                            <span><i></i>Sign Uses</span>
-                                        </label>
-                                    </div>
+
+
+
                                 </div>
-
-
-
-                            </div>
 
                         </div>
 
