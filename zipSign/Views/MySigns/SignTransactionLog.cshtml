@@ -8,18 +8,19 @@
 
     var columnDefs = [
         { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Corporate Name', field: 'entityName', width: 230, resizable: false, sortable: true, suppressMovable: true  },
+        { headerName: 'Corporate Name', field: 'entityName', width: 230, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Corporate ID', field: 'entityID', width: 140, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Document Name', field: 'transID', width: 200, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Transaction Type', field: 'transType', width: 200, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Date', field: 'purchaseDate', width: 200, resizable: false, sortable: true, suppressMovable: true },
-       
+
     ];
 
     var rowData = [
         { srNo: '1', transID: 'Document 1', entityName: 'Corporate 1', entityID: '545699669', status: 'Active', transType: 'OTP', purchaseDate: '12/09/2023 - 10:20:14:54' },
         {
-            srNo: '2', transID: 'Document 2', entityName: 'Corporate 1', entityID: '363215488', status: 'Active', transType: 'Iris', purchaseDate: '18/09/2023  - 10:20:14:54' },
+            srNo: '2', transID: 'Document 2', entityName: 'Corporate 1', entityID: '363215488', status: 'Active', transType: 'Iris', purchaseDate: '18/09/2023  - 10:20:14:54'
+        },
         { srNo: '3', transID: 'Document 3', entityName: 'Corporate 1', entityID: '363215488', status: 'Active', transType: 'Fingerprint', purchaseDate: '19/09/2023 - 10:20:14:54' },
 
     ];
@@ -54,7 +55,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <h2>Sign Transaction Log</h2>
                 <ul class="breadcrumb">
-          
+
                     <li class="breadcrumb-item">Buy More Sign</li>
                     <li class="breadcrumb-item active">Sign Usage Log</li>
                 </ul>
@@ -62,8 +63,8 @@
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="d-flex flex-row-reverse">
                     <div class="page_action">
-                       
-                  
+
+
                     </div>
                     <div class="p-2 d-flex">
 
@@ -88,7 +89,7 @@
                                             <label for="DocName">From</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" id="" required="" class="form-control" autocomplete="off">
+                                            <input type="text" id="" required="" class="form-control my_date_picker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -98,20 +99,20 @@
                                             <label for="DocName">To</label>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text"  id="" required="" class="form-control" autocomplete="off" >
+                                            <input type="text" id="" required="" class="form-control my_date_picker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-2 ms-3">
-                                    <button type="button" class="btn btn-primary searchokBtn" >OK</button>
+                                    <button type="button" class="btn btn-primary searchokBtn">OK</button>
                                 </div>
 
                             </div>
-                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
-                                    <div id="myGrid" style="height: 65vh; width: 100%;" class="ag-theme-alpine"></div>
-                                </div>
-                           
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div id="myGrid" style="height: 65vh; width: 100%;" class="ag-theme-alpine"></div>
+                            </div>
+
                         </div>
 
 
@@ -143,3 +144,19 @@
     </div>
 
 </div>
+
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script>var jquery_3_6 = jQuery.noConflict();</script>
+<script src="~/Content/js/jquery-ui.js"></script>
+<script>var jquery_UI = jQuery.noConflict();</script>
+<script src="~/Content/js/moment.min.js"></script>
+<script>
+
+    jquery_3_6(document).ready(function () {
+
+        jquery_3_6(function () {
+            jquery_UI(".my_date_picker").datepicker({ changeMonth: true, changeYear: true, dateFormat: "dd/mm/yy" }).datepicker("setDate", new Date());
+        });
+    });
+</script>
