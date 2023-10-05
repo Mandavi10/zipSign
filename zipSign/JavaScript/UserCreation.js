@@ -198,7 +198,6 @@ function isValidData() {
 
 
 $("#AddMoreBtn").click(function () {
-    //
     //AddMore();
     createNewDiv();
 
@@ -214,10 +213,7 @@ function createNewDiv() {
     newDiv += '<input type="text" class="form-control inputofnumbers" id="specificDomainName' + i + '">';
     newDiv += '<i class="fa fa-trash crossfrimg delbtn" id="btndelete" onclick="remove(this)"></i>';
     newDiv += '</div>';
-    //newDiv += '<div class="col-md-6 position-relative mt-1 appendinp">';
-    //newDiv += '<input type="text" class="form-control inputofnumbers" id="specificDomainName2' + i + '">';
-    //newDiv += '<i class="fa fa-trash crossfrimg" onclick="DeleteInput(this)"></i>';
-    //newDiv += '</div>';
+  
     $("#hidddiv").val(i);
     $('#SpecificDomainContainer').append(newDiv);
 
@@ -227,7 +223,3 @@ function createNewDiv() {
 function remove(button) {
     $(button).closest("div.col-md-4.position-relative.mt-1.appendinp").remove();
 }
-//$('#btndelete').off().on("click", function () {
-//    //
-//    $(this).closest("div.appendinp").remove();
-//})

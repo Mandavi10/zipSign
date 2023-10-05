@@ -2,10 +2,6 @@
 var keyword;
 $(document).ready(function () {
    
-    //var UserMasterID = sessionStorage.getItem('UserId');
-    //if (UserMasterID == "" || UserMasterID == null) {
-    //    window.location.href = "/Login/Index";
-    //}
     GetData(pagecount);
     GetDataForSignedPDF(pagecount, keyword)
 
@@ -26,17 +22,11 @@ var getUrlParameter = function getUrlParameter(sParam) {
 };
 
 function GetData(pagecount, keyword) {
-    //
     $("#myGrid").html("");
     var columnDefs = [
         { headerName: 'Sr No.', field: 'SR No.', width: 80, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
         { headerName: 'Department Code', field: 'DepartmentCode', width:  310, resizable: false, suppressMovable: true, sortable: true, cellRenderer: function (params) { return '<a href="#" onclick="Click(\'' + params.data.DepartmentId + '\')" id="EditData">' + params.data.DepartmentCode + '</a>'; }, },
         { headerName: 'Department Name', field: 'DepartmentName', width: 350, resizable: false, suppressMovable: true, sortable: true },
-        //{ headerName: 'Description', field: 'Description', width: 200, resizable: false,suppressMovable: true, sortable: true },
-        //{ headerName: 'Created By', field: 'CreatedBy', width: 150, resizable: false,suppressMovable: true, sortable: true },
-        //{ headerName: 'Created On', field: 'CreatedOn', width: 150, resizable: false,suppressMovable: true, sortable: true },
-        //{ headerName: 'Updated By', field: 'UpdatedBy', width: 150, resizable: false,suppressMovable: true, sortable: true },
-        //{ headerName: 'Updated On', field: 'UpdatedOn', width: 150, resizable: false,suppressMovable: true, sortable: true },
         { headerName: 'Status', field: 'IsActive', width: 160, resizable: false, suppressMovable: true, sortable: true },
         {
             headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
@@ -52,7 +42,6 @@ function GetData(pagecount, keyword) {
         },
     ];
     var rowData = [];
-    //
     $.ajax({
         url: '/Masters/SearchData1',
         type: 'POST',
@@ -80,7 +69,7 @@ function GetData(pagecount, keyword) {
                 });
 
             });
-            //
+
             $("#Ddd").empty();
             var page = jsonData1[0].page;
             var size = jsonData1[0].size;
@@ -179,24 +168,6 @@ function ShowMore(departmentCode) {
     });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function Click(DepartmentId) {
 
     let deptId = parseInt(DepartmentId);
@@ -208,12 +179,9 @@ function Click(DepartmentId) {
     }
 }
 
-
 function Search() {
-    //
     var keyword = $('#searchInput').val(); // Retrieve the keyword from the search input field
     var pagecount = 1; // Reset the page count to 1 after performing a search
-    //
     GetData(pagecount, keyword); // Call the modified GetData function with the keyword
 }
 

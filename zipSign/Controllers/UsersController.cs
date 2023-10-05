@@ -23,10 +23,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
-        //public ActionResult Profile()
-        //{
-        //    return View();
-        //}
+        
         [HttpPost]
         public JsonResult UserInsert(UserInsert1 obj1, string Domain)
         {

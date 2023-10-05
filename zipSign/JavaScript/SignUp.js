@@ -19,11 +19,9 @@ $(document).ready(function () {
         $('.form')[0].reset();
     }
     $(window).on('unload', function () {
-        ////
         resetForm();
     });
     $(window).on('popstate', function (event) {
-        ////
         resetForm();
     });
     $("#btnmobotp").attr('disabled', 'disabled');
@@ -89,10 +87,7 @@ $(document).ready(function () {
         }
 
         else {
-            //$('#resmobotp').hide();
-            //$(".enterotpdiv1").show();
             $(".verifybtn1").hide();
-            //$(".timer1").show();
         }
     });
 
@@ -177,7 +172,6 @@ function startTimer(duration, display, ismobile) {
     }, 1000);
 }
 function startTimer1(duration, display, isemail) {
-    //;
     if (isEmailTimerRunning) {
         clearInterval(emailTimerIntervalId);
     }
@@ -201,7 +195,7 @@ function startTimer1(duration, display, isemail) {
     }, 1000);
 }
 $('#lblemailresend').click(function () {
-    //;
+    $("#message").empty();
     if (emailTimerIntervalId) {
         clearInterval(emailTimerIntervalId);
     }
@@ -209,12 +203,13 @@ $('#lblemailresend').click(function () {
     var display = $('#timeremail');
     isTimerRunning = true;
     startTimer1(timerDuration, display);
-    //SendEmailOTP();
+    SendEmailOTP();
     $(".enterotpdiv").show();
     $(".verifybtn").hide();
+    $("#emailOTP").val('');
 })
 $('#lblsmsresend').click(function () {
-
+    $("#message").empty();
     var timerDuration = 60;
     var display = $('#timer3');
     startTimer(timerDuration, display, isMobileTimerRunning);
@@ -484,7 +479,7 @@ function VerifyOTP() {
     var otp = $("#mobileotp").val();
     $.ajax({
         type: 'POST',
-        url: '/Login/VerifyOTP',
+        url: '/Login/VerifyMobileOTPForSignUp',
         dataType: 'json',
         data: {
             VOTP: otp
@@ -492,7 +487,9 @@ function VerifyOTP() {
         async: false, // Make the request synchronous to wait for the response
         success: function (response) {
             var result = response;
+
             if (result === 1) {
+                $("#message").empty();
                 $("#formattedMobile").hide();
                 $('#divmobotp').hide();
                 $('#Phoneno').attr('disabled', 'disabled');
@@ -503,6 +500,14 @@ function VerifyOTP() {
                 $("#verifyBtn").hide();
                 $('#mobileotp').hide();
                 mobileverified = 1;
+            }
+            else if (result === 0) {
+                $("#message").empty();
+                row = '<div class="alermsg col-md-12 p-1" role="alert">OTP Expired</div>';
+                $("#message").append(row);
+                $("#mobileotp").focus();
+                mobileverified = 0;
+                MessageShown = true;
             }
             else if (result === 2) {
                 $("#message").empty();
@@ -541,9 +546,9 @@ function VerifyEmailOTP() {
         },
         async: false,
         success: function (response) {
-
-            var result = response;
+             result = response;
             if (result === 1) {
+                $("#message").empty();
                 $('.enterotpdiv2').css('display', 'none');
                 $("#formattedEmail").hide();
                 $("#enterotpdiv2").hide();
@@ -563,7 +568,16 @@ function VerifyEmailOTP() {
                 $("#message").empty();
                 row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
-                $("#Email").focus();
+                $("#emailOTP").focus();
+                EmailVerify = 0;
+                isVerified = false;
+                MessageShown = true;
+            }
+            else if (result === 0) {
+                $("#message").empty();
+                row += '<div class="alermsg col-md-12 p-1" role="alert">This OTP is Expired</div>';
+                $("#message").append(row);
+                $("#emailOTP").focus();
                 EmailVerify = 0;
                 isVerified = false;
                 MessageShown = true;
@@ -572,7 +586,7 @@ function VerifyEmailOTP() {
                 $("#message").empty();
                 row += '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message").append(row);
-                $("#Email").focus();
+                $("#emailOTP").focus();
                 EmailVerify = 0;
                 isVerified = false;
                 MessageShown = true;
@@ -757,4 +771,10 @@ function ClearOnSwitchCheckBox() {
     EmailVerify = 0;
     $(".verifybtn").show();
     $(".verifybtn1").show();
+}
+function onlyNumbers(event) {
+    var charCode = event.charCode || event.keyCode;
+    if (charCode < 48 || charCode > 57 || charCode == 46 || charCode == 45) {
+        event.preventDefault();
+    }
 }

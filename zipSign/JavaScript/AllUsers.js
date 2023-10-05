@@ -23,17 +23,6 @@ function GetData(pagecount, keyword) {
 
         { headerName: 'User Name', field: 'Username', width: 200, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'User Type', field: 'UserType', width: 150, resizable: false, sortable: true, suppressMovable: true, },
-        //{ headerName: 'Email ID', field: 'email', width: 150, resizable: false, sortable: true,suppressMovable: true, },
-        //{ headerName: 'Mobile No.', field: 'phone', width: 150, resizable: false, sortable: true, suppressMovable: true,},
-
-        //{ headerName: 'Department', field: 'depart', width: 150, resizable: false, sortable: true, suppressMovable: true,},
-        //{ headerName: 'Designation', field: 'desi', width: 150, resizable: false, sortable: true,suppressMovable: true, },
-
-        //{ headerName: 'Account Blocked', field: 'accblock', width: 150, resizable: false, sortable: true,suppressMovable: true, },
-        //{ headerName: 'Created By', field: 'cby', width: 150, resizable: false, sortable: true, suppressMovable: true,},
-        //{ headerName: 'Created On', field: 'con', width: 150, resizable: false, sortable: true,suppressMovable: true, },
-        //{ headerName: 'Updated By', field: 'uby', width: 150, resizable: false, sortable: true,suppressMovable: true, },
-        //{ headerName: 'Updated On', field: 'uon', width: 150, resizable: false, sortable: true,suppressMovable: true, },
         { headerName: 'Mobile App', field: 'Mobileapp', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Status', field: 'Active', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         {

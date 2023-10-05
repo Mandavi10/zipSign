@@ -574,7 +574,7 @@
                                     <div class="form-group">
                                         <label for="text-input2">Document Expire(in Days)</label>
                                         <div class="col-md-11">
-                                            <input type="text" class="form-control" placeholder="" maxlength="3" id="ExpDate" onchange="CheckExpiryDate()" autocomplete="off">
+                                            <input type="text" class="form-control " placeholder="" maxlength="3" id="ExpDate" onkeypress="return onlyNumbers(event)" onchange="CheckExpiryDate()" autocomplete="off">
                                             <div class="alermsg col-md-12 p-1" role="alert" id="message1" style="color:darkred"></div>
                                         </div>
 
@@ -856,4 +856,11 @@
         });
     });
 </script>
-
+<script>
+    function onlyNumbers(event) {
+        var charCode = event.charCode || event.keyCode;
+        if (charCode < 48 || charCode > 57 || charCode == 46 || charCode == 45) {
+            event.preventDefault();
+        }
+    }
+</script>

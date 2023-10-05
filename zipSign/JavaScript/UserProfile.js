@@ -36,17 +36,14 @@ function SaveProfile() {
 }
 
 $(function () {
-    //
     // Profile picture upload
     $('#btn-upload-photo').on('click', function () {
         $('#filePhoto').trigger('click');
     });
-    //
     $('#filePhoto').on('change', function () {
         var file = $(this)[0].files[0];
         var formData = new FormData();
         formData.append('file', file);
-        //
         $.ajax({
             type: 'POST',
             url: '/Users/UploadProfilePicture',

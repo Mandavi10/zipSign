@@ -370,12 +370,8 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     var reader = new FileReader();
     reader.onload = function (e) {
 
-        //$("#" + ColumnName).attr("src", e.target.result);
-        //
-        //$("#" + ColumnID).attr("src", e.target.result);
 
         $("#" + Preview).attr("src", e.target.result);
-        //$("#PreviewSignImage1").attr("src", e.target.result);
         $("#document-preview-frame").attr("src", e.target.result); // Set the src attribute of the iframe
         var fileName = $("#" + FileUploader)[0].files[0].name;
         var fileSize = formatBytes(file.size);
@@ -419,9 +415,6 @@ function UploadImages(FileUploader, Preview, ColumnName) {
                 filePathss = filePath;
                 sessionStorage.setItem('uploadedFilePath', filePath);
                 sessionStorage.setItem('LoaclPath', LoaclPath);
-
-                // $("#" + ColumnName).attr(filePath);
-
 
                 var absoluteFilePath = result.status;
                 var relativePath = absoluteFilePath.replace("D:\\Project\\ZipSign\\zipSign\\zipSign", ""); // Adjust this based on your project structure
@@ -480,10 +473,10 @@ function AddRecipiants(a) {
         Recipients += '<input type="text" class="form-control" placeholder="Email ID" autocomplete="off" oninput="this.value = this.value.toLowerCase()" id="Email' + i + '">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-2 col-12 p-1">';
-        Recipients += '<input type="text" class="form-control" placeholder="Mobile Number" autocomplete="off" maxlength="10" id="phone' + i + '">';
+        Recipients += '<input type="text" class="form-control" placeholder="Mobile Number" onkeypress="return onlyNumbers(event)" autocomplete="off" maxlength="10" id="phone' + i + '">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-1 col-12 p-1">';
-        Recipients += '<input type="text" class="form-control" style="padding-left: 8px !important;" placeholder="Expired in Days" autocomplete="off" maxlength="3" id="ExpDate' + i + '" onchange="CheckExpiryDate()">';
+        Recipients += '<input type="text" class="form-control" style="padding-left: 8px !important;" placeholder="Expired in Days" autocomplete="off" onkeypress="return onlyNumbers(event)" maxlength="3" id="ExpDate' + i + '" onchange="CheckExpiryDate()">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-1 col-12 p-1">';
         Recipients += '<label class="p-1">Days</label>';
@@ -803,8 +796,6 @@ function SignInsert() {
         },
         success: function (result) {
 
-            //sessionStorage.setItem('UploadedDocumentId', result.UploadedDocumentId);
-            //sessionStorage.setItem('UniqueSignerID', result.UniqueID);;
             var UploadedDocumentId = result.UploadedDocumentId
 
             sessionStorage.setItem('UploadedDocumentId', UploadedDocumentId);

@@ -15,7 +15,7 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
-
+    debugger;
     var UId = getParameterByName('UId');
     if (UId !== null) {
 
@@ -26,17 +26,23 @@ $(document).ready(function () {
     $('#continueButton').prop('disabled', true);
     signerType = sessionStorage.getItem('Single_Signer');
     if (signerType == "Single_Signer") {
+        debugger;
+        var userName = "Lavkush Tyagi";
+        var userEmail = "lavkushtyagi22@gmail.com";
         $('#Btn_rec').hide();
         $('#btnDownload').attr('disabled', true);
         $("#btnreject").hide();
         uploadedFileName = sessionStorage.getItem('uploadedFileName');
         uploadedFileDate = sessionStorage.getItem('uploadedFileDate');
+        var activityRole = `${userName} (${userEmail})`;
         $("label#uploadedFileName").next("span").text(uploadedFileName);
         $("label#uploadedFileStatus").next("span").text("Unsigned");
         $("label#uploadedFileDate").next("span").text(uploadedFileDate);
         filepathsss = sessionStorage.getItem('LoaclPath');
         $("#PreviewSignImage1").attr("src", filepathsss);
+
         appendActivity(uploadedFileDate, "USER", "File Uplaoded");
+
     }
     //else {
     //    $('#Trail_Div').show();
@@ -110,7 +116,10 @@ $(document).ready(function () {
         $('#btncomplete1').hide();
         $("#btnreject").hide();
         if (signerType == "Single_Signer") {
-           // appendActivity(DateTimeParsed, "Mandavi", "mandavi@yoekisoft.com", "Document Signed");
+            var userName = "Lavkush Tyagi";
+            var userEmail = "lavkushtyagi22@gmail.com";
+            var activityRole = `${userName} (${userEmail})`;
+            appendActivity(DateTimeParsed, activityRole , "Document Signed");
             $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
@@ -426,6 +435,7 @@ function Download() {
     window.location.href = '/zipsign/downloadfile?filepath=' + decodeURIComponent(filePath);
 }
 function appendActivity(time, role, title) {
+    debugger;
     var activityHtml = `
     <div class="col-lg-3 col-md-3">
         <div class="element-box-tp">

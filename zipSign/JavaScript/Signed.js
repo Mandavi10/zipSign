@@ -14,13 +14,8 @@ function GetDataForSignedPDF(pagecount, keyword) {
         { headerName: 'File Name', field: 'Uploaded_Document_Name', width: 300, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Document Name', field: 'DocumentName', width: 320, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'SignStatus', width: 200, resizable: false, sortable: true, suppressMovable: true },
-        //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false, sortable: true,suppressMovable: true   },
-        //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false, sortable: true,suppressMovable: true   },
-        //{ headerName: 'Signing Initiated On', field: 'sio', width: 200, resizable: false, sortable: true, suppressMovable: true   },
-        //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false, sortable: true, suppressMovable: true   },
         {
             headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
-                //;
 
                 return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-file-Code="' + params.data.DocumentUploadId + '" onclick="ShowMoreForSigned(this)">View More</button>';
             }
