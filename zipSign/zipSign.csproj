@@ -288,6 +288,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -668,6 +669,9 @@
     <Content Include="Views\MySigns\SignTransactionLog.cshtml" />
     <Content Include="Views\zipSign\RolesAndRights2.cshtml" />
     <Content Include="Views\zipSign\Link_Expired.cshtml" />
+    <Content Include="Views\zipSign\RolesAndRights.cshtml" />
+    <Content Include="Views\zipSign\RolesAndRights3.cshtml" />
+    <Content Include="Views\Masters\SigningControl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

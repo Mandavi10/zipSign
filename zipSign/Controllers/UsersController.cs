@@ -12,9 +12,9 @@ namespace zipSign.Controllers
 
     public class UsersController : Controller
     {
-        private BusinessDataLayerClass bal = new BusinessDataLayerClass();
+        private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-        private ProcMaster pro = new ProcMaster();
+        private readonly ProcMaster pro = new ProcMaster();
         public ActionResult UserCreation()
         {
             return View();
@@ -199,7 +199,7 @@ namespace zipSign.Controllers
             return Json(res1, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
-        public JsonResult DeptDdl(DeptMaster dept)
+        public JsonResult DeptDdl()
         {
             List<DataItems> obj = new List<DataItems>
             {

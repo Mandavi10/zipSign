@@ -1045,7 +1045,7 @@ namespace zipSign.Controllers
 
             foreach (DataRow row in table3Data.Rows)
             {
-                var rowData = new Dictionary<string, object>();
+                Dictionary<string, object> rowData = new Dictionary<string, object>();
                 foreach (DataColumn column in table3Data.Columns)
                 {
                     rowData[column.ColumnName] = row[column];

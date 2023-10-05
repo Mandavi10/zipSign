@@ -386,29 +386,29 @@
                             <ul id="main-menu" class="metismenu li_animation_delay">
                                 @*
 
-                                                        <li class="active">
-                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                            <ul>
+                                                    <li class="active">
+                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                        <ul>
 
-                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
-
-
-                                    <div class="tab-content padding-0">
-                                        <div class="tab-pane active" id="menu">
-                                            <nav id="left-sidebar-nav" class="sidebar-nav">
-                                                <ul id="main-menu" class="metismenu li_animation_delay">
-                                                    @*
-                                                        <li class="active">
-                                                            <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                            <ul>
+                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
 
 
-                                                                <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+                                <div class="tab-content padding-0">
+                                    <div class="tab-pane active" id="menu">
+                                        <nav id="left-sidebar-nav" class="sidebar-nav">
+                                            <ul id="main-menu" class="metismenu li_animation_delay">
+                                                @*
+                                                    <li class="active">
+                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+                                                        <ul>
+
+
+                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
 
 
 
-                                                            </ul>
-                                                        </li>*@
+                                                        </ul>
+                                                    </li>*@
 
                                 <li class="active">
                                     <a href="/Dashboard/Index2"><i class="fa fa-dashboard"></i><span>Home</span></a>
@@ -466,14 +466,14 @@
                                 </li>
                                 @*<li>
 
-                                        <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
+                                    <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
 
-                                    </li>*@
+                                </li>*@
 
                                 @*<li>
-                                        <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
+                                    <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
 
-                                    </li>*@
+                                </li>*@
 
                                 <li>
                                     <a href="/zipSign/BuyEnterprisePack"><i class="fa fa-rupee"></i><span>Buy Enterprise Pack</span></a>
@@ -684,18 +684,21 @@
                                                     <input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword">
                                                 </div>
                                             </div>
-                                            @*<div class="col-lg-6 col-md-12">
-                                                    <h6>Account Data</h6>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" value="JohnDoe" disabled placeholder="Username" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="email" class="form-control" value="john.doe@yourdomain.com" disabled placeholder="Email" />
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
-                                                    </div>
-                                                </div>*@
+                                           
+
+                                                <h6>Account Data</h6>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" value="JohnDoe" disabled placeholder="Username" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="email" class="form-control" value="john.doe@yourdomain.com" disabled placeholder="Email" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
+                                                </div>
+                                            </div>*@
+                                            <div id="errormessage"></div>
+
                                         </div>
                                         <div id="ErrorMessage"></div>
                                         <div class="col-md-12 d-flex justify-content-end">
@@ -714,15 +717,7 @@
         </div>
 
 
-        <script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".opencorp").click(function () {
-                    jquery_3_6(".allcorp").toggle();
-                    event.stopPropagation()
-                });
-            });
 
-        </script>
         <script>
             jquery_3_6(document).ready(function () {
                 let url = window.location.href;
@@ -742,8 +737,8 @@
                 })
             })
         </script>
-        <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-        <script>
+
+        @*<script>
             $(document).ready(function () {
                 
                 loadUserProfile(); // Call the function when the page is ready
@@ -780,7 +775,7 @@
                 }
             });
             function changePassword() {
-                debugger
+
                 var oldPassword = $('#oldPassword').val().trim();
                 var newPassword = $('#newPassword').val().trim();
                 var confirmPassword = $('#confirmPassword').val().trim();
@@ -833,6 +828,7 @@
                  else if (newPassword !== confirmPassword) {
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">New Password and Confirm Password should match</div>';
                     $("#ErrorMessage").empty().append(row);
+                
                     return false;
                 }
                 $.ajax({
@@ -867,7 +863,7 @@
                 });
             }
 
-        </script>
+        </script>*@
         <script>
             jquery_3_6(document).ready(function () {
                 jquery_3_6(".inidiv").click(function () {
@@ -877,6 +873,18 @@
             });
             $('body').click(function () {
                 $('.profiletoggle').hide();
+            })
+        </script>
+
+        <script>
+            jquery_3_6(document).ready(function () {
+                jquery_3_6(".opencorp").click(function () {
+                    jquery_3_6(".allcorp").toggle();
+                    event.stopPropagation()
+                });
+            });
+            $('body').click(function () {
+                $('.allcorp').hide();
             })
         </script>
 

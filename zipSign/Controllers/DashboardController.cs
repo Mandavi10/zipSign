@@ -9,11 +9,11 @@ namespace zipSign.Controllers
 {
     public class DashboardController : Controller
     {
-        private BusinessAccesslayerClass bal = new BusinessAccesslayerClass();
+        private readonly BusinessAccesslayerClass bal = new BusinessAccesslayerClass();
         private CommonStatus statusClass = new CommonStatus();
 
         //Security objSecurity = new Security();
-        private ProcMaster pro = new ProcMaster();
+        private readonly ProcMaster pro = new ProcMaster();
         public ActionResult Index()
         {
             return View();
@@ -22,13 +22,17 @@ namespace zipSign.Controllers
         {
             return View();
         }
-        public ActionResult Profileview(profile objpro)
+        public ActionResult Profileview()
         {
             List<profile> result = new List<profile>();
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("QuerySelector", "ShowRecord"));
 
-            try
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("QuerySelector", "ShowRecord")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.DepartmentMaster, obj);
+            foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
+
             {
                 statusClass = bal.GetFunctionWithResult(pro.DepartmentMaster, obj);
 

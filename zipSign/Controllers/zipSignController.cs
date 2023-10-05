@@ -28,6 +28,13 @@ namespace zipSign.Controllers
             return View();
 
         }
+  
+
+        public ActionResult RolesAndRights3()
+        {
+            return View();
+
+        }
 
         public ActionResult Link_Expired()
         {
@@ -35,10 +42,10 @@ namespace zipSign.Controllers
 
         }
         public ActionResult RolesAndRights2()
-            {
-                return View();
-            }
-            public ActionResult RequestSign()
+        {
+            return View();
+        }
+        public ActionResult RequestSign()
 
         {
             return View();
@@ -176,7 +183,7 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
-                LogTrail("", "DocumentUpload", "User", "User@gmail.com", UploadedDocumentId);
+                LogTrail("", "Document Upload", "User", "User@gmail.com", UploadedDocumentId);
                 if (statusClass.StatusCode >= 0)
                 {
                     string SignerExpiry = "";
@@ -197,7 +204,7 @@ namespace zipSign.Controllers
                             return Json(errorResult, JsonRequestBehavior.AllowGet);
                         }
                         List<DataItems> obj1 = new List<DataItems>
-                        { 
+                        {
                             new DataItems("SignerName", signer.Name),
                             new DataItems("UploadedDocumentId", UploadedDocumentId),
                             new DataItems("SignerEmail", signer.Email),
@@ -631,8 +638,3 @@ namespace zipSign.Controllers
 
     }
 }
-
-
-
-
-

@@ -40,7 +40,9 @@ $(document).ready(function () {
         $("label#uploadedFileDate").next("span").text(uploadedFileDate);
         filepathsss = sessionStorage.getItem('LoaclPath');
         $("#PreviewSignImage1").attr("src", filepathsss);
-        appendActivity(uploadedFileDate, activityRole, "Document Upload");
+
+        appendActivity(uploadedFileDate, "USER", "File Uplaoded");
+
     }
     //else {
     //    $('#Trail_Div').show();
@@ -108,6 +110,8 @@ $(document).ready(function () {
         $("#PreviewSignImage1").removeAttr("src");
         $("#PreviewSignImage1").attr("src", filePath);
         $('#Btn_rec').hide();
+        $('#Trail_Div').hide();
+        $('.doc-details').hide();
         $('#btncomplete').hide();
         $('#btncomplete1').hide();
         $("#btnreject").hide();
