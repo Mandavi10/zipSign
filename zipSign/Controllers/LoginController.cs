@@ -53,7 +53,7 @@ namespace zipSign.Controllers
         }
 
         //[ValidateAntiForgeryToken]
-
+        //Function for SignUp
         [HttpPost]
         public JsonResult SignUp(SignUp objSignUpModel, string UserType)
         {
@@ -217,7 +217,7 @@ namespace zipSign.Controllers
             string pattern = @"^[A-Z]{5}[0-9]{4}[A-Z]{1}$";
             return Regex.IsMatch(pan, pattern);
         }
-
+        //Function for Login
         [HttpPost]
         public JsonResult Login(Login objLoginModel, string captchaInput)
         {
@@ -273,7 +273,7 @@ namespace zipSign.Controllers
                             {
                                 UserName = Convert.ToString(dr["Name"]),
                                 Email = Convert.ToString(dr["Email"]),
-                                Mobile =AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
+                                Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
                             };
 
@@ -331,16 +331,7 @@ namespace zipSign.Controllers
         //        return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
         //    }
         //}
-        //public static string GetClientIP()
-        //{
-        //    string hostName = Dns.GetHostName();
-        //    Console.WriteLine(hostName);
-        //    //string IP="";
-        //    // Get the IP from GetHostByName method of dns class.
-        //    string IP = Dns.GetHostByName(hostName).AddressList[0].ToString();
-        //    Console.WriteLine("IP Address is : " + IP);
-        //    return IP;
-        //}
+
         //public static string GetClientIP()
         //{
         //    using (var client = new WebClient())
@@ -370,12 +361,10 @@ namespace zipSign.Controllers
             }
             catch (Exception ex)
             {
-                // Handle exceptions here
                 Console.WriteLine("Error: " + ex.Message);
                 return null;
             }
         }
-
 
         private string GetRandomText()
         {
@@ -473,6 +462,20 @@ namespace zipSign.Controllers
                     }
                 }
             }
+            Random random = new Random();
+            int txnId = random.Next(100, 1000);
+            string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+            List<DataItems> obj1 = new List<DataItems>
+            {
+                new DataItems("TxnId", TraceNumber),
+                new DataItems("Otp", OTP1),
+                new DataItems("GeneratedUsing",  Sm.MobileNo),
+                new DataItems("ActionType","SignUp"),
+                new DataItems("QueryType", "OtpExpired"),
+
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj1);
+
             var result1 = new
             {
                 status = "201",
@@ -539,7 +542,7 @@ namespace zipSign.Controllers
 
         }
 
-        //For SignUp
+        //For Signin
 
         public ActionResult SendOTP(string CusName, string MobileNo, string Email)
         {
@@ -549,12 +552,25 @@ namespace zipSign.Controllers
             Session["otp"] = OTP;
             SendOTPviaSMS(CusName, PhoneNumber, OTP);
             SendOTPviaEmail(Email, OTP);
+            Random random = new Random();
+            int txnId = random.Next(100, 1000);
+            string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("TxnId", TraceNumber),
+                new DataItems("Otp", OTP),
+                new DataItems("GeneratedUsing", Email),
+                new DataItems("ActionType","Login"),
+                new DataItems("QueryType", "OtpExpired"),
+
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             var result = new
             {
                 status = "201",
                 message = "OTP sent successfully to both phone and email."
             };
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Json(result, MobileNo, JsonRequestBehavior.AllowGet);
         }
 
         private void SendOTPviaSMS(string CusName, string MobileNo, string OTP)
@@ -705,7 +721,21 @@ namespace zipSign.Controllers
                 smtp.Credentials = networkCredential;
                 smtp.Port = 587;
                 smtp.Send(msg);
+                Random random = new Random();
+                int txnId = random.Next(100, 1000);
+                string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+                List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("TxnId", TraceNumber),
+                new DataItems("Otp", OTP),
+                new DataItems("GeneratedUsing", Email),
+                new DataItems("ActionType","SignUp"),
+                new DataItems("QueryType", "OtpExpired"),
+
+            };
+                statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                 return Json("OTP sent successfully!", OTP);
+
             }
         }
         //For Login
@@ -813,30 +843,54 @@ namespace zipSign.Controllers
             }
         }
 
-
+        //For SignUp Mobile OTP
         public JsonResult VerifyOTP(string VOTP)
         {
-            string temp = Session["otp"].ToString();
-            int msg;
-            if (temp == VOTP)
-            {
-                string LoginIPAddress = GetClientIP();
-                object UserMasterId = Session["UserId"];
-                List<DataItems> obj = new List<DataItems>();
-                obj.Add(new DataItems("UserMasterID", UserMasterId));
-                obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
-                obj.Add(new DataItems("EmailOTP", VOTP));
-                obj.Add(new DataItems("QueryType", "LoginOTP"));
+         List<DataItems> obj1 = new List<DataItems>
+        {
+        new DataItems("Otp", VOTP),
+        new DataItems("QueryType", "IsValidOTP")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj1);
 
-                statusClass = bal.PostFunction(pro.Signup, obj);
-                msg = 1;
+            if (statusClass.StatusCode == 9)
+            {
+                DateTime otpGeneratedTime = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"];
+                DateTime currentTime = DateTime.Now;
+                TimeSpan timeDifference = currentTime - otpGeneratedTime;
+
+                if (timeDifference.TotalMinutes > 10)
+                {
+                    // OTP has expired
+                    return Json(0); // Return a status code indicating expired OTP
+                }
+                else
+                {
+                    // OTP is within the valid timeframe, compare with the user input
+                    string storedOTP = statusClass.DataFetch.Tables[0].Rows[0]["Otp"].ToString();
+                    if (storedOTP == VOTP)
+                    {
+                        string LoginIPAddress = GetClientIP();
+                        object UserMasterId = Session["UserId"];
+                        List<DataItems> obj = new List<DataItems>();
+                        obj.Add(new DataItems("UserMasterID", UserMasterId));
+                        obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
+                        obj.Add(new DataItems("EmailOTP", VOTP));
+                        obj.Add(new DataItems("QueryType", "LoginOTP"));
+
+                        statusClass = bal.PostFunction(pro.Signup, obj);
+                        return Json(1); // OTP is valid, return a success status
+                    }
+                    else
+                    {
+                        return Json(2); // Invalid OTP, return a failure status
+                    }
+                }
             }
             else
             {
-                msg = 2;
+                return Json(2); // Return a status code indicating no OTP record found
             }
-
-            return Json(msg);
         }
 
         public JsonResult VerifyMobileOTP(string VOTP)
@@ -857,24 +911,6 @@ namespace zipSign.Controllers
 
         public JsonResult VerifyMobile(string VOTP)
         {
-            //string FilePath1 = AESEncryption.AESEncryptionClass.DecryptAES(FilePath);
-            //string SignerId = AESEncryption.AESEncryptionClass.DecryptAES(SignerID);
-            //string DocumentUploadedId = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
-
-            // List<DataItems> obj = new List<DataItems>();
-            //obj.Add(new DataItems("SignerID", SignerID));
-            //obj.Add(new DataItems("UploadedDocumentId", DocumentUploadedId));
-            //obj.Add(new DataItems("QuerySelector", "CheckDocSigned"));
-            //statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
-            //int Status = statusClass.StatusCode;
-            //string SignedPDF = "";
-            //if (statusClass.StatusCode == 1)
-            //{
-            //     SignedPDF = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignedPDFPath"]);
-            //}
-
-
-
             _ = GetClientIP();
 
             string temp = Session["otp"].ToString();
@@ -887,9 +923,6 @@ namespace zipSign.Controllers
             {
                 msg = 2;
             }
-
-
-
             return Json(new { msg, }, JsonRequestBehavior.AllowGet);
 
             //return Json(msg, FilePath);
@@ -898,18 +931,89 @@ namespace zipSign.Controllers
 
         public JsonResult VerifyEmailOTP(string VOTP)
         {
-            string temp = Session["otp"].ToString();
-            int msg;
-            if (temp == VOTP)
+            List<DataItems> obj = new List<DataItems>
+        {
+        new DataItems("Otp", VOTP),
+        new DataItems("QueryType", "IsValidOTP")
+        };
+
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+
+            // Check if OTP record exists in the database response
+            if (statusClass.StatusCode == 9)
             {
-                msg = 1;
+                DateTime otpGeneratedTime = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"];
+                DateTime currentTime = DateTime.Now;
+                TimeSpan timeDifference = currentTime - otpGeneratedTime;
+
+                if (timeDifference.TotalMinutes > 10)
+                {
+                    // OTP has expired
+                    return Json(0); // Return a status code indicating expired OTP
+                }
+                else
+                {
+                    // OTP is within the valid timeframe, compare with the user input
+                    string storedOTP = statusClass.DataFetch.Tables[0].Rows[0]["Otp"].ToString();
+                    if (storedOTP == VOTP)
+                    {
+                        return Json(1); // OTP is valid
+                    }
+                    else
+                    {
+                        return Json(2); // Invalid OTP
+                    }
+                }
             }
             else
             {
-                msg = 2;
+                return Json(2); // Return a status code indicating no OTP record found
             }
-            return Json(msg);
         }
+        //For Mobile SignUp OTP
+        public JsonResult VerifyMobileOTPForSignUp(string VOTP)
+        {
+            List<DataItems> obj = new List<DataItems>
+        {
+        new DataItems("Otp", VOTP),
+        new DataItems("QueryType", "IsValidOTP")
+       };
+
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+
+            // Check if OTP record exists in the database response
+            if (statusClass.StatusCode == 9)
+            {
+                DateTime otpGeneratedTime = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"];
+                DateTime currentTime = DateTime.Now;
+                TimeSpan timeDifference = currentTime - otpGeneratedTime;
+
+                if (timeDifference.TotalMinutes > 10)
+                {
+                    // OTP has expired
+                    return Json(0); // Return a status code indicating expired OTP
+                }
+                else
+                {
+                    // OTP is within the valid timeframe, compare with the user input
+                    string storedOTP = statusClass.DataFetch.Tables[0].Rows[0]["Otp"].ToString();
+                    if (storedOTP == VOTP)
+                    {
+                        return Json(1); // OTP is valid
+                    }
+                    else
+                    {
+                        return Json(2); // Invalid OTP
+                    }
+                }
+            }
+            else
+            {
+                return Json(2); // Return a status code indicating no OTP record found
+            }
+        }
+
+
 
         public JsonResult SendVerifyLinkByEmail(string Email, string fileId, int expday)
         {
@@ -945,12 +1049,14 @@ namespace zipSign.Controllers
 
         public ActionResult SignOut(string UserMasterID)
         {
+
             List<DataItems> obj = new List<DataItems>();
             string clientIP = GetClientIP();
             obj.Add(new DataItems("LogOut_IP_Address", clientIP));
             obj.Add(new DataItems("UserMasterID", UserMasterID));
             obj.Add(new DataItems("QueryType", "SignOut"));
             statusClass = bal.PostFunction(pro.Signup, obj);
+            Session.Abandon();
             return Json(new { success = true });
         }
 
@@ -1109,7 +1215,7 @@ namespace zipSign.Controllers
             string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
             return Json(new { statusClass.StatusCode, CreatedOn, CreatedBy, IsExpired, ExpiredOn, Email }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult UpdatePassword(string userCode, string Email, string OldPassword,string NewPassword, string confirmPassword)
+        public ActionResult UpdatePassword(string userCode, string Email, string OldPassword, string NewPassword, string confirmPassword)
         {
             if (string.IsNullOrWhiteSpace(NewPassword) || string.IsNullOrWhiteSpace(confirmPassword))
             {
@@ -1124,9 +1230,13 @@ namespace zipSign.Controllers
             {
                 return Json(new { error = "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." }, JsonRequestBehavior.AllowGet);
             }
-
+            //if (IsNewPasswordInHistory(userCode, NewPassword))
+            //{
+            //    return Json(new { error = "Password cannot be one of the last five passwords." }, JsonRequestBehavior.AllowGet);
+            //}
             string clientIP = GetClientIP();
-            string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(NewPassword));
+            string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(NewPassword);
+            string EncNewPassword1 = AESEncryption.AESEncryptionClass.DecryptAES(EncNewPassword);
             List<DataItems> obj = new List<DataItems>();
             obj.Add(new DataItems("UserMasterID", userCode));
             obj.Add(new DataItems("Email", Email));
@@ -1142,11 +1252,72 @@ namespace zipSign.Controllers
             {
                 return Json(new { success = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
             }
+            else if (statusClass.StatusCode == 10)
+            {
+                return Json(new { error = "New password should not match your last five password." }, JsonRequestBehavior.AllowGet);
+            }
             else
             {
                 return Json(new { error = "Failed to update password." }, JsonRequestBehavior.AllowGet);
             }
 
+        }
+
+
+        public ActionResult ChangePasswordFromProfile(string oldPassword, string newPassword, string confirmPassword, string email, string UserMasterId)
+        {
+            string passwordPattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
+            if (string.IsNullOrWhiteSpace(oldPassword))
+            {
+                return Json(new { error = "Enter Old Password" }, JsonRequestBehavior.AllowGet);
+            }
+            else if (!Regex.IsMatch(oldPassword, passwordPattern))
+            {
+                return Json(new { error = "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." }, JsonRequestBehavior.AllowGet);
+            }
+            else if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                return Json(new { error = "Enter New Password" }, JsonRequestBehavior.AllowGet);
+            }
+            else if (!Regex.IsMatch(newPassword, passwordPattern))
+            {
+                return Json(new { error = "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." }, JsonRequestBehavior.AllowGet);
+            }
+            else if (string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                return Json(new { error = "Enter Confirm Password" }, JsonRequestBehavior.AllowGet);
+            }
+            else if (!Regex.IsMatch(confirmPassword, passwordPattern))
+            {
+                return Json(new { error = "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." }, JsonRequestBehavior.AllowGet);
+            }
+            else if (confirmPassword != newPassword)
+            {
+                return Json(new { error = "Password and confirm password do not match." }, JsonRequestBehavior.AllowGet);
+            }
+            string clientIP = GetClientIP();
+            List<DataItems> obj = new List<DataItems>();
+            string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(newPassword);
+            string EncOldPassword = AESEncryption.AESEncryptionClass.EncryptAES(oldPassword);
+            obj.Add(new DataItems("UserMasterID", UserMasterId));
+            obj.Add(new DataItems("NewPassword", EncNewPassword));
+            obj.Add(new DataItems("Email", email));
+            obj.Add(new DataItems("OldPassword", EncOldPassword));
+            obj.Add(new DataItems("IP", clientIP));
+            obj.Add(new DataItems("QueryType", "ChangePassword"));
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+            if (statusClass.StatusCode == 7)
+            {
+                return Json(new { success = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
+            }
+            else if (statusClass.StatusCode == 10)
+            {
+                return Json(new { success = "Incorrect Old Password" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { success = "User Not Found" }, JsonRequestBehavior.AllowGet);
+            }
         }
 
     }

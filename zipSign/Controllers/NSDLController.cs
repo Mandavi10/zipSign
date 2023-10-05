@@ -814,10 +814,7 @@ namespace zipSign.Controllers
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-                //Email = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
-                //fileid = fileid;
-                // SignerName = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(SignerName));
-                //FilePath = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(FilePath));
+               
                 Guid uniqueIdentifier = Guid.NewGuid();
                 // Store the mapping between the identifier and the parameters in your database
                 StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiry);
@@ -1019,8 +1016,6 @@ namespace zipSign.Controllers
                     command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
                     command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
                     command.Parameters.AddWithValue("@SignerLinkExpierdOn", expirationDate);
-                    //command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
-                    //command.Parameters.AddWithValue("@UploadedDocumentId", uploadedDocumentId);
                     int I = command.ExecuteNonQuery();
                 }
             }

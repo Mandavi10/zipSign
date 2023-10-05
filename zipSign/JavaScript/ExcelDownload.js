@@ -60,7 +60,6 @@ $(document).ready(function () {
                 responseType: 'blob' // Set the response type to 'blob'
             },
             success: function (data) {
-                //
                 // Create a download link using the response data
                 var downloadLink = document.createElement('a');
                 var blobUrl = URL.createObjectURL(data);//Creates a string containing a URL representing the object given name to the parameter

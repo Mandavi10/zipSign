@@ -271,7 +271,7 @@
                                                 @*<div class="col-md-12 d-flex justify-content-end p-1" style="display:none !important"><a href="#" class="ps-1 newvbtn">Verify</a></div>*@
                                                 <div class="form-group p-1 col-md-12 enterotpdiv position-relative pt-0 enterotpdiv2" style="display:none" id="divemailotp">
                                                     <label id="lblemail"><span class="enterddata"></span></label>
-                                                    <input type="text" class="form-control" id="emailOTP" maxlength="6" placeholder="Email OTP" autocomplete="off" />
+                                                    <input type="text" class="form-control" id="emailOTP" maxlength="6" onkeypress="return onlyNumbers(event)" placeholder="Email OTP" autocomplete="off" />
                                                     <button type="button" class="verifybtnsub" onclick="VerifyEmailOTP()">Submit</button>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
@@ -286,7 +286,7 @@
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative pt-0 enterotpdiv1" style="display:none">
                                                     <label id="lblmobile"> <span class="enterddata"></span></label>
-                                                    <input type="text" class="form-control" id="mobileotp" maxlength="6" placeholder="Mobile Number OTP" autocomplete="off" />
+                                                    <input type="text" class="form-control" id="mobileotp" maxlength="6" onkeypress="return onlyNumbers(event)" placeholder="Mobile Number OTP" autocomplete="off" />
                                                     <button type="button" class="verifybtnsub1" id="verifyBtn" onclick="VerifyOTP()">Submit</button>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12">

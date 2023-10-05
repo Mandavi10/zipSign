@@ -27,19 +27,31 @@ namespace zipSign.Controllers
             List<profile> result = new List<profile>();
             List<DataItems> obj = new List<DataItems>();
             obj.Add(new DataItems("QuerySelector", "ShowRecord"));
-            statusClass = bal.GetFunctionWithResult(pro.DepartmentMaster, obj);
-            foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
+
+            try
             {
-                result.Add(new profile
+                statusClass = bal.GetFunctionWithResult(pro.DepartmentMaster, obj);
+
+                foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
                 {
-                    ProId = Convert.ToInt32(dr["DocumentUploadId"]),
-                    FirstName = Convert.ToString(dr["DocumentName"]),
-                    LastName = Convert.ToString(dr["DocumentName"]),
-                    Add1 = Convert.ToString(dr["SignStatus"]),
-                    Add2 = Convert.ToString(dr["UploadedOn"]),
-                    ComWebURL = Convert.ToString(dr["UploadedBy"]),
-                });
+                    result.Add(new profile
+                    {
+                        ProId = Convert.ToInt32(dr["DocumentUploadId"]),
+                        FirstName = Convert.ToString(dr["DocumentName"]),
+                        LastName = Convert.ToString(dr["DocumentName"]),
+                        Add1 = Convert.ToString(dr["SignStatus"]),
+                        Add2 = Convert.ToString(dr["UploadedOn"]),
+                        ComWebURL = Convert.ToString(dr["UploadedBy"]),
+                    });
+                }
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.Message);
+                return RedirectToAction("Error", new { errorMessage = ex.Message });
+            }
+
+
             profile userProfile = new profile
             {
                 ProId = 1,
@@ -56,5 +68,6 @@ namespace zipSign.Controllers
 
             return View(userProfile);
         }
+
     }
 }

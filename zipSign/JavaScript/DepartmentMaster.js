@@ -109,7 +109,6 @@ function RowClickEventHandler() {
             $('#Description').val(result.Description);
             $('#DepartmentId').val(departmentid);
             IsActive: IsActive
-            //window.location.href = '../Masters/AllDepartments';
         },
         error: function () {
             alert('Something Went Wrong');

@@ -1,6 +1,5 @@
 ﻿$(document).ready(function () {
-    //$('#overlay').css('display', 'block');
-    //$('#loader').css('display', 'block');
+   
     var UserMasterID = sessionStorage.getItem('UserId');
     if (UserMasterID == "" || UserMasterID == null) {
         window.location.href = "/Login/Index";
