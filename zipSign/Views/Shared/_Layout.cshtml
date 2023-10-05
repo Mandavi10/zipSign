@@ -696,9 +696,10 @@
                                                     <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
                                                 </div>
                                             </div>*@
+                                            <div id="errormessage"></div>
                                         </div>
                                         <div class="col-md-12 d-flex justify-content-end">
-                                            <button type="submit" class="btn btn-primary" id="changePasswordButton">Update</button>
+                                            <button type="submit" class="btn btn-primary" id="changePasswordButton" onclick="changePassword()">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -767,34 +768,64 @@
                         },
                         error: function () {
                             // Handle AJAX error
-                            alert("An error occurred while loading user data.");
+                            //alert("An error occurred while loading user data.");
                         }
                     });
                 }
             });
             function changePassword() {
-                var oldPassword = $('#oldPassword').val();
-                var newPassword = $('#newPassword').val();
-                var confirmPassword = $('#confirmPassword').val();
+                var oldPassword = $('#oldPassword').val().trim();
+                var newPassword = $('#newPassword').val().trim();
+                var confirmPassword = $('#confirmPassword').val().trim();
+                var PasswordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
                 if (oldPassword.trim() === '') {
-                    alert('Please enter your old password.');
-                    return;
+                    row = '<div class="alermsg col-md-12 p-1" role="alert">Old Password is Required.</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#oldPassword").focus();
+                    return false;
                 }
-                var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
-                if (newPassword.trim() === '') {
-                    alert('Please enter a new password.');
-                    return;
-                } else if (!newPassword.match(passwordPattern)) {
-                    alert('Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.');
-                    return;
+                else if (!oldPassword.match(PasswordPattern)) {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert"> Old Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#oldPassword").focus();
+                    return false;
                 }
-                if (confirmPassword.trim() === '') {
-                    alert('Please confirm your new password.');
-                    return;
-                } else if (newPassword !== confirmPassword) {
-                    alert('New password and confirm password do not match.');
-                    return;
+                 else if (newPassword=== '') {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert">New Password is Required.</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#newPassword").focus();
+                    return false;
                 }
+                else if (!newPassword.match(PasswordPattern)) {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert"> Old Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#newPassword").focus();
+                    return false;
+                }
+                else if (confirmPassword === '') {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert">New Password is Required.</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#confirmPassword").focus();
+                    return false;
+                }
+                else if (!confirmPassword.match(PasswordPattern)) {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert"> Old Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    $("#confirmPassword").focus();
+                    return false;
+                }
+                else if (newPassword !== confirmPassword) {
+                    row = '<div class="alermsg col-md-12 p-1" role="alert"> </div>';
+                    $("#errormessage").empty();
+                    $("#errormessage").append(row);
+                    return false;
+                } 
                 $.ajax({
                     url: '/Login/ChangePasswordFromProfile',
                     type: 'POST', 

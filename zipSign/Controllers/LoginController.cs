@@ -259,7 +259,9 @@ namespace zipSign.Controllers
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                     if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
                     {
-                        List<profile> userDataList = new List<profile>(); // Create a list to store user data
+                        //FormsAuthentication.SetAuthCookie(objLoginModel.Email, false);
+                        List<profile> userDataList = new List<profile>();
+
                         foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
                         {
                             result.Add(new Login
@@ -273,15 +275,15 @@ namespace zipSign.Controllers
                             {
                                 UserName = Convert.ToString(dr["Name"]),
                                 Email = Convert.ToString(dr["Email"]),
-                                Mobile =AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
+                                Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
                             };
 
                             userDataList.Add(userData);
-                            this.Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
+                            Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
 
                         }
-                        this.Session["UserData"] = userDataList; // Store the list of user data in the session
+                        Session["UserData"] = userDataList; // Store the list of user data in the session
 
                         return Json(result, JsonRequestBehavior.AllowGet);
                     }
@@ -304,9 +306,8 @@ namespace zipSign.Controllers
         public JsonResult GetUserProfile()
         {
             // Retrieve user profile data from the session
-            var userData = Session["UserData"] as List<profile>;
 
-            if (userData != null)
+            if (Session["UserData"] is List<profile> userData)
             {
                 return Json(userData, JsonRequestBehavior.AllowGet);
             }
@@ -359,7 +360,7 @@ namespace zipSign.Controllers
                 // Check for Internet connectivity
                 if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
                 {
-                    using (var client = new WebClient())
+                    using (WebClient client = new WebClient())
                     {
                         // Use a public DNS server to resolve your public IP address
                         publicIP = client.DownloadString("https://icanhazip.com").Trim();
@@ -822,11 +823,13 @@ namespace zipSign.Controllers
             {
                 string LoginIPAddress = GetClientIP();
                 object UserMasterId = Session["UserId"];
-                List<DataItems> obj = new List<DataItems>();
-                obj.Add(new DataItems("UserMasterID", UserMasterId));
-                obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
-                obj.Add(new DataItems("EmailOTP", VOTP));
-                obj.Add(new DataItems("QueryType", "LoginOTP"));
+                List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("UserMasterID", UserMasterId),
+                    new DataItems("Login_IP_Address", LoginIPAddress),
+                    new DataItems("EmailOTP", VOTP),
+                    new DataItems("QueryType", "LoginOTP")
+                };
 
                 statusClass = bal.PostFunction(pro.Signup, obj);
                 msg = 1;
@@ -977,11 +980,13 @@ namespace zipSign.Controllers
             bool isCaptchaValid = string.Equals(captchaInput, expectedCaptcha, StringComparison.Ordinal);
             if (isCaptchaValid)
             {
-                List<DataItems> obj = new List<DataItems>();
-                //string clientIP = GetClientIP();
-                //obj.Add(new DataItems("IP", clientIP));
-                obj.Add(new DataItems("Email", Email));
-                obj.Add(new DataItems("QueryType", "GetDataForUser"));
+                List<DataItems> obj = new List<DataItems>
+                {
+                    //string clientIP = GetClientIP();
+                    //obj.Add(new DataItems("IP", clientIP));
+                    new DataItems("Email", Email),
+                    new DataItems("QueryType", "GetDataForUser")
+                };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                 string UserCode = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterId"]);
                 string UserEmail = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
@@ -1083,14 +1088,15 @@ namespace zipSign.Controllers
         }
         private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText)
         {
-            List<DataItems> obj = new List<DataItems>();
-
-            obj.Add(new DataItems("Email", email));
-            obj.Add(new DataItems("CreatedOn", createdOn));
-            obj.Add(new DataItems("CreatedBy", userCode));
-            obj.Add(new DataItems("ExpiredOn", expiryTime));
-            obj.Add(new DataItems("Link", LinkText));
-            obj.Add(new DataItems("QueryType", "SendLink"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("Email", email),
+                new DataItems("CreatedOn", createdOn),
+                new DataItems("CreatedBy", userCode),
+                new DataItems("ExpiredOn", expiryTime),
+                new DataItems("Link", LinkText),
+                new DataItems("QueryType", "SendLink")
+            };
             statusClass = bal.PostFunction(pro.Signup, obj);
         }
         [HttpGet]
@@ -1098,9 +1104,11 @@ namespace zipSign.Controllers
         {
             string DecUserCode = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(userCode));
 
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CreatedBy", DecUserCode));
-            obj.Add(new DataItems("QueryType", "GetPasswordData"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CreatedBy", DecUserCode),
+                new DataItems("QueryType", "GetPasswordData")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             string CreatedOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"]);
             string CreatedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CreatedBy"]);
@@ -1127,13 +1135,15 @@ namespace zipSign.Controllers
 
             string clientIP = GetClientIP();
             string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(NewPassword));
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("UserMasterID", userCode));
-            obj.Add(new DataItems("Email", Email));
-            obj.Add(new DataItems("NewPassword", EncNewPassword));
-            obj.Add(new DataItems("CreatedBy", userCode));
-            obj.Add(new DataItems("IP", clientIP));
-            obj.Add(new DataItems("QueryType", "ForgotPassword"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("UserMasterID", userCode),
+                new DataItems("Email", Email),
+                new DataItems("NewPassword", EncNewPassword),
+                new DataItems("CreatedBy", userCode),
+                new DataItems("IP", clientIP),
+                new DataItems("QueryType", "ForgotPassword")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 
 
