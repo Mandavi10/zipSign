@@ -37,8 +37,8 @@ function redirectAfterDelay() {
                 if (parentModal.length && hiddenFieldValue != "") {
                     parentModal.modal('hide');
                     //parentModal = null;
-                    var URL = "https://uataadharsign.zipsign.in/zipSign/SigningRequest?FilePath=" + hiddenFieldValue;
-                    //var URL = "http://localhost:50460/zipSign/SigningRequest?FilePath=" + hiddenFieldValue
+                    //var URL = "https://uataadharsign.zipsign.in/zipSign/SigningRequest?FilePath=" + hiddenFieldValue;
+                    var URL = "http://localhost:50460/zipSign/SigningRequest?FilePath=" + hiddenFieldValue
                     parentWindow.location.href = URL;
                 }
                 else if (parentModal.length)
