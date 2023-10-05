@@ -847,7 +847,7 @@ namespace zipSign.Controllers
         //For SignUp Mobile OTP
         public JsonResult VerifyOTP(string VOTP)
         {
-         List<DataItems> obj1 = new List<DataItems>
+            List<DataItems> obj1 = new List<DataItems>
         {
         new DataItems("Otp", VOTP),
         new DataItems("QueryType", "IsValidOTP")
@@ -860,18 +860,6 @@ namespace zipSign.Controllers
                 DateTime otpGeneratedTime = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"];
                 DateTime currentTime = DateTime.Now;
                 TimeSpan timeDifference = currentTime - otpGeneratedTime;
-
-                string LoginIPAddress = GetClientIP();
-                object UserMasterId = Session["UserId"];
-                List<DataItems> obj = new List<DataItems>
-                {
-                    new DataItems("UserMasterID", UserMasterId),
-                    new DataItems("Login_IP_Address", LoginIPAddress),
-                    new DataItems("EmailOTP", VOTP),
-                    new DataItems("QueryType", "LoginOTP")
-                };
-
-
                 if (timeDifference.TotalMinutes > 10)
                 {
                     // OTP has expired
