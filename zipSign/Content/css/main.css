@@ -3174,10 +3174,10 @@ html.fullscreen-bg, html.fullscreen-bg body, html.fullscreen-bg #wrapper {
     box-shadow: inset -2px -2px 8px 0 var(--box-shadow-light);
     position: fixed;
     left: 0;
-    padding: 0 20px;
+    padding: 0 10px;
     z-index: 11;
     border-right: 1px solid var(--border-color);
-    overflow-y: auto;
+ /*   overflow-y: auto;*/
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -10237,4 +10237,13 @@ div.dataTables_filter {
 .ui-state-active, .ui-widget-content .ui-state-active {
     background-color: #2c7ac9;
     color: #fff;
+}
+
+.tab-content {
+    overflow-y: auto;
+    height: 85vh;
+    overflow-x: hidden;
+}
+.sidebar-nav .metismenu {
+    padding-right: 5px !important;
 }
