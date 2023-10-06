@@ -8,8 +8,8 @@ var keyword = $('#searchInput').val();
 var i;
 
 $(document).ready(function () {
+    
     $('#SendLink').click(function () {
-        //;
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
             return false;
@@ -278,7 +278,7 @@ function isValidData() {
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
-        var i = $("#hiddena").val();
+        var i = $("#hiddena").val(); 
         for (var j = 1; j <= i; j++) {
             var nameField = $("#Name" + j).val().trim();
             var emailField = $("#Email" + j).val().trim();

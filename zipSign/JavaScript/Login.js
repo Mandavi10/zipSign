@@ -1,4 +1,5 @@
 ﻿var row = '';
+var intervalId;
 $(document).ready(function () {
     $("#message").empty();
     row = '';
@@ -19,10 +20,10 @@ function ReloadCaptcha() {
     var imageUrl = '/Login/GetCaptchaImage?' + timestamp;
     imageElement.src = imageUrl;
 }
-//Timer Function
+//Timer Function 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
-    var intervalId = setInterval(function () {
+     intervalId = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
         minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -30,30 +31,27 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
         $('#lblresend').hide();
         if (--timer < 0) {
-            //;
+            
             clearInterval(intervalId);
             $('#lblresend').show();
             $(".enterotpdiv").hide();
             $(".alermsg ").attr("hidden", true);
             $("#mobileotp").val('');
             startTimer().hide();
+            
         }
     }, 1000);
 }
 //Resend OTP
 $('#lblresend').click(function () {
-    debugger;
-    $("#email, #password, #signin-password, #mobileotp").on('input', function () {
-        $("#message").empty();
-        row = '';
-    });
+    clearInterval(intervalId); // Clear previous interval if any
     var timerDuration = 60;
-    var display = $('#timer');
+    var display = $('#resmobotp');
     $("#mobileotp").val('');
     startTimer(timerDuration, display);
-    SendLoginEmailOTP($("#txtemail").val(), username, mobile);
+    SendLoginEmailResendOTP($("#txtemail").val(), $("#txtnamehdn").val(), $("#txtmobilehdn").val());
     //SendLoginMobileOTP(username1, mobile1);
-})
+});
 //Login Function
 function Login() {
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
@@ -93,7 +91,8 @@ function Login() {
                 ShowProfile($("#txtname").val(username),
                     $("#txtemail").val(email),
                     $("#txtphone").val(mobile));
-
+                $("#txtmobilehdn").val(mobile);
+                $("#txtnamehdn").val(username);
                 SendLoginEmailOTP(email, username, mobile);
 
             }
@@ -145,8 +144,8 @@ function Login() {
         }
     });
 }
+//Send OPT During Login Time
 function SendLoginEmailOTP(textbox, username, mobile) {
-    debugger;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
@@ -160,7 +159,6 @@ function SendLoginEmailOTP(textbox, username, mobile) {
             MobileNo: mobile
         },
         success: function (response) {
-            debugger;
             var Email = textbox;
             var atIndex = Email.indexOf('@');
             if (atIndex !== -1) {
@@ -179,6 +177,52 @@ function SendLoginEmailOTP(textbox, username, mobile) {
                 var span = $("#lblemail .enterddata");
                 span.text("Please enter the OTP sent to " + formattedEmail + " or ending in " + formattedMobile);
                 slide('next');
+                $("#password").val('');
+                $('#signin-password').val('');
+                var timerDuration = 60;
+                var display = $('#resmobotp');
+                startTimer(timerDuration, display);
+            }
+
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
+function SendLoginEmailResendOTP(textbox, username, mobile) {
+    $("#email, #password, #signin-password, #mobileotp").on('input', function () {
+        $("#message").empty();
+        row = '';
+    });
+    clearInterval(intervalId);
+    $.ajax({
+        url: '/Login/SendOTP',
+        type: 'POST',
+        data: {
+            Email: textbox,
+            CusName: username,
+            MobileNo: mobile
+        },
+        success: function (response) {
+            var Email = textbox;
+            var atIndex = Email.indexOf('@');
+            if (atIndex !== -1) {
+                var localPart = Email.slice(0, atIndex);
+                var domainPart = Email.slice(atIndex);
+
+                var remainingChars = localPart.length - 2; // Calculate the number of characters to replace
+
+                if (remainingChars > 0) {
+                    var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
+                    localPart = localPart[0] + xChars + localPart[localPart.length - 1];
+                }
+                var formattedEmail = localPart + domainPart;
+                var formattedMobile = "xxxxx" + "xxx00";
+
+                var span = $("#lblemail .enterddata");
+                span.text("Please enter the OTP sent to " + formattedEmail + " or ending in " + formattedMobile);
+                //slide('next');
                 $("#password").val('');
                 $('#signin-password').val('');
                 var timerDuration = 60;
@@ -288,8 +332,6 @@ function VerifyOTP() {
         },
         async: false, // Make the request synchronous to wait for the response
         success: function (result) {
-            debugger;
-            //var result = response;
             if (result === 1) {
                 $("#mobileotp").val('');
                 //sessionStorage.setItem('UserId', result.UserId);
@@ -336,7 +378,6 @@ function SignOut() {
             UserMasterID: UserMasterID
         },
         success: function (data) {
-            //
             sessionStorage.clear();
             window.location.href = '/Login/Index';
         },

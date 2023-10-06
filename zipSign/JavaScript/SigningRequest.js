@@ -15,7 +15,6 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
-    debugger;
     var UId = getParameterByName('UId');
     if (UId !== null) {
 
@@ -26,7 +25,6 @@ $(document).ready(function () {
     $('#continueButton').prop('disabled', true);
     signerType = sessionStorage.getItem('Single_Signer');
     if (signerType == "Single_Signer") {
-        debugger;
         var userName = "Lavkush Tyagi";
         var userEmail = "lavkushtyagi22@gmail.com";
         $('#Btn_rec').hide();
@@ -435,7 +433,6 @@ function Download() {
     window.location.href = '/zipsign/downloadfile?filepath=' + decodeURIComponent(filePath);
 }
 function appendActivity(time, role, title) {
-    debugger;
     var activityHtml = `
     <div class="col-lg-3 col-md-3">
         <div class="element-box-tp">

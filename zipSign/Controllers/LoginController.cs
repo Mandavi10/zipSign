@@ -165,7 +165,6 @@ namespace zipSign.Controllers
 
         private bool IsValidEmail(string email)
         {
-            // Check if the email is null or empty
             if (string.IsNullOrWhiteSpace(email))
             {
                 return false;
@@ -177,7 +176,6 @@ namespace zipSign.Controllers
 
         private bool IsValidMobile(string mobile)
         {
-            //Check if the mobile no is null or empty
             if (string.IsNullOrWhiteSpace(mobile))
             {
                 return false;
@@ -317,31 +315,6 @@ namespace zipSign.Controllers
             }
         }
 
-
-        //public static string GetClientIP()
-        //{
-        //    string ip = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-        //    if (!string.IsNullOrEmpty(ip))
-        //    {
-        //        string[] ipRange = ip.Split(',');
-        //        return ipRange[0].Trim();
-        //    }
-        //    else
-        //    {
-        //        return System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
-        //    }
-        //}
-
-        //public static string GetClientIP()
-        //{
-        //    using (var client = new WebClient())
-        //    {
-        //        // Use a public IP address service to get your public IP
-        //        string publicIP = client.DownloadString("https://api64.ipify.org?format=text");
-        //        return publicIP;
-        //    }
-        //}
         public static string GetClientIP()
         {
             try
@@ -544,7 +517,6 @@ namespace zipSign.Controllers
         }
 
         //For Signin
-
         public ActionResult SendOTP(string CusName, string MobileNo, string Email)
         {
             string PhoneNumber = AESEncryption.AESEncryptionClass.DecryptAES(MobileNo);
@@ -845,6 +817,7 @@ namespace zipSign.Controllers
         }
 
         //For SignUp Mobile OTP
+        //During Login OTP Verify
         public JsonResult VerifyOTP(string VOTP)
         {
             List<DataItems> obj1 = new List<DataItems>
