@@ -1001,7 +1001,6 @@ namespace zipSign.Controllers
 
         public string SendLinkviaEmail(string Email, string UserCode)
         {
-
             string EncUserCode = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UserCode));
             string LinkText = GenerateResetLink(EncUserCode);
 
