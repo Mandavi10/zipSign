@@ -8,6 +8,9 @@ var isMobileTimerRunning = false;
 var emailTimerIntervalId;
 var isEmailTimerRunning = false;
 $(document).ready(function () {
+    $('#password, #ConfirmPassword').on('paste copy', function (event) {
+        event.preventDefault();
+    });
     $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
         $("#message").empty();
         row = '';
@@ -147,7 +150,6 @@ $('input[type="radio"]').click(function () {
     }
 });
 function startTimer(duration, display, ismobile) {
-    //;
     if (isMobileTimerRunning) {
         clearInterval(mobileTimerIntervalId);
     }
@@ -202,7 +204,7 @@ $('#lblemailresend').click(function () {
     var timerDuration = 60;
     var display = $('#timeremail');
     isTimerRunning = true;
-    startTimer1(timerDuration, display);
+    startTimer1(timerDuration, display, isEmailTimerRunning);
     SendEmailOTP();
     $(".enterotpdiv").show();
     $(".verifybtn").hide();
