@@ -1,0 +1,227 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    #Signmodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+
+    .giveweidth {
+        width: 80% !important;
+        margin-top: 7%;
+    }
+
+    .poptit {
+        font-size: 20px;
+        margin: 0px 0px 20px 0px;
+        font-family: Roboto-Bold;
+    }
+
+    #passprom .modal-dialog {
+        max-width: 400px !important;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Certificate Managemant</h2>
+                <ul class="breadcrumb">
+
+                    <li class="breadcrumb-item">Buy More Sign</li>
+                    <li class="breadcrumb-item active">Sign Usage Log</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+
+
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="card giveweidth">
+                <div class="body p-4">
+
+
+                    <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                        <div class="col-md-12 p-0 d-flex flex-wrap">
+
+                            <div class="col-md-12 text-center">
+                                <label class="poptit">DSC Details</label>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-wrap">
+                                    <div class="col-md-6">
+                                        <label for="DocName">Select the type of Digital Signature Certificate :</label>
+                                    </div>
+                                    <div class="col-md-6 d-flex flex-wrap">
+                                        <div class="col-md-5">
+                                            <div class="col-md-12 d-flex flex-wrap">
+                                                <label class="fancy-radio custom-color-green">
+                                                    <input type="radio" name="control1" required id="OnlySigner">
+                                                    <span><i></i>.pfx file</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="col-md-12 d-flex flex-wrap ">
+                                                <label class="fancy-radio custom-color-green">
+                                                    <input type="radio" name="control1" required id="OnlySigner">
+                                                    <span><i></i>USB Token</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-wrap">
+                                    <div class="col-md-6">
+                                        <label for="DocName">Select your certificate keystore file(.PFX/P12) :</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-primary ingridbtn" style="margin-top:0px !important;">Browse DSC File</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-wrap">
+                                    <div class="col-md-6">
+                                        <label for="DocName">Enter the password for your private key :</label>
+                                    </div>
+                                    <div class="col-md-6 d-flex flex-wrap">
+                                        <div class="col-md-5">
+                                            <div class="col-md-12 d-flex flex-wrap">
+                                                <label class="fancy-radio custom-color-green">
+                                                    <input type="radio" name="control" required id="OnlySigner">
+                                                    <span><i></i>Automatic</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="col-md-12 d-flex flex-wrap ">
+                                                <label class="fancy-radio custom-color-green">
+                                                    <input type="radio" name="control" required id="OnlySigner">
+                                                    <span data-toggle="modal" data-target="#passprom"><i></i>Password Prompt</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group d-flex flex-wrap">
+                                    <div class="col-md-6">
+                                        <label for="DocName">Select USB token certificate :</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="c_multiselect">
+                                            <select name="single_selection" class="form-control" id="">
+                                                <option value="">Select</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12 text-center mb-2 mt-4">
+                                <button type="button" class="btn btn-primary ">Generate Signature File</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="passprom" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Password Prompt</h4>
+            </div>
+            <div class="modal-body pt-4 pb-4">
+                <div class="col-md-12">
+                    <div class="form-group d-flex flex-wrap">
+                        <div class="col-md-6">
+                            <label for="DocName">Enter your Password</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="password" id="" required class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 d-flex justify-content-end ">
+                    <button type="button" class="btn btn-primary " data-dismiss="modal">OK</button>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successpopup">Yes, save</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script>var jquery_3_6 = jQuery.noConflict();</script>
+<script src="~/Content/js/jquery-ui.js"></script>
+<script>var jquery_UI = jQuery.noConflict();</script>
+<script src="~/Content/js/moment.min.js"></script>
+
+<script>
+    jquery_3_6('input[name="control1"]').change(function () {
+        if (jquery_3_6(this).is(':checked') && jquery_3_6(this).val() == '0') {
+            jquery_3_6('#passprom').modal('show');
+        }
+    });
+</script>
