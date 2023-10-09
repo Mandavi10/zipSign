@@ -20,13 +20,15 @@ $(document).ready(function () {
 
         RowClickEventHandler1(UId);
     }
+    var userDataString = sessionStorage.getItem('user_data');
+    var userData = JSON.parse(userDataString);
     $('#btncomplete').hide();
     $('#btncomplete1').hide();
     $('#continueButton').prop('disabled', true);
     signerType = sessionStorage.getItem('Single_Signer');
     if (signerType == "Single_Signer") {
-        var userName = "Lavkush Tyagi";
-        var userEmail = "lavkushtyagi22@gmail.com";
+        var userName = userData.username;
+        var userEmail = userData.email;
         $('#Btn_rec').hide();
         $('#btnDownload').attr('disabled', true);
         $("#btnreject").hide();
@@ -39,7 +41,7 @@ $(document).ready(function () {
         filepathsss = sessionStorage.getItem('LoaclPath');
         $("#PreviewSignImage1").attr("src", filepathsss);
 
-        appendActivity(uploadedFileDate, "USER", "File Uplaoded");
+        appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
 
     }
     //else {
@@ -114,8 +116,10 @@ $(document).ready(function () {
         $('#btncomplete1').hide();
         $("#btnreject").hide();
         if (signerType == "Single_Signer") {
-            var userName = "Lavkush Tyagi";
-            var userEmail = "lavkushtyagi22@gmail.com";
+            var userDataString = sessionStorage.getItem('user_data');
+            var userData = JSON.parse(userDataString);
+            var userName = userData.username;
+            var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
             appendActivity(DateTimeParsed, activityRole , "Document Signed");
             $(".btnSign").hide();

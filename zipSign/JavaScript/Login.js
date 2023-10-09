@@ -78,14 +78,19 @@ function Login() {
         success: function (result) {
             if (result && result.length > 0) {
                 sessionStorage.setItem('UserId', result[0].UserId);
-
                 var username = result[0].UserName;
                 var email = result[0].Email;
                 var mobile = result[0].Mobile;
                 $("#txtname").val(username);
                 $("#txtemail").val(email);
                 $("#txtphone").val(mobile);
-
+                var userData = {
+                    username: username,
+                    email: email,
+                    mobile: mobile
+                };
+                var jsonString = JSON.stringify(userData);
+                sessionStorage.setItem('user_data', jsonString);
                 window.username1 = username;
                 window.mobile1 = mobile;
                 ShowProfile($("#txtname").val(username),
@@ -322,13 +327,14 @@ function VerifyOTP() {
 
     var otp = $("#mobileotp").val();
     var isVerified = 0;
-    //
+
     $.ajax({
         type: 'POST',
         url: '/Login/VerifyOTP',
         dataType: 'json',
         data: {
-            VOTP: otp
+            VOTP: otp,
+
         },
         async: false, // Make the request synchronous to wait for the response
         success: function (result) {

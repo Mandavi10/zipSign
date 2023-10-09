@@ -8,7 +8,12 @@ var keyword = $('#searchInput').val();
 var i;
 
 $(document).ready(function () {
-    
+    var UserMasterID = sessionStorage.getItem('UserId');
+    if (UserMasterID == "" || UserMasterID == null) {
+        window.location.href = "/Login/Index";
+    }
+    var userDataString = sessionStorage.getItem('user_data');
+    var userData = JSON.parse(userDataString);
     $('#SendLink').click(function () {
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
