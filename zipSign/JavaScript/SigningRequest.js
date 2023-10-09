@@ -100,7 +100,7 @@ $(document).ready(function () {
     if (filePath != null && filePath != "") {
         
         $("#btnproceed").hide();
-        $(".btnSign").hide();
+       // $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -122,7 +122,7 @@ $(document).ready(function () {
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
             appendActivity(DateTimeParsed, activityRole , "Document Signed");
-            $(".btnSign").hide();
+           // $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
@@ -134,7 +134,7 @@ $(document).ready(function () {
         }
         else {
             //appendActivity(DateTimeParsed, SignerName, Emailid, "Document Signed");
-            $(".btnSign").hide();
+           // $(".btnSign").hide();
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
             $("#PreviewSignImage1").attr("src", filePath);
@@ -162,7 +162,7 @@ $(document).ready(function () {
         });
     }
     else if (SignedfilePath != null && SignedfilePath != "") {
-        $(".btnSign").hide();
+       // $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -180,14 +180,14 @@ $(document).ready(function () {
         signerType = sessionStorage.getItem('Single_Signer');
         if (signerType == "Single_Signer") {
 
-            $(".btnSign").hide();
+            //$(".btnSign").hide();
 
             $('#Btn_rec').hide();
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();
         }
         else {
-            $(".btnSign").hide();
+           // $(".btnSign").hide();
             $('#Btn_rec').hide();
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();
