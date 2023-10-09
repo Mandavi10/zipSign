@@ -10247,3 +10247,6 @@ div.dataTables_filter {
 .sidebar-nav .metismenu {
     padding-right: 5px !important;
 }
+.pricetxt{
+    text-align:right;
+}
