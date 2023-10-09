@@ -279,10 +279,8 @@ namespace zipSign.Controllers
 
                             userDataList.Add(userData);
                             Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
-
                         }
                         Session["UserData"] = userDataList; // Store the list of user data in the session
-
                         return Json(result, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -439,6 +437,7 @@ namespace zipSign.Controllers
             Random random = new Random();
             int txnId = random.Next(100, 1000);
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+
             List<DataItems> obj1 = new List<DataItems>
             {
                 new DataItems("TxnId", TraceNumber),
@@ -528,6 +527,7 @@ namespace zipSign.Controllers
             Random random = new Random();
             int txnId = random.Next(100, 1000);
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+            Session["TraceNumber1"] = TraceNumber;
             List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("TxnId", TraceNumber),
@@ -606,6 +606,7 @@ namespace zipSign.Controllers
         {
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
+                string formattedDate = DateTime.Now.ToString("dd MMMM, yyyy 'at' hh:mm tt 'IST'");
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
                 msg.Subject = "Sign-in into zipSign";
                 string message = "<html>";
@@ -624,7 +625,7 @@ namespace zipSign.Controllers
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-                message += "<p>This password is valid for 10 minutes to complete sign-in, requested 07 September, 2023 at 12:01 PM IST.</p>";
+                message += "<p>This password is valid for 10 minutes to complete sign-in, requested "+ formattedDate +".</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
@@ -719,6 +720,7 @@ namespace zipSign.Controllers
             Session["otp"] = OTP;
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
+                string formattedDate = DateTime.Now.ToString("dd MMMM, yyyy 'at' hh:mm tt 'IST'");
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
                 msg.Subject = "Sign-in into zipSign";
                 string message = "<html>";
@@ -737,7 +739,7 @@ namespace zipSign.Controllers
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-                message += "<p>This password is valid for 10 minutes to complete sign-in, requested 07 September, 2023 at 12:01 PM IST.</p>";
+                message += "<p>This password is valid for 10 minutes to complete sign-in, requested "+ formattedDate + ".</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
@@ -820,16 +822,17 @@ namespace zipSign.Controllers
         //During Login OTP Verify
         public JsonResult VerifyOTP(string VOTP)
         {
+            string TxnId = Convert.ToString(Session["TraceNumber1"]);
             List<DataItems> obj1 = new List<DataItems>
         {
         new DataItems("Otp", VOTP),
+        new DataItems("TxnId",TxnId),
         new DataItems("QueryType", "IsValidOTP")
             };
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj1);
 
             if (statusClass.StatusCode == 9)
             {
-
                 DateTime otpGeneratedTime = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"];
                 DateTime currentTime = DateTime.Now;
                 TimeSpan timeDifference = currentTime - otpGeneratedTime;
@@ -850,6 +853,7 @@ namespace zipSign.Controllers
                         obj.Add(new DataItems("UserMasterID", UserMasterId));
                         obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
                         obj.Add(new DataItems("EmailOTP", VOTP));
+                        obj.Add(new DataItems("TxnId", TxnId));
                         obj.Add(new DataItems("QueryType", "LoginOTP"));
 
                         statusClass = bal.PostFunction(pro.Signup, obj);
