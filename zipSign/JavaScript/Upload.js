@@ -8,7 +8,12 @@ var keyword = $('#searchInput').val();
 var i;
 
 $(document).ready(function () {
-    
+    var UserMasterID = sessionStorage.getItem('UserId');
+    if (UserMasterID == "" || UserMasterID == null) {
+        window.location.href = "/Login/Index";
+    }
+    var userDataString = sessionStorage.getItem('user_data');
+    var userData = JSON.parse(userDataString);
     $('#SendLink').click(function () {
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
@@ -58,57 +63,57 @@ var suggestionsList = $(".suggestions-list");
 //    window.location.href = "/Dashboard/Index2";
 //});
 
-$(document).on("input", '[id^="Name"]', function () {
+//$(document).on("input", '[id^="Name"]', function () {
 
-    var inputField = this;
-    var suggestionList = $(this).closest('.signerdiv').find('.suggestions-list');
-    var inputValue = $(this).val().toLowerCase();
-    if (inputValue.length === 0) {
-        suggestionList.empty();
-        suggestionList.hide();
-        return; // Exit the event handler early
-    }
-    $.ajax({
-        url: '/zipSign/GetSuggestions',  // Replace with the actual URL
-        type: 'GET',
-        data: { userName: inputValue },  // Pass the input value to the server
-        success: function (suggestionData) {
-            //
-            if (suggestionData.length > 0) {
-                // If suggestions are found, show the suggestion list
-                suggestionList.empty();
-                suggestionData.forEach(function (item) {
-                    suggestionList.append('<li class="suggestion-item">' + item.Name + ' - ' + item.Email + ' - ' + item.Mobile + '</li>');
-                });
-                suggestionList.show();
-            } else {
-                // If no suggestions are found, hide the suggestion list
-                suggestionList.empty();
-                suggestionList.hide();
-            }
-        },
-        error: function (err) {
-            console.error(err);
-        }
-    });
-});
+//    var inputField = this;
+//    var suggestionList = $(this).closest('.signerdiv').find('.suggestions-list');
+//    var inputValue = $(this).val().toLowerCase();
+//    if (inputValue.length === 0) {
+//        suggestionList.empty();
+//        suggestionList.hide();
+//        return; // Exit the event handler early
+//    }
+//    $.ajax({
+//        url: '/zipSign/GetSuggestions',  // Replace with the actual URL
+//        type: 'GET',
+//        data: { userName: inputValue },  // Pass the input value to the server
+//        success: function (suggestionData) {
+//            //
+//            if (suggestionData.length > 0) {
+//                // If suggestions are found, show the suggestion list
+//                suggestionList.empty();
+//                suggestionData.forEach(function (item) {
+//                    suggestionList.append('<li class="suggestion-item">' + item.Name + ' - ' + item.Email + ' - ' + item.Mobile + '</li>');
+//                });
+//                suggestionList.show();
+//            } else {
+//                // If no suggestions are found, hide the suggestion list
+//                suggestionList.empty();
+//                suggestionList.hide();
+//            }
+//        },
+//        error: function (err) {
+//            console.error(err);
+//        }
+//    });
+//});
 
-$(document).on("click", ".suggestions-list .suggestion-item", function () {
-    //;
-    var suggestionText = $(this).text();
-    var suggestionParts = suggestionText.split(' - ');
-    var inputFieldName = $(this).closest('.signerdiv').find('[id^="Name"]');
-    var inputFieldEmail = $(this).closest('.signerdiv').find('[id^="Email"]');
-    var inputFieldMobile = $(this).closest('.signerdiv').find('[id^="phone"]');
-    inputFieldName.val(suggestionParts[0]);
+//$(document).on("click", ".suggestions-list .suggestion-item", function () {
+//    //;
+//    var suggestionText = $(this).text();
+//    var suggestionParts = suggestionText.split(' - ');
+//    var inputFieldName = $(this).closest('.signerdiv').find('[id^="Name"]');
+//    var inputFieldEmail = $(this).closest('.signerdiv').find('[id^="Email"]');
+//    var inputFieldMobile = $(this).closest('.signerdiv').find('[id^="phone"]');
+//    inputFieldName.val(suggestionParts[0]);
 
-    inputFieldEmail.val(suggestionParts[1]);
-    inputFieldMobile.val(suggestionParts[2]);
+//    inputFieldEmail.val(suggestionParts[1]);
+//    inputFieldMobile.val(suggestionParts[2]);
 
-    $(this).closest('.suggestions-list').empty();  // Clear suggestion list
-    $('.suggestions-list').hide();
+//    $(this).closest('.suggestions-list').empty();  // Clear suggestion list
+//    $('.suggestions-list').hide();
 
-});
+//});
 $("#AddRecipient").click(function () {
     AddRecipiants(1);
 

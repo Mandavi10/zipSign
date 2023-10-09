@@ -78,14 +78,19 @@ function Login() {
         success: function (result) {
             if (result && result.length > 0) {
                 sessionStorage.setItem('UserId', result[0].UserId);
-
                 var username = result[0].UserName;
                 var email = result[0].Email;
                 var mobile = result[0].Mobile;
                 $("#txtname").val(username);
                 $("#txtemail").val(email);
                 $("#txtphone").val(mobile);
-
+                var userData = {
+                    username: username,
+                    email: email,
+                    mobile: mobile
+                };
+                var jsonString = JSON.stringify(userData);
+                sessionStorage.setItem('user_data', jsonString);
                 window.username1 = username;
                 window.mobile1 = mobile;
                 ShowProfile($("#txtname").val(username),
@@ -270,7 +275,7 @@ function validations() {
     });
 
     if ($("#email").val().trim() === "") {
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Email is Required.</div>';
+        row = 'Email is Required.';
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
@@ -278,7 +283,8 @@ function validations() {
         return false;
     }
     else if (!emailRegex.test($("#email").val())) {
-        row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. xxxx@gmail.com)".</div>';
+        //row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. xxxx@gmail.com)".</div>';
+        row = 'You have entered an invalid email address! (e.g. xxxx@gmail.com).';
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
@@ -288,14 +294,16 @@ function validations() {
   
     else if ($("#password").val().trim() === "") {
         $("#message").empty();
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
+        //row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
+        row = 'Password is Required.';
         $("#message").append(row);
         $("#password").focus();
         isvalidate = 0;
         return false;
     }
     else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test($("#password").val())) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        //var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+         row = 'Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character';
         $("#message").empty();
         $("#message").append(row);
         $("#password").focus();
@@ -304,7 +312,8 @@ function validations() {
     }
     else if ($('#signin-password').val().trim() === "") {
         $("#message").empty();
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
+        //row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
+        row = 'Please Verify CAPTCHA.';
         $("#message").append(row);
         $("#signin-password").focus();
         isvalidate = 0;
@@ -322,13 +331,14 @@ function VerifyOTP() {
 
     var otp = $("#mobileotp").val();
     var isVerified = 0;
-    //
+
     $.ajax({
         type: 'POST',
         url: '/Login/VerifyOTP',
         dataType: 'json',
         data: {
-            VOTP: otp
+            VOTP: otp,
+
         },
         async: false, // Make the request synchronous to wait for the response
         success: function (result) {
