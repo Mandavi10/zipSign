@@ -13,5 +13,10 @@ namespace zipSign.Controllers
         {
             return View();
         }
+            public ActionResult AllDocumentSignerCertificate()
+            {
+                return View();
+            }
+    
     }
 }

@@ -674,6 +674,7 @@
     <Content Include="Views\zipSign\RolesAndRights3.cshtml" />
     <Content Include="Views\Masters\SigningControl.cshtml" />
     <Content Include="Views\CertificateManagement\CertManagement.cshtml" />
+    <Content Include="Views\CertificateManagement\AllDocumentSignerCertificate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
