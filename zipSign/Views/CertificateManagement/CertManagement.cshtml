@@ -15,12 +15,12 @@
         right: 32px;
         bottom: 23px;
     }
-
+/*
     .giveweidth {
         width: 80% !important;
         margin-top: 7%;
     }
-
+*/
     .poptit {
         font-size: 20px;
         margin: 0px 0px 20px 0px;
@@ -29,6 +29,9 @@
 
     #passprom .modal-dialog {
         max-width: 400px !important;
+    }
+    .gheight{
+        height:40vh;
     }
 </style>
 <div class="container-fluid">
@@ -59,88 +62,69 @@
     <div class="row clearfix">
         <div class="col-md-12 d-flex justify-content-center">
             <div class="card giveweidth">
-                <div class="body p-4">
-
+                <div class="body">
 
                     <div class="col-md-12 col-xs-12 col-sm-12 p-0">
                         <div class="col-md-12 p-0 d-flex flex-wrap">
 
-                            <div class="col-md-12 text-center">
-                                <label class="poptit">DSC Details</label>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-12 d-flex flex-wrap">
+                                <div class="col-md-12">
                                     <div class="col-md-6">
-                                        <label for="DocName">Select the type of Digital Signature Certificate:</label>
-                                    </div>
-                                    <div class="col-md-6 d-flex flex-wrap">
-                                        <div class="col-md-5">
-                                            <div class="col-md-12 d-flex flex-wrap">
-                                                <label class="fancy-radio custom-color-green">
-                                                    <input type="radio" name="control1" required id="OnlySigner">
-                                                    <span><i></i>.pfx file</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="col-md-12 d-flex flex-wrap ">
-                                                <label class="fancy-radio custom-color-green">
-                                                    <input type="radio" name="control1" required id="OnlySigner">
-                                                    <span><i></i>USB Token</span>
-                                                </label>
+                                        <div class="form-group d-flex flex-wrap">
+                                            <label for="DocName" class="col-md-4">Upload Certificate</label>
+                                            <div class="col-md-8">
+                                                <input type="file" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <div class="form-group d-flex flex-wrap">
-                                    <div class="col-md-6">
-                                        <label for="DocName">Select your certificate keystore file(.PFX/P12):</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-primary ingridbtn" style="margin-top:0px !important;">Browse DSC File</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group d-flex flex-wrap">
-                                    <div class="col-md-6">
-                                        <label for="DocName">Select the type of password for your private key:</label>
-                                    </div>
-                                    <div class="col-md-6 d-flex flex-wrap">
-                                        <div class="col-md-5">
-                                            <div class="col-md-12 d-flex flex-wrap">
-                                                <label class="fancy-radio custom-color-green">
-                                                    <input type="radio" name="control" required id="OnlySigner">
-                                                    <span><i></i>Automatic</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <div class="col-md-12 d-flex flex-wrap ">
-                                                <label class="fancy-radio custom-color-green">
-                                                    <input type="radio" name="control" required id="OnlySigner">
-                                                    <span data-toggle="modal" data-target="#passprom"><i></i>Password Prompt</span>
-                                                </label>
-                                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Certificate Name</label>
+                                        <div class="col-md-11">
+                                            <input type="text" id="" required class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Certificate Type</label>
+                                        <div class="col-md-11">
+                                            <select name="single_selection" class="form-control" id="">
+                                                <option value="">Select</option>
+                                                <option>.pfx</option>
 
-
-                            <div class="col-md-12">
-                                <div class="form-group d-flex flex-wrap">
-                                    <div class="col-md-6">
-                                        <label for="DocName">Select USB token certificate:</label>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="c_multiselect">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Password</label>
+                                        <div class="col-md-11">
+                                            <input type="text" id="" required class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Confirm Password</label>
+                                        <div class="col-md-11">
+                                            <input type="text" id="" required class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end mt-2 mb-2">
+                                        <button type="button" class="btn btn-primary ">Validate Password</button>
+                                </div>
+
+                            </div>
+                           
+                            <div class="col-md-12 d-flex flex-wrap gheight">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Select Role</label>
+                                        <div class="col-md-11">
                                             <select name="single_selection" class="form-control" id="">
                                                 <option value="">Select</option>
 
@@ -148,13 +132,125 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Select the type of password for private key</label>
+                                        <div class="col-md-11 d-flex flex-wrap pt-1">
+
+                                            <div class="col-md-4">
+                                                <div class="col-md-12 d-flex flex-wrap">
+                                                    <label class="fancy-radio custom-color-green">
+                                                        <input type="radio" name="control" required id="OnlySigner">
+                                                        <span><i></i>Automatic</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="col-md-12 d-flex flex-wrap ">
+                                                    <label class="fancy-radio custom-color-green">
+                                                        <input type="radio" name="control" required id="OnlySigner">
+                                                        <span data-toggle="modal" data-target="#passprom"><i></i>Password Prompt</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
 
-
-
-                            <div class="col-md-12 text-center mb-2 mt-4">
-                                <button type="button" class="btn btn-primary ">Generate Signature File</button>
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary ">Save</button>
                             </div>
+                            @*<div class="col-md-12 text-center">
+            <label class="poptit">DSC Details</label>
+        </div>*@
+
+                            @*<div class="col-md-12">
+            <div class="form-group d-flex flex-wrap">
+                <div class="col-md-6">
+                    <label for="DocName">Select the type of Digital Signature Certificate:</label>
+                </div>
+                <div class="col-md-6 d-flex flex-wrap">
+                    <div class="col-md-5">
+                        <div class="col-md-12 d-flex flex-wrap">
+                            <label class="fancy-radio custom-color-green">
+                                <input type="radio" name="control1" required id="OnlySigner">
+                                <span><i></i>.pfx file</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-12 d-flex flex-wrap ">
+                            <label class="fancy-radio custom-color-green">
+                                <input type="radio" name="control1" required id="OnlySigner">
+                                <span><i></i>USB Token</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="form-group d-flex flex-wrap">
+                <div class="col-md-6">
+                    <label for="DocName">Select your certificate keystore file(.PFX/P12):</label>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary ingridbtn" style="margin-top:0px !important;">Browse DSC File</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group d-flex flex-wrap">
+                <div class="col-md-6">
+                    <label for="DocName">Select the type of password for your private key:</label>
+                </div>
+                <div class="col-md-6 d-flex flex-wrap">
+                    <div class="col-md-5">
+                        <div class="col-md-12 d-flex flex-wrap">
+                            <label class="fancy-radio custom-color-green">
+                                <input type="radio" name="control" required id="OnlySigner">
+                                <span><i></i>Automatic</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="col-md-12 d-flex flex-wrap ">
+                            <label class="fancy-radio custom-color-green">
+                                <input type="radio" name="control" required id="OnlySigner">
+                                <span data-toggle="modal" data-target="#passprom"><i></i>Password Prompt</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <div class="form-group d-flex flex-wrap">
+                <div class="col-md-6">
+                    <label for="DocName">Select USB token certificate:</label>
+                </div>
+                <div class="col-md-6">
+                    <div class="c_multiselect">
+                        <select name="single_selection" class="form-control" id="">
+                            <option value="">Select</option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
 
                         </div>
 
@@ -188,7 +284,7 @@
                             <label for="DocName">Enter Password</label>
                         </div>
                         <div class="col-md-12">
-                            <input type="password" id="" required class="form-control">
+                            <input type="text" id="" required class="form-control">
                         </div>
                     </div>
                 </div>
