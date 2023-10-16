@@ -1,0 +1,138 @@
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023100836" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+errCode: ESP-945 & Error Message: User terminated eKYC process after OTP Generation
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023101115" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023103033" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012095711275_48LBVK38E.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012103814901_WUS44C1W9.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012103814901_WUS44C1W9.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023103908" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012103814901_WUS44C1W9_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012103814901_WUS44C1W9.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012103814901_WUS44C1W9_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012103814901_WUS44C1W9.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012105130027_0R87503TY.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012105130027_0R87503TY.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023105508" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012105130027_0R87503TY_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012105130027_0R87503TY.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012111117838_L86JJ9HNB.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012111117838_L86JJ9HNB.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023111239" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012111117838_L86JJ9HNB_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012111117838_L86JJ9HNB.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...
+
+-----------------------------------------------------------
+CreatingRequestXml Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 1 "" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012171827017_26G35E8H4.pdf" "ASPYSPLMUMTEST223" "1" "http://localhost:50460/NSDL/Page_Load?filePathfromUpload=%2fUploads%2fSignUpload%2fAG_Grid_20231012171827017_26G35E8H4.pdf" "D:\NewProject\zipSign\zipSign\Content\DSC_.p12\YoekiDSC1.p12" "Creative0786!@#" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "te-6b59446f-6d6d-416f-8624-858d73c61fd8" "Aadhar_E-sign" "" "" "" "61200012102023183323" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+Creating Requestxml process end..
+
+-----------------------------------------------------------
+SigningPdf Process Start...
+
+-----------------------------------------------------------
+"D:\NewProject\zipSign\zipSign\Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" 2 "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012171827017_26G35E8H4_responseXML.txt" "D:\NewProject\zipSign\zipSign\Uploads\SignUpload\AG_Grid_20231012171827017_26G35E8H4.pdf" "D:\NewProject\zipSign\zipSign\Content/images/signbg.png" 15 "Aadhar_E-sign" "" ""  "" "" "D:\NewProject\zipSign\zipSign\Coordinatesfile.txt"
+
+-----------------------------------------------------------
+SigningPdf Process End...

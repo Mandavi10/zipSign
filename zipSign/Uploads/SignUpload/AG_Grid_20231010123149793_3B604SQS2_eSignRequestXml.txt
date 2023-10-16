@@ -1,0 +1,1 @@
+Please check co-ordinates list that should not be empty.

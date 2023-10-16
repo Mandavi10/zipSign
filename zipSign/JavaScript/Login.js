@@ -109,7 +109,7 @@ function Login() {
                         $('#confirmationpopup').modal('hide');
                     });
                 }
-                else if (result.status == "Email/Mobile can't Empty" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
+                else if (result.status == "Email/Mobile can't Empty" || result.status =="Invalid email/mobile format" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
                     $("#message").empty();
                     // Handle the "Email/Mobile can't Empty" case
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
@@ -165,6 +165,9 @@ function SendLoginEmailOTP(textbox, username, mobile) {
         },
         success: function (response) {
             var Email = textbox;
+            var mobileNumber = response.MobileNo;
+            var lastTwoDigits = mobileNumber.slice(-2);
+            var formattedMobile = "xxxxxxxx" + lastTwoDigits;
             var atIndex = Email.indexOf('@');
             if (atIndex !== -1) {
                 var localPart = Email.slice(0, atIndex);
@@ -177,7 +180,6 @@ function SendLoginEmailOTP(textbox, username, mobile) {
                     localPart = localPart[0] + xChars + localPart[localPart.length - 1];
                 }
                 var formattedEmail = localPart + domainPart;
-                var formattedMobile = "xxxxx" + "xxx00";
 
                 var span = $("#lblemail .enterddata");
                 span.text("Please enter the OTP sent to " + formattedEmail + " or ending in " + formattedMobile);
@@ -268,30 +270,33 @@ function SendLoginMobileOTP(username, textbox) {
 }
 function validations() {
     var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    var mobileRegex = /^\d{10}$/;
+    var mobileRegex = /^[6789]\d{9}$/;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
     });
 
     if ($("#email").val().trim() === "") {
-        row = 'Email is Required.';
+
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Email/Mobile is Required.</div>';
+
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
         isvalidate = 0;
         return false;
     }
-    else if (!emailRegex.test($("#email").val())) {
-        //row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. xxxx@gmail.com)".</div>';
-        row = 'You have entered an invalid email address! (e.g. xxxx@gmail.com).';
+
+    else if (!emailRegex.test($("#email").val()) && !mobileRegex.test($("#email").val()) ) {
+        row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email/mobile format.</div>';
+
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
         isvalidate = 0;
         return false;
     }
-  
+   
     else if ($("#password").val().trim() === "") {
         $("#message").empty();
         //row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';

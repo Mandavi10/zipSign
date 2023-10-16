@@ -1,5 +1,6 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Pkcs7pdf_Multiple_EsignService;
 using System;
@@ -34,6 +35,10 @@ namespace zipSign.Controllers
         }
         public ActionResult PDFSignature(AuthViewModel objModel)
         {
+            int left = Convert.ToInt32( Session["Left"]);
+            int top = Convert.ToInt32(Session["Top"]);
+            int width = Convert.ToInt32(Session["Width"]);
+            int height = Convert.ToInt32(Session["Height"]);
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             string documentid = objModel.UploadedDocumentId;
             _ = $"{System.Configuration.ConfigurationManager.AppSettings["ConsumePath"]}{objModel.File}";
@@ -78,7 +83,9 @@ namespace zipSign.Controllers
                 {
                     Coordinates = Convert.ToInt32(statusClass.DataFetch.Tables[0].Rows[0]["CoordinatesUpdate"]);
                 }
-                CreatePageSequenceFile(txtFilePath, pageCount, Coordinates, documentid, pdfPath, TraceNumber);
+                //CreatePageSequenceFile(txtFilePath, pageCount, Coordinates, documentid, pdfPath, TraceNumber);
+                CreatePageSequenceFile(txtFilePath, pageCount, Coordinates, width, height, documentid, pdfPath, TraceNumber, top, left);
+
 
                 PKCS7PDFMultiEsign req_resp = new PKCS7PDFMultiEsign();
                 string req = req_resp.GenerateRequestXml(jarPath, ekycId, pdfPath, aspId, authMode, resp_url, certificatePath, certificatePassward, tickImagePath, serverTime, alias, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, txn, responsesigtype, CoordinatesPath, jrebinpath, log_err);
@@ -167,41 +174,162 @@ namespace zipSign.Controllers
             {
                 return pdfReader.NumberOfPages;
             }
-
         }
-        public JsonResult CreatePageSequenceFile(string txtFilePath, int pageCount, int Coordinates, string documentid, string pdfPath, string TraceNumber)
+        public class PdfPageSize
         {
+            public float WidthInPixels { get; set; }
+            public float HeightInPixels { get; set; }
+        }
+
+        public List<PdfPageSize> GetPdfPageSizesInPixels(string pdfPath)
+        {
+            string pdfpathfromupload = Server.MapPath(pdfPath);
+            List<PdfPageSize> pageSizes = new List<PdfPageSize>();
+
+            float dpi = 96f; // Standard DPI for most screens
+
+            using (PdfReader pdfReader = new PdfReader(pdfpathfromupload))
+            {
+                for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                {
+                    Rectangle pageSize = pdfReader.GetPageSize(i);
+
+                    PdfPageSize pdfPageSize = new PdfPageSize();
+                    pdfPageSize.WidthInPixels = (int)(pageSize.Width * dpi / 72f); // Convert width from points to pixels
+                    pdfPageSize.HeightInPixels = (int)(pageSize.Height * dpi / 72f); // Convert height from points to pixels
+
+                    pageSizes.Add(pdfPageSize);
+                }
+            }
+
+            return pageSizes;
+        }
+
+        //return Json(new { }, JsonRequestBehavior.AllowGet);
+
+        //public List<PdfPageSize> GetPdfPageSizesInPixels(string pdfPath)
+        //{
+        //    string pdfpathfromupload = Server.MapPath(pdfPath);
+        //    List<PdfPageSize> pageSizes = new List<PdfPageSize>();
+
+        //    float targetWidthInPixels = 793.92f;  // Width of A4 size in pixels
+        //    float targetHeightInPixels = 1123.2f; // Height of A4 size in pixels
+
+        //    using (PdfReader pdfReader = new PdfReader(pdfpathfromupload))
+        //    {
+        //        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+        //        {
+        //            Rectangle pageSize = pdfReader.GetPageSize(i);
+
+        //            PdfPageSize pdfPageSize = new PdfPageSize();
+
+        //            // Convert PDF page size from points to pixels using custom conversion factor
+        //            pdfPageSize.WidthInPixels = (int)(pageSize.Width * (targetWidthInPixels / pageSize.Width));
+        //            pdfPageSize.HeightInPixels = (int)(pageSize.Height * (targetHeightInPixels / pageSize.Height));
+
+        //            pageSizes.Add(pdfPageSize);
+        //        }
+        //    }
+
+        //    return pageSizes;
+        //}
+        //public List<PdfPageSize> GetPdfPageSizesInPixels(string pdfPath)
+        //{
+        //    List<PdfPageSize> pageSizes = new List<PdfPageSize>();
+
+        //    using (PdfReader pdfReader = new PdfReader(pdfPath))
+        //    {
+        //        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+        //        {
+        //            PdfDocument pdfDoc = new PdfDocument(pdfReader);
+        //            PageSize pageSize = pdfDoc.GetPagePageSize(i);
+
+        //            PdfPageSize pdfPageSize = new PdfPageSize();
+
+        //            // Convert PDF page size from points to pixels without considering DPI
+        //            pdfPageSize.WidthInPixels = (int)pageSize.GetWidth();
+        //            pdfPageSize.HeightInPixels = (int)pageSize.GetHeight();
+
+        //            pageSizes.Add(pdfPageSize);
+        //        }
+        //    }
+
+        //    return pageSizes;
+        //}
+
+
+
+        //public JsonResult CreatePageSequenceFile(string txtFilePath, int pageCount, int Coordinates, string documentid, string pdfPath, string TraceNumber)
+        //{
+        //    using (StreamWriter writer = new StreamWriter(txtFilePath))
+        //    {
+        //        if (Coordinates >= 0)
+        //        {
+        //            for (int page = 1; page <= pageCount; page++)
+        //            {
+        //                int x;
+        //                //string fileExtn = Path.GetExtension(pdfPath);
+        //                if (pdfPath.Contains("_signedFinal.pdf"))
+        //                {
+        //                    x = Coordinates + 140;
+        //                    writer.Write($"{page}-{x},10,45,130;");
+        //                }
+        //                else
+        //                {
+        //                    x = 110;
+        //                    writer.Write($"{page}-{x},340,45,130;");
+        //                }
+        //                List<DataItems> obj = new List<DataItems>
+        //                {
+        //                    new DataItems("CoordinatesUpdate", x),
+        //                    new DataItems("UploadedDocumentId", documentid),
+        //                    new DataItems("TxnNo", TraceNumber),
+        //                    new DataItems("QuerySelector", "CoordinatesUpdate")
+        //                };
+        //                statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
+        //            }
+        //        }
+        //        return Json(new { }, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+        public JsonResult CreatePageSequenceFile(string txtFilePath, int pageCount, int Coordinates, float Width, float Height, string documentid, string pdfPath, string TraceNumber, float top, float left)
+        {
+            //int pageCount = GetPdfPageCount(pdfPath); // Get total number of pages in the PDF
             using (StreamWriter writer = new StreamWriter(txtFilePath))
             {
-                if (Coordinates >= 0)
+                if (Coordinates >= 0 && Width > 0 && Height > 0)
                 {
                     for (int page = 1; page <= pageCount; page++)
                     {
-                        int x;
-                        //string fileExtn = Path.GetExtension(pdfPath);
+                        float x;
+
                         if (pdfPath.Contains("_signedFinal.pdf"))
                         {
                             x = Coordinates + 140;
-                            writer.Write($"{page}-{x},10,45,130;");
+                            writer.Write($"{page}-{x},{Width},{45},{130};");
                         }
                         else
                         {
-                            x = 10;
-                            writer.Write($"{page}-{x},10,45,130;");
+                            x = Height;
+                            writer.Write($"{page}-{Width},{Height},{45},{130};");
                         }
+
+                        // Execute your business logic here with the given coordinates
                         List<DataItems> obj = new List<DataItems>
-                        {
-                            new DataItems("CoordinatesUpdate", x),
-                            new DataItems("UploadedDocumentId", documentid),
-                            new DataItems("TxnNo", TraceNumber),
-                            new DataItems("QuerySelector", "CoordinatesUpdate")
-                        };
+                {
+                    new DataItems("CoordinatesUpdate", x),
+                    new DataItems("UploadedDocumentId", documentid),
+                    new DataItems("TxnNo", TraceNumber),
+                    new DataItems("QuerySelector", "CoordinatesUpdate")
+                };
                         statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
                     }
                 }
-                return Json(new { }, JsonRequestBehavior.AllowGet);
+
+                return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
         }
+
 
         public static string CreateRandomCode(int CodeLength)
         {
@@ -814,7 +942,7 @@ namespace zipSign.Controllers
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-               
+
                 Guid uniqueIdentifier = Guid.NewGuid();
                 // Store the mapping between the identifier and the parameters in your database
                 StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiry);
@@ -1114,6 +1242,153 @@ namespace zipSign.Controllers
             {
                 Console.WriteLine("Error: " + ex.Message);
             }
+        }
+        //public ActionResult SaveCoordinates(int left, int top, int width, int height, string pdfPath)
+        //{
+
+        //    string pdfpathfromupload = Server.MapPath(pdfPath);
+        //    List<PdfPageSize> pageSizes = new List<PdfPageSize>();
+
+        //    float dpi = 96f; // Standard DPI for most screens
+        //    PdfPageSize pdfPageSize = new PdfPageSize();
+        //    using (PdfReader pdfReader = new PdfReader(pdfpathfromupload))
+        //    {
+        //        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+        //        {
+        //            Rectangle pageSize = pdfReader.GetPageSize(i);
+
+
+        //            pdfPageSize.WidthInPixels = (int)(pageSize.Width * dpi / 72f); // Convert width from points to pixels
+        //            pdfPageSize.HeightInPixels = (int)(pageSize.Height * dpi / 72f); // Convert height from points to pixels
+
+        //            pageSizes.Add(pdfPageSize);
+        //        }
+        //    }
+        //    var pdfX = left * pdfPageSize.WidthInPixels; // PDF X-coordinate
+        //    var pdfY = top * pdfPageSize.HeightInPixels;
+        //    try
+        //    {
+        //        // Store the coordinates in session or database or any storage method of your choice
+        //        Session["Left"] = left;
+        //        Session["Top"] = top;
+        //        Session["Width"] = width;
+        //        Session["Height"] = height;
+
+        //        return Json(new { success = true, coordinates = new { Left = left, Top = top, Width = width, Height = height } });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, error = ex.Message });
+        //    }
+        //}
+        //public ActionResult SaveCoordinates(int left, int top, int width, int height, string pdfPath)
+        //{
+        //    string pdfpathfromupload = Server.MapPath(pdfPath);
+        //    //float iframeWidth = 614f;  // Width of the iframe in pixels
+        //    //float iframeHeight = 439f; // Height of the iframe in pixels
+        //    float iframeWidth = 793.0f;
+        //    float iframeHeight =1123.0f; // Height of the iframe in pixels
+        //    float dpi = 96f;
+        //    try
+        //    {
+        //        using (PdfReader pdfReader = new PdfReader(pdfpathfromupload))
+        //        {
+        //            for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+        //            {
+        //                PdfPageSize pdfPageSize = new PdfPageSize();
+        //                Rectangle pageSize = pdfReader.GetPageSize(i);
+        //                pdfPageSize.WidthInPixels = (int)(pageSize.Width * dpi / 72f);
+        //                pdfPageSize.HeightInPixels = (int)(pageSize.Height * dpi / 72f); // Convert height from points to pixels
+        //                //float pdfWidth = pageSize.GetWidth();
+        //                //float pdfHeight = pageSize.GetHeight();
+        //                float scaleX = pdfPageSize.WidthInPixels / iframeWidth;
+        //                float scaleY = pdfPageSize.HeightInPixels / iframeHeight;
+
+        //                float actualLeft = (left * scaleX);
+        //                float actualTop = (top * scaleY);
+        //                float actualWidth = (width * scaleX);
+        //                float actualHeight = (height * scaleY);
+        //                float actualBottom = pdfPageSize.HeightInPixels - (actualTop + actualHeight);
+        //                float actualRight = pdfPageSize.WidthInPixels - (actualLeft + actualWidth);
+
+        //                //float actualLeft = 196 + (left * pdfPageSize.WidthInPixels / iframeWidth);
+        //                //float actualTop = 127 + (top * pdfPageSize.HeightInPixels / iframeHeight);
+        //                //float actualWidth = width * pdfPageSize.WidthInPixels / iframeWidth;
+        //                //float actualHeight = height * pdfPageSize.HeightInPixels / iframeHeight;
+
+        //                // Store the actual coordinates in session or database or any storage method of your choice
+        //                Session["Left"] = actualLeft;
+        //                Session["Top"] = actualTop;
+        //                Session["Width"] = actualRight;
+        //                Session["Height"] = actualBottom;
+
+        //                return Json(new { success = true, coordinates = new { Left = actualLeft, Top = actualTop, Width = actualWidth, Height = actualHeight } });
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, error = ex.Message });
+        //    }
+
+        //    return Json(new { success = false, error = "Failed to calculate coordinates." });
+        //}
+        public ActionResult SaveCoordinates(int left, int top, int width, int height, string pdfPath)
+        {
+            string pdfpathfromupload = Server.MapPath(pdfPath);
+            float iframeWidth = 653f;  // Width of the iframe in pixels
+            float iframeHeight;
+           if (top<260)
+            {
+                 iframeHeight = 1123f; 
+            }
+           else
+            {
+                 iframeHeight = 390f; 
+            }
+            //float iframeWidth = 793.0f;
+            //float iframeHeight = 1123.0f;
+            float dpi = 96f;
+
+            try
+            {
+                using (PdfReader pdfReader = new PdfReader(pdfpathfromupload))
+                {
+                    for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                    {
+                        PdfPageSize pdfPageSize = new PdfPageSize();
+                        Rectangle pageSize = pdfReader.GetPageSize(i);
+                        pdfPageSize.WidthInPixels = (int)(pageSize.Width * dpi / 72f);
+                        pdfPageSize.HeightInPixels = (int)(pageSize.Height * dpi / 72f); // Convert height from points to pixels
+
+                        float scaleX = iframeWidth / pdfPageSize.WidthInPixels;
+                        float scaleY = iframeHeight / pdfPageSize.HeightInPixels;
+
+                        // Calculate actual coordinates
+                        float actualLeft = left / scaleX;
+                        float actualTop = top / scaleY;
+                        float actualWidth = width / scaleX;
+                        float actualHeight = height / scaleY;
+
+                        float actualRight = iframeWidth - (left+545);
+                        float actualBottom = iframeHeight - top;
+
+                        // Store the actual coordinates in session or database or any storage method of your choice
+                        Session["Left"] = actualLeft;
+                        Session["Top"] = actualTop;
+                        Session["Width"] = actualRight;
+                        Session["Height"] = actualBottom;
+
+                        return Json(new { success = true, coordinates = new { Left = actualLeft, Top = actualTop, Width = actualWidth, Height = actualHeight } });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, error = ex.Message });
+            }
+
+            return Json(new { success = false, error = "Failed to calculate coordinates." });
         }
     }
 
