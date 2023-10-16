@@ -11,6 +11,7 @@
     <title>zipSign</title>
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
@@ -48,7 +49,7 @@
         .iframeDiv {
             min-height: 80vh;
             border: 1px solid #ddd;
-            padding: 10px;
+            /*   padding: 10px;*/
         }
 
         #PreviewSignImage1 {
@@ -359,7 +360,7 @@
         iframe {
             width: 100%;
             height: 81vh;
-            margin-top: 10px;
+            /* margin-top: 10px;*/
         }
 
         #document-preview-frame {
@@ -573,6 +574,7 @@
             bottom: 21px;
             right: 30px;
         }
+
         .signaturetypewidth .modal-content {
             min-height: 90vh;
         }
@@ -583,13 +585,13 @@
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
-
     <div class="loaderOverlaysr" style="display: none" id="overlay"></div>
     <div class="col-md-12 col-sm-12 col-xs-12" style="display: none" id="loader">
         <div class="col-md-12 col-sm-12 col-xs-12 loadersr">
         </div>
     </div>
     <input type="text" hidden id="hdnFilePath" />
+    <input type="text" hidden id="hdnFilePath1" />
     <div id="wrapper" class="theme-cyan">
 
         <nav class="navbar navbar-fixed-top">
@@ -704,9 +706,9 @@
                                                 </div>
 
                                                 @*<div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
-                        <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
-                        <span>Signed</span>
-                    </div>*@
+                                                        <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                                                        <span>Signed</span>
+                                                    </div>*@
 
                                                 @*<span>Signed</span>*@
                                             </div>
@@ -741,159 +743,159 @@
                                     @*----------popup part----------*@
 
                                     @*<div class="signersList">
-            <p class="mb-0">Signature Type</p>
-            <div class="select-container">
-                <div class="select">
-                    <input type="text" id="input" placeholder="select" onfocus="this.blur();">
-                </div>
-                <div class="option-container">
-                    <div class="option">
-                        <label> Aadhaar eSign</label>
-                    </div>
-                    <div class="option">
-                        <label> DSC eSign </label>
-                    </div>
+                                            <p class="mb-0">Signature Type</p>
+                                            <div class="select-container">
+                                                <div class="select">
+                                                    <input type="text" id="input" placeholder="select" onfocus="this.blur();">
+                                                </div>
+                                                <div class="option-container">
+                                                    <div class="option">
+                                                        <label> Aadhaar eSign</label>
+                                                    </div>
+                                                    <div class="option">
+                                                        <label> DSC eSign </label>
+                                                    </div>
 
-                </div>
-            </div>
-        </div>*@
+                                                </div>
+                                            </div>
+                                        </div>*@
                                     <!--<div class="col-md-12 col-sm-12 col-xs-12 bodybtn firstbtn ">-->
                                     @*<div class="col-md-12 ">
-            <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>By continuing, I agree to do eKYC using aadhaar to eSign with one of ESPs ( NSDL e-Gov or verasys ) Digio is registered as ASP.</label>
-        </div>
-        <div class="col-md-12 p-0 mt-3">
-            <input type="text" class="col-md-12 form-control" placeholder="Enter Name as on Aadhaar card">
-        </div>*@
+                                            <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>By continuing, I agree to do eKYC using aadhaar to eSign with one of ESPs ( NSDL e-Gov or verasys ) Digio is registered as ASP.</label>
+                                        </div>
+                                        <div class="col-md-12 p-0 mt-3">
+                                            <input type="text" class="col-md-12 form-control" placeholder="Enter Name as on Aadhaar card">
+                                        </div>*@
                                     <!--<div class="col-md-12 p-0 mt-2">
-            <button type="button" class="btn btn-primary" style="width: 100%" disabled="">Continue</button>
-        </div>
-    </div>-->
+                                            <button type="button" class="btn btn-primary" style="width: 100%" disabled="">Continue</button>
+                                        </div>
+                                    </div>-->
                                     @*<iframe src="https://www.google.com" id=""></iframe>*@
 
                                     @*----------popup part----------*@
 
                                     @*<div class="col-md-12 mb-2">
-            <button type="button" class="btn btn-primary btnSign col-md-12"> Add Signature</button>
-        </div>*@
+                                            <button type="button" class="btn btn-primary btnSign col-md-12"> Add Signature</button>
+                                        </div>*@
 
 
                                     @*<ul id="columns">
-            <li class="column" draggable="true">
-                <div class="col-md-12 signerdiv">
-                    <i class="fa fa-th draggable" aria-hidden="true"></i>
-                    <div class="col-md-12 p-1">
-                        <label class="txtsign">Signer 1</label>
-                    </div>
-                    <div class="col-md-12 d-flex flex-wrap">
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Email ID">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Mobile Number">
-                        </div>
-                    </div>
-                </div>
-            </li>
+                                            <li class="column" draggable="true">
+                                                <div class="col-md-12 signerdiv">
+                                                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                                                    <div class="col-md-12 p-1">
+                                                        <label class="txtsign">Signer 1</label>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex flex-wrap">
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Name">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Email ID">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Mobile Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-            <li class="column" draggable="true">
-                <div class="col-md-12 signerdiv">
-                    <i class="fa fa-th draggable" aria-hidden="true"></i>
-                    <div class="col-md-12 p-1">
-                        <label class="txtsign">Signer 2</label>
-                    </div>
-                    <div class="col-md-12 d-flex flex-wrap">
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Email ID">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Mobile Number">
-                        </div>
-                    </div>
-                </div>
-            </li>
+                                            <li class="column" draggable="true">
+                                                <div class="col-md-12 signerdiv">
+                                                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                                                    <div class="col-md-12 p-1">
+                                                        <label class="txtsign">Signer 2</label>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex flex-wrap">
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Name">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Email ID">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Mobile Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-            <li class="column" draggable="true">
-                <div class="col-md-12 signerdiv">
-                    <i class="fa fa-th draggable" aria-hidden="true"></i>
-                    <div class="col-md-12 p-1">
-                        <label class="txtsign">Signer 3</label>
-                    </div>
-                    <div class="col-md-12 d-flex flex-wrap">
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Email ID">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Mobile Number">
-                        </div>
-                    </div>
-                </div>
-            </li>
+                                            <li class="column" draggable="true">
+                                                <div class="col-md-12 signerdiv">
+                                                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                                                    <div class="col-md-12 p-1">
+                                                        <label class="txtsign">Signer 3</label>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex flex-wrap">
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Name">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Email ID">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Mobile Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
 
-            <li class="column" draggable="true">
-                <div class="col-md-12 signerdiv">
-                    <i class="fa fa-th draggable" aria-hidden="true"></i>
-                    <div class="col-md-12 p-1">
-                        <label class="txtsign">Signer 4</label>
-                    </div>
-                    <div class="col-md-12 d-flex flex-wrap">
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Email ID">
-                        </div>
-                        <div class="form-group col-md-4 p-1">
-                            <input type="text" class="form-control" placeholder="Mobile Number">
-                        </div>
-                    </div>
-                </div>
-            </li>
+                                            <li class="column" draggable="true">
+                                                <div class="col-md-12 signerdiv">
+                                                    <i class="fa fa-th draggable" aria-hidden="true"></i>
+                                                    <div class="col-md-12 p-1">
+                                                        <label class="txtsign">Signer 4</label>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex flex-wrap">
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Name">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Email ID">
+                                                        </div>
+                                                        <div class="form-group col-md-4 p-1">
+                                                            <input type="text" class="form-control" placeholder="Mobile Number">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
 
 
 
-        </ul>*@
+                                        </ul>*@
 
 
                                     @*<div class="col-md-12 d-flex justify-content-end">
-            <button type="button" class="btn btn-primary newsign"> Add Signer</button>
+                                            <button type="button" class="btn btn-primary newsign"> Add Signer</button>
 
-        </div>*@
+                                        </div>*@
                                     <div class="col-lg-3 col-md-3" id="Trail_Div">
                                         @*<div class="element-box-tp">
-                <div class="activity-boxes-w">
-                    <div class="activity-box-w">
-                        <div class="activity-time">02/08/2023 04:32 PM</div>
-                        <div class="activity-box">
-                            <div class="activity-info">
-                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
-                                <strong class="activity-title font-weight-400">Invitation sent</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="element-box-tp">
-                <div class="activity-boxes-w">
-                    <div class="activity-box-w">
-                        <div class="activity-time">02/08/2023 04:32 PM</div>
-                        <div class="activity-box">
-                            <div class="activity-info">
-                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
-                                <strong class="activity-title font-weight-400">Invitation sent</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
+                                                <div class="activity-boxes-w">
+                                                    <div class="activity-box-w">
+                                                        <div class="activity-time">02/08/2023 04:32 PM</div>
+                                                        <div class="activity-box">
+                                                            <div class="activity-info">
+                                                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
+                                                                <strong class="activity-title font-weight-400">Invitation sent</strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="element-box-tp">
+                                                <div class="activity-boxes-w">
+                                                    <div class="activity-box-w">
+                                                        <div class="activity-time">02/08/2023 04:32 PM</div>
+                                                        <div class="activity-box">
+                                                            <div class="activity-info">
+                                                                <div class="activity-role"> Mandavi (mandavi@yoekisoft.com) </div>
+                                                                <strong class="activity-title font-weight-400">Invitation sent</strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
                                     </div>
                                 </div>
 
@@ -904,7 +906,7 @@
                                         </div>
                                     </div>*@
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -1671,10 +1673,6 @@
 
         //});
 
-
-
-
-
         //function RowClickEventHandler1() {
         //    //
         //    var fileId = getUrlParameter1('File');
@@ -1724,7 +1722,9 @@
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
     <script>var jquery_3_6 = jQuery.noConflict();</script>
     <script src="~/Content/js/code.jquery.com_ui_1.10.4_jquery-ui.js"></script>
+
     <script>var jquery_ui = jQuery.noConflict();</script>
+
     @*<script>
             jquery_3_6(document).ready(function () {
                 jquery_3_6(".newsign").click(function () {
@@ -1828,25 +1828,152 @@
         var cols_1 = document.querySelectorAll('#columns_1 .column');
         [].forEach.call(cols_1, addDnDHandlers);
     </script>
+    @*<script>
+            jquery_3_6(document).ready(function () {
+                var scaleFactor = 1.5; // Adjust this scale factor according to your PDF's display scale
+                jquery_3_6('.btnSign').click(function () {
+                    filePath = $("#hdnFilePath1").val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '/NSDL/GetPdfPageSizesInPixels',
+                        dataType: 'json',
+                        data: {
+                            pdfPath: filePath
+                        },
+                        async: false,
+                        success: function (response) {
+                            console.log('PDF page size:', response);
+
+                            // Display the width and height of the first page of the PDF in an alert box
+                            var pageWidth = response[0].width;
+                            var pageHeight = response[0].height;
+
+                            alert('Page 1: ' + pageWidth + 'px x ' + pageHeight + 'px');
+                        },
+                        error: function (error) {
+                            console.error('Error fetching PDF page size:', error);
+                        }
+                    });
+
+                    //$.ajax({
+                    //    type: 'GET',
+                    //    url: '/NSDL/GetPdfPageSizesInPixels',
+                    //    dataType: 'json',
+                    //    data: {
+                    //        pdfPath: filePath
+                    //    },
+                    //    async: false,
+                    //    success: function (response) {
+                    //        debugger
+                    //        console.log('PDF page sizes:', response);
+                    //        // Iterate over the list of PDF page sizes and display them in an alert box
+                    //        for (var i = 0; i < response.length; i++) {
+                    //            var pageWidth = response[i].WidthInPixels;
+                    //            var pageHeight = response[i].HeightInPixels;
+
+                    //            alert('Page ' + (i + 1) + ': ' + pageWidth + 'px x ' + pageHeight + 'px');
+                    //        }
+                    //    },
+                    //    error: function (error) {
+                    //        console.error('Error fetching PDF page sizes:', error);
+                    //    }
+                    //});
 
 
+                    jquery_3_6('.firsthalfmdl').append("<div class='signer' style='display:block'>Signer 1<span class='cross'>x</span></div>");
 
-    <script>
-        jquery_3_6(document).ready(function () {
-            jquery_3_6('.btnSign').click(function () {
+                    //jquery_3_6('.signer').draggable(
+                    //    {
+                    //        stop: function (event, ui) {
+                    //            debugger
+                    //            var position = ui.position;
+                    //            var iframeWidth = jquery_3_6('#PreviewSignImage1').width();
+                    //            var iframeHeight = jquery_3_6('#PreviewSignImage1').height();
+                    //            var pdfPageX = (position.left / scaleFactor);
+                    //            var pdfPageY = (position.top / scaleFactor);
+                    //            var distanceFromBottom = iframeHeight / scaleFactor - pdfPageY - jquery_3_6('.signer').height();
+                    //            var distanceFromLeft = pdfPageX;
+                    //            var iframe = document.getElementById('PreviewSignImage1');
+                    //            var currentPageNum = 0;
 
-                jquery_3_6('.firsthalfmdl').append("<div class='signer' style='display:block'>Signer 1<span class='cross'>x</span></div>");
-                jquery_3_6(function () {
-                    jquery_ui(".signer").draggable();
-                    jquery_ui(".signer").resizable();
+                    //            try {
+                    //                var iframeContent = iframe.contentDocument || iframe.contentWindow.document;
+                    //                currentPageNum = iframeContent.getElementById('pageNumber').textContent;
+                    //            } catch (error) {
+                    //                console.error('Error accessing iframe content:', error);
+                    //            }
+                    //            alert('Page ' + currentPageNum);
+                    //        }
+                    //    });
+
+                    // Handle cross button click
+                    jquery_3_6('.cross').click(function () {
+                        jquery_3_6(this).parent().hide();
+                    });
                 });
-                jquery_3_6('.cross').click(function () {
-                    jquery_3_6(this).parent().hide();
-                })
-            })
-        });
-    </script>
+            });
+
+        </script>*@
 
 
-</body>
-</html>
+    @*/////////////////////////////////////*@
+    <script>
+            jquery_3_6(document).ready(function () {
+                var scaleFactor = 1.5;
+                filePath = $("#hdnFilePath1").val();
+                jquery_3_6('.btnSign').click(function () {
+                    var iframe = document.getElementById('PreviewSignImage1');
+                    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    var coordinates = function (element) {
+                        element = jquery_3_6(element);
+                        var rect = element[0].getBoundingClientRect();
+                        var height = rect.height;
+                        //var containerHeight = jquery_3_6('#PreviewSignImage1').height(); // Total height of the PDF page
+                        var containerHeight = iframeDoc.body.scrollHeight;
+                        var distanceFromBottom = containerHeight - (rect.top + height); // Distance from the bottom of the PDF page
+
+                        jquery_3_6('#results').text('Distance from Bottom: ' + distanceFromBottom);
+                    }
+                    jquery_3_6('.firsthalfmdl').append("<div class='signer' id='signer1' style='display:block'>Signer 1<span class='cross'>x</span></div>");
+
+                    var signerElement = jquery_3_6('.signer');
+
+                    signerElement.draggable({
+                        start: function () {
+                            coordinates('.signer');
+                        },
+                        stop: function (event, ui) {
+                            coordinates('.signer');
+                            var top = ui.position.top-58;
+                            var left = ui.position.left-162;
+                            var width = signerElement.width();
+                            var height = signerElement.height();
+
+                            jquery_3_6.ajax({
+                                url: '/NSDL/SaveCoordinates', 
+                                type: 'POST',
+                                data: {
+                                    left: left,
+                                    top: top,
+                                    width: width,
+                                    height: height,
+                                    pdfPath: filePath
+                                },
+                                success: function (response) {
+                                },
+                                error: function (error) {
+                                }
+                            });
+                        }
+                    });
+                    signerElement.resizable();
+
+                    jquery_3_6('.cross').click(function () {
+                        jquery_3_6(this).parent().hide();
+                    });
+                });
+            });
+        </script>
+
+</body >
+</html >
