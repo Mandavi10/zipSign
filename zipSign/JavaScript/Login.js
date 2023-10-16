@@ -277,15 +277,19 @@ function validations() {
     });
 
     if ($("#email").val().trim() === "") {
+
         row = '<div class="alermsg col-md-12 p-1" role="alert">Email/Mobile is Required.</div>';
+
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
         isvalidate = 0;
         return false;
     }
+
     else if (!emailRegex.test($("#email").val()) && !mobileRegex.test($("#email").val()) ) {
         row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email/mobile format.</div>';
+
         $("#message").empty();
         $("#message").append(row);
         $("#textbox").focus();
@@ -295,14 +299,16 @@ function validations() {
    
     else if ($("#password").val().trim() === "") {
         $("#message").empty();
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
+        //row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
+        row = 'Password is Required.';
         $("#message").append(row);
         $("#password").focus();
         isvalidate = 0;
         return false;
     }
     else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test($("#password").val())) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        //var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+         row = 'Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character';
         $("#message").empty();
         $("#message").append(row);
         $("#password").focus();
@@ -311,7 +317,8 @@ function validations() {
     }
     else if ($('#signin-password').val().trim() === "") {
         $("#message").empty();
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
+        //row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
+        row = 'Please Verify CAPTCHA.';
         $("#message").append(row);
         $("#signin-password").focus();
         isvalidate = 0;

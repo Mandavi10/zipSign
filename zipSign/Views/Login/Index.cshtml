@@ -17,7 +17,7 @@
             right: 10px;
             top: 10px;
             cursor: pointer;
-            color:#0058b1;
+            color: #0058b1;
         }
 
         .fa-eye-slash {
@@ -32,13 +32,15 @@
             margin-left: 14px;
             border-radius: 0.25rem;
         }
+
             .capdiv img {
                 margin-top: -4px;
             }
-            .btn {
-                width: 100%;
-                margin-top: 15px !important;
-            }
+
+        .btn {
+            width: 100%;
+            margin-top: 15px !important;
+        }
 
         .refcap {
             position: absolute;
@@ -194,13 +196,14 @@
                                                     <img src="/Login/GetCaptchaImage" id="Image" />
                                                 </div>
                                                 <i class="fa fa-refresh refcap" aria-hidden="true" onclick="ReloadCaptcha()"></i>
-                                                
+
                                             </div>
-                                            
+
 
                                             @*<div class="alermsg" role="alert">Please enter the correct captcha.</div>*@
                                             @*<div class="alermsg" role="alert">@ViewBag.CaptchaError</div>*@
                                         </div>
+                                        <div class="alermsg col-md-12 p-1" role="alert" id="message"></div>
                                         <div class="col-md-12 d-flex flex-wrap pr-0 pl-0 d-flex justify-content-end">
 
                                             @*<div class="col-md-6 pl-0 position-relative">
@@ -215,7 +218,7 @@
                                             <div class="col-md-12 p-1 pe-0 ">
                                                 <button type="button" class="btn btn-primary btn-lg btn-block cmbtn " onclick="Login();" id="btnsubmit">NEXT</button>
                                             </div>
-                                            <div class="alermsg col-md-12 p-1" role="alert" id="message"></div>
+
                                         </div>
                                         <div class="bottom">
                                             <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="/Login/ForgotPassword">Forgot password?</a></span>

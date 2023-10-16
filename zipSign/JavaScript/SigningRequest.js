@@ -123,7 +123,9 @@ $(document).ready(function () {
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
             appendActivity(DateTimeParsed, activityRole , "Document Signed");
+
             //$(".btnSign").hide();
+
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
@@ -164,7 +166,9 @@ $(document).ready(function () {
       
     }
     else if (SignedfilePath != null && SignedfilePath != "") {
+
         //$(".btnSign").hide();
+
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -189,7 +193,9 @@ $(document).ready(function () {
             $("#btnreject").hide();
         }
         else {
+
           //  $(".btnSign").hide();
+
             $('#Btn_rec').hide();
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();

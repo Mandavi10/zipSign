@@ -10247,3 +10247,9 @@ div.dataTables_filter {
 .sidebar-nav .metismenu {
     padding-right: 5px !important;
 }
+.pricetxt{
+    text-align:right;
+}
+.ag-cell .fa-download {
+    color: #0058b1;
+}
