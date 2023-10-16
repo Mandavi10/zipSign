@@ -209,6 +209,9 @@
     <Reference Include="System.Web.Http.Cors, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.9\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.9\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -275,7 +278,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\APIs\APIsController.cs" />
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
@@ -492,6 +497,8 @@
     <Content Include="Global.asax" />
     <Content Include="JavaScript\AllDepartment.js" />
     <Content Include="JavaScript\AllUsers.js" />
+    <Content Include="JavaScript\CertificateInsert.js" />
+    <Content Include="JavaScript\Certmanagement.js" />
     <Content Include="JavaScript\dashboard.js" />
     <Content Include="JavaScript\DepartmentMaster.js" />
     <Content Include="JavaScript\Login.js" />
@@ -678,6 +685,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Uploaded_DSC_Certificates\" />
     <Folder Include="NSDL_Request_Response\Request\" />
     <Folder Include="NSDL_Request_Response\Response\" />
     <Folder Include="Uploads\SignUpload\PDFs\" />
