@@ -78,6 +78,12 @@ namespace BusinessLayerModel
         public List<pagination> Table2 { get; set; }
 
     }
+    public class ResultDataForCertificate
+    {
+        public List<DSCCertificateMgt> Table1 { get; set; }
+        public List<pagination> Table2 { get; set; }
+
+    }
     public class ResultData1
     {
         public List<DeptMaster> Table1 { get; set; }
@@ -168,6 +174,18 @@ namespace BusinessLayerModel
         public object HdnFilePath { get; set; }
     }
 
+    //DSC Signature
+    public class DSCCertificateMgt
+    {
+        public string CertificateName { get; set; }
+        public string CertificateType { get; set; }
+        public string Password { get; set; }
+        public string Path { get; set; }
+        public string UploadedBy { get; set; }
+        public string UploadedOn { get; set; }
+        public int Row { get; set; }
+    }
+
     #endregion
 
     #region FOR COMMON STATUS AND PARAMETERS
@@ -250,6 +268,7 @@ namespace BusinessLayerModel
         public string Sp_UserCreation = "Sp_UserCreation";
         public string Sp_SignerMaster = "Sp_SignerMaster";
         public string SignatureResponseLog = "SignatureResponseLog";
+        public string Sp_CertificateManagement = "Sp_CertificateManagement";
     }
 
     #endregion
