@@ -4034,7 +4034,7 @@ select.form-control:not([size]):not([multiple]) {
 .auth-box {
     width: 380px;
     height: auto;
-    margin-left: 130px
+    margin-left: 160px
 }
 
     .auth-box .top img {
