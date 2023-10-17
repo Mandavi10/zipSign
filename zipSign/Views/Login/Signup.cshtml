@@ -25,7 +25,7 @@
         }
 
         #btnSign {
-            margin-top: 10px !important
+            margin-top: 3px !important
         }
 
         .capdiv {
@@ -108,7 +108,7 @@
         }
 
         .formHeight {
-            height: 472px;
+            height: 502px;
         }
 
         .signbtn {
@@ -239,6 +239,30 @@
             text-align: center;
             padding-top: 5px;
         }
+        .privtxt{
+            font-size:12px;
+            padding-top:3px;
+        }
+        .privtxt span{
+            color:#0058b1;
+            text-decoration:underline;
+            cursor:pointer;
+        }
+        .readwr .fancy-checkbox input[type="checkbox"] + span:before {
+            height: 15px;
+            width: 15px;
+            line-height: 13px;
+        }
+
+        .readwr span {
+            font-size: 12px;
+        }
+        .topad{
+            padding-right:70px !important;
+        }
+        .lead{
+            line-height:19px;
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -254,7 +278,7 @@
                         <div class="page">
                             <div class="card">
                                 <div class="header">
-                                    <p class="lead">Create an account</p>
+                                    <p class="lead mt-0">Create an account</p>
                                 </div>
                                 <div class="body pl-0 pr-0">
                                     <form class="form-auth-small" action="index.html">
@@ -274,7 +298,7 @@
                                                     <input type="text" class="form-control" id="UserName" maxlength="60" placeholder="Name" onkeydown="validateInput(event)" oninput="this.value = this.value.toUpperCase()" autocomplete="off" required>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
-                                                    <input type="text" class="form-control " id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
+                                                    <input type="text" class="form-control topad" id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
                                                     <button type="button" class="verifybtn" id="btnmailotp" onclick="SendEmailOTP();">Verify</button>
                                                     <div class="timer mt-1" id="resendemailotp">
                                                         <div class="col-md-12 d-flex justify-content-end">
@@ -314,7 +338,6 @@
                                                         <option>Bihar</option>
                                                         <option>Chandigarh</option>
                                                         <option>Chhattisgarh</option>
-                                                        <option>Chennai</option>
                                                         <option>Dadra & Nagar Haveli and Daman & Diu</option>
                                                         <option>Delhi</option>
                                                         <option>Goa</option>
@@ -326,7 +349,7 @@
                                                         <option>Karnataka</option>
                                                         <option>Kerala</option>
                                                         <option>Ladakh</option>
-                                                        <option>Lakshadweep Islands</option>
+                                                        <option>Lakshadweep</option>
                                                         <option>Madhya Pradesh</option>
                                                         <option>Maharashtra</option>
                                                         <option>Manipur</option>
@@ -334,16 +357,15 @@
                                                         <option>Mizoram</option>
                                                         <option>Nagaland</option>
                                                         <option>Odisha</option>
-                                                        <option>Other Territory</option>
-                                                        <option>Pondicherry</option>
+                                                        <option>Puducherry</option>
                                                         <option>Punjab</option>
                                                         <option>Rajasthan</option>
                                                         <option>Sikkim</option>
                                                         <option>Tamil Nadu</option>
                                                         <option>Telangana</option>
                                                         <option>Tripura</option>
-                                                        <option>Uttar Pradesh</option>
                                                         <option>Uttarakhand</option>
+                                                        <option>Uttar Pradesh</option>
                                                         <option>West Bengal</option>
                                                     </select>
                                                 </div>
@@ -367,11 +389,19 @@
                                                 </div>
 
 
-                                                <div class="alermsg col-md-12 p-1" role="alert" id="message"></div>
+                                                <div class="alermsg col-md-12" role="alert" id="message"></div>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
-                                            <p class="mb-0">Privacy Policy</p>
+                                        <div class="col-md-12 d-flex flex-wrap ps-1">
+                                            <div>
+                                                <div class="col-md-2 readwr">
+                                                    <label class="fancy-checkbox custom-color-green me-0">
+                                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                                        <span><i></i></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div><p class="mb-0 privtxt">I agree to the terms and conditions laid out in the <span>Privacy Policy</span></p></div>
                                         </div>
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-primary btn-lg btn-block signbtn" id="btnSign">Sign up</button>
