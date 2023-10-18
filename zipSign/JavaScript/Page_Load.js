@@ -7,6 +7,7 @@
         //currentColorIndex = (currentColorIndex + 1) % colors.length;
     }
 
+
     setInterval(500);
 }
 function redirectAfterDelay() {
