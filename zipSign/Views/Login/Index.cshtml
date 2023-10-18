@@ -165,6 +165,16 @@
             top: 10px;
             left: 10px;
         }
+        .privtxt {
+            font-size: 12px;
+            padding-top: 10px;
+        }
+    
+        .privtxt span {
+            color: #0058b1;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -213,12 +223,12 @@
                                         <div class="col-md-12 d-flex flex-wrap pr-0 pl-0 d-flex justify-content-end">
 
                                             @*<div class="col-md-6 pl-0 position-relative">
-                                                    <button type="button" class="btn btn-primary btn-lg btn-block signupbtn ml-1">Sign up</button>
-                                                    <ul class="ulofselect">
-                                                        <li>Individual</li>
-                                                        <li>Corporate</li>
-                                                    </ul>
-                                                </div>*@
+                <button type="button" class="btn btn-primary btn-lg btn-block signupbtn ml-1">Sign up</button>
+                <ul class="ulofselect">
+                    <li>Individual</li>
+                    <li>Corporate</li>
+                </ul>
+            </div>*@
 
 
                                             <div class="col-md-12 p-1 pe-0 ">
@@ -227,14 +237,17 @@
 
                                         </div>
                                         <div class="bottom">
-                                            <span class="helper-text m-b-10"><i class="fa fa-lock"></i> <a href="/Login/ForgotPassword">Forgot password?</a></span>
+                                            <span class="helper-text"><i class="fa fa-lock"></i> <a href="/Login/ForgotPassword">Forgot password?</a></span>
                                             <span class="position-relative">
                                                 Not having an account yet?<a href="/Login/Signup" class="ps-1">Sign up</a>
                                                 @*<ul class="ulofselect">
-                                                        <li>Individual</li>
-                                                        <li>Corporate</li>
-                                                    </ul>*@
+                    <li>Individual</li>
+                    <li>Corporate</li>
+                </ul>*@
                                             </span>
+                                        </div>
+                                        <div class="col-md-12 d-flex flex-wrap justify-content-center">
+                                            <div><p class="mb-0 privtxt">By signing in, you agree to our <span>Privacy Policy</span></p></div>
                                         </div>
                                     </form>
                                 </div>
