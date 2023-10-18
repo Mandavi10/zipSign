@@ -18,7 +18,6 @@ jquery_3_6(document).ready(function () {
    
     var UId = getParameterByName('UId');
     if (UId !== null) {
-
         RowClickEventHandler1(UId);
     }
     var userDataString = sessionStorage.getItem('user_data');
@@ -42,7 +41,7 @@ jquery_3_6(document).ready(function () {
         filepathsss = sessionStorage.getItem('LoaclPath');
         jquery_3_6("#PreviewSignImage1").attr("src", filepathsss);
 
-        appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
+        //appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
 
     }
     //else {
@@ -161,6 +160,7 @@ jquery_3_6(document).ready(function () {
         jquery_3_6('#btnok2').click(function () {
 
         });
+      
     }
     else if (SignedfilePath != null && SignedfilePath != "") {
        // jquery_3_6(".btnSign").hide();
@@ -236,7 +236,7 @@ jquery_3_6(document).ready(function () {
             jquery_3_6('#continueButton').prop('disabled', false);
         }
     });
-
+   
 });
 
 function getParameterByName(name) {
@@ -266,7 +266,6 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
 
 function Continue() {
-
     if (selectedRadio == 'dsc') {
         row = '';
         jquery_3_6("#dscmsg").empty();
@@ -342,9 +341,6 @@ function RowClickEventHandler1(UId) {
         },
         async: false,
         success: function (result) {
-
-            
-
             var linkExpiredOn = result.responseData.LinkExpiredOn;
             var currentDateTime = getCurrentDateTime();
             var txtfrom = [];

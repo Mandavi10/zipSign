@@ -221,9 +221,16 @@ namespace zipSign.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(objLoginModel.Email))
+                string emailRegexPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+                string mobileRegexPattern = @"^(\+\d{1,3}[- ]?)?\d{10}$";
+                string input = objLoginModel.Email;
+                if (string.IsNullOrEmpty(input))
                 {
                     return Json(new { status = "Email/Mobile can't Empty" });
+                }
+                else if (!Regex.IsMatch(input, emailRegexPattern) && !Regex.IsMatch(input, mobileRegexPattern))
+                {
+                    return Json(new { status = "Invalid email/mobile format" });
                 }
                 else if (string.IsNullOrEmpty(objLoginModel.Password))
                 {
@@ -541,9 +548,10 @@ namespace zipSign.Controllers
             var result = new
             {
                 status = "201",
-                message = "OTP sent successfully to both phone and email."
+                message = "OTP sent successfully to both phone and email.",
+                MobileNo= PhoneNumber
             };
-            return Json(result, MobileNo, JsonRequestBehavior.AllowGet);
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
 
         private void SendOTPviaSMS(string CusName, string MobileNo, string OTP)
@@ -888,8 +896,6 @@ namespace zipSign.Controllers
             }
             return Json(msg);
         }
-
-
         public JsonResult VerifyMobile(string VOTP)
         {
             _ = GetClientIP();
@@ -908,7 +914,6 @@ namespace zipSign.Controllers
 
             //return Json(msg, FilePath);
         }
-
 
         public JsonResult VerifyEmailOTP(string VOTP)
         {
@@ -995,8 +1000,6 @@ namespace zipSign.Controllers
                 return Json(2); // Return a status code indicating no OTP record found
             }
         }
-
-
 
         public JsonResult SendVerifyLinkByEmail(string Email, string fileId, int expday)
         {
