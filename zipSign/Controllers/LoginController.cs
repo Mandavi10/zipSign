@@ -625,7 +625,7 @@ namespace zipSign.Controllers
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-                message += "<p>This password is valid for 10 minutes to complete sign-in, requested "+ formattedDate +".</p>";
+                message += "<p>This password is valid for 10 minutes to complete sign-in, requested " + formattedDate + ".</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
@@ -648,7 +648,7 @@ namespace zipSign.Controllers
                 smtp.Send(msg);
             }
         }
-
+        //ForSignUp
         public JsonResult GetEmailData(string Email)
         {
             Random rnd = new Random();
@@ -698,6 +698,7 @@ namespace zipSign.Controllers
                 Random random = new Random();
                 int txnId = random.Next(100, 1000);
                 string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+                Session["TxnIDForSignup"] = TraceNumber;
                 List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("TxnId", TraceNumber),
@@ -739,7 +740,7 @@ namespace zipSign.Controllers
                 message += "<p>Dear User,</p>";
                 message += "<p>Below is your One-Time Password:</p>";
                 message += "<h1 style='color: #007BFF;'>" + OTP + "</h1>";
-                message += "<p>This password is valid for 10 minutes to complete sign-in, requested "+ formattedDate + ".</p>";
+                message += "<p>This password is valid for 10 minutes to complete sign-in, requested " + formattedDate + ".</p>";
                 message += "<p>Never share this password with anyone.</p>";
                 message += "<p class='disclaimer'>If you have not initiated this One Time Password, please <a href='mailto:youremail@example.com' style='color: #007ACC; font-weight: bold; text-decoration: underline;'>contact us</a>.</p>";
                 message += "<p class='disclaimer'>Please do not reply to the email for any enquiries – messages sent to this address cannot be answered.</p>";
@@ -849,19 +850,21 @@ namespace zipSign.Controllers
                     {
                         string LoginIPAddress = GetClientIP();
                         object UserMasterId = Session["UserId"];
-                        List<DataItems> obj = new List<DataItems>();
-                        obj.Add(new DataItems("UserMasterID", UserMasterId));
-                        obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
-                        obj.Add(new DataItems("EmailOTP", VOTP));
-                        obj.Add(new DataItems("TxnId", TxnId));
-                        obj.Add(new DataItems("QueryType", "LoginOTP"));
+                        List<DataItems> obj = new List<DataItems>
+                        {
+                            new DataItems("UserMasterID", UserMasterId),
+                            new DataItems("Login_IP_Address", LoginIPAddress),
+                            new DataItems("EmailOTP", VOTP),
+                            new DataItems("TxnId", TxnId),
+                            new DataItems("QueryType", "LoginOTP")
+                        };
 
                         statusClass = bal.PostFunction(pro.Signup, obj);
                         return Json(1); // OTP is valid, return a success status
                     }
                     else
                     {
-                        return Json(2); // Invalid OTP, return a failure status
+                        return Json(2); // Invalid OTP
                     }
                 }
             }
@@ -909,9 +912,11 @@ namespace zipSign.Controllers
 
         public JsonResult VerifyEmailOTP(string VOTP)
         {
+            string TxnIdForSignUp = Convert.ToString(Session["TxnIDForSignup"]);
             List<DataItems> obj = new List<DataItems>
         {
         new DataItems("Otp", VOTP),
+        new DataItems("TxnId",TxnIdForSignUp),
         new DataItems("QueryType", "IsValidOTP")
         };
 
@@ -1220,13 +1225,15 @@ namespace zipSign.Controllers
 
             string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(NewPassword);
             string EncNewPassword1 = AESEncryption.AESEncryptionClass.DecryptAES(EncNewPassword);
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("UserMasterID", userCode));
-            obj.Add(new DataItems("Email", Email));
-            obj.Add(new DataItems("NewPassword", EncNewPassword));
-            obj.Add(new DataItems("CreatedBy", userCode));
-            obj.Add(new DataItems("IP", clientIP));
-            obj.Add(new DataItems("QueryType", "ForgotPassword"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("UserMasterID", userCode),
+                new DataItems("Email", Email),
+                new DataItems("NewPassword", EncNewPassword),
+                new DataItems("CreatedBy", userCode),
+                new DataItems("IP", clientIP),
+                new DataItems("QueryType", "ForgotPassword")
+            };
 
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 

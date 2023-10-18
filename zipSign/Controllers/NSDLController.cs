@@ -41,12 +41,12 @@ namespace zipSign.Controllers
             string filePath = objModel.File.Replace('/', '\\').TrimStart('\\'); // Replace forward slashes with backslashes
             string pdfPath = Path.Combine(baseDirectory, filePath);
             string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
-            string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt";
+            string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
             int pageCount = GetPdfPageCount(pdfPath);
             int Coordinates = objModel.Coordinates;
-            string ekycId = "";// Aadhar number token /UID ID 72 digit its optional field
+            string ekycId = "";
             string aspId = "ASPYSPLMUMTEST223";
-            string authMode = "1";
+            string authMode = "2";
             _ = objModel.Fileid;
             string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
@@ -167,7 +167,6 @@ namespace zipSign.Controllers
             {
                 return pdfReader.NumberOfPages;
             }
-
         }
         public JsonResult CreatePageSequenceFile(string txtFilePath, int pageCount, int Coordinates, string documentid, string pdfPath, string TraceNumber)
         {
@@ -187,7 +186,7 @@ namespace zipSign.Controllers
                         else
                         {
                             x = 10;
-                            writer.Write($"{page}-{x},10,45,130;");
+                            writer.Write($"{page}-{8},631,45,130;");
                         }
                         List<DataItems> obj = new List<DataItems>
                         {
@@ -814,7 +813,7 @@ namespace zipSign.Controllers
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
             {
                 msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-               
+
                 Guid uniqueIdentifier = Guid.NewGuid();
                 // Store the mapping between the identifier and the parameters in your database
                 StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiry);

@@ -8,6 +8,8 @@ var keyword = $('#searchInput').val();
 var i;
 
 $(document).ready(function () {
+
+    //DeleteOldFilesUptoCustomDays();
     //var UserMasterID = sessionStorage.getItem('UserId');
     //if (UserMasterID == "" || UserMasterID == null) {
     //    window.location.href = "/Login/Index";
@@ -57,7 +59,21 @@ $(document).ready(function () {
 
 var suggestionsList = $(".suggestions-list");
 
+//function DeleteOldFilesUptoCustomDays() {
+//    ;
+//    $.ajax({
+//        url: '/Accounts/DeleteOldFiles',  // Replace with the actual URL
+//        data: {
+//            CustomDays: "30",
+//        },
+//        success: function (suggestionData) {
 
+//        },
+//        error: function (err) {
+//            console.error(err);
+//        }
+//    });
+//}
 
 //$('#btnok').click(function () {
 //    window.location.href = "/Dashboard/Index2";
@@ -185,7 +201,7 @@ $("#OnlySigner").click(function () {
 //});
 // Function to add recipients to the data array
 function addRecipientData() {
-    
+
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -207,23 +223,16 @@ function addRecipientData() {
         recipientsData.push(recipient);
     }
 }
-
-
-
 $("#Proceed").click(function () {
     var checkedRadioButtonId = $('input[name="control"]:checked').attr('id');
     if (isValidData() == false) {
         return false;
     }
     else {
-        //
-        //DocumentName = sessionStorage.getItem('uploadedFileName')
         $("#Proceed").val(filePathss);
         SignInsert();
-        // $(".signdiv").show();
     }
     $(".closesignerdiv").click(function () {
-        // $(".signdiv").hide();
     });
 });
 
@@ -231,7 +240,7 @@ $("#viewrec").click(function () {
     updateGridData();
 });
 function isValidData() {
-    
+
     var checkedRadioButtonId = $('input[name="control"]:checked').attr('id');
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
@@ -283,7 +292,7 @@ function isValidData() {
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
-        var i = $("#hiddena").val(); 
+        var i = $("#hiddena").val();
         for (var j = 1; j <= i; j++) {
             var nameField = $("#Name" + j).val().trim();
             var emailField = $("#Email" + j).val().trim();
@@ -333,7 +342,7 @@ function isValidData() {
                 $("#ExpDate" + j).focus();
                 return false;
             }
-            
+
             ValidatorFor.push(["Name" + j, "Required", "", "Please enter Recipient " + j + " name"]);
             ValidatorFor.push(["Email" + j, "Required", "", "Please enter Recipient " + j + " Email"]);
             ValidatorFor.push(["Email" + j, "Email", "", "Please enter Recipient " + j + " valid email-id"]);
@@ -760,7 +769,7 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
 }
 
 function SignInsert() {
-    ;
+    
     var fileName = $("#SignImage").val();
     var cleanFileName = fileName.replace(/^.*\\/, "");
     console.log("DocumentName: " + cleanFileName);

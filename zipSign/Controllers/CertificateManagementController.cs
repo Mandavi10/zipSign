@@ -109,13 +109,15 @@ namespace zipSign.Controllers
                 return Json(new { status = "400", message = "All fields are required." }, JsonRequestBehavior.AllowGet);
             }
             string EncPassword = AESEncryption.AESEncryptionClass.EncryptAES(DSCCM.Password);
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CertificateName", DSCCM.CertificateName));
-            obj.Add(new DataItems("CertificateType", DSCCM.CertificateType));
-            obj.Add(new DataItems("Password", EncPassword));
-            obj.Add(new DataItems("Path", DSCCM.Path));
-            obj.Add(new DataItems("UploadedBy", "1"));
-            obj.Add(new DataItems("QueryType", "UploadCertificate"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateName", DSCCM.CertificateName),
+                new DataItems("CertificateType", DSCCM.CertificateType),
+                new DataItems("Password", EncPassword),
+                new DataItems("Path", DSCCM.Path),
+                new DataItems("UploadedBy", "1"),
+                new DataItems("QueryType", "UploadCertificate")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             var result1 = new
             {
@@ -220,9 +222,11 @@ namespace zipSign.Controllers
 
         private string GetCertificatePath(string CerificateID)
         {
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CertificateId", CerificateID));
-            obj.Add(new DataItems("QueryType", "DownloadCertificatePath"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", CerificateID),
+                new DataItems("QueryType", "DownloadCertificatePath")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             string path = statusClass.DataFetch.Tables[0].Rows[0]["Path"].ToString();
             return path;
@@ -230,9 +234,11 @@ namespace zipSign.Controllers
 
         public ActionResult DeleteCertificate(string CertificateID)
         {
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CertificateId", CertificateID));
-            obj.Add(new DataItems("QueryType", "DeleteCertificate"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", CertificateID),
+                new DataItems("QueryType", "DeleteCertificate")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             var result1 = new
             {
