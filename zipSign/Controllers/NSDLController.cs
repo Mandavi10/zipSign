@@ -46,12 +46,12 @@ namespace zipSign.Controllers
             string filePath = objModel.File.Replace('/', '\\').TrimStart('\\'); // Replace forward slashes with backslashes
             string pdfPath = Path.Combine(baseDirectory, filePath);
             string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
-            string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt";
+            string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
             int pageCount = GetPdfPageCount(pdfPath);
             int Coordinates = objModel.Coordinates;
-            string ekycId = "";// Aadhar number token /UID ID 72 digit its optional field
+            string ekycId = "";
             string aspId = "ASPYSPLMUMTEST223";
-            string authMode = "1";
+            string authMode = "2";
             _ = objModel.Fileid;
             string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
@@ -174,12 +174,6 @@ namespace zipSign.Controllers
             {
                 return pdfReader.NumberOfPages;
             }
-        }
-        public class PdfPageSize
-        {
-            public float WidthInPixels { get; set; }
-            public float HeightInPixels { get; set; }
-        }
 
         public List<PdfPageSize> GetPdfPageSizesInPixels(string pdfPath)
         {
@@ -310,8 +304,8 @@ namespace zipSign.Controllers
                         }
                         else
                         {
-                            x = Height;
-                            writer.Write($"{page}-{Width},{Height},{45},{130};");
+                            x = 10;
+                            writer.Write($"{page}-{8},631,45,130;");
                         }
 
                         // Execute your business logic here with the given coordinates

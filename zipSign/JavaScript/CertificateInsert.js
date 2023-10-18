@@ -128,7 +128,7 @@ function GetDataForUserGrid(pagecount, keyword) {
         { headerName: 'Sr No.', field: 'Userid', width: 80, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'User Name', field: 'Username', width: 300, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Email ID', field: 'EmailId', width: 300, resizable: false, sortable: true, suppressMovable: true, },
-        { headerName: 'Mobile No.', field: 'MobileNo', width: 260, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Mobile No.', field: 'MobileNo', width: 270, resizable: false, sortable: true, suppressMovable: true, },
     ];
     var rowData = [];
     $.ajax({

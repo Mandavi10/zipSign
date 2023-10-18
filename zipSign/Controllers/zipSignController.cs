@@ -28,7 +28,7 @@ namespace zipSign.Controllers
             return View();
 
         }
-  
+
 
         public ActionResult RolesAndRights3()
         {
@@ -130,6 +130,18 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        #region Testing Coordinates Of pdf without Iframe 
+        // Testing Coordinates Of pdf without Iframe
+        public ActionResult OpenPdfInCanvas()
+        {
+            return View();
+        }
+        [HttpPost]
+        public JsonResult SaveRectangleData(int pageNumber, float pdfX, float pdfY, float pdfWidth, float pdfHeight)
+        {
+            return Json(new { success = true, message = "Rectangle data saved successfully." });
+        }
+        #endregion
 
         [HttpPost]
         public JsonResult SignInsert(SignMaster objsign, string UserType)
@@ -461,15 +473,7 @@ namespace zipSign.Controllers
                 return Json(result1, JsonRequestBehavior.AllowGet);
             }
         }
-        //public ActionResult ProxyExternalContent()
-        //{
-        //    using (HttpClient client = new HttpClient())
-        //    {
-        //        string externalUrl = "https://pregw.esign.egov-nsdl.com/nsdl-esp/authenticate/esign-doc/";
-        //        string content = client.GetStringAsync(externalUrl).Result;
-        //        return Content(content, "text/html");
-        //    }
-        //}
+
 
         public static string CreateRandomCode(int CodeLength)
         {
@@ -601,7 +605,7 @@ namespace zipSign.Controllers
                         SignStatus = Convert.ToString(dr["SignStatus"]),
                         UploadedOn = Convert.ToString(dr["UploadedOn"]),
                         UploadedBy = Convert.ToString(dr["UploadedBy"]),
-                       
+
                     });
                 }
                 res1.Table1 = result;
@@ -635,6 +639,24 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        // -------------------------------------------BUY MORE SIGN (My_Signs) Functionality
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.IO;
+using System.Web.Mvc;
 
 namespace zipSign.Controllers
 {
@@ -12,6 +14,18 @@ namespace zipSign.Controllers
         public ActionResult TransactionDetails()
         {
             return View();
+        }
+        public string DeleteOldFiles(int CustomDays)
+        {
+            DirectoryInfo yourRootDir = new DirectoryInfo(Server.MapPath(@"\Uploads\SignUpload"));
+            foreach (FileInfo file in yourRootDir.GetFiles())
+            {
+                if (file.LastWriteTime < DateTime.Now.AddDays(-CustomDays))
+                {
+                    file.Delete();
+                }
+            }
+            return "File Deletion Successfully";
         }
     }
 }

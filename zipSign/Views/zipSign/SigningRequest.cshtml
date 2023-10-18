@@ -610,7 +610,7 @@
                             <div class="page_action">
 
 
-                                <button type="button" class="btn recbtn" data-toggle="modal" data-target="#recipients" id="Btn_rec" title="Recipients">
+                                <button type="button" class="btn recbtn" data-bs-toggle="modal" data-bs-target="#recipients" id="Btn_rec" title="Recipients">
                                     <i class="fa fa-users" aria-hidden="true"></i>
                                 </button>
 
@@ -664,7 +664,7 @@
                                         <div class="col-md-3" id="docdetails" style="">
 
                                             <div class="col-md-12 pb-2 pt-2">
-                                                <button type="button" class="btn recbtn col-md-12 btnSign" data-toggle="tooltip" data-placement="bottom" title="" id="">
+                                                <button type="button" class="btn recbtn col-md-12 btnSign" data-bs-toggle="tooltip" data-placement="bottom" title="" id="">
                                                     Add Signer
                                                 </button>
                                             </div>
@@ -934,10 +934,11 @@
                         <button type="button" class="btn btn-light pull-left" onclick="window.location.href='../zipSign/Upload';"><i class="fa fa-angle-double-left"></i> Back</button>
                         <div class="d-flex flex-row-reverse">
                             <div class="page_action">
-                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#confirmationpopup" id="btnreject"> Reject</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signaturetype" id="btnproceed"> Proceed</button>
-                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#completePopup" id="btncomplete"> Complete</button>
-                                <button type="button" class="btn btn-primary me-2" data-toggle="modal" data-target="#completePopup" id="btncomplete1"> Complete</button>
+                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#confirmationpopup" id="btnreject"> Reject</button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signaturetype" id="btnproceed"> Proceed</button>
+                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#completePopup" id="btncomplete"> Complete</button>
+                                <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#completePopup" id="btncomplete1"> Complete</button>
+
 
                             </div>
 
@@ -1470,7 +1471,7 @@
                             </div>
 
                         </div>
-                        <button class="btn btn-danger" id="CancelBtn" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger" id="CancelBtn" data-bs-dismiss="modal">Cancel</button>
 
                     </div>
 
@@ -1478,7 +1479,7 @@
 
                 @*<div class="modal-footer p-2">
 
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
 
                     </div>*@
             </div>
@@ -1488,8 +1489,6 @@
     @*--------Signature type------------*@
 
 
-
-    @*----------------Recipients-----------------*@
 
     <div class="modal fade" id="recipients" role="dialog" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1532,8 +1531,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancel</button>
-                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#successpopup" id="">Yes, reject</button>*@
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                    @*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#successpopup" id="">Yes, reject</button>*@
                 </div>
             </div>
         </div>
@@ -1556,8 +1555,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">No, cancel</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#successpopup" id="">Yes, reject</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#successpopup" id="">Yes, reject</button>
                 </div>
             </div>
         </div>
@@ -1575,7 +1574,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnok" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -1592,7 +1591,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnok1" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary" id="btnok1" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -1612,7 +1611,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnok1" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary" id="btnok1" data-bs-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>
@@ -1630,7 +1629,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="btnok2" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-primary" id="btnok2" data-bs-dismiss="modal">OK</button>
 
                 </div>
             </div>
@@ -1639,16 +1638,19 @@
 
 
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+    <script>var jquery_3_6 = jQuery.noConflict();</script>
     @*<script src="~/JavaScript/RequestSign.js"></script>*@
+
     <script src="~/JavaScript/SigningRequest.js"></script>
     @*<script src="~/JavaScript/Page_Load.js"></script>*@
     @*<script src="~/JavaScript/Upload.js"></script>*@
-    <script>var jquery_3_6 = jQuery.noConflict();</script>
-    <script src="~/Content/js/libscripts.bundle.js"></script>
+
+    @*<script src="~/Content/js/libscripts.bundle.js"></script>*@
     <script src="~/Content/js/vendorscripts.bundle.js"></script>
     @*<script src="~/Content/js/toastr.js"></script>*@
     @*<script src="~/Content/js/c3.bundle.js"></script>*@
     <script src="~/Content/js/mainscripts.bundle.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/index.js"></script>
     <script src="~/Content/js/ag-grid-community.min.js"></script>
 
@@ -1657,7 +1659,7 @@
 
     <script>
         jquery_3_6(document).ready(function () {
-            jquery_3_6(".opencorp").click(function () {
+            $(".opencorp").click(function () {
                 jquery_3_6(".allcorp").toggle();
                 event.stopPropagation()
             });
@@ -1665,41 +1667,7 @@
 
     </script>
     <script>
-        //$(document).ready(function () {
-        //    //
-        //    if (getUrlParameter1('File') != null) {
-        //        RowClickEventHandler1();
-        //    }
 
-        //});
-
-        //function RowClickEventHandler1() {
-        //    //
-        //    var fileId = getUrlParameter1('File');
-        //    //var SignUploadId1='';
-        //    $.ajax({
-        //        url: '/zipSign/GetFileData1',
-        //        type: 'POST',
-        //        dataType: 'json',
-        //        data: {
-        //            SignUploadId1: fileId,
-        //        },
-        //        async: false,
-        //        success: function (result) {
-        //            //
-
-        //            var filename = result.filePath.split('\\').pop();
-        //            var webURL = '/Uploads/SignUpload/' + filename;
-        //            $("#hdnfilepath").val(webURL);
-        //            //$("#document-preview-frame").attr("src", webURL);
-        //            //$("#hdnfilepath").val(relativeFilePath);
-        //            $("#document-preview-frame").attr("src", webURL);
-        //        },
-        //        error: function () {
-        //            alert('Something Went Wrong');
-        //        }
-        //    });
-        //}
 
         jquery_3_6(document).ready(function () {
             let url = window.location.href;
@@ -1719,39 +1687,11 @@
             })
         })
     </script>
-    <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-    <script>var jquery_3_6 = jQuery.noConflict();</script>
+
     <script src="~/Content/js/code.jquery.com_ui_1.10.4_jquery-ui.js"></script>
 
     <script>var jquery_ui = jQuery.noConflict();</script>
 
-    @*<script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".newsign").click(function () {
-                    jquery_3_6(".newsigner").show();
-                });
-            });
-
-            let selectContainer = document.querySelector(".select-container");
-            let select = document.querySelector(".select");
-            let input = document.getElementById("input");
-            let options = document.querySelectorAll(".select-container .option");
-
-            select.onclick = () => {
-                selectContainer.classList.toggle("active");
-            };
-
-            //options.forEach((e) => {
-            //    e.addEventListener("click", () => {
-            //        input.value = e.innerText;
-            //        selectContainer.classList.remove("active");
-            //        options.forEach((e) => {
-            //            e.classList.remove("selected");
-            //        });
-            //        e.classList.add("selected");
-            //    });
-            //});
-        </script>*@
 
     <script>
         var dragSrcEl = null;
