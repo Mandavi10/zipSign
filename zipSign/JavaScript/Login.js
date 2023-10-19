@@ -44,7 +44,7 @@ function startTimer(duration, display) {
 }
 //Resend OTP
 $('#lblresend').click(function () {
-    clearInterval(intervalId); // Clear previous interval if any
+    clearInterval(intervalId); 
     var timerDuration = 60;
     var display = $('#resmobotp');
     $("#mobileotp").val('');
@@ -328,6 +328,7 @@ function validations() {
         isvalidate = 1;
     }
 }
+//During Login Verify OTP
 function VerifyOTP() {
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();

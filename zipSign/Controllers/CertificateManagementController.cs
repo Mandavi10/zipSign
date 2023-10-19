@@ -1,5 +1,7 @@
 ﻿using BusinessAccessLayer;
 using BusinessLayerModel;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -99,8 +101,15 @@ namespace zipSign.Controllers
                 return false;
             }
         }
+        public class CertificationManagement
+        {
+            public int Userid { get; set; }
+            public string UserCode { get; set; }
+            public string Username { get; set; }
+            public string EmailId { get; set; }
+            public string MobileNo { get; set; }
 
-
+        }
         [HttpPost]
         public ActionResult SaveCertificate(DSCCertificateMgt DSCCM)
         {
@@ -108,22 +117,47 @@ namespace zipSign.Controllers
             {
                 return Json(new { status = "400", message = "All fields are required." }, JsonRequestBehavior.AllowGet);
             }
+            List<CertificationManagement> users = JsonConvert.DeserializeObject<List<CertificationManagement>>(DSCCM.Table);
             string EncPassword = AESEncryption.AESEncryptionClass.EncryptAES(DSCCM.Password);
             List<DataItems> obj = new List<DataItems>();
             obj.Add(new DataItems("CertificateName", DSCCM.CertificateName));
             obj.Add(new DataItems("CertificateType", DSCCM.CertificateType));
             obj.Add(new DataItems("Password", EncPassword));
             obj.Add(new DataItems("Path", DSCCM.Path));
+            obj.Add(new DataItems("Role", DSCCM.Role));
+            obj.Add(new DataItems("PasswordType", DSCCM.PasswordType));
             obj.Add(new DataItems("UploadedBy", "1"));
             obj.Add(new DataItems("QueryType", "UploadCertificate"));
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
+            int CertificateId =Convert.ToInt32( statusClass.DataFetch.Tables[0].Rows[0]["CertificateId"]);
+            if (statusClass.StatusCode == 1)
+            {
+                foreach (CertificationManagement user in users)
+                {
+                    List<DataItems> obj1 = new List<DataItems>
+            {
+                new DataItems("Name", user.Username),
+                new DataItems("Email", user.EmailId),
+                new DataItems("MobileNo", user.MobileNo),
+                new DataItems("Role", DSCCM.Role),
+                new DataItems("CertificateId", CertificateId),
+                new DataItems("CertificateName", DSCCM.CertificateName),
+                new DataItems("CreatedBy","1"),
+                new DataItems("QueryType", "DSCCertificateUsers"),
+                };
+                    statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj1);
+                }
+            }
+
             var result1 = new
             {
                 status = "201",
             };
-            return Json(result1, JsonRequestBehavior.AllowGet);
 
+            return Json(result1, JsonRequestBehavior.AllowGet);
         }
+
+
 
         [HttpPost]
         public JsonResult SearchandShowDataForCertificate(pagination objpage)
