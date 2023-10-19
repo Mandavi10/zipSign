@@ -408,7 +408,7 @@ function ForgotPassword() {
 
     if (email.trim() === '') {
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Email cannot be empty.</div>';
+        var row = '<div class=" col-md-12 p-1" role="alert">Email cannot be empty.</div>';
         $("#message").append(row);
         return false;
     }
@@ -416,7 +416,7 @@ function ForgotPassword() {
     var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (!emailRegex.test(email)) {
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid Email Format.</div>';
+        var row = '<div class=" col-md-12 p-1" role="alert">Invalid Email Format.</div>';
         $("#message").append(row);
         $("#emailresetpassword").focus;
         return false;
@@ -424,7 +424,7 @@ function ForgotPassword() {
 
     if (captchaInput.trim() === '') {
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Captcha.</div>';
+        var row = '<div class=" col-md-12 p-1" role="alert">Please enter Captcha.</div>';
         $("#message").append(row);
         return false;
     }
@@ -444,14 +444,14 @@ function ForgotPassword() {
                 }
                 else if (result.success === false) {
                     $("#message").empty();
-                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
+                    var row = '<div class="  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
                     $("#message").append(row);
                     //ReloadCaptcha();
                     $("#signin-password").val('');
                     return false;
                 }
                 else if (result.status == "Email/Mobile can't Empty" || result.status == "Invalid Email format" || result.status == "Please enter captcha" || result.status == "Invalid captcha input") {
-                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">' + result.status + '</div>';
+                    var row = '<div class="  col-md-12 p-1" role="alert">' + result.status + '</div>';
                     $("#message").empty();
                     $("#message").append(row);
                     $("#password").val('');

@@ -280,16 +280,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-
-    <Compile Include="Controllers\APIs\APIsController.cs" />
     <Compile Include="Controllers\APIs\SignInAPIController.cs" />
-
     <Compile Include="Controllers\APIs\ChangePasswordFromProfileAPIController.cs" />
     <Compile Include="Controllers\APIs\ForgotPasswordAPIController.cs" />
     <Compile Include="Controllers\APIs\SendEmailForSignupController.cs" />
     <Compile Include="Controllers\APIs\SignUpAPIController.cs" />
     <Compile Include="Controllers\APIs\StateManagementForSignupController.cs" />
-
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
@@ -652,7 +648,6 @@
     <Content Include="Views\zipSign\Index.cshtml" />
     <Content Include="Views\zipSign\RequestSign.cshtml" />
     <Content Include="Views\Login\Signup.cshtml" />
-    <Content Include="Views\Login\Signup2.cshtml" />
     <Content Include="Views\Dashboard\Index2.cshtml" />
     <Content Include="Views\zipSign\Upload.cshtml" />
     <Content Include="Views\zipSign\Received.cshtml" />
