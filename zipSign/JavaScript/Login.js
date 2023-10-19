@@ -328,6 +328,7 @@ function validations() {
         isvalidate = 1;
     }
 }
+//During Login Verify OTP
 function VerifyOTP() {
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
