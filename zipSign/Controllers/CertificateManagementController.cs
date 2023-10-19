@@ -119,6 +119,7 @@ namespace zipSign.Controllers
             }
             List<CertificationManagement> users = JsonConvert.DeserializeObject<List<CertificationManagement>>(DSCCM.Table);
             string EncPassword = AESEncryption.AESEncryptionClass.EncryptAES(DSCCM.Password);
+
             List<DataItems> obj = new List<DataItems>();
             obj.Add(new DataItems("CertificateName", DSCCM.CertificateName));
             obj.Add(new DataItems("CertificateType", DSCCM.CertificateType));
@@ -128,6 +129,7 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("PasswordType", DSCCM.PasswordType));
             obj.Add(new DataItems("UploadedBy", "1"));
             obj.Add(new DataItems("QueryType", "UploadCertificate"));
+
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             int CertificateId =Convert.ToInt32( statusClass.DataFetch.Tables[0].Rows[0]["CertificateId"]);
             if (statusClass.StatusCode == 1)
@@ -254,9 +256,11 @@ namespace zipSign.Controllers
 
         private string GetCertificatePath(string CerificateID)
         {
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CertificateId", CerificateID));
-            obj.Add(new DataItems("QueryType", "DownloadCertificatePath"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", CerificateID),
+                new DataItems("QueryType", "DownloadCertificatePath")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             string path = statusClass.DataFetch.Tables[0].Rows[0]["Path"].ToString();
             return path;
@@ -264,9 +268,11 @@ namespace zipSign.Controllers
 
         public ActionResult DeleteCertificate(string CertificateID)
         {
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("CertificateId", CertificateID));
-            obj.Add(new DataItems("QueryType", "DeleteCertificate"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", CertificateID),
+                new DataItems("QueryType", "DeleteCertificate")
+            };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
             var result1 = new
             {

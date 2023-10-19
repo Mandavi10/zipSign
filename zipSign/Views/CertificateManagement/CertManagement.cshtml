@@ -322,16 +322,25 @@
 <div class="modal fade" id="usermod" tabindex="-1" role="dialog" aria-modal="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content">
-            @*<div class="modal-header">
-                    <h4 class="title m-0" id="defaultModalLabel">Password Prompt</h4>
-                </div>*@
-            <div class="modal-body pt-4 pb-3">
-                <div id="myGrid1" style="height: 67vh; width: 100%;" class="ag-theme-alpine"></div>
+            <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">All Users</h4>
+                </div>
+            <div class="modal-body pt-2 pb-3">
+                <div class="col-md-12">
+                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label class="position-relative">
+                            Search:
+                            <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                            <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                        </label>
+                    </div>
+                </div>
+                <div id="myGrid1" style="height: 59vh; width: 100%;" class="ag-theme-alpine mt-2"></div>
 
 
                 @*<div class="col-md-12 d-flex justify-content-end ">
-                        <button type="button" class="btn btn-primary " data-dismiss="modal">OK</button>
-                    </div>*@
+            <button type="button" class="btn btn-primary " data-dismiss="modal">OK</button>
+        </div>*@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>

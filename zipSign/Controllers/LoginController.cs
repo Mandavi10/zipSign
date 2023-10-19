@@ -653,6 +653,7 @@ namespace zipSign.Controllers
             }
         }
         //During SignUp send otp on Email
+
         public JsonResult GetEmailData(string Email)
         {
             Random rnd = new Random();
@@ -854,19 +855,21 @@ namespace zipSign.Controllers
                     {
                         string LoginIPAddress = GetClientIP();
                         object UserMasterId = Session["UserId"];
-                        List<DataItems> obj = new List<DataItems>();
-                        obj.Add(new DataItems("UserMasterID", UserMasterId));
-                        obj.Add(new DataItems("Login_IP_Address", LoginIPAddress));
-                        obj.Add(new DataItems("EmailOTP", VOTP));
-                        obj.Add(new DataItems("TxnId", TxnId));
-                        obj.Add(new DataItems("QueryType", "LoginOTP"));
+                        List<DataItems> obj = new List<DataItems>
+                        {
+                            new DataItems("UserMasterID", UserMasterId),
+                            new DataItems("Login_IP_Address", LoginIPAddress),
+                            new DataItems("EmailOTP", VOTP),
+                            new DataItems("TxnId", TxnId),
+                            new DataItems("QueryType", "LoginOTP")
+                        };
 
                         statusClass = bal.PostFunction(pro.Signup, obj);
                         return Json(1); // OTP is valid, return a success status
                     }
                     else
                     {
-                        return Json(2); // Invalid OTP, return a failure status
+                        return Json(2); // Invalid OTP
                     }
                 }
             }
@@ -1226,13 +1229,15 @@ namespace zipSign.Controllers
 
             string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(NewPassword);
             string EncNewPassword1 = AESEncryption.AESEncryptionClass.DecryptAES(EncNewPassword);
-            List<DataItems> obj = new List<DataItems>();
-            obj.Add(new DataItems("UserMasterID", userCode));
-            obj.Add(new DataItems("Email", Email));
-            obj.Add(new DataItems("NewPassword", EncNewPassword));
-            obj.Add(new DataItems("CreatedBy", userCode));
-            obj.Add(new DataItems("IP", clientIP));
-            obj.Add(new DataItems("QueryType", "ForgotPassword"));
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("UserMasterID", userCode),
+                new DataItems("Email", Email),
+                new DataItems("NewPassword", EncNewPassword),
+                new DataItems("CreatedBy", userCode),
+                new DataItems("IP", clientIP),
+                new DataItems("QueryType", "ForgotPassword")
+            };
 
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 

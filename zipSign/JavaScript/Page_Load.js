@@ -1,7 +1,4 @@
-﻿
-
-function animateRainbowText() {
-    //
+﻿function animateRainbowText() {
     const textElement = document.querySelector('.message');
     //const colors = ['#f06', '#c0f'];
     //let currentColorIndex = 0;
@@ -13,7 +10,7 @@ function animateRainbowText() {
     setInterval(500);
 }
 function redirectAfterDelay() {
-    
+  
     var hiddenFieldValue = $("#myHiddenField").val();
     const redirectMessage = document.querySelector('.redirect-message');
     if (!redirectMessage) {
@@ -33,6 +30,7 @@ function redirectAfterDelay() {
             clearInterval(interval);
             const parentWindow = window.parent;
             if (parentWindow && parentWindow.$) {
+                ;
                 const parentModal = parentWindow.$('#signaturetype');
                 if (parentModal.length && hiddenFieldValue != "") {
                     parentModal.modal('hide');
@@ -55,12 +53,6 @@ function redirectAfterDelay() {
         }
     }, 1000);
 }
-
-
-// Call the function when needed, e.g., after page load.
-// redirectAfterDelay();
-
 window.onload = function () {
-    //animateRainbowText();
     redirectAfterDelay();
 };

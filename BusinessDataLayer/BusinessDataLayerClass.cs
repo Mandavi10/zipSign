@@ -9,8 +9,8 @@ namespace BusinessDataLayer
     public class BusinessDataLayerClass
     {
         //public BusinessDataLayerClass() { GlobalMethods.Global.connectionString = GlobalMethods.Global.DocSign; }
-        private SqlConnection con = new SqlConnection(GlobalMethods.Global.DocSign.ToString());
-        private CommonStatus statusClass = new CommonStatus();
+        private readonly SqlConnection con = new SqlConnection(GlobalMethods.Global.DocSign.ToString());
+        private readonly CommonStatus statusClass = new CommonStatus();
         public CommonStatus GetFunction(string SpName, List<DataItems> lstparam)
         {
             try
@@ -20,9 +20,11 @@ namespace BusinessDataLayer
                     con.Close();
                 }
                 con.Open();
-                SqlCommand cmd = new SqlCommand(SpName, con);
-                cmd.CommandTimeout = 0;
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand(SpName, con)
+                {
+                    CommandTimeout = 0,
+                    CommandType = CommandType.StoredProcedure
+                };
                 foreach (DataItems items in lstparam)
                 {
                     cmd.Parameters.AddWithValue("@" + items.Name, items.Value);
@@ -54,9 +56,11 @@ namespace BusinessDataLayer
                     con.Close();
                 }
                 con.Open();
-                SqlCommand cmd = new SqlCommand(SpName, con);
-                cmd.CommandTimeout = 0;
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand(SpName, con)
+                {
+                    CommandTimeout = 0,
+                    CommandType = CommandType.StoredProcedure
+                };
                 foreach (DataItems items in lstparam)
                 {
                     cmd.Parameters.AddWithValue("@" + items.Name, items.Value);
@@ -87,9 +91,11 @@ namespace BusinessDataLayer
                     con.Close();
                 }
                 con.Open();
-                SqlCommand cmd = new SqlCommand(SpName, con);
-                cmd.CommandTimeout = 0;
-                cmd.CommandType = CommandType.StoredProcedure;
+                SqlCommand cmd = new SqlCommand(SpName, con)
+                {
+                    CommandTimeout = 0,
+                    CommandType = CommandType.StoredProcedure
+                };
                 foreach (DataItems items in lstparam)
                 {
                     cmd.Parameters.AddWithValue("@" + items.Name, items.Value);

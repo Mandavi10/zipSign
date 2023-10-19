@@ -2,17 +2,32 @@
     Layout = null;
 }
 @*Html.AntiForgeryToken()*@
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>zipSign</title>
-    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/css/main.css" rel="stylesheet" />
-    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
-    @*<script src="~/Content/assets/js/jquery-3.6.4.min.js"></script>*@
-    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/css/main.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="/Content/css/sweetalert.css" rel="stylesheet" />
     <style>
+        .top h3 {
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        #btnSign {
+            margin-top: 3px !important
+        }
+
         .capdiv {
             width: 127px;
             height: 37px;
@@ -49,7 +64,7 @@
         }
 
         .auth-main .card {
-            height: 600px !important;
+            height: 625px !important;
         }
 
         .alert {
@@ -93,7 +108,7 @@
         }
 
         .formHeight {
-            height: 472px;
+            height: 502px;
         }
 
         .signbtn {
@@ -142,7 +157,7 @@
             border-radius: 5px;
             padding: 0px 5px;
             font-size: 12px;
-            font-family: Roboto-Medium ;
+            font-family: Roboto-Medium;
         }
 
             .verifybtnsub:hover, .verifybtnsub1:hover, .verifybtnsub:focus, .verifybtnsub1:focus {
@@ -224,6 +239,30 @@
             text-align: center;
             padding-top: 5px;
         }
+        .privtxt{
+            font-size:12px;
+            padding-top:3px;
+        }
+        .privtxt span{
+            color:#0058b1;
+            text-decoration:underline;
+            cursor:pointer;
+        }
+        .readwr .fancy-checkbox input[type="checkbox"] + span:before {
+            height: 15px;
+            width: 15px;
+            line-height: 13px;
+        }
+
+        .readwr span {
+            font-size: 12px;
+        }
+        .topad{
+            padding-right:70px !important;
+        }
+        .lead{
+            line-height:19px;
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -232,14 +271,14 @@
             <div class="vertical-align-middle auth-main">
                 <div class="auth-box">
                     <div class="top">
-                        @*<img src="assets/images/logo-white.svg" alt="Iconic">*@
+
                         <h3 style="color:#fff">zipSign</h3>
                     </div>
                     <div class="pages">
                         <div class="page">
                             <div class="card">
                                 <div class="header">
-                                    <p class="lead">Create an account</p>
+                                    <p class="lead mt-0">Create an account</p>
                                 </div>
                                 <div class="body pl-0 pr-0">
                                     <form class="form-auth-small" action="index.html">
@@ -259,7 +298,7 @@
                                                     <input type="text" class="form-control" id="UserName" maxlength="60" placeholder="Name" onkeydown="validateInput(event)" oninput="this.value = this.value.toUpperCase()" autocomplete="off" required>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
-                                                    <input type="text" class="form-control " id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
+                                                    <input type="text" class="form-control topad" id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
                                                     <button type="button" class="verifybtn" id="btnmailotp" onclick="SendEmailOTP();">Verify</button>
                                                     <div class="timer mt-1" id="resendemailotp">
                                                         <div class="col-md-12 d-flex justify-content-end">
@@ -268,7 +307,7 @@
                                                     </div>
                                                     <i class="fa fa-check afterverify" aria-hidden="true"></i>
                                                 </div>
-                                                @*<div class="col-md-12 d-flex justify-content-end p-1" style="display:none !important"><a href="#" class="ps-1 newvbtn">Verify</a></div>*@
+
                                                 <div class="form-group p-1 col-md-12 enterotpdiv position-relative pt-0 enterotpdiv2" style="display:none" id="divemailotp">
                                                     <label id="lblemail"><span class="enterddata"></span></label>
                                                     <input type="text" class="form-control" id="emailOTP" maxlength="6" onkeypress="return onlyNumbers(event)" placeholder="Email OTP" autocomplete="off" />
@@ -299,7 +338,6 @@
                                                         <option>Bihar</option>
                                                         <option>Chandigarh</option>
                                                         <option>Chhattisgarh</option>
-                                                        <option>Chennai</option>
                                                         <option>Dadra & Nagar Haveli and Daman & Diu</option>
                                                         <option>Delhi</option>
                                                         <option>Goa</option>
@@ -311,7 +349,7 @@
                                                         <option>Karnataka</option>
                                                         <option>Kerala</option>
                                                         <option>Ladakh</option>
-                                                        <option>Lakshadweep Islands</option>
+                                                        <option>Lakshadweep</option>
                                                         <option>Madhya Pradesh</option>
                                                         <option>Maharashtra</option>
                                                         <option>Manipur</option>
@@ -319,38 +357,25 @@
                                                         <option>Mizoram</option>
                                                         <option>Nagaland</option>
                                                         <option>Odisha</option>
-                                                        <option>Other Territory</option>
-                                                        <option>Pondicherry</option>
+                                                        <option>Puducherry</option>
                                                         <option>Punjab</option>
                                                         <option>Rajasthan</option>
                                                         <option>Sikkim</option>
                                                         <option>Tamil Nadu</option>
                                                         <option>Telangana</option>
                                                         <option>Tripura</option>
-                                                        <option>Uttar Pradesh</option>
                                                         <option>Uttarakhand</option>
+                                                        <option>Uttar Pradesh</option>
                                                         <option>West Bengal</option>
                                                     </select>
                                                 </div>
-                                                @*<div class="form-group p-1 col-md-6">
-                                                        <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Address Line 1">
-                                                    </div>
-                                                    <div class="form-group p-1 col-md-6">
-                                                        <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Address Line 2">
-                                                    </div>*@
-                                                @*<div class="form-group p-1 col-md-12">
-                                                        <input type="text" class="form-control" id="signin-email" placeholder="India" disabled>
-                                                    </div>*@
+
+
                                                 <div class="corporatediv col-md-12">
                                                     <div class="form-group p-1 col-md-12">
                                                         <input type="text" oninput="this.value = this.value.toUpperCase()" class="form-control" id="panNumber" maxlength="10" placeholder="PAN" autocomplete="off">
                                                     </div>
-                                                    @*<div class="form-group p-1 col-md-12">
-                                                            <input type="text" class="form-control" id="signin-email" maxlength="15" placeholder="GST">
-                                                        </div>
-                                                        <div class="form-group p-1 col-md-12 mb-0">
-                                                            <input type="text" class="form-control" id="signin-email" maxlength="60" placeholder="Company Website URL">
-                                                        </div>*@
+
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
                                                     <input type="password" class="form-control pasin" id="password" maxlength="30" placeholder="Password" autocomplete="off">
@@ -362,12 +387,21 @@
                                                     <i class="fa fa-eye eye2"></i>
                                                     <i class="fa fa-eye-slash eyesl2"></i>
                                                 </div>
-                                                @*<div class="form-group p-1 col-md-6 erdiv">
-                                                          <input type="text" class="form-control" id="signin-email" maxlength="30" placeholder="Email Domain">
-                                                    </div>*@
-                                                @*<div class="alermsg col-md-12 p-1" role="alert">Please enter correct information.</div>*@
-                                                <div class="alermsg col-md-12 p-1" role="alert" id="message"></div>
+
+
+                                                <div class="alermsg col-md-12" role="alert" id="message"></div>
                                             </div>
+                                        </div>
+                                        <div class="col-md-12 d-flex flex-wrap ps-1">
+                                            <div>
+                                                <div class="col-md-2 readwr">
+                                                    <label class="fancy-checkbox custom-color-green me-0">
+                                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                                        <span><i></i></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div><p class="mb-0 privtxt">I agree to the terms and conditions laid out in the <span>Privacy Policy</span></p></div>
                                         </div>
                                         <div class="col-md-12">
                                             <button type="button" class="btn btn-primary btn-lg btn-block signbtn" id="btnSign">Sign up</button>
@@ -383,76 +417,22 @@
                                 </div>
                             </div>
                         </div>
-                        @*<div class="page">
-                                <div class="card">
-                                    <div class="header">
-                                        <p class="lead">Create your password</p>
-                                    </div>
-                                    <div class="body pl-0 pr-0">
-                                        <form class="form-auth-small" action="index.html">
-                                            <div class="formHeight">
-                                                <div class="d-flex flex-wrap">
 
-
-                                                    <div class="form-group p-1 col-md-12 position-relative">
-                                                        <input type="password" class="form-control" id="signin-password" placeholder="Password">
-                                                        <i class="fa fa-eye eye1"></i>
-                                                        <i class="fa fa-eye-slash eyesl1"></i>
-                                                    </div>
-                                                    <div class="form-group p-1 col-md-12 mb-0 position-relative">
-                                                        <input type="password" class="form-control" id="signin-password2" placeholder="Confirm Password">
-                                                        <i class="fa fa-eye eye2"></i>
-                                                        <i class="fa fa-eye-slash eyesl2"></i>
-                                                    </div>
-                                                    <div class="alermsg col-md-12 p-1" role="alert">
-                                                        Password do not match.
-                                                    </div>
-                                                    <div class="timerdiv d-flex justify-content-end col-md-12">
-                                                        <label class="mb-0 timer" id="">00:30</label><label class="resendotp mb-0">Resend OTP</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 d-flex justify-content-end">
-                                                <div class="col-md-6 p-1 ps-0 pt-0">
-                                                    <button type="button" class="btn btn-light btn-lg btn-block loginbtn " onclick="slide('prev')">BACK</button>
-                                                </div>
-                                                <div class="col-md-6 p-1 pe-0 pt-0">
-                                                    <button type="button" class="btn btn-primary btn-lg btn-block loginbtn ">SIGN UP</button>
-                                                </div>
-                                            </div>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>*@
 
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-    <script src="~/JavaScript/SignUp.js"></script>
-    <script src="~/Content/js/MyValidator.js"></script>
-    <script src="~/JavaScript/OTP_API.js"></script>
-    <script src="~/Content/js/sweetalert.min.js"></script>
-    <script src="~/Content/js/dialogs.js"></script>
-    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery-3.6.4.min.js"></script>
+    <script src="/JavaScript/SignUp.js"></script>
+    <script src="/Content/js/MyValidator.js"></script>
+    <script src="/JavaScript/OTP_API.js"></script>
+    <script src="/Content/js/sweetalert.min.js"></script>
+    <script src="/Content/js/dialogs.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
 
-    @*<script>
-            const pages = document.querySelectorAll(".page");
-            const translateAmount = 100;
-            let translate = 0;
-            window.onload = function () { document.getElementById("txtUsername").focus(); }
-            slide = (direction) => {
-                direction === "next" ? translate -= translateAmount : translate += translateAmount;
-                pages.forEach(
-                    pages => (pages.style.transform = `translateX(${translate}%)`)
-                );
-            }
-        </script>*@
+
     <script>
         function isNumberKey(event) {
             var charCode = (event.which) ? event.which : event.keyCode;
@@ -575,23 +555,7 @@
             </div>
         </div>
     </div>
-    @*<div class="modal fade" id="successpopup1" tabindex="-1" role="dialog" aria-modal="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="title m-0" id="defaultModalLabel">Success</h4>
-                    </div>
-                    <div class="modal-body pt-4 pb-4">
-                        <div class="col-12 text-center">
-                            <label class="modcontxt"></label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnok1" data-bs-dismiss="modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>*@
+
 
 
 
