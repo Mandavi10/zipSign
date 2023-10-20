@@ -431,6 +431,28 @@
     .readwr span {
         font-size: 12px;
     }
+    .arbtndiv{
+        position:relative;
+    }
+        .arbtndiv .fa-angle-double-left {
+            border: 1px solid #cdcdcd;
+            font-size: 21px;
+            padding: 2px 17px;
+            position: absolute;
+            top: 210px;
+            left: 65px;
+            cursor:pointer;
+        }
+
+        .arbtndiv .fa-angle-double-right {
+            border: 1px solid #cdcdcd;
+            font-size: 21px;
+            padding: 2px 17px;
+            position: absolute;
+            top: 180px;
+            left: 65px;
+            cursor: pointer;
+        } 
 </style>
 
 
@@ -521,7 +543,7 @@
 
                         <div class="col-md-12 d-flex flex-wrap">
 
-                            <div class="col-md-6 p-1">
+                            <div class="col-md-5 p-1">
 
                                 <div class="col-md-12 text-center">
                                     <label class="titletxt">All Pages</label>
@@ -725,7 +747,14 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-6 p-1">
+
+                            <div class="col-md-2 arbtndiv">
+                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                            </div>
+
+                            <div class="col-md-5 p-1">
                                 <div class="col-md-12 text-center">
                                     <label class="titletxt">Assigned Pages</label>
                                 </div>
