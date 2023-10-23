@@ -10,7 +10,7 @@
     setInterval(500);
 }
 function redirectAfterDelay() {
-  
+    debugger;
     var hiddenFieldValue = $("#myHiddenField").val();
     const redirectMessage = document.querySelector('.redirect-message');
     if (!redirectMessage) {
@@ -24,16 +24,17 @@ function redirectAfterDelay() {
     const interval = setInterval(() => {
         seconds--;
         redirectMessage.textContent = `Redirecting in ${seconds} seconds.`;
-
+        debugger;
         if (seconds <= 0) {
 
             clearInterval(interval);
             const parentWindow = window.parent;
             if (parentWindow && parentWindow.$) {
-                ;
+                debugger;
                 const parentModal = parentWindow.$('#signaturetype');
                 if (parentModal.length && hiddenFieldValue != "") {
                     parentModal.modal('hide');
+                    parentModal.style.display = 'none';
                     //parentModal = null;
                     //var URL = "https://uataadharsign.zipsign.in/zipSign/SigningRequest?FilePath=" + hiddenFieldValue;
                     var URL = "http://localhost:50460/zipSign/SigningRequest?FilePath=" + hiddenFieldValue

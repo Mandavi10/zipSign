@@ -8,13 +8,13 @@ var uploadedFileDate = '';
 var SignerID = '';
 var DateTime = '';
 var DateTimeParsed = '';
-var targetElement = jquery_3_6("#Trail_Div");
+var targetElement = $("#Trail_Div");
 var row = '';
 var pagecount = '';
 var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
-jquery_3_6(document).ready(function () {
+$(document).ready(function () {
    
     var UId = getParameterByName('UId');
     if (UId !== null) {
@@ -22,39 +22,39 @@ jquery_3_6(document).ready(function () {
     }
     var userDataString = sessionStorage.getItem('user_data');
     var userData = JSON.parse(userDataString);
-    jquery_3_6('#btncomplete').hide();
-    jquery_3_6('#btncomplete1').hide();
-    jquery_3_6('#continueButton').prop('disabled', true);
+    $('#btncomplete').hide();
+    $('#btncomplete1').hide();
+    $('#continueButton').prop('disabled', true);
     signerType = sessionStorage.getItem('Single_Signer');
     if (signerType == "Single_Signer") {
         //var userName = userData.username;
         //var userEmail = userData.email;
-        jquery_3_6('#Btn_rec').hide();
-        jquery_3_6('#btnDownload').attr('disabled', true);
-        jquery_3_6("#btnreject").hide();
+        $('#Btn_rec').hide();
+        $('#btnDownload').attr('disabled', true);
+        $("#btnreject").hide();
         uploadedFileName = sessionStorage.getItem('uploadedFileName');
         uploadedFileDate = sessionStorage.getItem('uploadedFileDate');
-        var activityRole = `jquery_3_6{userName} (jquery_3_6{userEmail})`;
-        jquery_3_6("label#uploadedFileName").next("span").text(uploadedFileName);
-        jquery_3_6("label#uploadedFileStatus").next("span").text("Unsigned");
-        jquery_3_6("label#uploadedFileDate").next("span").text(uploadedFileDate);
+        var activityRole = `${userName} (${userEmail})`;
+        $("label#uploadedFileName").next("span").text(uploadedFileName);
+        $("label#uploadedFileStatus").next("span").text("Unsigned");
+        $("label#uploadedFileDate").next("span").text(uploadedFileDate);
         filepathsss = sessionStorage.getItem('LoaclPath');
-        jquery_3_6("#PreviewSignImage1").attr("src", filepathsss);
+        $("#PreviewSignImage1").attr("src", filepathsss);
 
-        //appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
+        appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
 
     }
     //else {
-    //    jquery_3_6('#Trail_Div').show();
-    //    jquery_3_6('#Btn_rec').show();
-    //    jquery_3_6('#btnDownload').attr('disabled', true);
-    //    jquery_3_6("#btnreject").hide();
-    //    jquery_3_6("#btnproceed").show();
+    //    $('#Trail_Div').show();
+    //    $('#Btn_rec').show();
+    //    $('#btnDownload').attr('disabled', true);
+    //    $("#btnreject").hide();
+    //    $("#btnproceed").show();
     //    var UploadedDocumentId = getUrlParameter('UploadedDocumentId');
     //    var SignerID = getUrlParameter('SignerID');
     //    var SignerName = getUrlParameter('SignerName');
     //    var Emailid = getUrlParameter('Emailid');
-    //    jquery_3_6.ajax({
+    //    $.ajax({
     //        type: 'POST',
     //        url: '/NSDL/GetDocumentAllData',
     //        data: {
@@ -75,15 +75,15 @@ jquery_3_6(document).ready(function () {
     //            sessionStorage.setItem('SignerName', SignerName);
     //            Emailid = result.EmailID;
     //            sessionStorage.setItem('Emailid', Emailid);
-    //            jquery_3_6("label#uploadedFileID").next("span").text(UploadedDocumentId);
-    //            jquery_3_6("label#uploadedFileName").next("span").text(uploadedFileName);
-    //            jquery_3_6("label#uploadedFileDate").next("span").text(DocumentOpenOn);
+    //            $("label#uploadedFileID").next("span").text(UploadedDocumentId);
+    //            $("label#uploadedFileName").next("span").text(uploadedFileName);
+    //            $("label#uploadedFileDate").next("span").text(DocumentOpenOn);
     //            if (IsSigned == 0) {
-    //                jquery_3_6("label#uploadedFileStatus").next("span").text("Unsigned");
+    //                $("label#uploadedFileStatus").next("span").text("Unsigned");
     //                appendActivity(DocumentOpenOn, SignerName, Emailid, "Document Open");
     //            }
     //            else {
-    //                jquery_3_6("label#uploadedFileStatus").next("span").text("Signed");
+    //                $("label#uploadedFileStatus").next("span").text("Signed");
     //                appendActivity(DocumentOpenOn, SignerName, Emailid, "Document Signed");
     //            }
     //        },
@@ -91,7 +91,7 @@ jquery_3_6(document).ready(function () {
     //        }
     //    });
     //}
-    //jquery_3_6("#PreviewSignImage1").removeAttr("src");
+    //$("#PreviewSignImage1").removeAttr("src");
     filePath = getParameterByName("FilePath");
     SignedfilePath = getParameterByName("SignedFilePath");
     TxnId = getParameterByName("TxnId");
@@ -99,149 +99,149 @@ jquery_3_6(document).ready(function () {
     DateTimeParsed = convertDateFormat(DateTime);
     if (filePath != null && filePath != "") {
         
-        jquery_3_6("#btnproceed").hide();
-       // jquery_3_6(".btnSign").hide();
-        jquery_3_6("#hdntxn").css("display", "block");
-        jquery_3_6("#hdnSigningmode").css("display", "block");
-        jquery_3_6("label#uploadedFileStatus").next("span").text("Signed");
-        jquery_3_6("label#uploadedFileDate").next("span").text(DateTimeParsed);
-        jquery_3_6("label#Txnno").next("span").text(TxnId);
-        jquery_3_6("label#signingmode").next("span").text("Aadhaar");
-        jquery_3_6("#PreviewSignImage1").removeAttr("src");
-        jquery_3_6("#PreviewSignImage1").attr("src", filePath);
-        jquery_3_6('#Btn_rec').hide();
-        jquery_3_6('#Trail_Div').hide();
-        jquery_3_6('.doc-details').hide();
-        jquery_3_6('#btncomplete').hide();
-        jquery_3_6('#btncomplete1').hide();
-        jquery_3_6("#btnreject").hide();
+        $("#btnproceed").hide();
+       // $(".btnSign").hide();
+        $("#hdntxn").css("display", "block");
+        $("#hdnSigningmode").css("display", "block");
+        $("label#uploadedFileStatus").next("span").text("Signed");
+        $("label#uploadedFileDate").next("span").text(DateTimeParsed);
+        $("label#Txnno").next("span").text(TxnId);
+        $("label#signingmode").next("span").text("Aadhaar");
+        $("#PreviewSignImage1").removeAttr("src");
+        $("#PreviewSignImage1").attr("src", filePath);
+        $('#Btn_rec').hide();
+        $('#Trail_Div').hide();
+        $('.doc-details').hide();
+        $('#btncomplete').hide();
+        $('#btncomplete1').hide();
+        $("#btnreject").hide();
         if (signerType == "Single_Signer") {
             var userDataString = sessionStorage.getItem('user_data');
             var userData = JSON.parse(userDataString);
             var userName = userData.username;
             var userEmail = userData.email;
-            var activityRole = `jquery_3_6{userName} (jquery_3_6{userEmail})`;
+            var activityRole = `${userName} (${userEmail})`;
             appendActivity(DateTimeParsed, activityRole , "Document Signed");
-           // jquery_3_6(".btnSign").hide();
-            jquery_3_6("#hdntxn").css("display", "block");
-            jquery_3_6("label#uploadedFileStatus").next("span").text("Signed");
-            jquery_3_6("#PreviewSignImage1").removeAttr("src");
-            jquery_3_6("#PreviewSignImage1").attr("src", filePath);
-            jquery_3_6("label#uploadedFileDate").next("span").text(DateTimeParsed);
-            jquery_3_6("label#Txnno").next("span").text(TxnId);
-            jquery_3_6('#Btn_rec').hide();
-            jquery_3_6('#btncomplete').show();
+           // $(".btnSign").hide();
+            $("#hdntxn").css("display", "block");
+            $("label#uploadedFileStatus").next("span").text("Signed");
+            $("#PreviewSignImage1").removeAttr("src");
+            $("#PreviewSignImage1").attr("src", filePath);
+            $("label#uploadedFileDate").next("span").text(DateTimeParsed);
+            $("label#Txnno").next("span").text(TxnId);
+            $('#Btn_rec').hide();
+            $('#btncomplete').show();
         }
         else {
             //appendActivity(DateTimeParsed, SignerName, Emailid, "Document Signed");
-           // jquery_3_6(".btnSign").hide();
-            jquery_3_6("label#uploadedFileStatus").next("span").text("Signed");
-            jquery_3_6("#PreviewSignImage1").removeAttr("src");
-            jquery_3_6("#PreviewSignImage1").attr("src", filePath);
-            jquery_3_6('#Btn_rec').hide();
-            jquery_3_6('#btncomplete').show();
-            jquery_3_6("label#uploadedFileID").next("span").text(UploadedDocumentId);
-            jquery_3_6("label#uploadedFileName").next("span").text(uploadedFileName);
-            jquery_3_6("label#Txnno").next("span").text(TxnId);
+           // $(".btnSign").hide();
+            $("label#uploadedFileStatus").next("span").text("Signed");
+            $("#PreviewSignImage1").removeAttr("src");
+            $("#PreviewSignImage1").attr("src", filePath);
+            $('#Btn_rec').hide();
+            $('#btncomplete').show();
+            $("label#uploadedFileID").next("span").text(UploadedDocumentId);
+            $("label#uploadedFileName").next("span").text(uploadedFileName);
+            $("label#Txnno").next("span").text(TxnId);
         }
-        jquery_3_6("#btnproceed").hide();
-        jquery_3_6('#Btn_rec').hide();
-        jquery_3_6('#btnDownload').prop('disabled', false);
-        jquery_3_6('#btncomplete').click(function () {
-            jquery_3_6('#completePopup').modal('show');
+        $("#btnproceed").hide();
+        $('#Btn_rec').hide();
+        $('#btnDownload').prop('disabled', false);
+        $('#btncomplete').click(function () {
+            $('#completePopup').modal('show');
         });
-        jquery_3_6('#btnok1').click(function () {
+        $('#btnok1').click(function () {
             sessionStorage.clear();
             window.location.href = "/zipSign/Signed";
-            jquery_3_6.each(sessionStorage, function (key) {
+            $.each(sessionStorage, function (key) {
                 sessionStorage.removeItem(key);
             });
         });
-        jquery_3_6('#btnok2').click(function () {
+        $('#btnok2').click(function () {
 
         });
       
     }
     else if (SignedfilePath != null && SignedfilePath != "") {
-       // jquery_3_6(".btnSign").hide();
-        jquery_3_6("#hdntxn").css("display", "block");
-        jquery_3_6("#hdnSigningmode").css("display", "block");
-        jquery_3_6("label#uploadedFileStatus").next("span").text("Signed");
-        jquery_3_6("label#uploadedFileDate").next("span").text(DateTimeParsed);
-        jquery_3_6("label#Txnno").next("span").text(TxnId);
-        jquery_3_6("label#signingmode").next("span").text("Aadhaar");
-        jquery_3_6("#PreviewSignImage1").removeAttr("src");
-        jquery_3_6("#PreviewSignImage1").attr("src", SignedfilePath);
-        jquery_3_6('#Btn_rec').hide();
-        jquery_3_6('#btncomplete1').show();
+       // $(".btnSign").hide();
+        $("#hdntxn").css("display", "block");
+        $("#hdnSigningmode").css("display", "block");
+        $("label#uploadedFileStatus").next("span").text("Signed");
+        $("label#uploadedFileDate").next("span").text(DateTimeParsed);
+        $("label#Txnno").next("span").text(TxnId);
+        $("label#signingmode").next("span").text("Aadhaar");
+        $("#PreviewSignImage1").removeAttr("src");
+        $("#PreviewSignImage1").attr("src", SignedfilePath);
+        $('#Btn_rec').hide();
+        $('#btncomplete1').show();
     }
     else {
-        jquery_3_6('#continueButton').prop('disabled', true);
+        $('#continueButton').prop('disabled', true);
 
         signerType = sessionStorage.getItem('Single_Signer');
         if (signerType == "Single_Signer") {
 
-            //jquery_3_6(".btnSign").hide();
+            //$(".btnSign").hide();
 
-            jquery_3_6('#Btn_rec').hide();
-            jquery_3_6('#btnDownload').attr('disabled', true);
-            jquery_3_6("#btnreject").hide();
+            $('#Btn_rec').hide();
+            $('#btnDownload').attr('disabled', true);
+            $("#btnreject").hide();
         }
         else {
-           // jquery_3_6(".btnSign").hide();
-            jquery_3_6('#Btn_rec').hide();
-            jquery_3_6('#btnDownload').attr('disabled', true);
-            jquery_3_6("#btnreject").hide();
+           // $(".btnSign").hide();
+            $('#Btn_rec').hide();
+            $('#btnDownload').attr('disabled', true);
+            $("#btnreject").hide();
         }
         //appendActivity(uploadedFileDate, "Mandavi (mandavi@yoekisoft.com)", "File Uploaded");
-        //jquery_3_6("#PreviewSignImage1").attr("src", filepathsss);
-        jquery_3_6('.select').click(function () {
-            jquery_3_6('.select-container').toggleClass('active');
+        //$("#PreviewSignImage1").attr("src", filepathsss);
+        $('.select').click(function () {
+            $('.select-container').toggleClass('active');
         });
     }
-    jquery_3_6('.option').click(function () {
-        var selectedOption = jquery_3_6(this).text();
-        jquery_3_6('#input1').val(selectedOption);
-        jquery_3_6('.select-container').removeClass('active');
-        jquery_3_6('#continueButton').prop('disabled', false);
+    $('.option').click(function () {
+        var selectedOption = $(this).text();
+        $('#input1').val(selectedOption);
+        $('.select-container').removeClass('active');
+        $('#continueButton').prop('disabled', false);
     });
-    jquery_3_6('#input1').change(function () {
-        if (jquery_3_6(this).val() === '') {
-            jquery_3_6('#continueButton').prop('disabled', true);
+    $('#input1').change(function () {
+        if ($(this).val() === '') {
+            $('#continueButton').prop('disabled', true);
         } else {
-            jquery_3_6('#continueButton').prop('disabled', false);
+            $('#continueButton').prop('disabled', false);
         }
     });
-    jquery_3_6('input[type="radio"]').click(function () {
+    $('input[type="radio"]').click(function () {
         ;
-        jquery_3_6("#dscmsg").empty();
+        $("#dscmsg").empty();
         row = '';
         ;
-        if (jquery_3_6(this).attr('id') == 'rdo3') {
-            jquery_3_6('#btnAgree').prop('disabled', false);
+        if ($(this).attr('id') == 'rdo3') {
+            $('#btnAgree').prop('disabled', false);
         }
-        else if (jquery_3_6(this).attr('id') == 'rdo2') {
-            jquery_3_6('#rdo3').prop('checked', true);
-            jquery_3_6('#btnAgree').prop('disabled', false);
+        else if ($(this).attr('id') == 'rdo2') {
+            $('#rdo3').prop('checked', true);
+            $('#btnAgree').prop('disabled', false);
             selectedRadio = 'rdo2';
             //window.location.href = "/zipSign/SigningRequest";
         }
-        else if (jquery_3_6(this).attr('id') == 'aadhaar') {
+        else if ($(this).attr('id') == 'aadhaar') {
             selectedRadio = 'aadhaar'
             row = '';
-            jquery_3_6("#dscmsg").empty();
-            jquery_3_6('#continueButton').prop('disabled', false);
-        } else if (jquery_3_6(this).attr('id') == 'dsc') {
+            $("#dscmsg").empty();
+            $('#continueButton').prop('disabled', false);
+        } else if ($(this).attr('id') == 'dsc') {
             selectedRadio = 'dsc';
-            jquery_3_6('#continueButton').prop('disabled', false);
+            $('#continueButton').prop('disabled', false);
         }
     });
    
 });
 
 function getParameterByName(name) {
-    name = name.replace(/[\[\]]/g, "\\jquery_3_6&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|jquery_3_6)"),
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(window.location.href);
     if (!results) return null;
     if (!results[2]) return '';
@@ -268,35 +268,35 @@ var getUrlParameter = function getUrlParameter(sParam) {
 function Continue() {
     if (selectedRadio == 'dsc') {
         row = '';
-        jquery_3_6("#dscmsg").empty();
+        $("#dscmsg").empty();
         // row += ' <div style="background-color: #cce5ff; color: #004085; font-size: 11px;">DSC functionality will be available soon..!</div >';
-        // jquery_3_6("#dscmsg").append(row);
-        jquery_3_6('#dscPopup').modal('show');
-        jquery_3_6('#continueButton').prop('disabled', true);
+        // $("#dscmsg").append(row);
+        $('#dscPopup').modal('show');
+        $('#continueButton').prop('disabled', true);
     }
     else {
         selectedRadio == 'aadhaar'
         signerType = sessionStorage.getItem('Single_Signer');
         if (signerType == "Single_Signer") {
-            jquery_3_6("#AgreeBtnProceed").show();
-            jquery_3_6("#btnAgree").hide();
+            $("#AgreeBtnProceed").show();
+            $("#btnAgree").hide();
         }
         else {
-            jquery_3_6("#AgreeBtnProceed").hide();
-            jquery_3_6("#btnAgree").show()
+            $("#AgreeBtnProceed").hide();
+            $("#btnAgree").show()
         }
 
-        jquery_3_6(".iframeDiv").css("display", "block");
-        jquery_3_6("#IframeDiv").css("display", "block");
-        jquery_3_6("#consentDiv").css("display", "block");
+        $(".iframeDiv").css("display", "block");
+        $("#IframeDiv").css("display", "block");
+        $("#consentDiv").css("display", "block");
 
 
-        jquery_3_6(".buttonCon").css("display", "none");
-        jquery_3_6(".signersList").css("display", "none");
-        jquery_3_6("#CancelBtn").css("display", "none");
+        $(".buttonCon").css("display", "none");
+        $(".signersList").css("display", "none");
+        $("#CancelBtn").css("display", "none");
     }
 
-    //jquery_3_6("#iNSDL").val(filePathss);
+    //$("#iNSDL").val(filePathss);
 }
 
 function AgreeBtnOnProceed() {
@@ -313,10 +313,10 @@ function AgreeBtnOnProceed() {
             documentid = sessionStorage.getItem('UploadedDocumentId');
             UniqueSignerID = sessionStorage.getItem('UniqueSignerID');
             iframeSrcSet = true;
-            jquery_3_6('#consentDiv').hide();
-            //jquery_3_6('#loader').css('display', 'block');
-            jquery_3_6("#NSDLiframe").show();
-            jquery_3_6("#NSDLiframe").attr("src", "/NSDL/PDFSignature?File=" + encodeURIComponent(filepathsss) + "&UploadedDocumentId=" + encodeURIComponent(documentid) + "&SignerID=" + encodeURIComponent(SignerID) + "&Coordinates=" + encodeURIComponent(Coordinates));
+            $('#consentDiv').hide();
+            //$('#loader').css('display', 'block');
+            $("#NSDLiframe").show();
+            $("#NSDLiframe").attr("src", "/NSDL/PDFSignature?File=" + encodeURIComponent(filepathsss) + "&UploadedDocumentId=" + encodeURIComponent(documentid) + "&SignerID=" + encodeURIComponent(SignerID) + "&Coordinates=" + encodeURIComponent(Coordinates));
 
         }
     }
@@ -325,14 +325,14 @@ function AgreeBtn() {
 
     if (!iframeSrcSet) {
         iframeSrcSet = true;
-        jquery_3_6('#consentDiv').hide();
-        jquery_3_6("#NSDLiframe").show();
-        jquery_3_6("#NSDLiframe").attr("src", "/NSDL/PDFSignature?file=" + encodeURIComponent(jquery_3_6("#hdnFilePath").val()) + "&Fileid=" + encodeURIComponent(jquery_3_6("#hdnFileId").val()) + "&Emailid=" + encodeURIComponent(jquery_3_6("#hdnEmailId").val()) + "&SignerID=" + encodeURIComponent(jquery_3_6("#hdnSignerId").val()) + "&SignerName=" + encodeURIComponent(jquery_3_6("#hdnSignerName").val()) + "&UploadedDocumentId=" + encodeURIComponent(jquery_3_6("#hdnUploadedDocumentId").val()) + "&Coordinates=" + encodeURIComponent(0));
+        $('#consentDiv').hide();
+        $("#NSDLiframe").show();
+        $("#NSDLiframe").attr("src", "/NSDL/PDFSignature?file=" + encodeURIComponent($("#hdnFilePath").val()) + "&Fileid=" + encodeURIComponent($("#hdnFileId").val()) + "&Emailid=" + encodeURIComponent($("#hdnEmailId").val()) + "&SignerID=" + encodeURIComponent($("#hdnSignerId").val()) + "&SignerName=" + encodeURIComponent($("#hdnSignerName").val()) + "&UploadedDocumentId=" + encodeURIComponent($("#hdnUploadedDocumentId").val()) + "&Coordinates=" + encodeURIComponent(0));
     }
 }
 function RowClickEventHandler1(UId) {
     
-    jquery_3_6.ajax({
+    $.ajax({
         url: '/NSDL/GetDocumentAllData1',
         type: 'POST',
         dataType: 'json',
@@ -358,7 +358,7 @@ function RowClickEventHandler1(UId) {
             else {
                 
                 var table3Data = result.responseData.Table3Data;
-                var trailDiv = jquery_3_6("#Trail_Div");
+                var trailDiv = $("#Trail_Div");
                 // Clear any existing content in the Trail_Div
                 trailDiv.empty();
                 for (var i = 0; i < table3Data.length; i++) {
@@ -376,22 +376,22 @@ function RowClickEventHandler1(UId) {
                         ('0' + date.getMinutes()).slice(-2) + ' ' +
                         (date.getHours() >= 12 ? 'PM' : 'AM');
 
-                    var activityTime = `jquery_3_6{formattedDate}`;
-                    var activityRole = `jquery_3_6{userName} (jquery_3_6{userEmail})`;
+                    var activityTime = `${formattedDate}`;
+                    var activityRole = `${userName} (${userEmail})`;
 
                     var activityTitle = rowData["Action"]; 
 
                     // Create a new activity box
-                    var activityBox = jquery_3_6(
+                    var activityBox = $(
                         `<div class="col-lg-3 col-md-3">
         <div class="element-box-tp">
             <div class="activity-boxes-w">
                 <div class="activity-box-w">
-                    <div class="activity-time">jquery_3_6{activityTime}</div>
+                    <div class="activity-time">${activityTime}</div>
                     <div class="activity-box">
                         <div class="activity-info">
-                            <div class="activity-role">jquery_3_6{activityRole}</div>
-                            <strong class="activity-title font-weight-400">jquery_3_6{activityTitle}</strong>
+                            <div class="activity-role">${activityRole}</div>
+                            <strong class="activity-title font-weight-400">${activityTitle}</strong>
                         </div>
                     </div>
                 </div>
@@ -409,17 +409,17 @@ function RowClickEventHandler1(UId) {
             //// Update other elements with data as needed
 
             var EmailID = result.EmailID;
-            jquery_3_6("#PreviewSignImage1").attr("src", "");
-            jquery_3_6("#PreviewSignImage1").attr("src", result.responseData.FilePath);
-            jquery_3_6("#hdnFilePath").val(result.responseData.FilePath);
-            jquery_3_6("#hdnUploadedDocumentId").val(result.responseData.UploadedDocumentId);
-            jquery_3_6("#hdnSignerId").val(result.responseData.SignerId);
-            jquery_3_6("#hdnFileId").val(result.responseData.FileID);
-            jquery_3_6("#hdnEmailId").val(result.responseData.EmailID);
-            jquery_3_6("#hdnSignerName").val(result.responseData.SignerName);
-            jquery_3_6("label#uploadedFileName").next("span").text(result.responseData.UploadedFileName);
-            jquery_3_6("label#uploadedFileStatus").next("span").text("Unsigned");
-            jquery_3_6("label#uploadedFileDate").next("span").text(result.responseData.UploadedOn);
+            $("#PreviewSignImage1").attr("src", "");
+            $("#PreviewSignImage1").attr("src", result.responseData.FilePath);
+            $("#hdnFilePath").val(result.responseData.FilePath);
+            $("#hdnUploadedDocumentId").val(result.responseData.UploadedDocumentId);
+            $("#hdnSignerId").val(result.responseData.SignerId);
+            $("#hdnFileId").val(result.responseData.FileID);
+            $("#hdnEmailId").val(result.responseData.EmailID);
+            $("#hdnSignerName").val(result.responseData.SignerName);
+            $("label#uploadedFileName").next("span").text(result.responseData.UploadedFileName);
+            $("label#uploadedFileStatus").next("span").text("Unsigned");
+            $("label#uploadedFileDate").next("span").text(result.responseData.UploadedOn);
             //}
         },
         error: function () {
@@ -427,7 +427,7 @@ function RowClickEventHandler1(UId) {
         }
     });
 }
-jquery_3_6('#btncomplete1').click(function () {
+$('#btncomplete1').click(function () {
     window.location.href = "/zipSign/SignLogin";
 })
 function Download() {
@@ -439,11 +439,11 @@ function appendActivity(time, role, title) {
         <div class="element-box-tp">
             <div class="activity-boxes-w">
                 <div class="activity-box-w">
-                    <div class="activity-time">jquery_3_6{time}</div>
+                    <div class="activity-time">${time}</div>
                     <div class="activity-box green-blink">
                         <div class="activity-info">
-                            <div class="activity-role">jquery_3_6{role}</div>
-                            <strong class="activity-title font-weight-400">jquery_3_6{title}</strong>
+                            <div class="activity-role">${role}</div>
+                            <strong class="activity-title font-weight-400">${title}</strong>
                         </div>
                     </div>
                 </div>
@@ -500,7 +500,7 @@ function getCurrentDateTime() {
     var minutes = ('0' + currentDate.getMinutes()).slice(-2);
     var seconds = ('0' + currentDate.getSeconds()).slice(-2);
 
-    var formattedDateTime = `jquery_3_6'{day}-jquery_3_6{month}-jquery_3_6{year} jquery_3_6{hours}:jquery_3_6{minutes}:jquery_3_6{seconds}`;
+    var formattedDateTime = `$'{day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
     return formattedDateTime;
 }
 

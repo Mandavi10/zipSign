@@ -259,6 +259,7 @@ namespace zipSign.Controllers
                 new DataItems("Email", objLoginModel.Email),
                 new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
                 new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
+                new DataItems("IsBlocked", 0),
                 new DataItems("QueryType", "LoginData")
             };
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
@@ -549,9 +550,9 @@ namespace zipSign.Controllers
             {
                 status = "201",
                 message = "OTP sent successfully to both phone and email.",
-                MobileNo= PhoneNumber
+                MobileNo = PhoneNumber
             };
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private void SendOTPviaSMS(string CusName, string MobileNo, string OTP)
