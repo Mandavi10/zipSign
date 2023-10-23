@@ -36,9 +36,22 @@ function UploadImages(FileUploader) {
 }
 
 function validatepassword() {
-
+    $("#password").siblings(".alermsg").remove();
+    $("#confirmpassword").siblings(".alermsg").remove();
     var password = $("#password").val();
     var confirm_password = $("#confirmpassword").val();
+    if (password === "") {
+        $("#password").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Password</div>';
+        $("#password").after(row).focus();
+        return false;
+    }
+    else if (confirm_password === "") {
+        $("#confirmpassword").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Confirm Password</div>';
+        $("#confirmpassword").after(row).focus();
+        return false;
+    }
     var certificate = sessionStorage.getItem('CertPath')
     if (password === confirm_password) {
         $.ajax({
@@ -76,7 +89,15 @@ function validatepassword() {
 }
 
 function SaveCertificate() {
-    ;
+    var CertName = $("#CertName").val();
+    $("#CertName").siblings(".alermsg").remove();
+    if (CertName === "") {
+        $("#CertName").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Certificate Name</div>';
+        $("#CertName").after(row).focus();
+        return false;
+    }
+
     if (!$("#password").val() || !$("#CertType").val() || !$("#CertName").val()) {
         alert('Please fill out all the required fields.');
         return;
@@ -86,40 +107,38 @@ function SaveCertificate() {
         return;
     }
     else {
-        var password = $("#password").val();
-        var certificatePath = sessionStorage.getItem('CertPath');
-        var CertType = $("#CertType").val();
-        var CertName = $("#CertName").val();
-        $.ajax({
-            url: '/CertificateManagement/SaveCertificate',
-            type: "POST",
-            dataType: "text",
-            data: {
-                CertificateName: CertName,
-                CertificateType: CertType,
-                UploadedBy: "1",
-                Path: certificatePath,
-                password: password
-            },
-            success: function (result) {
+    var password = $("#password").val();
+    var certificatePath = sessionStorage.getItem('CertPath');
+    var CertType = $("#CertType").val();
+    var CertName = $("#CertName").val();
+    var checkedRadioButtonId = $("input[name='control']:checked").attr('id');
+    var selectedText = $('#AccesUserType option:selected').text();
+    var selectedRowsJSON = JSON.stringify(selectedRows);
 
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
+    $.ajax({
+        url: '/CertificateManagement/SaveCertificate',
+        type: "POST",
+        dataType: "json",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            CertificateName: CertName,
+            CertificateType: CertType,
+            UploadedBy: "1",
+            Path: certificatePath,
+            password: password,
+            PasswordType: checkedRadioButtonId,
+            Role: selectedText,
+            Table: selectedRowsJSON
+        }),
+        success: function (result) {
+
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
     }
 }
-
-
-
-
-
-
-
-
-
-
 //GridView_Bind_For_User_To_Give_Roles
 function GetDataForUserGrid(pagecount, keyword) {
     $("#myGrid1").html("");
@@ -141,7 +160,6 @@ function GetDataForUserGrid(pagecount, keyword) {
         },
         success: function (result) {
             var jsonData = result.Table1;
-            var jsonData1 = result.Table2;
             $.each(jsonData, function (i, value) {
                 rowData.push({
                     Userid: value.Userid,
@@ -150,15 +168,7 @@ function GetDataForUserGrid(pagecount, keyword) {
                     EmailId: value.EmailId,
                     MobileNo: value.MobileNo,
                     UserType: value.UserType,
-                    Department: value.Department,
-                    Designation: value.Designation,
-                    CreatedBy: value.CreatedBy,
-                    CreatedOn: value.CreatedOn,
-                    ModifyBy: value.ModifyBy,
-                    ModifyOn: value.ModifyOn,
-                    Active: value.Active,
-                    Mobileapp: value.Mobileapp,
-                    SpecificDomaincontrol: value.SpecificDomaincontrol
+                  
                 });
             });
             var gridOptions = {
@@ -171,6 +181,9 @@ function GetDataForUserGrid(pagecount, keyword) {
                     } else {
                         ShowMore(params.data.UserCode);
                     }
+                },
+                onSelectionChanged: function () {
+                    selectedRows = gridOptions.api.getSelectedRows();
                 },
 
                 rowSelection: 'multiple',

@@ -169,7 +169,6 @@ namespace zipSign.Controllers
             {
                 return false;
             }
-            // Use regex to validate the email format
             string pattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
             return Regex.IsMatch(email, pattern);
         }
@@ -180,7 +179,6 @@ namespace zipSign.Controllers
             {
                 return false;
             }
-            // Use regex to validate the mobile number format (e.g., allow only digits)
             string pattern = @"^\d{10}$";
             return Regex.IsMatch(mobile, pattern);
         }
@@ -202,8 +200,6 @@ namespace zipSign.Controllers
             }
             string pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
             return Regex.IsMatch(ConfirmPassword, pattern);
-
-
         }
 
         private bool IsValidPAN(string pan)
@@ -310,7 +306,6 @@ namespace zipSign.Controllers
         public JsonResult GetUserProfile()
         {
             // Retrieve user profile data from the session
-
             if (Session["UserData"] is List<profile> userData)
             {
                 return Json(userData, JsonRequestBehavior.AllowGet);
@@ -390,6 +385,7 @@ namespace zipSign.Controllers
                 }
             }
         }
+        //Save Otp Mobile OTP dring SignUp
 
         [HttpPost]
         public ActionResult GetSMSData(SMSModel Sm)
@@ -445,7 +441,7 @@ namespace zipSign.Controllers
             Random random = new Random();
             int txnId = random.Next(100, 1000);
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
-
+            Session["TxnIdMobileSignUPOTP"] = TraceNumber;
             List<DataItems> obj1 = new List<DataItems>
             {
                 new DataItems("TxnId", TraceNumber),
@@ -657,7 +653,8 @@ namespace zipSign.Controllers
                 smtp.Send(msg);
             }
         }
-        //ForSignUp
+        //During SignUp send otp on Email
+
         public JsonResult GetEmailData(string Email)
         {
             Random rnd = new Random();
@@ -915,7 +912,7 @@ namespace zipSign.Controllers
 
             //return Json(msg, FilePath);
         }
-
+        // During SignUP Verify Email OTP
         public JsonResult VerifyEmailOTP(string VOTP)
         {
             string TxnIdForSignUp = Convert.ToString(Session["TxnIDForSignup"]);
@@ -925,6 +922,9 @@ namespace zipSign.Controllers
         new DataItems("TxnId",TxnIdForSignUp),
         new DataItems("QueryType", "IsValidOTP")
         };
+
+
+
 
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 
@@ -965,6 +965,7 @@ namespace zipSign.Controllers
             List<DataItems> obj = new List<DataItems>
         {
         new DataItems("Otp", VOTP),
+        new DataItems("TxnId", Session["TxnIdMobileSignUPOTP"]),
         new DataItems("QueryType", "IsValidOTP")
        };
 

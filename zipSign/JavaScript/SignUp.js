@@ -79,7 +79,7 @@ $(document).ready(function () {
         }
         else if ($("#Phoneno").val() === "") {
             row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter Mobile</div>';
-
+            $("#message").empty().append(row);
             $("#Phoneno").focus();
             return false;
         } else if (!/^[6-9]\d{9}$/.test($("#Phoneno").val())) {
@@ -149,6 +149,8 @@ $('input[type="radio"]').click(function () {
         }
     }
 });
+
+//Timer during SignUP click on verify mobile & Resend 
 function startTimer(duration, display, ismobile) {
     if (isMobileTimerRunning) {
         clearInterval(mobileTimerIntervalId);
@@ -173,6 +175,8 @@ function startTimer(duration, display, ismobile) {
         }
     }, 1000);
 }
+
+// Timer during signup Email Verify
 function startTimer1(duration, display, isemail) {
     if (isEmailTimerRunning) {
         clearInterval(emailTimerIntervalId);
@@ -196,6 +200,7 @@ function startTimer1(duration, display, isemail) {
         }
     }, 1000);
 }
+//Resend OTP on mail during signup 
 $('#lblemailresend').click(function () {
     $("#message").empty();
     if (emailTimerIntervalId) {
@@ -314,8 +319,8 @@ function SignUp() {
         }
     });
 }
+//Send OTP on Mobile during SignUp
 function SendMobileOTP() {
-
     var row = '';
     var ValidatorFor = []
     ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile"]);
@@ -426,8 +431,9 @@ function SendMobileOTP() {
 //        });
 //    }
 //}
-function SendEmailOTP() {
 
+//During Signup Send otp on Email(clicked on verify)
+function SendEmailOTP() {
     var ValidatorFor = [];
     ValidatorFor.push(["Email", "Required", "", "Please enter Email"]);
     ValidatorFor.push(["Email", "Email", "", "You have entered an invalid email address! (e.g. xxxx@gmail.com)"]);

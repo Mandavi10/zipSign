@@ -181,9 +181,21 @@ namespace BusinessLayerModel
         public string CertificateType { get; set; }
         public string Password { get; set; }
         public string Path { get; set; }
+        public string Role { get; set; }
         public string UploadedBy { get; set; }
+        public string PasswordType { get; set; }
         public string UploadedOn { get; set; }
         public int Row { get; set; }
+        public string Table { get; set; }
+        //public List<CertificationManagement> Table { get; set; }
+    }
+    public class CertificationManagement
+    {
+        public int Userid { get; set; }
+        public string UserCode { get; set; }
+        public string Username { get; set; }
+        public string EmailId { get; set; }
+        public string MobileNo { get; set; }
     }
 
     #endregion
