@@ -22,7 +22,6 @@ namespace zipSign.Controllers
     public class NSDLController : Controller
     {
         private string redirectUrl = "";
-
         private readonly ProcMaster pro = new ProcMaster();
         private readonly NSDLGetSet nsdlget = new NSDLGetSet();
         private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
@@ -46,7 +45,7 @@ namespace zipSign.Controllers
             int Coordinates = objModel.Coordinates;
             string ekycId = "";
             string aspId = "ASPYSPLMUMTEST223";
-            string authMode = "2";
+            string authMode = "1";
             _ = objModel.Fileid;
             string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
@@ -63,7 +62,7 @@ namespace zipSign.Controllers
             string jrebinpath = "";
             string responsesigtype = "";
             int log_err = 1;
-            string CoordinatesPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt";
+            string CoordinatesPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
             try
             {
                 List<DataItems> obj = new List<DataItems>
@@ -160,7 +159,6 @@ namespace zipSign.Controllers
             }
             return View();
         }
-
         private static int GetPdfPageCount(string pdfPath)
         {
             using (PdfReader pdfReader = new PdfReader(pdfPath))
@@ -246,7 +244,7 @@ namespace zipSign.Controllers
             string pdfFolder = Path.GetDirectoryName(pdfReadServerPath);
             string PdfName = Path.GetFileNameWithoutExtension(pdfReadServerPath);
 
-            string CoordinatesPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Coordinatesfile.txt";
+            string CoordinatesPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
 
             string jrebinpath = "";
             string outputFinalPdfPath = "" /*@"D:\Project\ZipSign_New\zipSign\zipSign\NSDL_Request_Response\NSDL_Final_SignedPDF\"*/;
@@ -521,8 +519,6 @@ namespace zipSign.Controllers
             //return Redirect(redirectUrl);
             return View();
         }
-
-
         public string GetCertificateFromResponse(string xmlFilePath, string FilePath)
         {
             XmlDocument doc = new XmlDocument();
@@ -905,7 +901,6 @@ namespace zipSign.Controllers
                 return Json("");
             }
         }
-
         public JsonResult SendEmailAfterSuccess(string Email, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
         {
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
@@ -948,11 +943,6 @@ namespace zipSign.Controllers
             redirectUrl = FilePath;
             return Json("");
         }
-
-
-
-
-
         public JsonResult GetSignerData(string UploadedDocumentId)
         {
             string UploadedDocument = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
@@ -1068,7 +1058,6 @@ namespace zipSign.Controllers
 
             return Json(new { responseData }, JsonRequestBehavior.AllowGet);
         }
-
         private static string ExtractOriginalFileName(string filePath)
         {
             int lastUnderscoreIndex = filePath.LastIndexOf('_');
@@ -1114,6 +1103,7 @@ namespace zipSign.Controllers
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
+
     }
 
 }

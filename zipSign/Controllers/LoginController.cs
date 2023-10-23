@@ -255,6 +255,7 @@ namespace zipSign.Controllers
                 new DataItems("Email", objLoginModel.Email),
                 new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
                 new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
+                new DataItems("IsBlocked", 0),
                 new DataItems("QueryType", "LoginData")
             };
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
