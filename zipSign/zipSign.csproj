@@ -286,9 +286,7 @@
     <Compile Include="Controllers\APIs\SendEmailForSignupController.cs" />
     <Compile Include="Controllers\APIs\SignUpAPIController.cs" />
     <Compile Include="Controllers\APIs\StateManagementForSignupController.cs" />
-
     <Compile Include="Controllers\APIs\UploadFileAPIController.cs" />
-
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
@@ -489,6 +487,7 @@
     <Content Include="JavaScript\AllUsers.js" />
     <Content Include="JavaScript\CertificateInsert.js" />
     <Content Include="JavaScript\Certmanagement.js" />
+    <Content Include="JavaScript\Custom.js" />
     <Content Include="JavaScript\dashboard.js" />
     <Content Include="JavaScript\DeleteExistingFiles90Days.js" />
     <Content Include="JavaScript\DepartmentMaster.js" />

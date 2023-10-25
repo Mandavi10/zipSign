@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>zipSign</title>
+
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
  
@@ -579,35 +580,44 @@
             font-size: 12px;
             color: #4d9b4d;
         }
-        .sectxt{
-            font-family:Roboto-Regular;
+
+        .sectxt {
+            font-family: Roboto-Regular;
         }
-        .bordline{
-            border-bottom:1px solid #cdcdcd;
+
+        .bordline {
+            border-bottom: 1px solid #cdcdcd;
         }
-        #vuserpin .modal-dialog{
-            max-width:400px !important;
+
+        #vuserpin .modal-dialog {
+            max-width: 400px !important;
         }
+
         .readwr .fancy-checkbox input[type="checkbox"] + span:before {
             height: 15px;
             width: 15px;
             line-height: 13px;
         }
+
         .readwr span {
             font-size: 12px;
-            margin-right:0px !important;
+            margin-right: 0px !important;
         }
+
         .readwr label {
             font-size: 12px;
             margin-right: 0px !important;
         }
-          .fancy-checkbox input[type="checkbox"] + span:before{
-            margin-right:5px !important;
+
+        .fancy-checkbox input[type="checkbox"] + span:before {
+            margin-right: 5px !important;
         }
-        .agrtxt{
-            font-size:11px !important;
-            font-family:Roboto-Regular;
+
+        .agrtxt {
+            font-size: 11px !important;
+            font-family: Roboto-Regular;
         }
+
         .fancy-checkbox {
             margin-right: 0px;
         }
@@ -1316,7 +1326,7 @@
     </div>
 
 
-    <div class="modal fade" id="chooseCertPopup" role="dialog" aria-modal="true" >
+    <div class="modal fade" id="chooseCertPopup" role="dialog" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -1332,7 +1342,7 @@
                             <table class="table mb-0" style="overflow: hidden;">
                                 <thead style="display: inline-block; width: 100%;">
                                     <tr>
-                                      
+
                                         <th style="width:45px" class=""></th>
                                         <th style="width:150px" class="">Cert Name</th>
                                         <th style="width:150px" class="">Signer Name</th>
@@ -1428,26 +1438,26 @@
 
                 </div>
                 <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-primary">Sign</button>
-                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Sign</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="vuserpin" role="dialog" aria-modal="true" >
+    <div class="modal fade" id="vuserpin" role="dialog" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="title m-0" id="defaultModalLabel">Verify user PIN</h5>
                 </div>
                 <div class="modal-body">
-                
+
                     <div class="col-12 text-center mt-2 pb-2">
                         <label class="">Now verify your user PIN</label>
                     </div>
 
-                
+
                     <div class="col-md-12">
                         <div class="form-group col-md-12">
                             <label for="">User PIN</label>
@@ -1455,7 +1465,7 @@
                         </div>
                     </div>
 
-               
+
 
                 </div>
                 <div class="modal-footer">
@@ -1469,9 +1479,8 @@
 
 
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-    @*<script>var j = jQuery.noConflict();</script>*@
-   
-    <script src="~/Content/js/bootstrap.min.js"></script>
+   <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/JavaScript/SigningRequest.js"></script>
 
     <script src="~/Content/js/ag-grid-community.min.js"></script>
     <script src="~/JavaScript/SigningRequest.js"></script>

@@ -905,49 +905,39 @@ namespace zipSign.Controllers
                 return Json("");
             }
         }
-        public JsonResult SendEmailAfterSuccess(string Email, string SignerName, int SignerID, string FilePath, string UploadedDocumentId)
+        public JsonResult SendEmailAfterSuccess(string recipientEmail, string signerName, int signerID, string filePath, string uploadedDocumentId)
         {
-            using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
+            using (MailMessage message = new MailMessage("rohan153555@gmail.com", recipientEmail))
             {
-                msg.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
-                msg.Subject = "Document Sign Confirmation";
 
-                string messageWithExpiration = $"Dear {SignerName},\n\n";
-                messageWithExpiration += "Thank you for signing the document.\n\n";
-                messageWithExpiration += "You can download the document from the link below:\n\n";
-                string baseUrl = "http://localhost:50460/zipSign/SigningRequest";
-
-                //string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
-                string urlWithEncodedFileId = $"{baseUrl}?FilePath={FilePath}";
-
-                string downloadLink = $"<a href=\"{urlWithEncodedFileId}\">Download the document</a>";
+                message.From = new MailAddress("rohan153555@gmail.com", "Team zipSign");
+                message.Subject = "Document Sign Confirmation";
+                string emailBody = $"Dear {signerName},\n\n";
+                emailBody += "Thank you for signing the document.\n\n";
+                emailBody += "You can download the document from the link below:\n\n";
+                string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
+                string downloadLink = $"{baseUrl}?FilePath={filePath}";
+                string formattedDownloadLink = $"<a href=\"{downloadLink}\">Download the document</a>";
 
                 string supportEmail = "support@zipsign.com";
-
                 string disclaimer = "\n\n---\n\n";
                 disclaimer += "This is an automated message. Please do not reply to this email.";
-
-                msg.Body = $"{messageWithExpiration}{downloadLink}\n\n";
-                msg.Body += $"If you encounter any issues or have any questions, please do not hesitate to contact our support team at {supportEmail}.\n\n";
-                msg.Body += "Regards,\nTeam zipSign\n\n{disclaimer}";
-
-                msg.IsBodyHtml = true;
-
-                SmtpClient smtp = new SmtpClient
+                message.Body = $"{emailBody}{formattedDownloadLink}\n\n";
+                message.Body += $"If you encounter any issues or have any questions, please do not hesitate to contact our support team at {supportEmail}.\n\n";
+                message.Body += "Regards,\nTeam zipSign\n\n{disclaimer}";
+                message.IsBodyHtml = true;
+                using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
                 {
-                    Host = "smtp.gmail.com",
-                    EnableSsl = true
-                };
-                NetworkCredential networkCredential = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
-                smtp.UseDefaultCredentials = false; // Set to false to use network credentials
-                smtp.Credentials = networkCredential;
-                smtp.Port = 587;
-
-                smtp.Send(msg);
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Credentials = new NetworkCredential("rohan153555@gmail.com", "your-email-password");
+                    smtpClient.Send(message);
+                }
             }
-            redirectUrl = FilePath;
-            return Json("");
+            string redirectUrl = filePath; 
+            return Json( "");
         }
+
         public JsonResult GetSignerData(string UploadedDocumentId)
         {
             string UploadedDocument = AESEncryption.AESEncryptionClass.DecryptAES(UploadedDocumentId);
