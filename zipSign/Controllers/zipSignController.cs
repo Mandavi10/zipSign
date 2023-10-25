@@ -167,10 +167,14 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("ReferenceNumber", objsign.ReferenceNumber));
                 obj.Add(new DataItems("filePath", objsign.filePath));
                 obj.Add(new DataItems("SignerType", UserType));
+                obj.Add(new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])));
                 obj.Add(new DataItems("IsSent", 0));
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
+                string userName, userEmail;
+                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out userName, out userEmail);
+                LogTrail("", "Document Upload", userName, userEmail, UploadedDocumentId, UserType);
                 if (statusClass.StatusCode >= 0)
                 {
                     List<DataItems> obj1 = new List<DataItems>
@@ -178,6 +182,7 @@ namespace zipSign.Controllers
                         new DataItems("SignerType", UserType),
                         new DataItems("UniqueSignerID", UniqueID),
                         new DataItems("UploadedDocumentId", UploadedDocumentId),
+                       new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
                         new DataItems("QuerySelector", "InsertSigner")
                     };
                     statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
@@ -191,11 +196,14 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("UploadedDoc", objsign.UploadedDoc));
                 obj.Add(new DataItems("DocumentName", objsign.DocumentName));
                 obj.Add(new DataItems("ReferenceNumber", objsign.ReferenceNumber));
+                obj.Add(new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])));
                 obj.Add(new DataItems("filePath", objsign.filePath));
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
-                LogTrail("", "Document Upload", "User", "User@gmail.com", UploadedDocumentId);
+                string userName, userEmail;
+                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out userName, out userEmail);
+                LogTrail("", "Document Upload", userName, userEmail, UploadedDocumentId, UserType);
                 if (statusClass.StatusCode >= 0)
                 {
                     string SignerExpiry = "";
@@ -226,7 +234,8 @@ namespace zipSign.Controllers
                             new DataItems("DocumentExpiryDay", signer.DocumentExpiryDay),
                             new DataItems("IsSent", i),
                             new DataItems("UniqueSignerID", UniqueID),
-                            new DataItems("QuerySelector", "InsertSigner")
+                           new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
+                        new DataItems("QuerySelector", "InsertSigner")
                         };
                         statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
                         EmailToSend = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerEmail"]);
@@ -245,7 +254,7 @@ namespace zipSign.Controllers
                 return Json(result1, JsonRequestBehavior.AllowGet);
             }
         }
-        public void LogTrail(string SignerID, string description, string signername, string Email, int UploadedDocumentId)
+        public void LogTrail(string SignerID, string description, string signername, string Email, int UploadedDocumentId, string UserType)
         {
             string connectionString = GlobalMethods.Global.DocSign.ToString();
             try
@@ -253,7 +262,7 @@ namespace zipSign.Controllers
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "INSERT INTO TblSignerDetailTrailLog (UniqueSignerID, Action, UserName, EmailID,UploadedDocumentId,CreatedOn) " + "VALUES (@UniqueSignerID, @Action, @UserName, @EmailID,@UploadedDocumentId,@CreatedOn)";
+                    string sql = "INSERT INTO TblSignerDetailTrailLog (UniqueSignerID, Action, UserName, EmailID,UploadedDocumentId,CreatedOn,UserType) " + "VALUES (@UniqueSignerID, @Action, @UserName, @EmailID,@UploadedDocumentId,@CreatedOn,@UserType)";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
@@ -263,6 +272,7 @@ namespace zipSign.Controllers
                         command.Parameters.AddWithValue("@EmailID", Email);
                         command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
                         command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
+                        command.Parameters.AddWithValue("@UserType", UserType);
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
@@ -280,6 +290,40 @@ namespace zipSign.Controllers
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
+
+
+        public void GetUserDataForTrail(int Id, out string userName, out string userEmail)
+        {
+            userName = string.Empty;
+            userEmail = string.Empty;
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT Name, Email FROM TblUserMaster WHERE UserMasterID=@UserMasterID", connection))
+                    {
+                        command.Parameters.AddWithValue("@UserMasterID", Id);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                userName = reader["Name"].ToString();
+                                userEmail = reader["Email"].ToString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
+
+
         [HttpPost]
         public ActionResult UploadFiles()
         {
@@ -590,8 +634,10 @@ namespace zipSign.Controllers
                 querySelector = "Search"; // Set query selector for search operation
                 obj.Add(new DataItems("UploadedFileName", objpage.keyword));
             }
+            int Id = Convert.ToInt32(Session["UserId"]);
             obj.Add(new DataItems("QuerySelector", querySelector));
             obj.Add(new DataItems("PageCount", objpage.pagecount));
+            obj.Add(new DataItems("UploadedBy", Id));
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
             if (statusClass.DataFetch.Tables[0].Rows.Count > 0)
             {
@@ -640,23 +686,22 @@ namespace zipSign.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
-        // -------------------------------------------BUY MORE SIGN (My_Signs) Functionality
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public ActionResult SendToSigningRequest(int fileCode)
+        {
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("DocumentUploadId", fileCode),
+                new DataItems("QuerySelector", "ShowData")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
+            string UploadedFileName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedFileName"]);
+            string FilePath = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["FilePath"]);
+            string UploadedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedBy"]);
+            return Json(UploadedFileName, FilePath, JsonRequestBehavior.AllowGet);
+        }
     }
 }

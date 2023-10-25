@@ -15,6 +15,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        [Authorize]
         public string DeleteOldFiles(int CustomDays)
         {
             DirectoryInfo yourRootDir = new DirectoryInfo(Server.MapPath(@"\Uploads\SignUpload"));

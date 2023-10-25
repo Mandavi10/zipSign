@@ -15,8 +15,6 @@ namespace zipSign.Controllers.APIs
         private readonly ProcMaster pro = new ProcMaster();
         private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-
-
         [HttpPost]
         [Route("SignUpAPI/SignUp")]
         public IHttpActionResult SignUp([FromBody] JObject requestData)

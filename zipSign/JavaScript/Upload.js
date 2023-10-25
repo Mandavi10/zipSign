@@ -6,16 +6,13 @@ var SignerType = '';
 var UpoladedId = '';
 var keyword = $('#searchInput').val();
 var i;
-
 $(document).ready(function () {
-
     //DeleteOldFilesUptoCustomDays();
-    //var UserMasterID = sessionStorage.getItem('UserId');
-    //if (UserMasterID == "" || UserMasterID == null) {
-    //    window.location.href = "/Login/Index";
-    //}
+    var UserMasterID = sessionStorage.getItem('UserId');
+    if (UserMasterID == "" || UserMasterID == null) {
+        window.location.href = "/Login/Index";
+    }
     var userDataString = sessionStorage.getItem('user_data');
-    var userData = JSON.parse(userDataString);
     $('#SendLink').click(function () {
         if (isValidData() == false) {
             $('#successpopup').modal('hide');
@@ -28,14 +25,12 @@ $(document).ready(function () {
     });
 
     $('#btnok').click(function () {
-
         SignInsert();
         window.location.href = "/Dashboard/Index2";
     });
     $("#SendLink").hide();
     $("#Proceed").hide();
     $("#SendLink").hide();
-    //document.getElementById("ExpDate").disabled = true;
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -46,93 +41,15 @@ $(document).ready(function () {
     $("#OnlySigner").val('');
     $("#AddRecipient").val('');
     $("#viewrec").hide();
-
     GetData(pagecount, keyword)
     $('.suggestions-list').hide();
-
     $("#viewrec").click(function () {
         updateGridData();
     });
-
 });
-
-
 var suggestionsList = $(".suggestions-list");
-
-//function DeleteOldFilesUptoCustomDays() {
-//    ;
-//    $.ajax({
-//        url: '/Accounts/DeleteOldFiles',  // Replace with the actual URL
-//        data: {
-//            CustomDays: "30",
-//        },
-//        success: function (suggestionData) {
-
-//        },
-//        error: function (err) {
-//            console.error(err);
-//        }
-//    });
-//}
-
-//$('#btnok').click(function () {
-//    window.location.href = "/Dashboard/Index2";
-//});
-
-//$(document).on("input", '[id^="Name"]', function () {
-
-//    var inputField = this;
-//    var suggestionList = $(this).closest('.signerdiv').find('.suggestions-list');
-//    var inputValue = $(this).val().toLowerCase();
-//    if (inputValue.length === 0) {
-//        suggestionList.empty();
-//        suggestionList.hide();
-//        return; // Exit the event handler early
-//    }
-//    $.ajax({
-//        url: '/zipSign/GetSuggestions',  // Replace with the actual URL
-//        type: 'GET',
-//        data: { userName: inputValue },  // Pass the input value to the server
-//        success: function (suggestionData) {
-//            //
-//            if (suggestionData.length > 0) {
-//                // If suggestions are found, show the suggestion list
-//                suggestionList.empty();
-//                suggestionData.forEach(function (item) {
-//                    suggestionList.append('<li class="suggestion-item">' + item.Name + ' - ' + item.Email + ' - ' + item.Mobile + '</li>');
-//                });
-//                suggestionList.show();
-//            } else {
-//                // If no suggestions are found, hide the suggestion list
-//                suggestionList.empty();
-//                suggestionList.hide();
-//            }
-//        },
-//        error: function (err) {
-//            console.error(err);
-//        }
-//    });
-//});
-
-//$(document).on("click", ".suggestions-list .suggestion-item", function () {
-//    //;
-//    var suggestionText = $(this).text();
-//    var suggestionParts = suggestionText.split(' - ');
-//    var inputFieldName = $(this).closest('.signerdiv').find('[id^="Name"]');
-//    var inputFieldEmail = $(this).closest('.signerdiv').find('[id^="Email"]');
-//    var inputFieldMobile = $(this).closest('.signerdiv').find('[id^="phone"]');
-//    inputFieldName.val(suggestionParts[0]);
-
-//    inputFieldEmail.val(suggestionParts[1]);
-//    inputFieldMobile.val(suggestionParts[2]);
-
-//    $(this).closest('.suggestions-list').empty();  // Clear suggestion list
-//    $('.suggestions-list').hide();
-
-//});
 $("#AddRecipient").click(function () {
     AddRecipiants(1);
-
     $("#SendLink").show();
     $("#Proceed").hide();
     $(".numdiv").show();
@@ -140,7 +57,6 @@ $("#AddRecipient").click(function () {
     $(".recipientcheck").show();
 });
 $("#OnlySigner").click(function () {
-    //
     SignerType = "Single_Signer";
     sessionStorage.setItem('Single_Signer', SignerType);
     $("#Proceed").show();
@@ -149,59 +65,7 @@ $("#OnlySigner").click(function () {
     $(".reccol1").hide();
     $(".recipientcheck").hide();
 });
-//    //
-//    $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
-//        $("#message").empty();
-//        row = '';
-//    });
-//    if ($(this).is(":checked")) {
-//        AddRecipiants(1);
-//        document.getElementById("OnlySigner").disabled = true;
-//        document.getElementById("AddRecipient").disabled = false;
-//        document.getElementById("ExpDate").disabled = false;
-//        $("#Proceed").hide();
-//        $("#SendLink").show();
-//        $("#viewrec").show();
-//        $(".numdiv").show();
-//        $(".reccol1").show();
-//        $(".recipientcheck").show();
-//    } else {
-//        document.getElementById("OnlySigner").disabled = false;
-//        $("#Proceed").show();
-//        $("#SendLink").show();
-//        $(".numdiv").hide();
-//        $(".reccol1").hide();
-//        $(".recipientcheck").hide();
-//    }
-//});
-//$("#OnlySigner").click(function Signer() {
-//    $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
-//        $("#message").empty();
-//        row = '';
-//    });
-//    if ($(this).is(":checked")) {
-//        //;
-//        SignerType = "Single_Signer";
-//        sessionStorage.setItem('Single_Signer', SignerType);
-//        document.getElementById("ExpDate").disabled = true;
-//        document.getElementById("AddRecipient").disabled = true;
-//        document.getElementById("OnlySigner").disabled = false;
-//        $("#SendLink").hide();
-//        $("#Proceed").show();
-//        $("#controlling").attr("disabled", true);
-//        $("#viewrec").hide();
-//    }
-//    else {
-//        document.getElementById("OnlySigner").disabled = false;
-//        document.getElementById("AddRecipient").disabled = false;
-//        $("#controlling").removeAttr("disabled");
-//        //$("#Proceed").show();
-//        //$("#SendLink").show();
-//    }
-//});
-// Function to add recipients to the data array
 function addRecipientData() {
-
     $("#Name, #Email, #phone, #ExpDate,#Email, #text-input1,#SignImage,#ExpDate").on('input', function () {
         $("#message").empty();
         row = '';
@@ -212,8 +76,6 @@ function addRecipientData() {
         var Name = $('#Name' + i).val();
         var Email = $('#Email' + i).val();
         var Mobile = $('#phone' + i).val();
-        var ExpDay = $('#ExpDate' + i).val();
-
         var recipient = {
             DocumentUploadId: i,
             SignerName: Name,
@@ -264,29 +126,23 @@ function isValidData() {
     }
 
     if (isDuplicate) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Duplicate email or phone number found.</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Duplicate email or phone number found.</div>';
         $("#message").append(row);
         return false;
     }
 
     if ($("#text-input1").val().trim() === '') {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Document Name</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please Enter Document Name</div>';
         $("#message").append(row);
         $("#text-input1").focus();
         return false;
     }
     if ($('#SignImage').get(0).files.length === 0) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Select A File</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please Select A File</div>';
         $("#message").append(row);
         $("#SignImage").focus();
         return false;
     }
-    //if ($("#ExpDate").val() === '') {
-    //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Document Expire(In Days)</div>';
-    //    $("#message").append(row);
-    //    $("#ExpDate").focus();
-    //    return false;
-    //}
     if (checkedRadioButtonId == "AddRecipient") {
         var ValidatorFor = [];
         ValidatorFor.push(["DocName", "Required", "Please enter Document Name"]);
@@ -299,45 +155,45 @@ function isValidData() {
             var phoneField = $("#phone" + j).val().trim();
             var expiryday = $("#ExpDate" + j).val().trim();
             if (nameField === "") {
-                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' name should not be empty.</div>';
+                var row = '<div class="col-md-12 p-1" role="alert">Recipient ' + j + ' name should not be empty.</div>';
                 $("#message").append(row);
                 $("#Name" + j).focus();
                 return false;
             }
 
             if (emailField === "") {
-                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' email should not be empty.</div>';
+                var row = '<div class="col-md-12 p-1" role="alert">Recipient ' + j + ' email should not be empty.</div>';
                 $("#message").append(row);
                 $("#Email" + j).focus();
                 return false;
             }
             else if (!/^[\w\.\-]+@[a-zA-Z\d\-]+(\.[a-zA-Z]+)*\.[a-zA-Z]{2,}$/.test(emailField)) {
-                row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
+                row = '<div class="col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
                 $("#message").append(row);
                 $("#Email").focus();
                 return false;
             }
 
             if (phoneField === "") {
-                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' mobile no. should not be empty.</div>';
+                var row = '<div class="col-md-12 p-1" role="alert">Recipient ' + j + ' mobile no. should not be empty.</div>';
                 $("#message").append(row);
                 $("#phone" + j).focus();
                 return false;
             }
             else if (!/^[6-9]\d{9}$/.test(phoneField)) {
-                row = '<div class="alermsg col-md-12 p-1" role="alert">Mobile Number should be 10 Digits and only starts with 6/7/8/9</div>';
+                row = '<div class="col-md-12 p-1" role="alert">Mobile Number should be 10 Digits and only starts with 6/7/8/9</div>';
                 $("#message").append(row);
                 $("#Phoneno").focus();
                 return false;
             }
             if (expiryday === "") {
-                var row = '<div class="alermsg col-md-12 p-1" role="alert">Recipient ' + j + ' Expiry day should not be empty.</div>';
+                var row = '<div class="col-md-12 p-1" role="alert">Recipient ' + j + ' Expiry day should not be empty.</div>';
                 $("#message").append(row);
                 $("#ExpDate" + j).focus();
                 return false;
             }
             else if (!/^[0-9]+$/.test(expiryday)) {
-                row = '<div class="alermsg col-md-12 p-1" role="alert">Give expiry days in day</div>';
+                row = '<div class="col-md-12 p-1" role="alert">Give expiry days in day</div>';
                 $("#message").append(row);
                 $("#ExpDate" + j).focus();
                 return false;
@@ -374,7 +230,7 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     if (!allowedExtensions.includes(fileExtension)) {
         // File extension validation
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Only PDF files are allowed.</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Only PDF files are allowed.</div>';
         $("#message").append(row);
         fileInput.value = '';
         return false;
@@ -383,8 +239,6 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     }
     var reader = new FileReader();
     reader.onload = function (e) {
-
-
         $("#" + Preview).attr("src", e.target.result);
         $("#document-preview-frame").attr("src", e.target.result); // Set the src attribute of the iframe
         var fileName = $("#" + FileUploader)[0].files[0].name;
@@ -429,13 +283,11 @@ function UploadImages(FileUploader, Preview, ColumnName) {
                 filePathss = filePath;
                 sessionStorage.setItem('uploadedFilePath', filePath);
                 sessionStorage.setItem('LoaclPath', LoaclPath);
-
                 var absoluteFilePath = result.status;
                 var relativePath = absoluteFilePath.replace("D:\\Project\\ZipSign\\zipSign\\zipSign", ""); // Adjust this based on your project structure
                 $("#hdnfilepath").val(relativePath);
                 $("#Hdnfield").val(filePath);
                 $("#" + Preview).attr("src", relativePath);
-
             },
             error: function (err) {
                 console.log(err);
@@ -626,8 +478,7 @@ function GetData(pagecount, keyword) {
             resizable: false,
             suppressMovable: true,
             cellRenderer: function (params) {
-
-                return '<span class="fa fa-sign-in gridIcon" id=""></span><span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
+                return '<span class="fa fa-sign-in gridIcon" data-file-Code="' + params.data.DocumentUploadId + '" id="SendToSigningRequest"></span><span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
             }
         },
     ];
@@ -709,6 +560,10 @@ function GetData(pagecount, keyword) {
                         var fileCode = params.event.target.getAttribute('data-file-Code');
                         Delete(fileCode);
                     }
+                    else {
+                        var fileCode = params.event.target.getAttribute('data-file-Code');
+                        SendToSigningRequest(fileCode);
+                    }
                 },
                 rowSelection: 'multiple',
             };
@@ -741,11 +596,68 @@ function Delete(DocumentUploadId) {
 }
 
 
+function SendToSigningRequest(fileCode) {
+    $.ajax({
+        type: 'POST',
+        url: '/Login/VerifyMobile',
+        dataType: 'json',
+        data: {
+            fileCode: fileCode
+            
+        },
+        async: false,
+        success: function (result) {
+
+            if (result.Status == 1) {
+                if (result.msg == 1) {
+                    $("#successmsg1").hide();
+                    window.location.href = "/zipSign/SigningRequest?UId=" + UID;
+
+                } else {
+                    $("#successmsg1").empty();
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    $("#successmsg1").append(row);
+                    $("#signin-otp").val('');
+                }
+            }
+            else {
+                if (result.msg == 1) {
+                    window.location.href = "/zipSign/SigningRequest?UId=" + UID;
+                    //window.location.href = "/zipSign/SigningRequest?File=" + result.Path + "&SignerName=" + SignerName + "&Fileid=" + Fileid + "&Emailid=" + Emailid + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
+                } else {
+                    $("#successmsg1").empty();
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    $("#successmsg1").append(row);
+                    $("#signin-otp").val('');
+                }
+            }
+
+        },
+        error: function (ex) {
+            console.log("Error occurred during OTP verification");
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, SignerExpiry) {
-
-
     var FilePath = sessionStorage.getItem('LoaclPath');
     $.ajax({
         url: '/NSDL/SendVerifyLinkByEmail',
@@ -769,7 +681,6 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
 }
 
 function SignInsert() {
-    
     var fileName = $("#SignImage").val();
     var cleanFileName = fileName.replace(/^.*\\/, "");
     console.log("DocumentName: " + cleanFileName);
@@ -786,7 +697,6 @@ function SignInsert() {
     $('.signerdiv').each(function (index) {
 
         var recipient = {
-
             Name: $(this).find('[id^="Name"]').val(),
             Email: $(this).find('[id^="Email"]').val(),
             MobileNumber: $(this).find('[id^="phone"]').val(),
@@ -809,17 +719,14 @@ function SignInsert() {
             UserType: signerType
         },
         success: function (result) {
-
             var UploadedDocumentId = result.UploadedDocumentId
-
             sessionStorage.setItem('UploadedDocumentId', UploadedDocumentId);
             sessionStorage.setItem('UniqueSignerID', UniqueSignerID);;
-
             if (result.UserType == "Single Signer") {
-                //;
                 var SignerID = result.SignerID;
                 sessionStorage.setItem('SignerID', SignerID);
-                window.location = "/zipSign/SigningRequest";
+                var redirectUrl = "/zipSign/SigningRequest?UType=" + encodeURIComponent(result.UserType) + "&UploadedDocumentId=" + encodeURIComponent(UploadedDocumentId);
+                window.location.href = redirectUrl;
             }
             else {
                 var UploadedDocumentId = result.UploadedDocumentId;
@@ -837,9 +744,7 @@ function SignInsert() {
             //alert("Error");
         }
     });
-
 }
-
 $(document).on("keyup", 'input[id^="Email"], input[id^="phone"]', function () {
     var currentValue = $(this).val().trim();
     var currentFieldId = $(this).attr("id");
@@ -867,7 +772,7 @@ function CheckExpiryDate() {
     var c = parseInt($("#ExpDate3").val()) || 0;
     if (isNaN(a) || isNaN(b) || isNaN(c)) {
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid Input! Please Enter Valid Numbers</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Invalid Input! Please Enter Valid Numbers</div>';
         $("#message").append(row);
         $("#ExpDate").focus();
         document.getElementById("MoreRecipient").disabled = true;
@@ -878,7 +783,7 @@ function CheckExpiryDate() {
 
     if (sum >= Total) {
         $("#message").empty();
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">You reached the Maximum</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">You reached the Maximum</div>';
         $("#message").append(row);
         $("#ExpDate").focus();
         document.getElementById("MoreRecipient").disabled = true;
@@ -896,13 +801,10 @@ $("#viewrec").click(function () {
 
 
 function DownloadOriginalFile() {
-    //
     window.location = '/zipSign/DownloadFile'; // Simply navigate to the download URL
 }
 function Search() {
-    //
     var keyword = $('#searchInput').val(); // Retrieve the keyword from the search input field
-    var pagecount = 1; // Reset the page count to 1 after performing a search
-
+    var pagecount = 1; 
     GetData(pagecount, keyword); // Call the modified GetData function with the keyword
 }

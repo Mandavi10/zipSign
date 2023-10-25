@@ -1017,7 +1017,7 @@
 
                         </div>
                         @*/<iframe src="https://www.google.com" id=""></iframe>*@
-                        <div class="col-12 iframeDiv" style="display:none">
+                        <div class="col-12 iframeDiv p-2" style="display:none">
                             <div id="iDiv">
 
                                 <div class="col-md-12 col-sm-12 col-xs-12" id="consentDiv" style="text-align: justify; height: 372px;">
@@ -1638,13 +1638,11 @@
 
 
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-    <script>var jquery_3_6 = jQuery.noConflict();</script>
+    @*<script>var $ = jQuery.noConflict();</script>*@
     @*<script src="~/JavaScript/RequestSign.js"></script>*@
-
     <script src="~/JavaScript/SigningRequest.js"></script>
     @*<script src="~/JavaScript/Page_Load.js"></script>*@
     @*<script src="~/JavaScript/Upload.js"></script>*@
-
     @*<script src="~/Content/js/libscripts.bundle.js"></script>*@
     <script src="~/Content/js/vendorscripts.bundle.js"></script>
     @*<script src="~/Content/js/toastr.js"></script>*@
@@ -1653,36 +1651,30 @@
     <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/Content/js/index.js"></script>
     <script src="~/Content/js/ag-grid-community.min.js"></script>
-
-
-
-
     <script>
-        jquery_3_6(document).ready(function () {
+        $(document).ready(function () {
             $(".opencorp").click(function () {
-                jquery_3_6(".allcorp").toggle();
+                $(".allcorp").toggle();
                 event.stopPropagation()
             });
         });
 
     </script>
     <script>
-
-
-        jquery_3_6(document).ready(function () {
+        $(document).ready(function () {
             let url = window.location.href;
-            jquery_3_6('#main-menu li a').each(function () {
+            $('#main-menu li a').each(function () {
                 if (this.href === url) {
-                    jquery_3_6('#main-menu li').removeClass('active');
-                    jquery_3_6(this).parent().addClass('active');
+                    $('#main-menu li').removeClass('active');
+                    $(this).parent().addClass('active');
                 }
             })
-            jquery_3_6('#main-menu li ul li a').each(function () {
+            $('#main-menu li ul li a').each(function () {
                 if (this.href === url) {
-                    jquery_3_6('#main-menu li').removeClass('active');
-                    jquery_3_6(this).parent().addClass('active');
-                    jquery_3_6(this).closest('ul').addClass('in');
-                    jquery_3_6(this).closest('ul').parent().addClass('active');
+                    $('#main-menu li').removeClass('active');
+                    $(this).parent().addClass('active');
+                    $(this).closest('ul').addClass('in');
+                    $(this).closest('ul').parent().addClass('active');
                 }
             })
         })
@@ -1768,152 +1760,6 @@
         var cols_1 = document.querySelectorAll('#columns_1 .column');
         [].forEach.call(cols_1, addDnDHandlers);
     </script>
-    @*<script>
-            jquery_3_6(document).ready(function () {
-                var scaleFactor = 1.5; // Adjust this scale factor according to your PDF's display scale
-                jquery_3_6('.btnSign').click(function () {
-                    filePath = $("#hdnFilePath1").val();
-                    $.ajax({
-                        type: 'GET',
-                        url: '/NSDL/GetPdfPageSizesInPixels',
-                        dataType: 'json',
-                        data: {
-                            pdfPath: filePath
-                        },
-                        async: false,
-                        success: function (response) {
-                            console.log('PDF page size:', response);
-
-                            // Display the width and height of the first page of the PDF in an alert box
-                            var pageWidth = response[0].width;
-                            var pageHeight = response[0].height;
-
-                            alert('Page 1: ' + pageWidth + 'px x ' + pageHeight + 'px');
-                        },
-                        error: function (error) {
-                            console.error('Error fetching PDF page size:', error);
-                        }
-                    });
-
-                    //$.ajax({
-                    //    type: 'GET',
-                    //    url: '/NSDL/GetPdfPageSizesInPixels',
-                    //    dataType: 'json',
-                    //    data: {
-                    //        pdfPath: filePath
-                    //    },
-                    //    async: false,
-                    //    success: function (response) {
-                    //        debugger
-                    //        console.log('PDF page sizes:', response);
-                    //        // Iterate over the list of PDF page sizes and display them in an alert box
-                    //        for (var i = 0; i < response.length; i++) {
-                    //            var pageWidth = response[i].WidthInPixels;
-                    //            var pageHeight = response[i].HeightInPixels;
-
-                    //            alert('Page ' + (i + 1) + ': ' + pageWidth + 'px x ' + pageHeight + 'px');
-                    //        }
-                    //    },
-                    //    error: function (error) {
-                    //        console.error('Error fetching PDF page sizes:', error);
-                    //    }
-                    //});
-
-
-                    jquery_3_6('.firsthalfmdl').append("<div class='signer' style='display:block'>Signer 1<span class='cross'>x</span></div>");
-
-                    //jquery_3_6('.signer').draggable(
-                    //    {
-                    //        stop: function (event, ui) {
-                    //            debugger
-                    //            var position = ui.position;
-                    //            var iframeWidth = jquery_3_6('#PreviewSignImage1').width();
-                    //            var iframeHeight = jquery_3_6('#PreviewSignImage1').height();
-                    //            var pdfPageX = (position.left / scaleFactor);
-                    //            var pdfPageY = (position.top / scaleFactor);
-                    //            var distanceFromBottom = iframeHeight / scaleFactor - pdfPageY - jquery_3_6('.signer').height();
-                    //            var distanceFromLeft = pdfPageX;
-                    //            var iframe = document.getElementById('PreviewSignImage1');
-                    //            var currentPageNum = 0;
-
-                    //            try {
-                    //                var iframeContent = iframe.contentDocument || iframe.contentWindow.document;
-                    //                currentPageNum = iframeContent.getElementById('pageNumber').textContent;
-                    //            } catch (error) {
-                    //                console.error('Error accessing iframe content:', error);
-                    //            }
-                    //            alert('Page ' + currentPageNum);
-                    //        }
-                    //    });
-
-                    // Handle cross button click
-                    jquery_3_6('.cross').click(function () {
-                        jquery_3_6(this).parent().hide();
-                    });
-                });
-            });
-
-        </script>*@
-
-
-    @*/////////////////////////////////////*@
-    <script>
-            jquery_3_6(document).ready(function () {
-                var scaleFactor = 1.5;
-                filePath = $("#hdnFilePath1").val();
-                jquery_3_6('.btnSign').click(function () {
-                    var iframe = document.getElementById('PreviewSignImage1');
-                    var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-                    var coordinates = function (element) {
-                        element = jquery_3_6(element);
-                        var rect = element[0].getBoundingClientRect();
-                        var height = rect.height;
-                        //var containerHeight = jquery_3_6('#PreviewSignImage1').height(); // Total height of the PDF page
-                        var containerHeight = iframeDoc.body.scrollHeight;
-                        var distanceFromBottom = containerHeight - (rect.top + height); // Distance from the bottom of the PDF page
-
-                        jquery_3_6('#results').text('Distance from Bottom: ' + distanceFromBottom);
-                    }
-                    jquery_3_6('.firsthalfmdl').append("<div class='signer' id='signer1' style='display:block'>Signer 1<span class='cross'>x</span></div>");
-
-                    var signerElement = jquery_3_6('.signer');
-
-                    signerElement.draggable({
-                        start: function () {
-                            coordinates('.signer');
-                        },
-                        stop: function (event, ui) {
-                            coordinates('.signer');
-                            var top = ui.position.top-58;
-                            var left = ui.position.left-162;
-                            var width = signerElement.width();
-                            var height = signerElement.height();
-
-                            jquery_3_6.ajax({
-                                url: '/NSDL/SaveCoordinates', 
-                                type: 'POST',
-                                data: {
-                                    left: left,
-                                    top: top,
-                                    width: width,
-                                    height: height,
-                                    pdfPath: filePath
-                                },
-                                success: function (response) {
-                                },
-                                error: function (error) {
-                                }
-                            });
-                        }
-                    });
-                    signerElement.resizable();
-
-                    jquery_3_6('.cross').click(function () {
-                        jquery_3_6(this).parent().hide();
-                    });
-                });
-            });
-        </script>
 
 </body >
 </html >
