@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -1316,6 +1317,39 @@ namespace zipSign.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult UpdateUserStatus(int userId)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@UserMasterID", userId);
+
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = "User not found or status not updated." });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { success = false, message = ex.Message });
+                    }
+                }
+            }
+        }
     }
 }
 

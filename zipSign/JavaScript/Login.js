@@ -390,6 +390,7 @@ function SignOut() {
     $.ajax({
         url: '/Login/SignOut',
         type: 'POST',
+
         data: {
             UserMasterID: UserMasterID
         },
@@ -438,7 +439,7 @@ function ForgotPassword() {
                 captchaInput: captchaInput
             },
             success: function (result) {
-                debugger;
+                
                 if (result.StatusCode === 9) {
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
                     $('#successpopup1').modal("show");

@@ -504,9 +504,7 @@ function GetData(pagecount, keyword) {
                     UploadedOn: value.UploadedOn,
                     UploadedBy: value.UploadedBy,
                 });
-
             });
-            //
             $("#Ddd").empty();
             var page = jsonData1[0].page;
             var size = jsonData1[0].size;
