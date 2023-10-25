@@ -274,7 +274,8 @@ function Continue() {
     if (selectedRadio == 'dsc') {
         row = '';
         $("#dscmsg").empty();
-        $('#dscPopup').modal('show');
+        jQuery.noConflict();
+        window.$('#dscPopup').modal('show');
         $('#continueButton').prop('disabled', true);
     }
     else {
