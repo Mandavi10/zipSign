@@ -49,8 +49,8 @@ namespace zipSign.Controllers
             bool flag = false;
             try
             {
-                var tagWithoutClosingRegex = new Regex(@"<(\s*[(\/?)\w+]*)");
-                var hasTags = tagWithoutClosingRegex.IsMatch(text.ToString());
+                Regex tagWithoutClosingRegex = new Regex(@"<(\s*[(\/?)\w+]*)");
+                bool hasTags = tagWithoutClosingRegex.IsMatch(text.ToString());
                 if (hasTags)
                 {
                     flag = true;

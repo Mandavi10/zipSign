@@ -286,6 +286,7 @@
     <Compile Include="Controllers\APIs\SendEmailForSignupController.cs" />
     <Compile Include="Controllers\APIs\SignUpAPIController.cs" />
     <Compile Include="Controllers\APIs\StateManagementForSignupController.cs" />
+    <Compile Include="Controllers\APIs\UploadFileAPIController.cs" />
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />

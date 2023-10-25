@@ -24,19 +24,6 @@ $(document).ready(function () {
             SendVerifyEmailOTP();
         }
     });
-    
-    //$checkbox.on("change", function () {
-        
-    //    // Check if the checkbox is checked
-    //    if ($checkbox.prop("checked")) {
-    //        // Enable the submit button
-    //        $submitButton.prop('disabled', false);
-    //    } else {
-    //        // Disable the submit button
-    //        $submitButton.prop('disabled', true);
-    //        $checkbox.focus();
-    //    }
-    //});
 });
 function RowClickEventHandler(UId) {
     
@@ -163,7 +150,7 @@ function VerifyOTP() {
 
                 } else {
                     $("#successmsg1").empty();
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
                     $("#successmsg1").append(row);
                     $("#signin-otp").val('');
                 }
@@ -174,7 +161,7 @@ function VerifyOTP() {
                     //window.location.href = "/zipSign/SigningRequest?File=" + result.Path + "&SignerName=" + SignerName + "&Fileid=" + Fileid + "&Emailid=" + Emailid + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
                 } else {
                     $("#successmsg1").empty();
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
                     $("#successmsg1").append(row);
                     $("#signin-otp").val('');
                 }

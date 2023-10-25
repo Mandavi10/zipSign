@@ -3,14 +3,8 @@ using BusinessLayerModel;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Mvc;
 
 namespace zipSign.Controllers.APIs
 {
@@ -19,8 +13,8 @@ namespace zipSign.Controllers.APIs
         public ProcMaster pro = new ProcMaster();
         private BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-        [System.Web.Http.HttpPost]
-        [System.Web.Http.Route("APIs/Login")]
+        [HttpPost]
+        [Route("APIs/Login")]
         public IHttpActionResult Login([FromBody] JObject requestData)
         {
             Login Data = requestData["Data"].ToObject<Login>();

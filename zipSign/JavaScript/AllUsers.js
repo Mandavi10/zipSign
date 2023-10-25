@@ -1,14 +1,13 @@
 ﻿var pagecount = 1;
 $(document).ready(function () {
     
-    //var UserMasterID = sessionStorage.getItem('UserId');
-    //if (UserMasterID == "" || UserMasterID == null) {
-    //    window.location.href = "/Login/Index";
-    //}
+    var UserMasterID = sessionStorage.getItem('UserId');
+    if (UserMasterID == "" || UserMasterID == null) {
+        window.location.href = "/Login/Index";
+    }
     GetData(pagecount);
 });
 function GetData(pagecount, keyword) {
-    ////
     $("#myGrid").html("");
     var columnDefs = [
         { headerName: 'Sr. No.', field: 'srNo', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1"},
@@ -20,14 +19,12 @@ function GetData(pagecount, keyword) {
 
         },
         //{ headerName: 'Department Code', field: 'DepartmentCode', width: 180, resizable: true, sortable: true, cellRenderer: function (params) { return '<a href="#" onclick="Click(\'' + params.data.DepartmentId + '\')" id="EditData">' + params.data.DepartmentCode + '</a>'; }, },
-
         { headerName: 'User Name', field: 'Username', width: 200, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'User Type', field: 'UserType', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Mobile App', field: 'Mobileapp', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Status', field: 'Active', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         {
             headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
-
                 return '<button type="button" class="ingridbtn view-more-btn" data-bs-toggle="modal" data-bs-target="#usermodal" data-User-Code="' + params.data.UserCode + '" onclick="ShowMore(this)">View More</button>';
             }
         

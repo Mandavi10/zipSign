@@ -102,7 +102,7 @@ $("#UPIID").on('input', function () {
 });
 
 function validateUpiId() {
-    debugger
+    
     var UPIID = $("#UPIID").val();
     if (isValidUpiId(UPIID)) {
         console.log("UPI ID is valid");
