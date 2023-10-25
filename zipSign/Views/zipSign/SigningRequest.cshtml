@@ -582,6 +582,45 @@
         .iframeDiv {
             min-height: 87vh !important;
         }
+
+
+
+        .dsctxt {
+            font-size: 12px;
+            color: #4d9b4d;
+        }
+        .sectxt{
+            font-family:Roboto-Regular;
+        }
+        .bordline{
+            border-bottom:1px solid #cdcdcd;
+        }
+        #vuserpin .modal-dialog{
+            max-width:400px !important;
+        }
+        .readwr .fancy-checkbox input[type="checkbox"] + span:before {
+            height: 15px;
+            width: 15px;
+            line-height: 13px;
+        }
+        .readwr span {
+            font-size: 12px;
+            margin-right:0px !important;
+        }
+        .readwr label {
+            font-size: 12px;
+            margin-right: 0px !important;
+        }
+          .fancy-checkbox input[type="checkbox"] + span:before{
+            margin-right:5px !important;
+        }
+        .agrtxt{
+            font-size:11px !important;
+            font-family:Roboto-Regular;
+        }
+        .fancy-checkbox {
+            margin-right: 0px;
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -617,7 +656,7 @@
                                 <button type="button" class="btn recbtn" title="Download" id="btnDownload" onclick="Download()">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </button>
-                                <div class="inidiv" onclick="SignOut()" title="Sign Out">
+                                <div class="inidiv" onclick="SignOut()" hidden title="Sign Out">
                                     <span class="fa fa-sign-out"></span>
 
 
@@ -664,7 +703,7 @@
                                         <div class="col-md-3" id="docdetails" style="">
 
                                             <div class="col-md-12 pb-2 pt-2">
-                                                <button type="button" class="btn recbtn col-md-12 btnSign" data-bs-toggle="tooltip" data-placement="bottom" title="" id="">
+                                                <button type="button" class="btn recbtn col-md-12 btnSign" data-bs-toggle="tooltip" data-placement="bottom" title="" id="" hidden>
                                                     Add Signer
                                                 </button>
                                             </div>
@@ -1637,6 +1676,158 @@
     </div>
 
 
+    <div class="modal fade" id="chooseCertPopup" role="dialog" aria-modal="true" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="title m-0" id="defaultModalLabel">Certificates</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 text-center">
+                        <label class="">Choose certificate for sign the document</label>
+                    </div>
+
+                    <div class="col-md-12 mt-4 mb-4">
+                        <div class="table-responsive">
+                            <table class="table mb-0" style="overflow: hidden;">
+                                <thead style="display: inline-block; width: 100%;">
+                                    <tr>
+                                      
+                                        <th style="width:45px" class=""></th>
+                                        <th style="width:150px" class="">Cert Name</th>
+                                        <th style="width:150px" class="">Signer Name</th>
+                                        <th style="width:150px" class="">Valid</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="overflow-y: auto; max-height: 56vh; display: inline-block; width: 100%;">
+                                    <tr>
+                                        <td style="width:45px">
+                                            <label class="fancy-checkbox custom-color-green">
+                                                <input type="checkbox" name="control" required id="OnlySigner">
+                                                <span><i></i></span>
+                                            </label>
+                                        </td>
+                                        <td style="width:150px">Prabhar Khattar</td>
+                                        <td style="width:150px">Prabhar Khattar</td>
+                                        <td style="width:150px">Yes</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Select</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="DSCsigning" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="title m-0" id="defaultModalLabel">DSC Signing</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 text-center">
+                        <label class="dsctxt"><i class="fa fa-check-circle pe-2" aria-hidden="true"></i>Successfully ZipSign DSC client located</label>
+                    </div>
+                    <div class="col-12 text-center mt-2 pb-2 bordline">
+                        <label class="">Signature certificate validation</label>
+                    </div>
+
+                    <div class="col-md-12 mt-3 mb-3">
+                        <div class="col-md-12 d-flex flex-wrap">
+                            <div class="col-md-4">
+                                <label for="">Name</label>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="sectxt">Prabhakar Khatri</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 d-flex flex-wrap">
+                            <div class="col-md-4">
+                                <label for="">Valid</label>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="sectxt">Yes</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="">Name in signed document</label>
+                            <input type="text" id="" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-2 pb-2">
+                        <label class="">Signed document will be sent to prabhakar@gmail.com</label>
+                    </div>
+
+
+                    <div class="col-12 pb-2 readwr d-flex">
+                        <label class="fancy-checkbox custom-color-green">
+                            <input type="checkbox" name="control" required id="OnlySigner">
+                            <span><i></i></span>
+                        </label>
+                        <label class="agrtxt">
+                            By clicking this checkbox and the sign button, I agree that the Digital Signature Certificate saved in the inserted USB will be used to sign documents
+                            for me. I also understand that receipients of such electronic documents will be able to see my signing documents.
+                        </label>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary">Sign</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="vuserpin" role="dialog" aria-modal="true" >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="title m-0" id="defaultModalLabel">Verify user PIN</h5>
+                </div>
+                <div class="modal-body">
+                
+                    <div class="col-12 text-center mt-2 pb-2">
+                        <label class="">Now verify your user PIN</label>
+                    </div>
+
+                
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="">User PIN</label>
+                            <input type="text" id="" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+
+               
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Change User PIN</button>
+                    <button type="button" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
     @*<script>var $ = jQuery.noConflict();</script>*@
     @*<script src="~/JavaScript/RequestSign.js"></script>*@
@@ -1761,5 +1952,5 @@
         [].forEach.call(cols_1, addDnDHandlers);
     </script>
 
-</body >
+</body>
 </html >
