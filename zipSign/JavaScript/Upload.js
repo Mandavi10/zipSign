@@ -594,7 +594,7 @@ function updateGridData() {
     var gridOptions1 = {
         columnDefs: columnDefs1,
         rowData: recipientsData,
-        pagination: true,
+        pagination: false,
         rowSelection: 'multiple',
     };
 

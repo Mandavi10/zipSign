@@ -3268,7 +3268,7 @@ html.fullscreen-bg, html.fullscreen-bg body, html.fullscreen-bg #wrapper {
             }
 
 .layout-fullwidth #wrapper .navbar-fixed-top {
-    width: calc(100% - 50px);
+    width: calc(100% - 0px);
     left: 0
 }
 
