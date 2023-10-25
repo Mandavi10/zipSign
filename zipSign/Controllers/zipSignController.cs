@@ -179,10 +179,12 @@ namespace zipSign.Controllers
                 {
                     List<DataItems> obj1 = new List<DataItems>
                     {
+                         new DataItems("SignerName", userName),
+                          new DataItems("SignerEmail", userEmail),
                         new DataItems("SignerType", UserType),
                         new DataItems("UniqueSignerID", UniqueID),
                         new DataItems("UploadedDocumentId", UploadedDocumentId),
-                       new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
+                        new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
                         new DataItems("QuerySelector", "InsertSigner")
                     };
                     statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);

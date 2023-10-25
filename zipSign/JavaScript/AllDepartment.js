@@ -1,7 +1,10 @@
 ﻿var pagecount = 1;
 var keyword;
 $(document).ready(function () {
-   
+    var UserMasterID = sessionStorage.getItem('UserId');
+    if (UserMasterID == "" || UserMasterID == null) {
+        window.location.href = "/Login/Index";
+    }
     GetData(pagecount);
     GetDataForSignedPDF(pagecount, keyword)
 

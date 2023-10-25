@@ -47,8 +47,8 @@ namespace zipSign.Controllers
             string aspId = "ASPYSPLMUMTEST223";
             string authMode = "1";
             _ = objModel.Fileid;
-            //string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
-            string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             string certificatePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\DSC_.p12\\YoekiDSC1.p12";
             string certificatePassward = "Creative0786!@#";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
@@ -697,10 +697,15 @@ namespace zipSign.Controllers
                 }
                 else
                 {
-                    SignerName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserName"]);
+                    Email = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerEmail"]);
+                    SignerName = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerName"]);
                     SignerAadhaar = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["AadhaarNo"]);
                     TxnId = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["TxnId"]);
                     string TimeStamp = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["TimeStamp"]);
+                    string SignerID1 = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UserMasterID"]);
+                    string UploadedDocumentId1 = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedDocumentId"]);
+                    SendEmailAfterSuccess(Email, SignerName, SignerID, FilePath, UploadedDocumentId);
+                    LogTrailforSingleSingner(SignerID1.ToString(), "Document Signed", SignerName, Email, int.Parse(UploadedDocumentId1), "Single Signer");
                     redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp;
                     //redirectUrl = FilePath + "/" + SignerName + "/" + SignerAadhaar + "/" + TxnId+"/"+TimeStamp;
                 }
@@ -812,7 +817,8 @@ namespace zipSign.Controllers
                 // Store the mapping between the identifier and the parameters in your database
                 StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiry);
                 msg.Subject = "Invitation to Electronically Sign a Document";
-                string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
+                string mss = "http://localhost:50460/Login/SignLogin";
+                //string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
                 string urlWithEncodedFileId = $"{mss}?UId={uniqueIdentifier}";
 
                 string message = $@"
@@ -909,8 +915,9 @@ namespace zipSign.Controllers
                 string messageWithExpiration = $"Dear {SignerName},\n\n";
                 messageWithExpiration += "Thank you for signing the document.\n\n";
                 messageWithExpiration += "You can download the document from the link below:\n\n";
+                string baseUrl = "http://localhost:50460/zipSign/SigningRequest";
 
-                string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
+                //string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
                 string urlWithEncodedFileId = $"{baseUrl}?FilePath={FilePath}";
 
                 string downloadLink = $"<a href=\"{urlWithEncodedFileId}\">Download the document</a>";
@@ -1056,32 +1063,67 @@ namespace zipSign.Controllers
             return Json(new { responseData }, JsonRequestBehavior.AllowGet);
         }
 
+        //public JsonResult GetTrailForSingleSinger(string UploadedDocumentId, string UType)
+        //{
+        //    string connectionString = GlobalMethods.Global.DocSign.ToString();
+        //    Dictionary<string, string> result = new Dictionary<string, string>();
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
+        //            using (SqlCommand command = new SqlCommand("SELECT UserName, EmailID, Action,CreatedOn FROM TblSignerDetailTrailLog WHERE UserType=@UserType AND UploadedDocumentId=@UploadedDocumentId", connection))
+        //            {
+        //                command.Parameters.AddWithValue("@UserType", UType);
+        //                command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
+        //                using (SqlDataReader reader = command.ExecuteReader())
+        //                {
+        //                    if (reader.Read())
+        //                    {
+        //                        result["UserName"] = reader["UserName"].ToString();
+        //                        result["EmailID"] = reader["EmailID"].ToString();
+        //                        result["Action"] = reader["Action"].ToString();
+        //                        result["CreatedOn"] = reader["CreatedOn"].ToString();
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        return Json(result, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("An error occurred: " + ex.Message);
+        //        return Json(new { error = "An error occurred while processing your request." });
+        //    }
+        //}
         public JsonResult GetTrailForSingleSinger(string UploadedDocumentId, string UType)
         {
             string connectionString = GlobalMethods.Global.DocSign.ToString();
-            Dictionary<string, string> result = new Dictionary<string, string>();
+            List<Dictionary<string, string>> resultList = new List<Dictionary<string, string>>();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (SqlCommand command = new SqlCommand("SELECT UserName, EmailID, Action,CreatedOn FROM TblSignerDetailTrailLog WHERE UserType=@UserType AND UploadedDocumentId=@UploadedDocumentId", connection))
+                    using (SqlCommand command = new SqlCommand("SELECT UserName, EmailID, Action, CreatedOn FROM TblSignerDetailTrailLog WHERE UserType=@UserType AND UploadedDocumentId=@UploadedDocumentId", connection))
                     {
                         command.Parameters.AddWithValue("@UserType", UType);
                         command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            if (reader.Read())
+                            while (reader.Read())
                             {
+                                Dictionary<string, string> result = new Dictionary<string, string>();
                                 result["UserName"] = reader["UserName"].ToString();
                                 result["EmailID"] = reader["EmailID"].ToString();
                                 result["Action"] = reader["Action"].ToString();
                                 result["CreatedOn"] = reader["CreatedOn"].ToString();
+                                resultList.Add(result);
                             }
                         }
                     }
                 }
-                return Json(result, JsonRequestBehavior.AllowGet);
+                return Json(resultList, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
@@ -1089,6 +1131,7 @@ namespace zipSign.Controllers
                 return Json(new { error = "An error occurred while processing your request." });
             }
         }
+
 
         private static string ExtractOriginalFileName(string filePath)
         {
@@ -1118,6 +1161,42 @@ namespace zipSign.Controllers
                         command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
                         command.Parameters.AddWithValue("@LinkText", uniqueIdentifier);
                         command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine("Trail logged successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Trail logging failed.");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+        public void LogTrailforSingleSingner(string SignerID, string description, string signername, string Email, int UploadedDocumentId, string UserType)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string sql = "INSERT INTO TblSignerDetailTrailLog (UniqueSignerID, Action, UserName, EmailID,UploadedDocumentId,CreatedOn,UserType) " + "VALUES (@UniqueSignerID, @Action, @UserName, @EmailID,@UploadedDocumentId,@CreatedOn,@UserType)";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@UniqueSignerID", SignerID);
+                        command.Parameters.AddWithValue("@Action", description);
+                        command.Parameters.AddWithValue("@UserName", signername);
+                        command.Parameters.AddWithValue("@EmailID", Email);
+                        command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
+                        command.Parameters.AddWithValue("@CreatedOn", DateTime.Now);
+                        command.Parameters.AddWithValue("@UserType", UserType);
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
