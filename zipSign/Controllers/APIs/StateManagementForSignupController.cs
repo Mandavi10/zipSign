@@ -8,7 +8,7 @@ namespace zipSign.Controllers.APIs
         [Route("StateManagementForSignup/GetStates")]
         public IHttpActionResult GetStates()
         {
-            var states = new List<string>
+            List<string> states = new List<string>
         {
             "Andaman and Nicobar Islands",
             "Andhra Pradesh",

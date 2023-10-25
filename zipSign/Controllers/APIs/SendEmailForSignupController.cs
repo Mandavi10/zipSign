@@ -26,7 +26,7 @@ namespace zipSign.Controllers.APIs
 
             try
             {
-                var SentOTP = SendOTPviaEmail(otpRequest.Email);
+                string SentOTP = SendOTPviaEmail(otpRequest.Email);
                 return Json(new { statuscode = "SESU2", status = "OTP Send Successfully", OTP = SentOTP });
             }
             catch (Exception ex)

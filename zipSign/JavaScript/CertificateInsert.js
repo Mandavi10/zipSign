@@ -26,7 +26,6 @@ function UploadImages(FileUploader) {
         processData: false,
         data: fileData,
         success: function (result) {
-
             sessionStorage.setItem('CertPath', result.status);
         },
         error: function (err) {
@@ -131,7 +130,10 @@ function SaveCertificate() {
             Table: selectedRowsJSON
         }),
         success: function (result) {
-
+            ;
+            if (result.status == 201) {
+                window.location.href = "/CertificateManagement/AllDocumentSignerCertificate";
+            }
         },
         error: function (err) {
             console.log(err);

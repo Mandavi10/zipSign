@@ -2,14 +2,9 @@
 var pagecount = 1;
 var keyword = '';
 $(document).ready(function () {
-    ;
     GetData(pagecount);
 
 });
-
-
-
-
 function GetData(pagecount, keyword) {
     $("#myGrid").html("");
     var columnDefs = [
@@ -103,6 +98,7 @@ function GetData(pagecount, keyword) {
                     if (params.event.target.id === 'DeleteCertificate') {
                         DeleteCertificate(params.data.Row);
                     } else {
+                        
                         DownloadCertificate(params.data.Row);
                     }
                 },
@@ -120,13 +116,14 @@ function GetData(pagecount, keyword) {
 }
 
 function DownloadCertificate(CerificateID) {
+    ;
     var form = document.createElement('form');
     form.action = '/CertificateManagement/DownloadCertificate';
     form.method = 'POST';
     var input = document.createElement('input');
     input.type = 'hidden';
-    input.name = 'departmentCode';
-    input.value = departmentCode;
+    input.name = 'department-code';
+    input.value = CerificateID;
     form.appendChild(input);
     document.body.appendChild(form);
     form.submit();

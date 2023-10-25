@@ -10,8 +10,6 @@ $(document).ready(function () {
             type: 'GET',
             dataType: 'json',
             success: function (result) {
-
-                var linkCreatedOn = result.CreatedOn;
                 var linkExpiredOn = result.ExpiredOn;
                 var currentDateTime = getCurrentDateTime();
                 if (result.IsExpired == true) {
@@ -26,7 +24,6 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-
                 console.log('AJAX Error:');
                 console.log('Status:', textStatus);
                 console.log('Error:', errorThrown);
@@ -34,7 +31,6 @@ $(document).ready(function () {
         });
     } else {
         console.log('UserCode parameter not found in the URL');
-        // Handle the case when the UserCode parameter is not present in the URL
     }
 });
 function getUrlParameter(name) {

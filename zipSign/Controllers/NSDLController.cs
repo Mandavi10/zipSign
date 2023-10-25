@@ -1031,7 +1031,6 @@ namespace zipSign.Controllers
             LogTrail(SignerId, "Link Opened", SignerName, EmailID, uploadedFileId1, Link);
             DataTable table3Data = statusClass.DataFetch.Tables[2];
             List<Dictionary<string, object>> tableData = new List<Dictionary<string, object>>();
-
             foreach (DataRow row in table3Data.Rows)
             {
                 Dictionary<string, object> rowData = new Dictionary<string, object>();
@@ -1058,6 +1057,41 @@ namespace zipSign.Controllers
 
             return Json(new { responseData }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetTrailForSingleSinger(string UploadedDocumentId, string UType)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT UserName, EmailID, Action,CreatedOn FROM TblSignerDetailTrailLog WHERE UserType=@UserType AND UploadedDocumentId=@UploadedDocumentId", connection))
+                    {
+                        command.Parameters.AddWithValue("@UserType", UType);
+                        command.Parameters.AddWithValue("@UploadedDocumentId", UploadedDocumentId);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                result["UserName"] = reader["UserName"].ToString();
+                                result["EmailID"] = reader["EmailID"].ToString();
+                                result["Action"] = reader["Action"].ToString();
+                                result["CreatedOn"] = reader["CreatedOn"].ToString();
+                            }
+                        }
+                    }
+                }
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                return Json(new { error = "An error occurred while processing your request." });
+            }
+        }
+
         private static string ExtractOriginalFileName(string filePath)
         {
             int lastUnderscoreIndex = filePath.LastIndexOf('_');
