@@ -71,8 +71,13 @@ $(document).ready(function () {
             var userName = userData.username;
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
+
            // appendActivity(DateTimeParsed, activityRole, "Document Signed");
             $(".btnSign").hide();
+
+            //appendActivity(DateTimeParsed, activityRole, "Document Signed");
+            // $(".btnSign").hide();
+
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");

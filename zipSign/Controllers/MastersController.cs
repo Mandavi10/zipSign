@@ -137,6 +137,8 @@ namespace zipSign.Controllers
                 querySelector = "SearchforSigned"; // Set query selector for search operation
                 obj.Add(new DataItems("UploadedFileName", objpage.keyword));
             }
+            int Id = Convert.ToInt32(Session["UserId"]);
+            obj.Add(new DataItems("UploadedBy", Id));
             obj.Add(new DataItems("QuerySelector", querySelector));
             obj.Add(new DataItems("PageCount", objpage.pagecount));
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);

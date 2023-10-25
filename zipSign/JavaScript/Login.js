@@ -438,10 +438,15 @@ function ForgotPassword() {
                 captchaInput: captchaInput
             },
             success: function (result) {
-
+                debugger;
                 if (result.StatusCode === 9) {
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
+                    $('#successpopup1').modal("show");
+                    //setTimeout(function () {
+                    //    window.location.href = 'Login/Index'; 
+                    //}, 6000); 
                 }
+                
                 else if (result.success === false) {
                     $("#message").empty();
                     var row = '<div class="  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
