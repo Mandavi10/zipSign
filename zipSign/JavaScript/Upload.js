@@ -467,18 +467,23 @@ function GetData(pagecount, keyword) {
         { headerName: 'Sr. No.', field: 'Sr. No.', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
         { headerName: 'Uploaded Document Name', field: 'DocumentName', width: 210, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'DocumentName', field: 'DocumentName', width: 150, resizable: false, sortable: true, suppressMovable: true, },
-        { headerName: 'Status', field: 'SignStatus', width: 140, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Status', field: 'SignStatus', width: 100, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Uploaded On', field: 'UploadedOn', width: 170, resizable: false, sortable: true, suppressMovable: true, },
-        { headerName: 'Uploaded By', field: 'UploadedBy', width: 150, resizable: false, sortable: true, suppressMovable: true, },
+        { headerName: 'Uploaded By', field: 'UploadedBy', width: 120, resizable: false, sortable: true, suppressMovable: true, },
+        {
+            headerName: 'Work History', field: 'vwh', width: 120, resizable: false, sortable: true, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#gridviewmodal">View</button>'
+            }
+        },
         {
             headerName: 'Action',
             field: '',
-            width: 150,
+            width: 100,
             sortable: true,
             resizable: false,
             suppressMovable: true,
             cellRenderer: function (params) {
-                return '<span class="fa fa-sign-in gridIcon" data-file-Code="' + params.data.DocumentUploadId + '" id="SendToSigningRequest"></span><span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
+                return '<span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
             }
         },
     ];
