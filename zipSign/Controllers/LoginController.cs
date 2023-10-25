@@ -255,7 +255,6 @@ namespace zipSign.Controllers
                 new DataItems("Email", objLoginModel.Email),
                 new DataItems("MobileNumber", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Mobile))),
                 new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(objLoginModel.Password))),
-                new DataItems("IsBlocked", 0),
                 new DataItems("QueryType", "LoginData")
             };
                     statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
@@ -1304,15 +1303,15 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             if (statusClass.StatusCode == 7)
             {
-                return Json(new { success = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
             }
             else if (statusClass.StatusCode == 10)
             {
-                return Json(new { success = "Incorrect Old Password" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Incorrect Old Password" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json(new { success = "User Not Found" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
             }
         }
 

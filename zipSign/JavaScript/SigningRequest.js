@@ -15,10 +15,6 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
-    var UserMasterID = sessionStorage.getItem('UserId');
-    if (UserMasterID == "" || UserMasterID == null) {
-        window.location.href = "/Login/Index";
-    }
     var UId = getParameterByName('UId');
     var queryParams = getAllUrlParams();
     if (queryParams.UType !== undefined && queryParams.UploadedDocumentId !== undefined) {
@@ -45,7 +41,7 @@ $(document).ready(function () {
         $("label#uploadedFileDate").next("span").text(uploadedFileDate);
         filepathsss = sessionStorage.getItem('LoaclPath');
         $("#PreviewSignImage1").attr("src", filepathsss);
-        appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
+        //appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
     }
     filePath = getParameterByName("FilePath");
     SignedfilePath = getParameterByName("SignedFilePath");
@@ -54,7 +50,7 @@ $(document).ready(function () {
     DateTimeParsed = convertDateFormat(DateTime);
     if (filePath != null && filePath != "") {
         $("#btnproceed").hide();
-        // $(".btnSign").hide();
+         $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -75,8 +71,8 @@ $(document).ready(function () {
             var userName = userData.username;
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
-            appendActivity(DateTimeParsed, activityRole, "Document Signed");
-            // $(".btnSign").hide();
+           // appendActivity(DateTimeParsed, activityRole, "Document Signed");
+            $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
@@ -87,7 +83,7 @@ $(document).ready(function () {
             $('#btncomplete').show();
         }
         else {
-            // $(".btnSign").hide();
+            $(".btnSign").hide();
             $("label#uploadedFileStatus").next("span").text("Signed");
             $("#PreviewSignImage1").removeAttr("src");
             $("#PreviewSignImage1").attr("src", filePath);
@@ -115,7 +111,7 @@ $(document).ready(function () {
 
     }
     else if (SignedfilePath != null && SignedfilePath != "") {
-        // $(".btnSign").hide();
+        $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -131,13 +127,13 @@ $(document).ready(function () {
         $('#continueButton').prop('disabled', true);
         signerType = sessionStorage.getItem('Single_Signer');
         if (signerType == "Single_Signer") {
-            //$(".btnSign").hide();
+            $(".btnSign").hide();
             $('#Btn_rec').hide();
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();
         }
         else {
-            // $(".btnSign").hide();
+            $(".btnSign").hide();
             $('#Btn_rec').hide();
             $('#btnDownload').attr('disabled', true);
             $("#btnreject").hide();
@@ -219,42 +215,38 @@ function RowClickEventHandler2(UType, UploadedDocumentId) {
         },
         dataType: 'json',
         success: function (response) {
+            debugger;
             var trailDiv = $("#Trail_Div");
             trailDiv.empty();
-            var userName = response.UserName;
-            var emailID = response.EmailID;
-            var action = response.Action;
-            var activityTime1 = response.CreatedOn;
-            var date1 = parseInt(activityTime1.match(/\d+/)[0]);;
-            var date = new Date(date1);
-            var formattedDate =
-                ('0' + date.getDate()).slice(-2) + '/' +
-                ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
-                ('' + date.getFullYear()).slice(-2) + ' ' +
-                ('0' + (date.getHours() % 12 || 12)).slice(-2) + ':' +
-                ('0' + date.getMinutes()).slice(-2) + ' ' +
-                (date.getHours() >= 12 ? 'PM' : 'AM');
-            var activityTime = `${formattedDate}`;
-            var activityRole = `${userName} (${emailID})`;
-            var activityBox = $(
-                `<div class="col-lg-3 col-md-3">
-        <div class="element-box-tp">
-            <div class="activity-boxes-w">
-                <div class="activity-box-w">
-                    <div class="activity-time">${activityTime}</div>
-                    <div class="activity-box">
-                        <div class="activity-info">
-                            <div class="activity-role">${activityRole}</div>
-                            <strong class="activity-title font-weight-400">${action}</strong>
+
+            for (var i = 0; i < response.length; i++) {
+                var record = response[i];
+                var userName = record.UserName;
+                var emailID = record.EmailID;
+                var action = record.Action;
+                var activityTime1 = record.CreatedOn;
+                var activityRole = `${userName} (${emailID})`;
+                var activityBox = $(
+                    `<div class="col-lg-3 col-md-3">
+                <div class="element-box-tp">
+                    <div class="activity-boxes-w">
+                        <div class="activity-box-w">
+                            <div class="activity-time">${activityTime1}</div>
+                            <div class="activity-box">
+                                <div class="activity-info">
+                                    <div class="activity-role">${activityRole}</div>
+                                    <strong class="activity-title font-weight-400">${action}</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div >
-    </div>`
-            );
-            trailDiv.append(activityBox);
+                </div >
+            </div>`
+                );
+                trailDiv.append(activityBox);
+            }
         },
+
         error: function (error) {
             console.error('Error occurred:', error);
         }
