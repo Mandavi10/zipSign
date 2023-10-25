@@ -8,16 +8,10 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
 
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/css/toastr.min.css" rel="stylesheet" />
-    <link href="~/Content/css/plugin.css" rel="stylesheet" />
     <link href="~/Content/css/ag-grid.css" rel="stylesheet" />
     <link href="~/Content/css/ag-theme-alpine.css" rel="stylesheet" />
-    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+ 
     <link href="~/Content/css/datepicker.css" rel="stylesheet" />
-
-    @*<link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
-        <link rel="stylesheet" href="assets/vendor/charts-c3/plugin.css" />*@
-
     <link href="~/Content/css/main.css" rel="stylesheet" />
     <style>
         .sidebar .nav-tabs .nav-link.active, .sidebar .nav-tabs .nav-link:hover, .sidebar .nav-tabs .nav-link:focus {
@@ -265,7 +259,7 @@
 
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
-                            <li class="dropdown">
+                            <li class="dropdown" style="display:none">
                                 <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                     <i class="fa fa-bell"></i>
                                     <span class="notification-dot"></span>
@@ -514,18 +508,12 @@
 
 
         <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-        <script>var jquery_3_6 = jQuery.noConflict();</script>
+        @*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
         <script src="~/JavaScript/Login.js"></script>
-
-
-        <script src="~/Content/js/libscripts.bundle.js"></script>
-        <script src="~/Content/js/vendorscripts.bundle.js"></script>
-        <script src="~/Content/js/toastr.js"></script>
-        <script src="~/Content/js/c3.bundle.js"></script>
-        <script src="~/Content/js/mainscripts.bundle.js"></script>
         <script src="~/Content/js/index.js"></script>
+      
         <script src="~/Content/js/ag-grid-community.min.js"></script>
-        <script src="~/Content/js/sweetalert.min.js"></script>
+ 
         <script src="~/Content/js/bootstrap.min.js"></script>
         <script src="~/Content/js/jquery-ui.js"></script>
         <script src="~/Content/js/moment.min.js"></script>
@@ -564,111 +552,14 @@
                                         <div class="media col-md-12 text-center profileInfo">
 
 
-                                            <h5 id="usernameDisplay1">John Doe</h5>
-                                            <p id="emailDisplay1">johndoe@gmail.com</p>
-                                            <p id="phoneDisplay">9988776655</p>
+                                            <h5 id="usernameDisplay1"></h5>
+                                            <p id="emailDisplay1"></p>
+                                            <p id="phoneDisplay"></p>
                                             <input type="hidden" id="UserMasterId"/>
 
                                         </div>
                                     </div>
 
-                                    @*<div class="body pt-0">
-                                                                    <h6>Basic Information</h6>
-                                                                    <div class="row clearfix">
-                                                                        <div class="col-lg-6 col-md-12">
-                                                                            <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="First Name" id="fname">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Last Name" id="lname">
-                                        </div>
-                                                                            <div class="form-group">
-                                                                                <div class="radioBox pt-2" id="gender">
-                                                                                    <label class="fancy-radio">
-                                                                                        <input name="gender2" value="male" type="radio" id="chckmale" checked>
-                                                                                        <span><i></i>Male</span>
-                                                                                    </label>
-                                                                                    <label class="fancy-radio">
-                                                                                        <input name="gender2" value="female" type="radio" id="chckfemale">
-                                                                                        <span><i></i>Female</span>
-                                                                                    </label>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <input type="text" class="form-control" placeholder="India" disabled />
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <div class="col-lg-6 col-md-12">
-
-                                                                            <div class="form-group">
-                                                                                <div class="input-group">
-                                                                                    <div class="input-group-prepend">
-                                                                                        <span class="input-group-text" style="padding: 0.4rem 0.75rem !important;"><i class="icon-calendar"></i></span>
-                                                                                    </div>
-                                                                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate" id="caldob">
-                                                                                </div>
-                                                                            </div>
-
-
-                                                                        </div>
-                                                                        <div class="col-lg-6 col-md-12">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Address Line 1" id="add1">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Address Line 2" id="add2">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="PIN" id="pincode">
-                                            </div>
-                                            <div class="form-group">
-                                                <select class="form-control" disabled id="state">
-                                                    <option value="0">Select State</option>
-                                                    <option value="1">Andaman and Nicobar Islands</option>
-                                                    <option value="2">Andhra Pradesh</option>
-                                                    <option value="3">Arunachal Pradesh</option>
-                                                    <option value="4">Assam</option>
-                                                    <option value="5">Bangalore</option>
-                                                    <option value="6">Bihar</option>
-                                                    <option value="7">Chandigarh</option>
-                                                    <option value="8">Chhattisgarh</option>
-                                                    <option value="9">Chennai</option>
-                                                    <option value="10">Dadra & Nagar Haveli and Daman & Diu</option>
-                                                    <option value="11">Delhi</option>
-                                                    <option value="12">Goa</option>
-                                                    <option value="13">Gujarat</option>
-                                                    <option value="14">Haryana</option>
-                                                    <option value="15">Himachal Pradesh</option>
-                                                    <option value="16">Jammu and Kashmir</option>
-                                                    <option value="17">Jharkhand</option>
-                                                    <option value="18">Karnataka</option>
-                                                    <option value="19">Kerala</option>
-                                                    <option value="20">Ladakh</option>
-                                                    <option value="21">Lakshadweep Islands</option>
-                                                    <option value="22">Madhya Pradesh</option>
-                                                    <option value="23">Maharashtra</option>
-                                                    <option value="24">Manipur</option>
-                                                    <option value="25">Meghalaya</option>
-                                                    <option value="26">Mizoram</option>
-                                                    <option value="27">Nagaland</option>
-                                                    <option value="28">Odisha</option>
-                                                    <option value="29">Other Territory</option>
-                                                    <option value="30">Pondicherry</option>
-                                                    <option value="31">Punjab</option>
-                                                    <option value="32">Rajasthan</option>
-                                                    <option value="33">Sikkim</option>
-                                                    <option value="34">Tamil Nadu</option>
-                                                    <option value="35">Telangana</option>
-                                                    <option value="36">Tripura</option>
-                                                    <option value="37">Uttar Pradesh</option>
-                                                    <option value="38">Uttarakhand</option>
-                                                    <option value="39">West Bengal</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                                                    </div>
-                                                                </div>*@
                                     <div class="body">
                                         <div class="row clearfix">
                                             <h6>Change Password</h6>
@@ -702,13 +593,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
+
                                                 </div>
                                             </div>*@
+
                                             <div id="errormessage"></div>
 
                                         </div>
                                         <div id="ErrorMessage"></div>
-                                        <div class="col-md-12 d-flex justify-content-end">
+                                        <div class="col-md-12 d-flex justify-content-end p-2">
                                             <button type="submit" class="btn btn-primary" id="changePasswordButton" onclick="changePassword()">Update</button>
                                         </div>
                                     </div>
@@ -726,20 +619,20 @@
 
 
         <script>
-            jquery_3_6(document).ready(function () {
+            $(document).ready(function () {
                 let url = window.location.href;
-                jquery_3_6('#main-menu li a').each(function () {
+                $('#main-menu li a').each(function () {
                     if (this.href === url) {
-                        jquery_3_6('#main-menu li').removeClass('active');
-                        jquery_3_6(this).parent().addClass('active');
+                        $('#main-menu li').removeClass('active');
+                        $(this).parent().addClass('active');
                     }
                 })
-                jquery_3_6('#main-menu li ul li a').each(function () {
+                $('#main-menu li ul li a').each(function () {
                     if (this.href === url) {
-                        jquery_3_6('#main-menu li').removeClass('active');
-                        jquery_3_6(this).parent().addClass('active');
-                        jquery_3_6(this).closest('ul').addClass('in');
-                        jquery_3_6(this).closest('ul').parent().addClass('active');
+                        $('#main-menu li').removeClass('active');
+                        $(this).parent().addClass('active');
+                        $(this).closest('ul').addClass('in');
+                        $(this).closest('ul').parent().addClass('active');
                     }
                 })
             })
@@ -789,7 +682,7 @@
                 var Email = $('#emailDisplay1').text();
                 if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
                     var errorMessage = 'Please fill out all the fields.';
-                    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1" role="alert">' + errorMessage + '</div>');
+                    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
                     return false;
                 }
                 //if (oldPassword === '') {
@@ -872,9 +765,9 @@
 
         </script>
         <script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".inidiv").click(function () {
-                    jquery_3_6(".profiletoggle").toggle();
+            $(document).ready(function () {
+                $(".inidiv").click(function () {
+                    $(".profiletoggle").toggle();
                     event.stopPropagation()
                 });
             });
@@ -884,9 +777,9 @@
         </script>
 
         <script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".opencorp").click(function () {
-                    jquery_3_6(".allcorp").toggle();
+            $(document).ready(function () {
+                $(".opencorp").click(function () {
+                    $(".allcorp").toggle();
                     event.stopPropagation()
                 });
             });
