@@ -1,6 +1,8 @@
 ﻿var row = '';
 $(document).ready(function () {
-
+    $('#newpassword, #confirmpassword').on('paste copy', function (event) {
+        event.preventDefault();
+    });
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
     if (userCode) {
@@ -60,10 +62,7 @@ function getCurrentDateTime() {
 
 
 function UpdatePassword() {
-
-    
     var OldPassword = $("#oldpassword").val();
-
     var Newpassword = $("#newpassword").val();
     var confirmpassword = $("#confirmpassword").val();
     var UserCode = sessionStorage.getItem('UserCode');
@@ -71,27 +70,27 @@ function UpdatePassword() {
     $("#message").empty();
 
     if (Newpassword === "") {
-        var row = '<div class="col-md-12 p-1" role="alert">Please enter a password</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter a password</div>';
         $("#message").append(row);
         $("#newpassword").focus();
         return false;
     }
     else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
-        var row = '<div class=" col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
         $("#message").append(row);
         $("#newpassword").focus();
         return false;
     }
 
     if (confirmpassword === "") {
-        var row = '<div class=" col-md-12 p-1" role="alert">Please confirm the password</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please confirm the password</div>';
         $("#message").append(row);
         $("#confirmpassword").focus();
         return false;
     }
 
     if (Newpassword !== confirmpassword) {
-        var row = '<div class=" col-md-12 p-1" role="alert">Passwords do not match</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Passwords do not match</div>';
         $("#message").append(row);
         $("#confirmpassword").focus();
         return false;
@@ -113,14 +112,14 @@ function UpdatePassword() {
                 sessionStorage.clear();
             } else if (result.error) {
                 $("#message").empty();
-                var row = '<div class=" col-md-12 p-1" role="alert">' + result.error + '</div>';
+                var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.error + '</div>';
                 $("#message").append(row);
             }
         },
         error: function (xhr, textStatus, errorThrown) {
             // AJAX request to server failed
             // Display a generic error message
-            var row = '<div class=" col-md-12 p-1" role="alert">An error occurred while processing your request.</div>';
+            var row = '<div class="alermsg col-md-12 p-1" role="alert">An error occurred while processing your request.</div>';
             $("#message").append(row);
         }
     });

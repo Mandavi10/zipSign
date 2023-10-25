@@ -593,8 +593,10 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
-                                                </div>*@
-                                            </div>
+
+                                                </div>
+                                            </div>*@
+
                                             <div id="errormessage"></div>
 
                                         </div>
@@ -672,7 +674,7 @@
                 }
             });
             function changePassword() {
-
+                debugger
                 var oldPassword = $('#oldPassword').val().trim();
                 var newPassword = $('#newPassword').val().trim();
                 var confirmPassword = $('#confirmPassword').val().trim();
@@ -740,6 +742,7 @@
                     },
                     dataType: 'json',
                     success: function (response) {
+                        debugger
                         if (response.error === 'success') {
                             alert('Password changed successfully.');
                             $('#oldPassword').val('');
@@ -786,7 +789,7 @@
         </script>
 
     
-</body>
+</div></body>
 
 
 

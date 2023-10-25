@@ -1,7 +1,6 @@
 ﻿using BusinessAccessLayer;
 using BusinessLayerModel;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -131,7 +130,7 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("QueryType", "UploadCertificate"));
 
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
-            int CertificateId =Convert.ToInt32( statusClass.DataFetch.Tables[0].Rows[0]["CertificateId"]);
+            int CertificateId = Convert.ToInt32(statusClass.DataFetch.Tables[0].Rows[0]["CertificateId"]);
             if (statusClass.StatusCode == 1)
             {
                 foreach (CertificationManagement user in users)
@@ -278,7 +277,7 @@ namespace zipSign.Controllers
             {
                 status = "201",
             };
-            return Json(result1, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("AllDocumentSignerCertificate", "CertificateManagement");
         }
 
         [HttpPost]
@@ -303,7 +302,6 @@ namespace zipSign.Controllers
                 {
                     result.Add(new UserInsert1
                     {
-
                         Userid = Convert.ToInt32(dr["Userid"]),
                         UserCode = Convert.ToString(dr["UserCode"]),
                         Username = Convert.ToString(dr["Username"]),

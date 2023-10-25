@@ -1,13 +1,14 @@
 ﻿var pagecount = 1;
 var keyword = '';
 $(document).ready(function () {
-    
+    debugger;
+
     GetDataForSignedPDF(pagecount, keyword);
     
 });
 
 function GetDataForSignedPDF(pagecount, keyword) {
-   
+    debugger;
     $("#myGrid1").html("");
     var columnDefs = [
         { headerName: 'Sr No.', field: 'DocumentUploadId', width: 80, resizable: false, sortable: true, suppressMovable: true },
