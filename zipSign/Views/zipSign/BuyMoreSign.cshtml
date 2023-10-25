@@ -195,7 +195,7 @@
                                                     <label>Quantity</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input type="text" class="form-control styleinput" id="quantityInput" onkeypress="return onlyNumbers(event)">
+                                                    <input type="text" class="form-control styleinput">
                                                 </div>
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@
                                                     <label>Amount</label>
                                                 </div>
                                                 <div class="col-12">
-                                                    <input type="text" class="form-control styleinput" id="amountInput" disabled>
+                                                    <input type="text" class="form-control styleinput" disabled>
                                                 </div>
                                             </div>
                                         </div>
@@ -230,7 +230,7 @@
                                                     <th>Description</th>
                                                     <th>Quantity</th>
                                                     <th class="righttxt">Cost (&#8377)</th>
-                                                    <th class="righttxt">GST(18%) (&#8377)</th>
+                                                    <th class="righttxt">GST (&#8377)</th>
                                                     <th class="righttxt">Total (&#8377)</th>
                                                 </tr>
                                             </thead>
@@ -239,17 +239,17 @@
                                                     <td class="boldtxt">Aadhaar eSign</td>
                                                     <td></td>
                                                     <td>10</td>
-                                                    <td class="righttxt" id="cost1">250</td>
-                                                    <td class="righttxt" id="gst1">45</td>
-                                                    <td class="righttxt" id="totalt1">295</td>
+                                                    <td class="righttxt">250</td>
+                                                    <td class="righttxt">45</td>
+                                                    <td class="righttxt">295</td>
                                                 </tr>
 
                                                 <tr>
                                                     <td colspan="2" class="invisibletd"></td>
                                                     <td tabindex="1" class="boldtxt ">Grand Total (&#8377)</td>
-                                                    <td class="righttxt" id="grandtotal1">250</td>
-                                                    <td class="righttxt">-</td>
-                                                    <td class="righttxt">-</td>
+                                                    <td class="righttxt">250</td>
+                                                    <td class="righttxt">45</td>
+                                                    <td class="righttxt">295</td>
                                                 </tr>
 
                                             </tbody>
@@ -257,7 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12 d-flex justify-content-end mt-2">
-                                    <button type="button" class="btn btn-primary" @*data-bs-toggle="modal" data-bs-target="#paymentGateway"*@ onclick="ProceedToPayment()">Proceed to Payment</button>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentGateway">Proceed to Payment</button>
                                 </div>
                             </div>
                         </div>
@@ -277,15 +277,26 @@
                     <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
                 </div>*@
             <div class="modal-body pt-4 pb-4">
+
+
+
                 <div class="col-12 iframeDiv">
                     <div id="iDiv">
+
+
                         <div class="col-md-12 col-sm-12 col-xs-12 divcont" id="AllDiv">
+
                             <iframe src="Billing" id="" style="width:100%; height:340px">
                             </iframe>
+                            @*<button type="button" class="btn btn-primary" style="width: 100%" onclick="btnAuth1_Click();">Continue</button>*@
+                            @*<button type="button" class="btn btn-primary" style="width: 100%" onclick="btnAuth_Click();">Continue</button>*@
+
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>-->
+
+                <!--<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>-->
                 @*<button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#successpopup" id="">Yes, continue</button>*@
                 <!--</div>-->
             </div>
@@ -294,12 +305,12 @@
 </div>
 
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-<script src="~/JavaScript/SignPurchaseMechanism.js"></script>
 <script>
 
     $(document).ready(function () {
         $("#proceedBtn").click(function () {
             $(".amountGrid").css('display', 'block');
+
         })
     })
 </script>

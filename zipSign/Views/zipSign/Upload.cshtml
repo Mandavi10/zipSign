@@ -3,41 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link href="~/Content/css/parsley.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<link rel="stylesheet" href="~/Content/css/sweetalert.css" />
-<link href="~/Content/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
-
-@*<script>
-
-        var columndefs = [
-            { headername: 'sr no.', field: 'srno', width: 80, resizable: false, sortable: true, suppressmovable: true },
-            { headername: 'name', field: 'name', width: 215, resizable: false, sortable: true, suppressmovable: true },
-            { headername: 'email id', field: 'eid', width: 180, resizable: false, sortable: true, suppressmovable: true },
-            { headername: 'phone no.', field: 'pn', width: 190, resizable: false, sortable: true, suppressmovable: true },
-        ];
-
-
-        var rowdata1 = [
-            { srno: '1', dcode: '4a56dfs6a', desc: '', stat: '' },
-
-
-
-
-        ];
-
-        var gridoptions = {
-            columndefs: columndefs,
-            rowdata: rowdata1,
-            pagination: false
-        };
-
-        document.addeventlistener('domcontentloaded', function () {
-            var griddiv = document.queryselector('#mygrid1');
-            new aggrid.grid(griddiv, gridoptions);
-        });
-    </script>*@
 
 <style>
     .givenheight {
@@ -583,36 +548,6 @@
                             </div>
 
 
-                            @*<div class="form-group position-relative col-md-3 me-3 mb-2">
-                                    <label for="text-input4">Upload</label>
-                                    <div class="drop-zone mt-1 ">
-                                        <span class="drop-zone__prompt">Drop file here or click to upload</span>
-                                        <input type="file" name="myFile" required class="drop-zone__input" id="FileUpload1" onchange="UploadImages('FileUpload1', 'PreviewSignImage', 'SignImage')" />
-                                        <input id="SignImage" type="hidden" value="" />
-                                        <input id="ImageID" type="hidden" value="" />
-                                    </div>
-                                    <button class="delete" id="RemoveImage" style="display:none" onclick="RemoveDecument()"><i class="fa fa-trash"></i></button>
-                                </div>*@
-
-
-
-                            @*<div class="form-group position-relative col-md-3 me-3 addedimgdiv">
-                                    <span class="cross">x</span>
-                                    <div class="viewzone mt-1 ">
-                                        <div class="col-md-12 simgdiv position-relative">
-                                            <img src="~/Content/images/document.png" />
-                                            <i class="fa fa-times-circle hiveimgdiv" aria-hidden="true"></i>
-                                            <div class="fullimgofdoc">
-                                                <button type="button" class="viewbtn" data-toggle="modal" data-target="#docimage">View</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 snamediv">
-                                            <label>Document.png</label>
-                                        </div>
-
-                                    </div>
-
-                                </div>*@
                         </div>
 
                         <div class="alermsg col-md-12 p-1" role="alert" id="message3" style="color:darkred;display:none"></div>
@@ -651,39 +586,7 @@
                             <div class="appenddiv" id="RecipientDiv">
 
                             </div>
-                            <!--<div class="appenddiv newapdiv" style="display:none">
-                                    <div class="d-flex flex-wrap">
-                                        <div class="col-md-1">
-                                            <div class="numdiv numdiv1" style="display:none">Signer 2</div>
-
-                                        </div>
-
-                                        <div class="col-md-11">
-                                            <ul id="columns">
-                                                <li class="column reccol1" style="display:none">
-                                                    <div class="col-md-12 signerdiv">
-                                                        <div class="col-md-12 d-flex flex-wrap position-relative pe-4">
-                                                            <div class="form-group col-md-4 col-12 p-1">
-                                                                <input type="text" class="form-control" placeholder="Name">
-                                                            </div>
-                                                            <div class="form-group col-md-4 col-12 p-1">
-                                                                <input type="text" class="form-control" placeholder="Email ID">
-                                                            </div>
-                                                            <div class="form-group col-md-2 col-12 p-1">
-                                                                <input type="text" class="form-control" placeholder="Mobile Number">
-                                                            </div>
-                                                            <div class="form-group col-md-2 col-12 p-1">
-                                                                <input type="text" class="form-control" placeholder="Expired in Days" maxlength="1">
-                                                                        @*<input type="text" data-provide="datepicker" data-date-autoclose="true" class="form-control datepicker" data-date-format="dd/mm/yyyy" placeholder="Sign by Date">*@
-                                                                        <!--</div>
-                                                        <i class="fa fa-trash-o delbtn" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>-->
+                           
 
 
                         </div>
@@ -833,13 +736,9 @@
 <script src="~/JavaScript/Upload.js"></script>
 <script src="~/JavaScript/Custom.js"></script>
 <script src="~/Content/js/MyValidator.js"></script>
-<script src="~/Content/js/sweetalert.min.js"></script>
-<script src="~/Content/js/libscripts.bundle.js"></script>
-<script src="~/Content/js/vendorscripts.bundle.js"></script>
-@*<script src="~/Content/js/mainscripts.bundle.js"></script>*@
-<script src="~/Content/js/dialogs.js"></script>
-<script src="~/Content/js/bootstrap.min.js"></script>
-<script src="~/Content/js/bootstrap-datepicker.min.js"></script>
+
+
+
 
 
 
