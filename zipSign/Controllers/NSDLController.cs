@@ -47,8 +47,8 @@ namespace zipSign.Controllers
             string aspId = "ASPYSPLMUMTEST223";
             string authMode = "1";
             _ = objModel.Fileid;
-            string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
-            //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            //string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             string certificatePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\DSC_.p12\\YoekiDSC1.p12";
             string certificatePassward = "Creative0786!@#";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
@@ -184,7 +184,7 @@ namespace zipSign.Controllers
                         else
                         {
                             x = 10;
-                            writer.Write($"{page}-{8},631,45,130;");
+                            writer.Write($"{page}-{10},10,45,130;");
                         }
                         List<DataItems> obj = new List<DataItems>
                         {
@@ -814,7 +814,7 @@ namespace zipSign.Controllers
                 // Store the mapping between the identifier and the parameters in your database
                 StoreMappingInDatabase(uniqueIdentifier, Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiry);
                 msg.Subject = "Invitation to Electronically Sign a Document";
-                string mss = "http://localhost:50460/Login/SignLogin";
+                string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
                 string urlWithEncodedFileId = $"{mss}?UId={uniqueIdentifier}";
 
                 string message = $@"
@@ -912,7 +912,7 @@ namespace zipSign.Controllers
                 messageWithExpiration += "Thank you for signing the document.\n\n";
                 messageWithExpiration += "You can download the document from the link below:\n\n";
 
-                string baseUrl = "http://localhost:50460/zipSign/SigningRequest";
+                string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
                 string urlWithEncodedFileId = $"{baseUrl}?FilePath={FilePath}";
 
                 string downloadLink = $"<a href=\"{urlWithEncodedFileId}\">Download the document</a>";
