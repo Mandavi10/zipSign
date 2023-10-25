@@ -321,9 +321,6 @@ namespace zipSign.Controllers
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-
-
-
         [HttpPost]
         public ActionResult UploadFiles()
         {
@@ -374,7 +371,6 @@ namespace zipSign.Controllers
 
             return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
         }
-
         private static int GetPdfPageCount(string pdfPath)
         {
             using (PdfReader pdfReader = new PdfReader(pdfPath))
@@ -383,7 +379,6 @@ namespace zipSign.Controllers
             }
 
         }
-
         public ActionResult DeleteFile(string fileName)
         {
             try

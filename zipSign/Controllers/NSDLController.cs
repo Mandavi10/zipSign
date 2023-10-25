@@ -243,9 +243,7 @@ namespace zipSign.Controllers
             int log_err = 1;
             string pdfFolder = Path.GetDirectoryName(pdfReadServerPath);
             string PdfName = Path.GetFileNameWithoutExtension(pdfReadServerPath);
-
             string CoordinatesPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
-
             string jrebinpath = "";
             string outputFinalPdfPath = "" /*@"D:\Project\ZipSign_New\zipSign\zipSign\NSDL_Request_Response\NSDL_Final_SignedPDF\"*/;
             try

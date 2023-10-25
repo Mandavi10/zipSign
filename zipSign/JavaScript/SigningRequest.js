@@ -45,7 +45,7 @@ $(document).ready(function () {
         $("label#uploadedFileDate").next("span").text(uploadedFileDate);
         filepathsss = sessionStorage.getItem('LoaclPath');
         $("#PreviewSignImage1").attr("src", filepathsss);
-        appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
+        //appendActivity(uploadedFileDate, activityRole, "File Uplaoded");
     }
     filePath = getParameterByName("FilePath");
     SignedfilePath = getParameterByName("SignedFilePath");
@@ -75,7 +75,7 @@ $(document).ready(function () {
             var userName = userData.username;
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
-            appendActivity(DateTimeParsed, activityRole, "Document Signed");
+            //appendActivity(DateTimeParsed, activityRole, "Document Signed");
             // $(".btnSign").hide();
             $("#hdntxn").css("display", "block");
             $("label#uploadedFileStatus").next("span").text("Signed");
