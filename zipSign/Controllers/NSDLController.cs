@@ -688,9 +688,9 @@ namespace zipSign.Controllers
                             // string SignerName2 = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UserName"]);
                             string SignerAadhaar1 = Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["AadhaarNo"]);
                             LogTrail(SignerID1.ToString(), "Document Signed", SignerName1, Email1, int.Parse(UploadedDocumentId1), "");
-                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp;
-                            SendVerifyLinkByEmail(Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiryDay);
+                            string Trail1 = SendVerifyLinkByEmail(Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiryDay);
                             SendEmailAfterSuccess(Email1, SignerName1, SignerID1, FilePath, UploadedDocumentId1);
+                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ Trail1;
 
                         }
                     }
@@ -704,9 +704,11 @@ namespace zipSign.Controllers
                     string TimeStamp = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["TimeStamp"]);
                     string SignerID1 = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UserMasterID"]);
                     string UploadedDocumentId1 = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedDocumentId"]);
+                    string SignerType = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerType"]);
+                    string UniqueSignerId = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UniqueSignerId"]);
                     SendEmailAfterSuccess(Email, SignerName, SignerID, FilePath, UploadedDocumentId);
                     LogTrailforSingleSingner(SignerID1.ToString(), "Document Signed", SignerName, Email, int.Parse(UploadedDocumentId1), "Single Signer");
-                    redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp;
+                    redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ "&UType="+ SignerType+ "&UploadedDocumentId=" + UploadedDocumentId1;
                     //redirectUrl = FilePath + "/" + SignerName + "/" + SignerAadhaar + "/" + TxnId+"/"+TimeStamp;
                 }
 
@@ -804,7 +806,7 @@ namespace zipSign.Controllers
                 status = statusClass.StatusCode
             };
         }
-        public JsonResult SendVerifyLinkByEmail(string Email, string fileid, string SignerName, int SignerID, string FilePath, string UploadedDocumentId, string SignerExpiry)
+        public string SendVerifyLinkByEmail(string Email, string fileid, string SignerName, int SignerID, string FilePath, string UploadedDocumentId, string SignerExpiry)
         {
             string FileNameWithDate = Path.GetFileNameWithoutExtension(FilePath);
             string FileName = ExtractOriginalFileName(FileNameWithDate);
@@ -902,7 +904,7 @@ namespace zipSign.Controllers
                 {
                     Console.Write(e);
                 }
-                return Json("");
+                return uniqueIdentifier.ToString();
             }
         }
         public JsonResult SendEmailAfterSuccess(string recipientEmail, string signerName, int signerID, string filePath, string uploadedDocumentId)
@@ -918,7 +920,6 @@ namespace zipSign.Controllers
                 string baseUrl = "https://uataadharsign.zipsign.in/zipSign/SigningRequest";
                 string downloadLink = $"{baseUrl}?FilePath={filePath}";
                 string formattedDownloadLink = $"<a href=\"{downloadLink}\">Download the document</a>";
-
                 string supportEmail = "support@zipsign.com";
                 string disclaimer = "\n\n---\n\n";
                 disclaimer += "This is an automated message. Please do not reply to this email.";
@@ -930,11 +931,11 @@ namespace zipSign.Controllers
                 {
                     smtpClient.Port = 587;
                     smtpClient.EnableSsl = true;
-                    smtpClient.Credentials = new NetworkCredential("rohan153555@gmail.com", "your-email-password");
+                    smtpClient.Credentials = new NetworkCredential("rohan153555@gmail.com", "rojrxjrxxynojgyx");
                     smtpClient.Send(message);
                 }
             }
-            string redirectUrl = filePath; 
+            redirectUrl = filePath; 
             return Json( "");
         }
 
