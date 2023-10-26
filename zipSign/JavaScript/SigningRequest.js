@@ -249,6 +249,7 @@ function RowClickEventHandler2(UType, UploadedDocumentId) {
             </div>`
                 );
                 trailDiv.append(activityBox);
+                trailDiv.show();
             }
         },
 

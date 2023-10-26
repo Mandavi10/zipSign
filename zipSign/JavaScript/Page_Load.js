@@ -33,6 +33,7 @@ function redirectAfterDelay() {
                 ;
                 const parentModal = parentWindow.$('#signaturetype');
                 if (parentModal.length && hiddenFieldValue != "") {
+                    debugger;
                     parentModal.modal('hide');
                     //parentModal = null;
                     //var URL = "https://uataadharsign.zipsign.in/zipSign/SigningRequest?FilePath=" + hiddenFieldValue;
