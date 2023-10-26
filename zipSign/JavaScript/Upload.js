@@ -12,6 +12,7 @@ $(document).ready(function () {
     if (UserMasterID == "" || UserMasterID == null) {
         window.location.href = "/Login/Index";
     }
+ 
     var userDataString = sessionStorage.getItem('user_data');
     $('#SendLink').click(function () {
         if (isValidData() == false) {

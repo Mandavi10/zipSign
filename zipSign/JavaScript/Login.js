@@ -23,7 +23,7 @@ function ReloadCaptcha() {
 //Timer Function 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
-     intervalId = setInterval(function () {
+    intervalId = setInterval(function () {
         minutes = parseInt(timer / 60, 10);
         seconds = parseInt(timer % 60, 10);
         minutes = minutes < 10 ? "0" + minutes : minutes;
@@ -31,20 +31,20 @@ function startTimer(duration, display) {
         display.text(minutes + ":" + seconds);
         $('#lblresend').hide();
         if (--timer < 0) {
-            
+
             clearInterval(intervalId);
             $('#lblresend').show();
             $(".enterotpdiv").hide();
             $(".alermsg ").attr("hidden", true);
             $("#mobileotp").val('');
             startTimer().hide();
-            
+
         }
     }, 1000);
 }
 //Resend OTP
 $('#lblresend').click(function () {
-    clearInterval(intervalId); 
+    clearInterval(intervalId);
     var timerDuration = 60;
     var display = $('#resmobotp');
     $("#mobileotp").val('');
@@ -105,19 +105,19 @@ function Login() {
                 if (result.status == "Validation failed") {
                     // Handle validation errors
                     $.each(result.errors, function (index, error) {
-                        row += '<div class="alermsg col-md-12 p-1" role="alert">' + error + '</div>';
+                        row += '<div class=" col-md-12 p-1" role="alert">' + error + '</div>';
                         $('#confirmationpopup').modal('hide');
                     });
                 }
-                else if (result.status == "Email/Mobile can't Empty" || result.status =="Invalid email/mobile format" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
+                else if (result.status == "Email/Mobile can't Empty" || result.status == "Invalid email/mobile format" || result.status == "Password can't Empty" || result.status == "Invalid password format" || result.status == "Please enter captcha") {
                     $("#message").empty();
                     // Handle the "Email/Mobile can't Empty" case
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">' + result.status + '</div>';
+                    var row = '<div class=" col-md-12 p-1" role="alert">' + result.status + '</div>';
                     $("#message").append(row);
                 }
                 else if (result.success === false) {
                     $("#message").empty();
-                    var row = '<div class="alermsg  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
+                    var row = '<div class="  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';
                     $("#message").append(row);
                     //ReloadCaptcha();
                     $("#signin-password").val('');
@@ -125,7 +125,16 @@ function Login() {
                 }
             }
             else if (result.status == 7) {
-                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Account Blocked.Kindly Contact to Admin</div>';
+                var row = '<div class="  col-md-12 p-1" role="alert">Account Blocked.Kindly Contact to Admin</div>';
+                $("#message").empty();
+                $("#message").append(row);
+                $("#password").val('');
+                //ReloadCaptcha();
+                $("#signin-password").val('');
+                return false;
+            }
+            else if (result.status == 8) {
+                var row = '<div class="  col-md-12 p-1" role="alert">Account already Logged in</div>';
                 $("#message").empty();
                 $("#message").append(row);
                 $("#password").val('');
@@ -134,7 +143,7 @@ function Login() {
                 return false;
             }
             else {
-                var row = '<div class="alermsg  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
+                var row = '<div class="  col-md-12 p-1" role="alert">Invalid Credentials.</div>';
                 $("#message").empty();
                 $("#message").append(row);
                 $("#password").val('');
@@ -278,7 +287,7 @@ function validations() {
 
     if ($("#email").val().trim() === "") {
 
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Email/Mobile is Required.</div>';
+        row = '<div class=" col-md-12 p-1" role="alert">Email/Mobile is Required.</div>';
 
         $("#message").empty();
         $("#message").append(row);
@@ -287,8 +296,8 @@ function validations() {
         return false;
     }
 
-    else if (!emailRegex.test($("#email").val()) && !mobileRegex.test($("#email").val()) ) {
-        row = '<div class="alermsg col-md-12 p-1" role="alert">You have entered an invalid email/mobile format.</div>';
+    else if (!emailRegex.test($("#email").val()) && !mobileRegex.test($("#email").val())) {
+        row = '<div class=" col-md-12 p-1" role="alert">You have entered an invalid email/mobile format.</div>';
 
         $("#message").empty();
         $("#message").append(row);
@@ -296,10 +305,10 @@ function validations() {
         isvalidate = 0;
         return false;
     }
-   
+
     else if ($("#password").val().trim() === "") {
         $("#message").empty();
-        //row = '<div class="alermsg col-md-12 p-1" role="alert">Password is Required.</div>';
+        //row = '<div class=" col-md-12 p-1" role="alert">Password is Required.</div>';
         row = 'Password is Required.';
         $("#message").append(row);
         $("#password").focus();
@@ -307,8 +316,8 @@ function validations() {
         return false;
     }
     else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test($("#password").val())) {
-        //var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
-         row = 'Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character';
+        //var row = '<div class=" col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        row = 'Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character';
         $("#message").empty();
         $("#message").append(row);
         $("#password").focus();
@@ -317,7 +326,7 @@ function validations() {
     }
     else if ($('#signin-password').val().trim() === "") {
         $("#message").empty();
-        //row = '<div class="alermsg col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
+        //row = '<div class=" col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
         row = 'Please Verify CAPTCHA.';
         $("#message").append(row);
         $("#signin-password").focus();
@@ -356,17 +365,17 @@ function VerifyOTP() {
                 window.location.href = "/Dashboard/Index2";
                 isVerified = 1;
             }
-         
+
             else if (result === 0) {
                 $("#message1").empty();
-                row = '<div class="alermsg col-md-12 p-1" role="alert">OTP Expired</div>';
+                row = '<div class=" col-md-12 p-1" role="alert">OTP Expired</div>';
                 $("#message1").append(row);
                 $("#mobileotp").focus();
                 return false;
             }
             else if (result === 2) {
                 $("#message1").empty();
-                row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class=" col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
                 $("#message1").append(row);
                 $("#mobileotp").focus();
                 return false;
@@ -394,8 +403,9 @@ function SignOut() {
             UserMasterID: UserMasterID
         },
         success: function (data) {
-            sessionStorage.clear();
-            window.location.href = '/Login/Index';
+                sessionStorage.clear();
+                window.location.href = '/Login/Index';
+
         },
         error: function (error) {
             console.log(error);
@@ -438,7 +448,6 @@ function ForgotPassword() {
                 captchaInput: captchaInput
             },
             success: function (result) {
-                debugger;
                 if (result.StatusCode === 9) {
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
                     $('#successpopup1').modal("show");
@@ -446,7 +455,7 @@ function ForgotPassword() {
                     //    window.location.href = 'Login/Index'; 
                     //}, 6000); 
                 }
-                
+
                 else if (result.success === false) {
                     $("#message").empty();
                     var row = '<div class="  col-md-12 p-1" role="alert">Incorrect Captcha.</div>';

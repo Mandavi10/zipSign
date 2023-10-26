@@ -30,11 +30,10 @@ function redirectAfterDelay() {
             clearInterval(interval);
             const parentWindow = window.parent;
             if (parentWindow && parentWindow.$) {
-                ;
                 const parentModal = parentWindow.$('#signaturetype');
                 if (parentModal.length && hiddenFieldValue != "") {
                     parentModal.modal('hide');
-                    parentModal.style.display = 'none';
+                    
                     //parentModal = null;
                     //var URL = "https://uataadharsign.zipsign.in/zipSign/SigningRequest?FilePath=" + hiddenFieldValue;
                     var URL = "http://localhost:50460/zipSign/SigningRequest?FilePath=" + hiddenFieldValue

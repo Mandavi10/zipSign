@@ -235,7 +235,7 @@ namespace zipSign.Controllers
                     SignStatus = Convert.ToString(dr["SignStatus"]),
                     UploadedOn = Convert.ToString(dr["UploadedOn"]),
                     UploadedBy = Convert.ToString(dr["UploadedBy"]),
-                    // CreatedOn = Convert.ToString(dr["CreatedOn"]),
+                    SignedOn = Convert.ToString(dr["SignedOn"]),
                     //UpdatedOn = Convert.ToString(dr["UpdatedOn"]),
                     //IsActive = Convert.ToString(dr["IsActive"]),
                 });
