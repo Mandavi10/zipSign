@@ -1,17 +1,16 @@
 ﻿var pagecount = 1;
 var keyword = '';
 $(document).ready(function () {
-    
 
     GetDataForSignedPDF(pagecount, keyword);
     
 });
 
 function GetDataForSignedPDF(pagecount, keyword) {
-    
     $("#myGrid1").html("");
     var columnDefs = [
-        { headerName: 'Sr No.', field: 'DocumentUploadId', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Sr No.', field: 'DocumentUploadId', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'SrNo.', field: 'SerialNumber', width: 80, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'File Name', field: 'Uploaded_Document_Name', width: 300, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Document Name', field: 'DocumentName', width: 320, resizable: false, sortable: true, suppressMovable: true },
         { headerName: 'Status', field: 'SignStatus', width: 200, resizable: false, sortable: true, suppressMovable: true },
@@ -29,7 +28,6 @@ function GetDataForSignedPDF(pagecount, keyword) {
         },
     ];
     var rowData = [];
-    //
     $.ajax({
         url: '/Masters/SearchDataForSigned',
         type: 'POST',
@@ -39,15 +37,16 @@ function GetDataForSignedPDF(pagecount, keyword) {
             keyword: keyword
         },
         success: function (result) {
-            
             var jsonData = result.Table1;
             var jsonData1 = result.Table2;
+            var counter = 1;
             $.each(jsonData, function (i, value) {
                 rowData.push({
                     DocumentUploadId: value.DocumentUploadId,
+                    SerialNumber: counter++,
                     Uploaded_Document_Name: value.DocumentName.substring(value.DocumentName.lastIndexOf('\\') + 1),
                     DocumentName: value.DocumentName,
-                    SignStatus: value.signerInfos, // Update this line to match the actual field name
+                    SignStatus: "Signed", // Update this line to match the actual field name
                     UploadedOn: value.UploadedOn, // You should map this to the correct field as well
                     UploadedBy: value.UploadedBy, // Similarly, map this to the correct field
                 });
@@ -134,7 +133,6 @@ function ShowMoreForSigned(FileCode) {
             FileCode: FileCode
         },
         success: function (result) {
-            
             var jsonData = result.Table1;
             if (jsonData.length > 0) {
                 var FileDeatils = jsonData[0];
@@ -142,10 +140,11 @@ function ShowMoreForSigned(FileCode) {
                 $('#DocumentName').text(FileDeatils.DocumentName);
                 //$('#SignedOn').text(DateTimeParsed);
                 $('#SignedBy').text(FileDeatils.UploadedBy);
-                $('#Signedate').text(FileDeatils.UploadedOn);
+                $('#UploadedOn').text(FileDeatils.UploadedOn);
                 $('#UploadedBy').text(FileDeatils.UploadedBy);
-                $('#UploadedOn').text(FileDeatils.SignedOn);
+                $('#Signedate').text(FileDeatils.UploadedOn);
                 $('#Status').text(FileDeatils.SignStatus);
+                $('#SignedOn').text(FileDeatils.SignedOn);
             }
         },
         error: function () {

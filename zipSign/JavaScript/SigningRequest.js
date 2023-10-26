@@ -220,7 +220,7 @@ function RowClickEventHandler2(UType, UploadedDocumentId) {
         },
         dataType: 'json',
         success: function (response) {
-            
+
             var trailDiv = $("#Trail_Div");
             trailDiv.empty();
 

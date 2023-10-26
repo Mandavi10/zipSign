@@ -71,6 +71,7 @@ namespace BusinessLayerModel
         public string IsSigned { get; set; }
         public string DocumentName1 { get; set; }
         public string UploadedOn { get; set; }
+        public string SignedOn { get; set; }
     }
     public class ResultData
     {

@@ -293,8 +293,9 @@ namespace zipSign.Controllers
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex);
             }
             var result1 = new
             {
@@ -1034,10 +1035,8 @@ namespace zipSign.Controllers
             }
         }
 
-
         public ActionResult SignOut(string UserMasterID)
         {
-
             List<DataItems> obj = new List<DataItems>();
             string clientIP = GetClientIP();
             obj.Add(new DataItems("LogOut_IP_Address", clientIP));
@@ -1045,9 +1044,8 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("QueryType", "SignOut"));
             statusClass = bal.PostFunction(pro.Signup, obj);
             Session.Abandon();
-            return Json(new { success = true });
+            return Json(new { success = true },JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult ResetPassword(string Email, string captchaInput)
         {
