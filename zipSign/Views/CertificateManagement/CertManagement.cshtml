@@ -4,6 +4,7 @@
 
 
 <style>
+    .alermsg{position: absolute}
     #Signmodal .modal-dialog {
         width: 1024px !important;
         max-width: 1024px !important;
@@ -353,43 +354,4 @@
 
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
 <script src="~/JavaScript/CertificateInsert.js"></script>
-@*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
-<script src="~/Content/js/ag-grid-community.min.js"></script>
-@*<script src="~/Content/js/jquery-ui.js"></script>
-<script src="~/Content/js/moment.min.js"></script>*@
-@*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
-@*<script>
-
-    var columnDefs1 = [
-        { headerName: '', field: '', width: 40, resizable: false, sortable: true, suppressMovable: true, checkboxSelection: true, headerCheckboxSelection: true, },
-        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'User Name', field: 'uname', width: 300, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Email ID', field: 'email', width: 300, resizable: false, sortable: true, suppressMovable: true },
-        { headerName: 'Mobile No.', field: 'mob', width: 260, resizable: false, sortable: true, suppressMovable: true },
-
-
-    ];
-
-
-    var rowData1 = [
-        { srNo: '1', uname: 'User 1', email: 'user1@gmail.com', mob: '9865321020' },
-        { srNo: '2', uname: 'User 2', email: 'user1@gmail.com', mob: '9865321020' },
-
-
-
-
-    ];
-
-    var gridOptions = {
-        columnDefs: columnDefs1,
-        rowData: rowData1,
-        rowSelection: 'multiple',
-        pagination: false
-    };
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var gridDiv = document.querySelector('#myGrid1');
-        new agGrid.Grid(gridDiv, gridOptions);
-    });
-</script>*@
 

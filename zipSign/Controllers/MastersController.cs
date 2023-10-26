@@ -121,9 +121,6 @@ namespace zipSign.Controllers
             return Json(res1, JsonRequestBehavior.AllowGet);
         }
 
-
-
-
         [HttpPost]
         public JsonResult SearchDataForSigned(pagination objpage)
         {

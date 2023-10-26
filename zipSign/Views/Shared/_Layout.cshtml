@@ -8,16 +8,10 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
 
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/Content/css/toastr.min.css" rel="stylesheet" />
-    <link href="~/Content/css/plugin.css" rel="stylesheet" />
     <link href="~/Content/css/ag-grid.css" rel="stylesheet" />
     <link href="~/Content/css/ag-theme-alpine.css" rel="stylesheet" />
-    <link href="~/Content/css/sweetalert.css" rel="stylesheet" />
+ 
     <link href="~/Content/css/datepicker.css" rel="stylesheet" />
-
-    @*<link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
-        <link rel="stylesheet" href="assets/vendor/charts-c3/plugin.css" />*@
-
     <link href="~/Content/css/main.css" rel="stylesheet" />
     <style>
         .sidebar .nav-tabs .nav-link.active, .sidebar .nav-tabs .nav-link:hover, .sidebar .nav-tabs .nav-link:focus {
@@ -265,7 +259,7 @@
 
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
-                            <li class="dropdown">
+                            <li class="dropdown" style="display:none">
                                 <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
                                     <i class="fa fa-bell"></i>
                                     <span class="notification-dot"></span>
@@ -514,18 +508,12 @@
 
 
         <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-        <script>var jquery_3_6 = jQuery.noConflict();</script>
+        @*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
         <script src="~/JavaScript/Login.js"></script>
-
-
-        <script src="~/Content/js/libscripts.bundle.js"></script>
-        <script src="~/Content/js/vendorscripts.bundle.js"></script>
-        <script src="~/Content/js/toastr.js"></script>
-        <script src="~/Content/js/c3.bundle.js"></script>
-        <script src="~/Content/js/mainscripts.bundle.js"></script>
         <script src="~/Content/js/index.js"></script>
+      
         <script src="~/Content/js/ag-grid-community.min.js"></script>
-        <script src="~/Content/js/sweetalert.min.js"></script>
+ 
         <script src="~/Content/js/bootstrap.min.js"></script>
         <script src="~/Content/js/jquery-ui.js"></script>
         <script src="~/Content/js/moment.min.js"></script>
@@ -564,13 +552,16 @@
                                         <div class="media col-md-12 text-center profileInfo">
 
 
-                                            <h5 id="usernameDisplay1">John Doe</h5>
-                                            <p id="emailDisplay1">johndoe@gmail.com</p>
-                                            <p id="phoneDisplay">9988776655</p>
-                                            <input type="hidden" id="UserMasterId" />
+
+                                            <h5 id="usernameDisplay1"></h5>
+                                            <p id="emailDisplay1"></p>
+                                            <p id="phoneDisplay"></p>
+                                            <input type="hidden" id="UserMasterId"/>
+
 
                                         </div>
                                     </div>
+
 
                                     @*<div class="body pt-0">
                                                                 <h6>Basic Information</h6>
@@ -669,6 +660,7 @@
                                     </div>
                                                                 </div>
                                                             </div>*@
+
                                     <div class="body">
                                         <div class="row clearfix">
                                             <h6>Change Password</h6>
@@ -702,13 +694,15 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
+
                                                 </div>
                                             </div>*@
+
                                             <div id="errormessage"></div>
 
                                         </div>
                                         <div id="ErrorMessage"></div>
-                                        <div class="col-md-12 d-flex justify-content-end">
+                                        <div class="col-md-12 d-flex justify-content-end p-2">
                                             <button type="submit" class="btn btn-primary" id="changePasswordButton" onclick="changePassword()">Update</button>
                                         </div>
                                     </div>
@@ -726,25 +720,25 @@
 
 
         <script>
-            jquery_3_6(document).ready(function () {
+            $(document).ready(function () {
                 let url = window.location.href;
-                jquery_3_6('#main-menu li a').each(function () {
+                $('#main-menu li a').each(function () {
                     if (this.href === url) {
-                        jquery_3_6('#main-menu li').removeClass('active');
-                        jquery_3_6(this).parent().addClass('active');
+                        $('#main-menu li').removeClass('active');
+                        $(this).parent().addClass('active');
                     }
                 })
-                jquery_3_6('#main-menu li ul li a').each(function () {
+                $('#main-menu li ul li a').each(function () {
                     if (this.href === url) {
-                        jquery_3_6('#main-menu li').removeClass('active');
-                        jquery_3_6(this).parent().addClass('active');
-                        jquery_3_6(this).closest('ul').addClass('in');
-                        jquery_3_6(this).closest('ul').parent().addClass('active');
+                        $('#main-menu li').removeClass('active');
+                        $(this).parent().addClass('active');
+                        $(this).closest('ul').addClass('in');
+                        $(this).closest('ul').parent().addClass('active');
                     }
                 })
             })
         </script>
-
+        <script src="~/JavaScript/Custom.js"></script>
         <script>
             $(document).ready(function () {
                 resetLogoutTimer();
@@ -781,6 +775,7 @@
                 }
             });
             function changePassword() {
+
                 var oldPassword = $('#oldPassword').val().trim();
                 var newPassword = $('#newPassword').val().trim();
                 var confirmPassword = $('#confirmPassword').val().trim();
@@ -788,7 +783,7 @@
                 var Email = $('#emailDisplay1').text();
                 if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
                     var errorMessage = 'Please fill out all the fields.';
-                    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1" role="alert">' + errorMessage + '</div>');
+                    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
                     return false;
                 }
                 //if (oldPassword === '') {
@@ -848,6 +843,7 @@
                     },
                     dataType: 'json',
                     success: function (response) {
+
                         if (response.error === 'success') {
                             alert('Password changed successfully.');
                             $('#oldPassword').val('');
@@ -870,9 +866,9 @@
 
         </script>
         <script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".inidiv").click(function () {
-                    jquery_3_6(".profiletoggle").toggle();
+            $(document).ready(function () {
+                $(".inidiv").click(function () {
+                    $(".profiletoggle").toggle();
                     event.stopPropagation()
                 });
             });
@@ -882,9 +878,9 @@
         </script>
 
         <script>
-            jquery_3_6(document).ready(function () {
-                jquery_3_6(".opencorp").click(function () {
-                    jquery_3_6(".allcorp").toggle();
+            $(document).ready(function () {
+                $(".opencorp").click(function () {
+                    $(".allcorp").toggle();
                     event.stopPropagation()
                 });
             });
