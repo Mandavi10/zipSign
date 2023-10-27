@@ -50,7 +50,7 @@ $(document).ready(function () {
     DateTimeParsed = convertDateFormat(DateTime);
     if (filePath != null && filePath != "") {
         $("#btnproceed").hide();
-         $(".btnSign").hide();
+        $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
@@ -72,7 +72,7 @@ $(document).ready(function () {
             var userEmail = userData.email;
             var activityRole = `${userName} (${userEmail})`;
 
-           // appendActivity(DateTimeParsed, activityRole, "Document Signed");
+            // appendActivity(DateTimeParsed, activityRole, "Document Signed");
             $(".btnSign").hide();
 
             //appendActivity(DateTimeParsed, activityRole, "Document Signed");
@@ -161,7 +161,7 @@ $(document).ready(function () {
         }
     });
     $('input[type="radio"]').click(function () {
-        ;
+
         $("#dscmsg").empty();
         row = '';
         ;
@@ -272,11 +272,30 @@ function getAllUrlParams(url) {
     return obj;
 }
 function Continue() {
+
     if (selectedRadio == 'dsc') {
+
         row = '';
         $("#dscmsg").empty();
-        jQuery.noConflict();
-        window.$('#dscPopup').modal('show');
+        $("#signaturetype").modal('hide');
+        $("#chooseCertPopup").modal("show");
+        $('#chooseCertPopup').on('shown.bs.modal', function () {
+
+            $.ajax({
+                url: '/CertificateManagement/SearchAndShowDataForCertificateForSelection',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    loadDataIntoTable(data);
+                },
+                error: function (xhr, status, error) {
+
+                    console.log("AJAX Error: " + error); // Log the error message
+                    console.log(xhr.responseText); // Log the full response
+                }
+            });
+        });
+
         $('#continueButton').prop('disabled', true);
     }
     else {
@@ -307,14 +326,12 @@ function AgreeBtnOnProceed() {
     else {
         SignerID = sessionStorage.getItem('SignerID');
         documentid = sessionStorage.getItem('UploadedDocumentId');
-        //var Coordinates = result.UploadedName;
         if (signerType == "Single_Signer" && !iframeSrcSet) {
             var Coordinates = 0;
             documentid = sessionStorage.getItem('UploadedDocumentId');
             UniqueSignerID = sessionStorage.getItem('UniqueSignerID');
             iframeSrcSet = true;
             $('#consentDiv').hide();
-            //$('#loader').css('display', 'block');
             $("#NSDLiframe").show();
             $("#NSDLiframe").attr("src", "/NSDL/PDFSignature?File=" + encodeURIComponent(filepathsss) + "&UploadedDocumentId=" + encodeURIComponent(documentid) + "&SignerID=" + encodeURIComponent(SignerID) + "&Coordinates=" + encodeURIComponent(Coordinates));
 
@@ -443,5 +460,86 @@ function getCurrentDateTime() {
     var formattedDateTime = `$'{day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
     return formattedDateTime;
 }
+function loadDataIntoTable(data) {
+    $('table tbody').empty();
+
+    data.Table1.forEach(function (item) {
+        var isActive = item.IsActive1 ? 'Yes' : 'No';
+        var newRow = `<tr>
+                        <td style="width:45px">
+                            <label class="fancy-checkbox custom-color-green">
+                                <input type="checkbox" name="control" required class="OnlySignerCheckbox">
+                                <span><i></i></span>
+                            </label>
+                        </td>
+                        <td style="width:150px">${item.CertificateName}</td>
+                        <td style="width:150px">${item.UploadedBy}</td>
+                        <td style="width:150px">${isActive}</td>
+                        <td style="width:150px" class="hdnRowCert">${item.Row}</td>
+                    </tr>`;
+        $('table tbody').append(newRow);
+        $('td.hdnRowCert').hide();
+    });
+    $('table tbody').on('change', 'input.OnlySignerCheckbox', function () {
+        
+        var isChecked = $(this).prop('checked');
+        if (isChecked) {
+            var selectedValue = $(this).closest('tr').find('td.hdnRowCert').text();
+            //$("#vuserpin").show();
+            sessionStorage.setItem('SelectedValue', selectedValue);
+        }
+        $("#dscbtnselect").on("click", function () {
+            
+            $("#chooseCertPopup").modal('hide');
+            $("#vuserpin").modal('show');
+        })
+    });
+}
+
+
+
+function validatepassword() {
+    
+    var selectedValue = sessionStorage.getItem('SelectedValue');
+    var Pin = $("#txtuserpin").val();
+    if (Pin === "") {
+        return false;
+    }
+    if (Pin) {
+        $.ajax({
+            url: '/CertificateManagement/ValidateCertWithPasswordForSigning',
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {
+                selectedValue: selectedValue,
+                password: Pin
+            },
+            success: function (result) {
+
+                if (result === "True") {
+                    IsValidate = 1;
+                    return true;
+                } else {
+                    IsValidate = 0;
+                    return false;
+                }
+            },
+            error: function (err) {
+                IsValidate = 0;
+                return false;
+            }
+        });
+        return IsValidate;
+    }
+
+    else {
+        alert("Password is not matching.");
+        IsValidate = 0;
+        return false;
+    }
+}
+
+
 
 

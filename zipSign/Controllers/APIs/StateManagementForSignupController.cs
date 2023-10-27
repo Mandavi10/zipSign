@@ -1,64 +1,68 @@
-﻿using System.Collections.Generic;
+﻿using BusinessDataLayer;
+using BusinessLayerModel;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web.Http;
 namespace zipSign.Controllers.APIs
 {
     public class StateManagementForSignupController : ApiController
     {
+        public ProcMaster pro = new ProcMaster();
+        private BusinessDataLayerClass bal = new BusinessDataLayerClass();
+        private CommonStatus statusClass = new CommonStatus();
         [HttpGet]
         [Route("StateManagementForSignup/GetStates")]
-        public IHttpActionResult GetStates()
+        public IHttpActionResult GetStates([FromBody] JObject requestData)
         {
-            List<string> states = new List<string>
-    {
-        "Andaman and Nicobar Islands",
-        "Andhra Pradesh",
-        "Arunachal Pradesh",
-        "Assam",
-        "Bihar",
-        "Chandigarh",
-        "Chhattisgarh",
-        "Chennai",
-        "Dadra & Nagar Haveli and Daman & Diu",
-        "Delhi",
-        "Goa",
-        "Gujarat",
-        "Haryana",
-        "Himachal Pradesh",
-        "Jammu and Kashmir",
-        "Jharkhand",
-        "Karnataka",
-        "Kerala",
-        "Ladakh",
-        "Lakshadweep Islands",
-        "Madhya Pradesh",
-        "Maharashtra",
-        "Manipur",
-        "Meghalaya",
-        "Mizoram",
-        "Nagaland",
-        "Odisha",
-        "Pondicherry",
-        "Punjab",
-        "Rajasthan",
-        "Sikkim",
-        "Tamil Nadu",
-        "Telangana",
-        "Tripura",
-        "Uttar Pradesh",
-        "Uttarakhand",
-        "West Bengal"
-    };
-
-            var stateObjects = states.Select(state => new { name = state }).ToList();
-
-            var response = new
+            QType Data = requestData["Data"].ToObject<QType>();
+            
+            if (Data.QueryType == "GetAllState")
             {
-                status = "1",
-                state = stateObjects
-            };
-
-            return Ok(response);
+                List<string> states = new List<string>();
+                List<DataItems> obj = new List<DataItems>();
+               obj.Add(new DataItems("QueryType", "GetAllState"));
+                statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+                if (statusClass.StatusCode == 9)
+                {
+                    foreach (DataRow row in statusClass.DataFetch.Tables[0].Rows)
+                    {
+                        states.Add(Convert.ToString(row["State"]));
+                    }
+                    var stateObjects = states.Select(state => new { name = state }).ToList();
+                    var response = new
+                    {
+                        status = true,
+                        states = stateObjects,
+                        message = "States Fetching Successfully"
+                    };
+                    return Json(response);
+                }
+                else
+                {
+                    var response = new
+                    {
+                        status = false,
+                        message = "Failed to retrieve states data."
+                    };
+                    return Json(response);
+                }
+            }
+            else
+            {
+                var response = new
+                {
+                    status = false,
+                    message = "Invalid QueryType."
+                };
+                return Json(response);
+            }
+        }
+        public class QType
+        {
+            public string QueryType { get; set; }
         }
     }
 }

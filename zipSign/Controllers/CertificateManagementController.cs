@@ -1,9 +1,14 @@
 ﻿using BusinessAccessLayer;
 using BusinessLayerModel;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.security;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Pkcs;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -75,6 +80,7 @@ namespace zipSign.Controllers
         [HttpPost]
         public bool ValidateCertWithPassword(string certificateforvalidate, string password)
         {
+
             try
             {
                 if (certificateforvalidate == null || string.IsNullOrEmpty(password))
@@ -100,6 +106,94 @@ namespace zipSign.Controllers
                 return false;
             }
         }
+
+        public bool ValidateCertWithPasswordForSigning(string selectedValue, string password)
+        {
+            bool flag = true;
+            string Path = null;
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand("SELECT Path FROM Tbl_CertificateMgt WHERE CertificateId=@CertificateId", connection))
+                    {
+                        command.Parameters.AddWithValue("@CertificateId", selectedValue);
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Path = reader["Path"].ToString();
+                            }
+                        }
+                    }
+                }
+
+                if (Path == null || string.IsNullOrEmpty(password))
+                {
+                    flag = false;
+                }
+                else
+                {
+                    X509Certificate2 certificate = new X509Certificate2(Path, password, X509KeyStorageFlags.MachineKeySet);
+                    if (certificate != null && certificate.NotAfter >= DateTime.Now && certificate.NotBefore <= DateTime.Now)
+                    {
+                        string pdfFilePath = "";
+                        string destinationPath = "";
+                        PdfReader pdfReader = new PdfReader(pdfFilePath);
+                        string pfxFilePath = "D:\\DSC\\PFXs\\Class II Organization 2 Year Document Signer Signature-2022.pfx";
+                        string pfxPassword = "abc1234";
+                        Pkcs12Store pfxKeyStore = new Pkcs12Store(new FileStream(pfxFilePath, FileMode.Open, FileAccess.Read), pfxPassword.ToCharArray());
+                        int page = pdfReader.NumberOfPages;
+                        for (int i = 1; i <= page; i++)
+                        {
+                            if (i > 1)
+                            {
+                                FileStream stremfile = new FileStream(destinationPath, FileMode.Open, FileAccess.Read);
+                                pdfReader = new PdfReader(stremfile);
+                                System.IO.File.Delete(destinationPath);
+                            }
+                            FileStream signedPdf = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite);
+                            PdfStamper pdfStamper = PdfStamper.CreateSignature(pdfReader, signedPdf, '\0', null, true);
+                            PdfSignatureAppearance signatureAppearance = pdfStamper.SignatureAppearance;
+                            signatureAppearance.Reason = "Digital Signature Reason";
+                            signatureAppearance.Location = "Kota";
+                            signatureAppearance.Acro6Layers = false;
+                            float x = 430;
+                            float y = 55;
+                            signatureAppearance.Acro6Layers = false;
+                            signatureAppearance.Layer4Text = PdfSignatureAppearance.questionMark;
+                            signatureAppearance.SetVisibleSignature(new iTextSharp.text.Rectangle(x, y, x + 150, y + 40), i, null);
+                            string alias = pfxKeyStore.Aliases.Cast<string>().FirstOrDefault(entryAlias => pfxKeyStore.IsKeyEntry(entryAlias));
+                            ICipherParameters privateKey = pfxKeyStore.GetKey(alias).Key;
+                            IExternalSignature pks = new PrivateKeySignature(privateKey, DigestAlgorithms.SHA256);
+                            MakeSignature.SignDetached(signatureAppearance, pks, new Org.BouncyCastle.X509.X509Certificate[] { pfxKeyStore.GetCertificate(alias).Certificate }, null, null, null, 0, CryptoStandard.CMS);
+                            pdfReader.Close();
+                            pdfStamper.Close();
+                            flag = true;
+                        }
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                }
+                return flag;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
+            }
+        }
+
+
+
+
+
+
+
         public class CertificationManagement
         {
             public int Userid { get; set; }
@@ -338,5 +432,51 @@ namespace zipSign.Controllers
 
             return Json(res1, JsonRequestBehavior.AllowGet);
         }
+
+
+        public JsonResult SearchAndShowDataForCertificateForSelection()
+        {
+            ResultDataForCertificate res1 = new ResultDataForCertificate();
+
+            try
+            {
+                List<DSCCertificateMgt> result = new List<DSCCertificateMgt>();
+                List<DataItems> obj = new List<DataItems>();
+                string QueryType = "ShowCertificate";
+                obj.Add(new DataItems("QueryType", QueryType));
+                statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
+
+                if (statusClass.DataFetch != null && statusClass.DataFetch.Tables.Count > 0 && statusClass.DataFetch.Tables[0].Rows.Count > 0)
+                {
+                    foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
+                    {
+                        result.Add(new DSCCertificateMgt
+                        {
+                            Row = Convert.ToInt32(dr["Row"]),
+                            CertificateName = Convert.ToString(dr["CertificateName"]),
+                            CertificateType = Convert.ToString(dr["CertificateType"]),
+                            UploadedOn = Convert.ToString(dr["UploadedOn"]),
+                            UploadedBy = Convert.ToString(dr["UploadedBy"]),
+                            PasswordType = Convert.ToString(dr["PasswordType"]),
+                            // UpdatedOn = Convert.ToString(dr["UpdatedOn"]),
+                             IsActive1 = Convert.ToString(dr["IsActive"]),
+                        });
+                    }
+                    res1.Table1 = result;
+                }
+                else
+                {
+                    res1.Error = "No data found."; // Set an appropriate error message
+                }
+            }
+            catch (Exception ex)
+            {
+                res1.Error = "An error occurred: " + ex.Message; // Handle the exception and set an error message
+                                                                 // Log the exception for further analysis if needed
+            }
+
+            return Json(res1, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

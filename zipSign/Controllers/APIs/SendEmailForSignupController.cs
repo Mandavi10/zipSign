@@ -21,17 +21,17 @@ namespace zipSign.Controllers.APIs
             string pattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$";
             if (!Regex.IsMatch(otpRequest.Email, pattern))
             {
-                return Json(new { statuscode = "SESU1", status = "Invalid Email Format ex. User@Example.com" });
+                return Json(new { status = false, message = "Invalid Email Format ex. User@Example.com" });
             }
 
             try
             {
                 string SentOTP = SendOTPviaEmail(otpRequest.Email);
-                return Json(new { statuscode = "SESU2", status = "OTP Send Successfully", OTP = SentOTP });
+                return Json(new { status = true, message = "OTP Send Successfully", OTP = SentOTP });
             }
             catch (Exception ex)
             {
-                return Json(new { statuscode = "SESU3", status = "Failed To Send OTP. Reason:" + ex });
+                return Json(new { status = false, message = "Failed To Send OTP. Reason:" + ex });
             }
         }
 
