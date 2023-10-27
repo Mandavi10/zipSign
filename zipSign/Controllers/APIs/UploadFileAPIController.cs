@@ -50,7 +50,7 @@ namespace zipSign.Controllers.APIs
                         return InternalServerError(new Exception("Error saving the file: " + ex.Message));
                     }
 
-                    return Ok(new { status = filePath, LocalPath = localFilePath, uniquefileName = fileName });
+                    return Ok(new { status=true,FilePath = filePath, uniquefileName = fileName });
                 }
 
                 return BadRequest("No file received.");

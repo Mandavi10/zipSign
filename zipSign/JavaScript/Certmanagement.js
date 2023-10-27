@@ -119,7 +119,7 @@ function GetData(pagecount, keyword) {
 }
 
 function DownloadCertificate(CerificateID) {
-    ;
+    
     var form = document.createElement('form');
     form.action = '/CertificateManagement/DownloadCertificate';
     form.method = 'POST';

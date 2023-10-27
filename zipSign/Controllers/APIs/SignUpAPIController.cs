@@ -28,41 +28,41 @@ namespace zipSign.Controllers.APIs
             }
             if (string.IsNullOrWhiteSpace(Data.Name))
             {
-                return Json(new { statuscode = "SU1", status = "Enter Name" });
+                return Json(new { status = false, message = "Enter Name" });
             }
             if (!IsValidEmail(Data.Email))
             {
-                return Json(new { statuscode = "SU2", status = "Invalid email format" });
+                return Json(new { status = false, message = "Invalid email format" });
             }
             if (!IsValidMobile(Data.Mobile))
             {
-                return Json(new { statuscode = "SU3", status = "Mobile Number should be 10 Digits and only starts with 6/7/8/9" });
+                return Json(new { status = false, message = "Mobile Number should be 10 Digits and only starts with 6/7/8/9" });
             }
             if (Data.State == "Select State")
             {
-                return Json(new { statuscode = "SU4", status = "Please select state" });
+                return Json(new { status = false, message = "Please select state" });
             }
             if (!IndianStates.Contains(Data.State))
             {
-                return Json(new { statuscode = "SU8", status = "Please select a valid Indian state" });
+                return Json(new { status = false, message = "Please select a valid Indian state" });
             }
             if (!IsValidPassword(Data.Password))
             {
-                return Json(new { statuscode = "SU5", status = "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" });
+                return Json(new { status = false, message = "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" });
             }
             if (!IsValidConfirmPassword(Data.ConfirmPassword))
             {
-                return Json(new { statuscode = "SU6", status = "Invalid Confirm password format" });
+                return Json(new { status = false, message = "Invalid Confirm password format" });
             }
             if (Data.Password != Data.ConfirmPassword)
             {
-                return Json(new { statuscode = "SU7", status = "Password and Confirm Password do not match" });
+                return Json(new { status = false, message = "Password and Confirm Password do not match" });
             }
             if (UserType == "corporate")
             {
                 if (!IsValidPAN(Data.panNumber))
                 {
-                    return Json(new { statuscode = "SU8", status = "Invalid PAN format" });
+                    return Json(new { status = false, message = "Invalid PAN format" });
                 }
             }
             else
@@ -84,8 +84,9 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
-                        message = "SignUp Succcessfully"
+                        status = true,
+                        message = "SignUp Succcessfully",
+                       // Data
                     };
                     return Json(result);
                 }
@@ -93,7 +94,7 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        status = false,
                         message = "Duplicate PAN Number"// Duplicate PAN Number
                     };
                     return Json(result);
@@ -102,7 +103,7 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        status = false,
                         message = "Duplicate Phone Number"// Duplicate Phone 
                     };
                     return Json(result);
@@ -111,7 +112,7 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        StatusCode = false,
                         message = "Duplicate Email"//Duplicate Email
                     };
                     return Json(result);
@@ -210,7 +211,7 @@ namespace zipSign.Controllers.APIs
     };
         private class ApiResponse
         {
-            public string Status { get; set; }
+            public string status { get; set; }
             public object Data { get; set; }
         }
     }

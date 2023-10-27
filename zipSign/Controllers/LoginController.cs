@@ -516,7 +516,6 @@ namespace zipSign.Controllers
                 status = "201",
             };
             return Json(result1, JsonRequestBehavior.AllowGet);
-
         }
 
         //For Signin
@@ -653,8 +652,8 @@ namespace zipSign.Controllers
                 smtp.Send(msg);
             }
         }
-        //During SignUp send otp on Email
 
+        //During SignUp send otp on Email
         public JsonResult GetEmailData(string Email)
         {
             Random rnd = new Random();

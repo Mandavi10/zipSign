@@ -25,22 +25,22 @@ namespace zipSign.Controllers.APIs
                 string input = Data.Email;
                 if (string.IsNullOrEmpty(input))
                 {
-                    return Json(new { statuscode = "LI1", status = "Email/Mobile can't Empty" });
+                    return Json(new { status = false, message = "Email/Mobile can't Empty" });
                 }
                 else if (!Regex.IsMatch(input, emailRegexPattern) && !Regex.IsMatch(input, mobileRegexPattern))
                 {
-                    return Json(new { statuscode = "LI2", status = "Invalid email/mobile format" });
+                    return Json(new { status = false, message = "Invalid email/mobile format" });
                 }
                 else if (string.IsNullOrEmpty(Data.Password))
                 {
-                    return Json(new { statuscode = "LI3", status = "Password can't Empty" });
+                    return Json(new { status = false, message = "Password can't Empty" });
                 }
                 else
                 {
                     string pattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
                     if (!Regex.IsMatch(Data.Password, pattern))
                     {
-                        return Json(new { statuscode = "LI4", status = "Invalid password format" });
+                        return Json(new { status = false, message = "Invalid password format" });
                     }
                 }
 
@@ -56,10 +56,10 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        status = true,
                         message = "Login Succcessfully",
                         Email = statusClass.DataFetch.Tables[0].Rows[0]["Email"],
-                        Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"])),
+                        Mobile = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"]),
                     };
                     return Json(result);
                 }
@@ -67,7 +67,7 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        status = false,
                         message = "Invalid Credentials"
                     };
                     return Json(result);
@@ -76,7 +76,7 @@ namespace zipSign.Controllers.APIs
                 {
                     var result = new
                     {
-                        StatusCode = statusClass.StatusCode,
+                        status = false,
                         message = "Account locked due to too many failed attempts"
                     };
                     return Json(result);
@@ -87,15 +87,11 @@ namespace zipSign.Controllers.APIs
             {
                 return Json(new { ex });
             }
-            var result1 = new
-            {
-                status = statusClass.StatusCode
-            };
             return Json("");
         }
         private class ApiResponse
         {
-            public string Status { get; set; }
+            public string status { get; set; }
             public object Data { get; set; }
         }
     }

@@ -5,7 +5,7 @@ using System.Data;
 namespace BusinessLayerModel
 {
     #region FOR MODEL
-
+    
     public class SignUp
     {
         public string Name { get; set; }
@@ -82,7 +82,7 @@ namespace BusinessLayerModel
     {
         public List<DSCCertificateMgt> Table1 { get; set; }
         public List<pagination> Table2 { get; set; }
-
+        public string Error { get; set; }
     }
     public class ResultData1
     {
@@ -186,6 +186,7 @@ namespace BusinessLayerModel
         public string PasswordType { get; set; }
         public string UploadedOn { get; set; }
         public int Row { get; set; }
+        public string IsActive1 { get; set; }
         public string Table { get; set; }
         //public List<CertificationManagement> Table { get; set; }
     }
