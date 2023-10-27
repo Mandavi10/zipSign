@@ -16,38 +16,39 @@ namespace zipSign.Controllers.APIs
         private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
         [HttpPost]
-        [Route("ChangePasswordFromProfile/ChangePassword")]
+        [Route("ChangePasswordFromProfileAPI/ChangePassword")]
         public IHttpActionResult ChangePassword([FromBody] JObject requestData)
         {
             ChangePasswordFromProfileModel Data = requestData["Data"].ToObject<ChangePasswordFromProfileModel>();
             string passwordPattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
-            int UserMasterId = GetUserMasterIdByEmail(Data.email);
+            
             if (string.IsNullOrWhiteSpace(Data.oldPassword))
             {
-                return Json(new { statuscode = "CPFP1", status = "Please Enter Old Password" });
+                return Json(new { status = false, message = "Please Enter Old Password" });
             }
             else if (!Regex.IsMatch(Data.oldPassword, passwordPattern))
             {
-                return Json(new { statuscode = "CPFP2", status = "Please Enter Correct Old Password" });
+                return Json(new { status = false, message = "Please Enter Correct Old Password" });
             }
             else if (string.IsNullOrWhiteSpace(Data.newPassword))
             {
-                return Json(new { statuscode = "CPFP3", status = "Please Enter New Password" });
+                return Json(new { status = false, message = "Please Enter New Password" });
             }
             else if (!Regex.IsMatch(Data.newPassword, passwordPattern))
             {
-                return Json(new { statuscode = "CPFP4", status = "Please Enter Correct New Password" });
+                return Json(new { status = false, message = "Please Enter Correct New Password" });
             }
             else if (string.IsNullOrWhiteSpace(Data.confirmPassword))
             {
-                return Json(new { statuscode = "CPFP5", status = "Please Confirm Password" });
+                return Json(new { status = false, message = "Please Confirm Password" });
             }
             else if (Data.confirmPassword != Data.newPassword)
             {
-                return Json(new { statuscode = "CPFP6", status = "Password Does Not Match" });
+                return Json(new { status = false, message = "Password Does Not Match" });
             }
             string clientIP = GetClientIP();
             List<DataItems> obj = new List<DataItems>();
+            int UserMasterId = GetUserMasterIdByEmail(Data.email);
             string EncNewPassword = AESEncryption.AESEncryptionClass.EncryptAES(Data.newPassword);
             string EncOldPassword = AESEncryption.AESEncryptionClass.EncryptAES(Data.oldPassword);
             obj.Add(new DataItems("UserMasterID", UserMasterId));
@@ -59,15 +60,15 @@ namespace zipSign.Controllers.APIs
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             if (statusClass.StatusCode == 7)
             {
-                return Json(new { statuscode = "CPFP6", status = "Password updated successfully." });
+                return Json(new { status = true, message = "Password updated successfully." });//true
             }
             else if (statusClass.StatusCode == 10)
             {
-                return Json(new { statuscode = "CPFP7", status = "Incorrect Old Password" });
+                return Json(new { status = false, message = "Incorrect Old Password" });
             }
             else
             {
-                return Json(new { statuscode = "CPFP8", status = "User Not Found" });
+                return Json(new { status = false, message = "User Not Found" });
             }
         }
 
@@ -100,27 +101,57 @@ namespace zipSign.Controllers.APIs
                 return null;
             }
         }
+        //public int GetUserMasterIdByEmail(string email)
+        //{
+        //    int userMasterId = -1; // Default value indicating failure or non-existence
+
+        //    using (SqlConnection connection = new SqlConnection("Data Source=192.168.40.86;Initial Catalog=UATDocumentZipSign;Integrated Security=False;User ID=aditi;Password=gBg7$52F"))
+        //    {
+        //        connection.Open();
+        //        SqlCommand cmd = new SqlCommand("SELECT UserMasterID FROM TblUserMaster WHERE Email = '" + email + "'", connection);
+        //        cmd.Parameters.AddWithValue("@Email", email);
+        //        SqlDataReader reader = cmd.ExecuteReader();
+
+        //        if (reader.Read())
+        //        {
+        //            userMasterId = Convert.ToInt32(reader["UserMasterID"]);
+        //        }
+
+        //        reader.Close();
+        //    }
+
+        //    return userMasterId;
+        //}
         public int GetUserMasterIdByEmail(string email)
         {
             int userMasterId = -1; // Default value indicating failure or non-existence
 
-            using (SqlConnection connection = new SqlConnection("Data Source=192.168.40.86;Initial Catalog=UATDocumentZipSign;Integrated Security=False;User ID=aditi;Password=gBg7$52F"))
+            try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand("SELECT UserMasterID FROM TblUserMaster WHERE Email = '" + email + "'", connection);
-                cmd.Parameters.AddWithValue("@Email", email);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection("Data Source=192.168.40.86;Initial Catalog=UATDocumentZipSign;Integrated Security=False;User ID=aditi;Password=gBg7$52F"))
                 {
-                    userMasterId = Convert.ToInt32(reader["UserMasterID"]);
-                }
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT UserMasterID FROM TblUserMaster WHERE Email = '" + email + "'", connection);
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                reader.Close();
+                    if (reader.Read())
+                    {
+                        userMasterId = Convert.ToInt32(reader["UserMasterID"]);
+                    }
+
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it in some other way
+                Console.WriteLine(ex.Message);
             }
 
             return userMasterId;
         }
+
     }
 }
 

@@ -55,13 +55,15 @@ $(document).ready(function () {
         $("#hdnSigningmode").css("display", "block");
         $("label#uploadedFileStatus").next("span").text("Signed");
         $("label#uploadedFileDate").next("span").text(DateTimeParsed);
+        $("#uploadedFileDate").show();
         $("label#Txnno").next("span").text(TxnId);
         $("label#signingmode").next("span").text("Aadhaar");
+        $("#signingmode").show();
         $("#PreviewSignImage1").removeAttr("src");
         $("#PreviewSignImage1").attr("src", filePath);
         $('#Btn_rec').hide();
-        $('#Trail_Div').hide();
-        $('.doc-details').hide();
+       // $('#Trail_Div').hide();
+        $('.doc-details').show();
         $('#btncomplete').hide();
         $('#btncomplete1').hide();
         $("#btnreject").hide();
@@ -94,7 +96,7 @@ $(document).ready(function () {
             $("#PreviewSignImage1").attr("src", filePath);
             $('#Btn_rec').hide();
             $('#btncomplete').show();
-            $("label#uploadedFileID").next("span").text(UploadedDocumentId);
+            //$("label#uploadedFileID").next("span").text(UploadedDocumentId);
             $("label#uploadedFileName").next("span").text(uploadedFileName);
             $("label#Txnno").next("span").text(TxnId);
         }

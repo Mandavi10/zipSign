@@ -24,27 +24,27 @@ namespace zipSign.Controllers.APIs
             int UserMasterId = GetUserMasterIdByEmail(Data.email);
             if (string.IsNullOrWhiteSpace(Data.oldPassword))
             {
-                return Json(new { statuscode = "CPFP1", status = "Please Enter Old Password" });
+                return Json(new { status = false, message = "Please Enter Old Password" });
             }
             else if (!Regex.IsMatch(Data.oldPassword, passwordPattern))
             {
-                return Json(new { statuscode = "CPFP2", status = "Please Enter Correct Old Password" });
+                return Json(new { status = false, message = "Please Enter Correct Old Password" });
             }
             else if (string.IsNullOrWhiteSpace(Data.newPassword))
             {
-                return Json(new { statuscode = "CPFP3", status = "Please Enter New Password" });
+                return Json(new { status = false, message = "Please Enter New Password" });
             }
             else if (!Regex.IsMatch(Data.newPassword, passwordPattern))
             {
-                return Json(new { statuscode = "CPFP4", status = "Please Enter Correct New Password" });
+                return Json(new { status = false, message = "Please Enter Correct New Password" });
             }
             else if (string.IsNullOrWhiteSpace(Data.confirmPassword))
             {
-                return Json(new { statuscode = "CPFP5", status = "Please Confirm Password" });
+                return Json(new { status = false, message = "Please Confirm Password" });
             }
             else if (Data.confirmPassword != Data.newPassword)
             {
-                return Json(new { statuscode = "CPFP6", status = "Password Does Not Match" });
+                return Json(new { status = false, message = "Password Does Not Match" });
             }
             string clientIP = GetClientIP();
             List<DataItems> obj = new List<DataItems>();
@@ -59,15 +59,15 @@ namespace zipSign.Controllers.APIs
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             if (statusClass.StatusCode == 7)
             {
-                return Json(new { statuscode = "CPFP6", status = "Password updated successfully." });
+                return Json(new { status = true, message = "Password updated successfully." });
             }
             else if (statusClass.StatusCode == 10)
             {
-                return Json(new { statuscode = "CPFP7", status = "Incorrect Old Password" });
+                return Json(new { status = false, message = "Incorrect Old Password" });
             }
             else
             {
-                return Json(new { statuscode = "CPFP8", status = "User Not Found" });
+                return Json(new { status = false, message = "User Not Found" });
             }
         }
 
