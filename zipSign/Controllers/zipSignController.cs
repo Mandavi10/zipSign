@@ -683,10 +683,6 @@ namespace zipSign.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
-
-
-
-
         public ActionResult SendToSigningRequest(int fileCode)
         {
             List<DataItems> obj = new List<DataItems>

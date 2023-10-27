@@ -23,7 +23,7 @@ function GetDataForSignedPDF(pagecount, keyword) {
         {
             headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, suppressMovable: true, cellRenderer: function (params) {
             
-                return '<span class="fa fa-trash gridIcon" id=""></span>';
+                return '<span class="fa fa-trash gridIcon"  data-file-Code="' + params.data.DocumentUploadId + '" id="" Onclick="Delete(this)"></span>';
             }
         },
     ];
@@ -104,7 +104,7 @@ function GetDataForSignedPDF(pagecount, keyword) {
                 onRowClicked: function (params) {
                     if (params.event.target.classList.contains('fa-trash')) {
                         var fileCode = params.event.target.getAttribute('data-file-Code');
-                        
+                  
                         Delete(fileCode);
                     }
                     else {
@@ -149,6 +149,22 @@ function ShowMoreForSigned(FileCode) {
         },
         error: function () {
             alert('Failed to retrieve department details.');
+        }
+    });
+}
+function Delete(DocumentUploadId) {
+    $.ajax({
+        url: '/zipSign/Delete',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            fileCode: DocumentUploadId
+        },
+        success: function (result) {
+            GetDataForSignedPDF(pagecount, keyword);
+        },
+        error: function () {
+            alert('Failed to delete the file.');
         }
     });
 }

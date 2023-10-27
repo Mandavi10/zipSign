@@ -582,7 +582,6 @@ function GetData(pagecount, keyword) {
 }
 
 function Delete(DocumentUploadId) {
-    //
     $.ajax({
         url: '/zipSign/Delete',
         type: 'POST',

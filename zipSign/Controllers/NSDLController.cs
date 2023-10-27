@@ -665,9 +665,12 @@ namespace zipSign.Controllers
                             SignerName = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerName"]);
                             Email = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerEmail"]);
                             UploadedDocumentId = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedDocumentId"]);
+                            string UniqueIdentifier= Convert.ToString(statusClass.DataFetch.Tables[3].Rows[0]["UniqueIdentifier"]);
+                            string TxnId1= Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TxnId"]);
+                            TimeStamp= Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TimeStamp"]);
                             LogTrail(SignerID.ToString(), "Document Signed", SignerName, Email, int.Parse(UploadedDocumentId), "");
                             SendEmailAfterSuccess(Email, SignerName, SignerID, FilePath, UploadedDocumentId);
-                            //redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp;
+                            redirectUrl = FilePath + "&TxnId=" + TxnId1 + "&Date=" + TimeStamp+"&UId="+ UniqueIdentifier+ "&UploadedDocumentId="+ UploadedDocumentId;
                         }
                         else
                         {
@@ -690,7 +693,7 @@ namespace zipSign.Controllers
                             LogTrail(SignerID1.ToString(), "Document Signed", SignerName1, Email1, int.Parse(UploadedDocumentId1), "");
                             string Trail1 = SendVerifyLinkByEmail(Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiryDay);
                             SendEmailAfterSuccess(Email1, SignerName1, SignerID1, FilePath, UploadedDocumentId1);
-                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ Trail1;
+                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ "&UId=" +Trail1;
 
                         }
                     }
