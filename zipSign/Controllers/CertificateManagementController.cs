@@ -108,7 +108,7 @@ namespace zipSign.Controllers
         }
 
         public bool ValidateCertWithPasswordForSigning(string selectedValue, string password)
-        {
+        { 
             bool flag = true;
             string Path = null;
             string connectionString = GlobalMethods.Global.DocSign.ToString();
