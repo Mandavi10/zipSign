@@ -291,6 +291,7 @@
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
+    <Compile Include="Controllers\VSignController.cs" />
     <Compile Include="Controllers\zipSignController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EntitySetupController.cs" />
@@ -462,6 +463,7 @@
     <Content Include="Content\images\visa-card.png" />
     <Content Include="Content\images\washing-machine.png" />
     <Content Include="Content\images\weather_img.jpg" />
+    <Content Include="Content\JAR Files\Verasays-eSign-Web-4.0.jar" />
     <Content Include="Content\js\ag-grid-community.min.js" />
     <Content Include="Content\js\bootstrap-datepicker.min.js" />
     <Content Include="Content\js\bootstrap.js" />
@@ -622,6 +624,7 @@
     <Folder Include="NSDL_Request_Response\Request\" />
     <Folder Include="NSDL_Request_Response\Response\" />
     <Folder Include="Uploads\SignUpload\PDFs\" />
+    <Folder Include="Views\VSign\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
