@@ -60,6 +60,7 @@ namespace zipSign.Controllers.APIs
                         message = "Login Succcessfully",
                         Email = statusClass.DataFetch.Tables[0].Rows[0]["Email"],
                         Mobile = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"]),
+                        UserId = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"])
                     };
                     return Json(result);
                 }
