@@ -280,6 +280,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\APIs\SendMobileOTPAPIController.cs" />
     <Compile Include="Controllers\APIs\SignInAPIController.cs" />
     <Compile Include="Controllers\APIs\ChangePasswordFromProfileAPIController.cs" />
     <Compile Include="Controllers\APIs\ForgotPasswordAPIController.cs" />

@@ -741,7 +741,7 @@
         <script src="~/JavaScript/Custom.js"></script>
         <script>
             $(document).ready(function () {
-                resetLogoutTimer();
+               // resetLogoutTimer();
                 loadUserProfile(); // Call the function when the page is ready
                 $("#oldPassword, #newPassword, #confirmPassword").on('input', function () {
                     $("#ErrorMessage").empty();
@@ -889,13 +889,13 @@
             })
         </script>
       
-        <script>
+        @*<script>
             var logoutTimer;
             function resetLogoutTimer() {
                 clearTimeout(logoutTimer);
                 logoutTimer = setTimeout(function () {
                     window.location.href = '/Login/SignOut?UserMasterID=' + $('#UserMasterId').val();
-                }, 1200000  );
+                }, 60000   );
             }
 
             $(document).on('mousemove keydown', function () {
@@ -904,10 +904,7 @@
             $(document).ready(function () {
                 resetLogoutTimer();
             });
-        </script>
+        </script>*@
 
     </div></body>
-
-
-
 </html>
