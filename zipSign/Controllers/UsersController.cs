@@ -315,6 +315,13 @@ namespace zipSign.Controllers
                 return Json(result1, JsonRequestBehavior.AllowGet);
             }
         }
+        [HttpPost]
+        public ActionResult ChangeProfilePicture(HttpPostedFileBase file)
+        {
+            var newPictureUrl = "/Content/images/new-profile-picture.jpg";
+
+            return Json(new { newProfilePictureUrl = newPictureUrl }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
