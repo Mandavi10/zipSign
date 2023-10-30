@@ -7,6 +7,7 @@ var UpoladedId = '';
 var keyword = $('#searchInput').val();
 var i;
 $(document).ready(function () {
+    
     //DeleteOldFilesUptoCustomDays();
     var UserMasterID = sessionStorage.getItem('UserId');
     if (UserMasterID == "" || UserMasterID == null) {

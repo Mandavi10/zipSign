@@ -1332,6 +1332,7 @@ namespace zipSign.Controllers
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            Session.Abandon();
                             return Json(new { success = true });
                         }
                         else

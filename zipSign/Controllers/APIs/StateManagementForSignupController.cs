@@ -13,17 +13,16 @@ namespace zipSign.Controllers.APIs
         public ProcMaster pro = new ProcMaster();
         private BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-        [HttpGet]
+        [HttpPost]
         [Route("StateManagementForSignup/GetStates")]
         public IHttpActionResult GetStates([FromBody] JObject requestData)
         {
             QType Data = requestData["Data"].ToObject<QType>();
-            
             if (Data.QueryType == "GetAllState")
             {
                 List<string> states = new List<string>();
                 List<DataItems> obj = new List<DataItems>();
-               obj.Add(new DataItems("QueryType", "GetAllState"));
+                obj.Add(new DataItems("QueryType", "GetAllState"));
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                 if (statusClass.StatusCode == 9)
                 {
