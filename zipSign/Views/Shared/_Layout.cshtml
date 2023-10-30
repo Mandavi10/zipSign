@@ -742,11 +742,15 @@
         <script src="~/JavaScript/Custom.js"></script>
         <script>
             $(document).ready(function () {
+
+               // resetLogoutTimer();
+
                 $('#edit-icon').on('click', function () {
                     $('#file-input').click();
 
                 });
-                resetLogoutTimer();
+              
+
                 loadUserProfile(); // Call the function when the page is ready
                 $("#oldPassword, #newPassword, #confirmPassword").on('input', function () {
                     $("#ErrorMessage").empty();
@@ -914,26 +918,12 @@
             })
         </script>
 
-        <script>
-            var logoutTimer;
-            function resetLogoutTimer() {
-                clearTimeout(logoutTimer);
-                logoutTimer = setTimeout(function () {
-                    window.location.href = '/Login/SignOut?UserMasterID=' + $('#UserMasterId').val();
-                }, 1200000);
-            }
-
-            $(document).on('mousemove keydown', function () {
-                resetLogoutTimer();
-            });
-            $(document).ready(function () {
-                resetLogoutTimer();
-            });
-        </script>
-
-    </div>
-</body>
+      
+     
 
 
+       
+
+    </div></body>
 
 </html>

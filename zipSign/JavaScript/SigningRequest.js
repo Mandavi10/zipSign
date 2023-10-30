@@ -107,11 +107,11 @@ $(document).ready(function () {
             $('#completePopup').modal('show');
         });
         $('#btnok1').click(function () {
-            sessionStorage.clear();
+            //sessionStorage.clear();
             window.location.href = "/zipSign/Signed";
-            $.each(sessionStorage, function (key) {
-                sessionStorage.removeItem(key);
-            });
+            //$.each(sessionStorage, function (key) {
+            //    sessionStorage.removeItem(key);
+            //});
         });
         $('#btnok2').click(function () {
         });

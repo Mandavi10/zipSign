@@ -66,6 +66,10 @@ namespace zipSign.Controllers.APIs
             {
                 return Json(new { status = false, message = "Incorrect Old Password" });
             }
+            else if (statusClass.StatusCode == 9)
+            {
+                return Json(new { status = false, message = "ChangeCount Limit Exceeded" });
+            }
             else
             {
                 return Json(new { status = false, message = "User Not Found" });

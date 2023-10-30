@@ -379,13 +379,13 @@ function AddRecipiants(a) {
         Recipients += '</div>';
         Recipients += '<ul class="suggestions-list" style="position: absolute; width: 100%; z-index: 1; background-color: #fff; border: 1px solid #ccc; max-height: 150px; overflow-y: auto; margin-top: 5px; border-radius: 4px; display: none;"></ul>';
         Recipients += '<div class="form-group col-md-4 col-12 p-1" id="SignerDiv">';
-        Recipients += '<input type="text" class="form-control" placeholder="Email ID" oninput="this.value = this.value.toLowerCase()" id="Email' + i + '">';
+        Recipients += '<input type="text" class="form-control" placeholder="Email ID" autocomplete="off" oninput="this.value = this.value.toLowerCase()" id="Email' + i + '">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-2 col-12 p-1">';
-        Recipients += '<input type="text" class="form-control" placeholder="Mobile Number" maxlength="10" id="phone' + i + '">';
+        Recipients += '<input type="text" class="form-control" placeholder="Mobile Number" autocomplete="off" maxlength="10" id="phone' + i + '">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-1 col-12 p-1">';
-        Recipients += '<input type="text" class="form-control" style="padding-left: 8px !important;" placeholder="Expired in Days" maxlength="3" id="ExpDate' + i + '" onchange="CheckExpiryDate()">';
+        Recipients += '<input type="text" class="form-control" style="padding-left: 8px !important;" autocomplete="off" placeholder="Expired in Days" maxlength="3" id="ExpDate' + i + '" onchange="CheckExpiryDate()">';
         Recipients += '</div>';
         Recipients += '<div class="form-group col-md-1 col-12 p-1">';
         Recipients += '<label class="p-1">Days</label>';
