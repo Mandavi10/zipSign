@@ -14,7 +14,7 @@ namespace zipSign.Controllers.APIs
         private BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
         [HttpPost]
-        [Route("APIs/Login")]
+        [Route("SignInAPI/Login")]
         public IHttpActionResult Login([FromBody] JObject requestData)
         {
             Login Data = requestData["Data"].ToObject<Login>();
