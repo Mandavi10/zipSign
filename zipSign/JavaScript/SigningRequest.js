@@ -256,7 +256,7 @@ function RowClickEventHandler2(UType, UploadedDocumentId) {
         },
 
         error: function (error) {
-            console.error('Error occurred:', error);
+            //console.error('Error occurred:', error);
         }
     });
 }
@@ -292,8 +292,8 @@ function Continue() {
                 },
                 error: function (xhr, status, error) {
 
-                    console.log("AJAX Error: " + error); // Log the error message
-                    console.log(xhr.responseText); // Log the full response
+                    //console.log("AJAX Error: " + error); // Log the error message
+                    //console.log(xhr.responseText); // Log the full response
                 }
             });
         });
