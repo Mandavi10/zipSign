@@ -93,7 +93,7 @@ namespace zipSign.Controllers.APIs
 
             };
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj1);
-            return Json(new { status = true, message = "OTP Sent Successfully", TraceNumber, OTP });
+            return Json(new { status = true, message = "OTP Sent Successfully", TraceNumber });
 
         }
     }

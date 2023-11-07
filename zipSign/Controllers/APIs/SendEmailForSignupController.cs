@@ -23,20 +23,19 @@ namespace zipSign.Controllers.APIs
             {
                 return Json(new { status = false, message = "Invalid Email Format ex. User@Example.com" });
             }
-
             try
             {
-                string SentOTP = SendOTPviaEmail(otpRequest.Email);
-                return Json(new { status = true, message = "OTP Send Successfully", OTP = SentOTP });
+                string TxnNo = SendOTPviaEmail(otpRequest.Email);
+                return Json(new { status = true, message = "OTP Send Successfully",TxnNo = TxnNo });
             }
             catch (Exception ex)
             {
                 return Json(new { status = false, message = "Failed To Send OTP. Reason:" + ex });
             }
         }
-
         private string SendOTPviaEmail(string Email)
         {
+            string TraceNumber = "";
             Random rnd = new Random();
             string OTP = rnd.Next(100000, 999999).ToString();
             using (MailMessage msg = new MailMessage("rohan153555@gmail.com", Email))
@@ -82,7 +81,7 @@ namespace zipSign.Controllers.APIs
                 smtp.Send(msg);
                 Random random = new Random();
                 int txnId = random.Next(100, 1000);
-                string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
+                TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss") + txnId;
                 List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("TxnId", TraceNumber),
@@ -93,7 +92,7 @@ namespace zipSign.Controllers.APIs
             };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             }
-            return OTP;
+            return TraceNumber;
         }
     }
 
