@@ -280,6 +280,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\APIs\LogOutAPIController.cs" />
     <Compile Include="Controllers\APIs\SendMobileOTPAPIController.cs" />
     <Compile Include="Controllers\APIs\SignInAPIController.cs" />
     <Compile Include="Controllers\APIs\ChangePasswordFromProfileAPIController.cs" />
@@ -288,6 +289,7 @@
     <Compile Include="Controllers\APIs\SignUpAPIController.cs" />
     <Compile Include="Controllers\APIs\StateManagementForSignupController.cs" />
     <Compile Include="Controllers\APIs\UploadFileAPIController.cs" />
+    <Compile Include="Controllers\APIs\VerifyOTPAPIController.cs" />
     <Compile Include="Controllers\APIs\VersionControlAPIController.cs" />
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
@@ -307,6 +309,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="abc.xml" />
     <Content Include="bin\AESEncryption.dll" />
     <Content Include="bin\AESEncryption.pdb" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -617,7 +620,6 @@
     <Content Include="Views\CertificateManagement\CertManagement.cshtml" />
     <Content Include="Views\CertificateManagement\AllDocumentSignerCertificate.cshtml" />
     <Content Include="Views\zipSign\OpenPdfInCanvas.cshtml" />
-    <Content Include="Uploads\SignUpload\1 Page Invoice SHf_20231017140750923_9MNV5M680.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

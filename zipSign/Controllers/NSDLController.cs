@@ -33,6 +33,7 @@ namespace zipSign.Controllers
         }
         public ActionResult PDFSignature(AuthViewModel objModel)
         {
+            string UserName = Session["UserName"] as string;
             string TraceNumber = "612000" + DateTime.Now.ToString("ddMMyyyyHHmmss");
             string documentid = objModel.UploadedDocumentId;
             _ = $"{System.Configuration.ConfigurationManager.AppSettings["ConsumePath"]}{objModel.File}";
@@ -93,6 +94,7 @@ namespace zipSign.Controllers
                 {
                     xml_get = sr.ReadToEnd();
                 }
+
                 NameValueCollection collections = new NameValueCollection
                 {
                     { "msg", xml_get }
@@ -665,12 +667,12 @@ namespace zipSign.Controllers
                             SignerName = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerName"]);
                             Email = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignerEmail"]);
                             UploadedDocumentId = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedDocumentId"]);
-                            string UniqueIdentifier= Convert.ToString(statusClass.DataFetch.Tables[3].Rows[0]["UniqueIdentifier"]);
-                            string TxnId1= Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TxnId"]);
-                            TimeStamp= Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TimeStamp"]);
+                            string UniqueIdentifier = Convert.ToString(statusClass.DataFetch.Tables[3].Rows[0]["UniqueIdentifier"]);
+                            string TxnId1 = Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TxnId"]);
+                            TimeStamp = Convert.ToString(statusClass.DataFetch.Tables[2].Rows[0]["TimeStamp"]);
                             LogTrail(SignerID.ToString(), "Document Signed", SignerName, Email, int.Parse(UploadedDocumentId), "");
                             SendEmailAfterSuccess(Email, SignerName, SignerID, FilePath, UploadedDocumentId);
-                            redirectUrl = FilePath + "&TxnId=" + TxnId1 + "&Date=" + TimeStamp+"&UId="+ UniqueIdentifier+ "&UploadedDocumentId="+ UploadedDocumentId;
+                            redirectUrl = FilePath + "&TxnId=" + TxnId1 + "&Date=" + TimeStamp + "&UId=" + UniqueIdentifier + "&UploadedDocumentId=" + UploadedDocumentId;
                         }
                         else
                         {
@@ -693,7 +695,7 @@ namespace zipSign.Controllers
                             LogTrail(SignerID1.ToString(), "Document Signed", SignerName1, Email1, int.Parse(UploadedDocumentId1), "");
                             string Trail1 = SendVerifyLinkByEmail(Email, fileid, SignerName, SignerID, FilePath, UploadedDocumentId, SignerExpiryDay);
                             SendEmailAfterSuccess(Email1, SignerName1, SignerID1, FilePath, UploadedDocumentId1);
-                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ "&UId=" +Trail1;
+                            redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp + "&UId=" + Trail1;
 
                         }
                     }
@@ -711,7 +713,7 @@ namespace zipSign.Controllers
                     string UniqueSignerId = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UniqueSignerId"]);
                     SendEmailAfterSuccess(Email, SignerName, SignerID, FilePath, UploadedDocumentId);
                     LogTrailforSingleSingner(SignerID1.ToString(), "Document Signed", SignerName, Email, int.Parse(UploadedDocumentId1), "Single Signer");
-                    redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp+ "&UType="+ SignerType+ "&UploadedDocumentId=" + UploadedDocumentId1;
+                    redirectUrl = FilePath + "&TxnId=" + TxnId + "&Date=" + TimeStamp + "&UType=" + SignerType + "&UploadedDocumentId=" + UploadedDocumentId1;
                     //redirectUrl = FilePath + "/" + SignerName + "/" + SignerAadhaar + "/" + TxnId+"/"+TimeStamp;
                 }
 
@@ -938,8 +940,8 @@ namespace zipSign.Controllers
                     smtpClient.Send(message);
                 }
             }
-            redirectUrl = filePath; 
-            return Json( "");
+            redirectUrl = filePath;
+            return Json("");
         }
 
         public JsonResult GetSignerData(string UploadedDocumentId)

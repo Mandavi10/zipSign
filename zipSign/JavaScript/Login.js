@@ -353,7 +353,6 @@ function VerifyOTP() {
         dataType: 'json',
         data: {
             VOTP: otp,
-
         },
         async: false, // Make the request synchronous to wait for the response
         success: function (result) {
