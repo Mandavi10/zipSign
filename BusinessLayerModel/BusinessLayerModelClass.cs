@@ -42,6 +42,11 @@ namespace BusinessLayerModel
     {
         public string TxnID { get; set; }
     }
+    public class Logout
+    {
+        public string UserMasterID { get; set; }
+    }
+    
     public class Login
     {
         public string Email { get; set; }
@@ -190,6 +195,17 @@ namespace BusinessLayerModel
         public string IsActive1 { get; set; }
         public string Table { get; set; }
         //public List<CertificationManagement> Table { get; set; }
+    }
+    public class OTP
+    {
+        public string Otp { get; set; }
+        public string TxnId { get; set; }
+    }
+    public class LoginOTP
+    {
+        public string CusName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
     }
     public class CertificationManagement
     {

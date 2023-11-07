@@ -140,8 +140,8 @@ namespace zipSign.Controllers.APIs
 
         private string GenerateResetLink(string userCode)
         {
-
             return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}";
+            //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}";
         }
         private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText)
         {

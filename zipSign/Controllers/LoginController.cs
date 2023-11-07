@@ -283,6 +283,7 @@ namespace zipSign.Controllers
 
                             userDataList.Add(userData);
                             Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
+                            Session["UserName"] = Convert.ToString(dr["Name"]);
                         }
                         Session["UserData"] = userDataList; // Store the list of user data in the session
                         return Json(result, JsonRequestBehavior.AllowGet);
@@ -1012,6 +1013,7 @@ namespace zipSign.Controllers
                 string File = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileId));
                 msg.Subject = "Document for signing";
                 string mss = "http://localhost:50460/Login/SignLogin";
+                //string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
                 string urlWithEncodedFileId = mss + "?Emailid=" + Emailid + "&File=" + File;
                 DateTime expirationDate = DateTime.Today.AddDays(expday);
                 string linkText = "Click here to view & sign the document";
@@ -1172,6 +1174,7 @@ namespace zipSign.Controllers
         {
 
             return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}";
+            //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}";
         }
         private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText)
         {
@@ -1313,40 +1316,40 @@ namespace zipSign.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult UpdateUserStatus(int userId)
-        {
-            string connectionString = GlobalMethods.Global.DocSign.ToString();
-            string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
+        //[HttpPost]
+        //public JsonResult UpdateUserStatus(int userId)
+        //{
+        //    string connectionString = GlobalMethods.Global.DocSign.ToString();
+        //    string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
 
-                using (SqlCommand command = new SqlCommand(updateQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@UserMasterID", userId);
+        //        using (SqlCommand command = new SqlCommand(updateQuery, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@UserMasterID", userId);
 
-                    try
-                    {
-                        connection.Open();
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            Session.Abandon();
-                            return Json(new { success = true });
-                        }
-                        else
-                        {
-                            return Json(new { success = false, message = "User not found or status not updated." });
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json(new { success = false, message = ex.Message });
-                    }
-                }
-            }
-        }
+        //            try
+        //            {
+        //                connection.Open();
+        //                int rowsAffected = command.ExecuteNonQuery();
+        //                if (rowsAffected > 0)
+        //                {
+        //                    Session.Abandon();
+        //                    return Json(new { success = true });
+        //                }
+        //                else
+        //                {
+        //                    return Json(new { success = false, message = "User not found or status not updated." });
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                return Json(new { success = false, message = ex.Message });
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
 
