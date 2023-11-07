@@ -65,8 +65,10 @@ namespace zipSign.Controllers.APIs
                         message = "Login Succcessfully",
                         Email = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"])),
                         Mobile = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"]),
+
                         Name = statusClass.DataFetch.Tables[0].Rows[0]["Name"],
                         UserId = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"]
+
                     };
                     var otpResponse = SendOTP(statusClass.DataFetch.Tables[0].Rows[0]["Name"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["Email"].ToString());
                     //var compositeResponse = new CompositeResponse
