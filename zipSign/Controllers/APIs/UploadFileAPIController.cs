@@ -23,6 +23,7 @@ namespace zipSign.Controllers.APIs
             {
                 return Json(new { Status = false, message = "Please Fill Required Fields" });
             }
+
             try
             {
                 string randomKey = CreateRandomKey();
@@ -33,7 +34,7 @@ namespace zipSign.Controllers.APIs
                 string filePath = HttpContext.Current.Server.MapPath("~/Uploads/SignUpload/" + fileName);
                 File.WriteAllBytes(filePath, bytes);
                 SignInsert(Data.DocumentName, Data.UploadedDoc, filePath, Data.UserType, Data.UserId, Data.UserName, Data.UserEmail, Data.ReferenceNumber, Data.DocumentName1);
-                return Json(new { Status = true, message="Success"});
+                return Json(new { Status = true, message="Success", filePath= "/Uploads/SignUpload/" + fileName });
             }
             catch (Exception ex)
             {
