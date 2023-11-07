@@ -250,13 +250,9 @@ namespace BusinessLayerModel
         public string Emailid { get; set; }
         public string SignerID { get; set; }
         public string UniqueSignerID { get; set; }
-
         //public string documentid { get; set; }
-
-
         public int documentid { get; set; }
         public int Coordinates { get; set; }
-
         public string XmlData { get; set; }
         public string hdnmessageid { get; set; }
         public string UploadedDocumentId { get; set; }

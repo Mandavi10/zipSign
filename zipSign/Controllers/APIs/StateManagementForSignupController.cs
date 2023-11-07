@@ -21,8 +21,10 @@ namespace zipSign.Controllers.APIs
             if (Data.QueryType == "GetAllState")
             {
                 List<string> states = new List<string>();
-                List<DataItems> obj = new List<DataItems>();
-                obj.Add(new DataItems("QueryType", "GetAllState"));
+                List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("QueryType", "GetAllState")
+                };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
                 if (statusClass.StatusCode == 9)
                 {
