@@ -1322,7 +1322,7 @@ namespace zipSign.Controllers
                 return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
             }
         }
-
+      
         [HttpPost]
         public JsonResult UpdateUserStatus(int userId)
         {
@@ -1335,6 +1335,7 @@ namespace zipSign.Controllers
                 using (SqlCommand command = new SqlCommand(updateQuery, connection))
                 {
                     command.Parameters.AddWithValue("@UserMasterID", userId);
+
 
                     try
                     {

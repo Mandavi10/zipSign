@@ -4,6 +4,7 @@
         window.location.href = "/Login/Index";
     }
     //$(window).on('beforeunload', function () {
+
     //    $.ajax({
     //        url: '/Login/UpdateUserStatus',
     //        method: 'POST',
