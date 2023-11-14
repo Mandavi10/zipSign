@@ -172,8 +172,7 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
-                string userName, userEmail;
-                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out userName, out userEmail);
+                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out string userName, out string userEmail);
                 LogTrail("", "Document Upload", userName, userEmail, UploadedDocumentId, UserType);
                 if (statusClass.StatusCode >= 0)
                 {
@@ -203,8 +202,7 @@ namespace zipSign.Controllers
                 obj.Add(new DataItems("QuerySelector", "InsertSign"));
                 statusClass = bal.PostFunction(pro.Sp_SignUpload, obj);
                 int UploadedDocumentId = statusClass.StatusCode;
-                string userName, userEmail;
-                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out userName, out userEmail);
+                GetUserDataForTrail(Convert.ToInt32(Session["UserId"]), out string userName, out string userEmail);
                 LogTrail("", "Document Upload", userName, userEmail, UploadedDocumentId, UserType);
                 if (statusClass.StatusCode >= 0)
                 {
@@ -693,7 +691,7 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
             string UploadedFileName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedFileName"]);
             string FilePath = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["FilePath"]);
-            string UploadedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedBy"]);
+            //string UploadedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedBy"]);
             return Json(UploadedFileName, FilePath, JsonRequestBehavior.AllowGet);
         }
     }
