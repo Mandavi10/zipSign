@@ -76,7 +76,9 @@ namespace zipSign.Controllers.APIs
             }
         }
 
-
+        /// <summary>
+        /// ///
+        /// </summary>
         public class ChangePasswordFromProfileModel
         {
             public string oldPassword { get; set; }
