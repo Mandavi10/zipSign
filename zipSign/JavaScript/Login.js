@@ -154,7 +154,7 @@ function Login() {
         },
         error: function (error) {
             alert("Login Failed");
-            console.log(error);
+            //console.log(error);
         }
     });
 }
@@ -202,7 +202,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
 
         },
         error: function (error) {
-            console.log(error);
+            ////console.log(error);
         }
     });
 }
@@ -248,7 +248,7 @@ function SendLoginEmailResendOTP(textbox, username, mobile) {
 
         },
         error: function (error) {
-            console.log(error);
+            ////console.log(error);
         }
     });
 }
@@ -270,10 +270,10 @@ function SendLoginMobileOTP(username, textbox) {
             var formattedMobile = "xxxxx" + mobile.slice(-5);
             var span = $("#lblemail .enterddata");
             span.text(formattedMobile);
-            console.log(response);
+            //console.log(response);
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 }
@@ -381,7 +381,7 @@ function VerifyOTP() {
             }
         },
         error: function (ex) {
-            console.log("Error occurred during OTP verification");
+            //console.log("Error occurred during OTP verification");
             isVerified = 0;
         }
     });
@@ -408,7 +408,7 @@ function SignOut() {
 
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 }
@@ -477,7 +477,7 @@ function ForgotPassword() {
             },
             error: function (error) {
                 alert("Login Failed");
-                console.log(error);
+                //console.log(error);
             }
         });
     }
@@ -495,10 +495,10 @@ function SendPasswordResetLink(UserCode, Email) {
         success: function (response) {
             window.location.href = '/Login/Index';
             sessionStorage.clear();
-            console.log(response);
+            //console.log(response);
         },
         error: function (error) {
-            console.log(error);
+            //console.log(error);
         }
     });
 }

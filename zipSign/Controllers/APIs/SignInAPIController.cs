@@ -71,12 +71,7 @@ namespace zipSign.Controllers.APIs
 
                     };
                     var otpResponse = SendOTP(statusClass.DataFetch.Tables[0].Rows[0]["Name"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["Email"].ToString());
-                    //var compositeResponse = new CompositeResponse
-                    //{
-                    //    LoginResult = result,
-                    //    OtpResult = otpResponse
-                    //};
-                    //return Json(compositeResponse);
+                
                     var response = new
                     {
                         status = result.status,
@@ -94,6 +89,7 @@ namespace zipSign.Controllers.APIs
                         }
                     };
                     return Json(response);
+
                 }
                 if (statusClass.StatusCode == 6)
                 {

@@ -331,12 +331,12 @@ namespace zipSign.Controllers
                         }
                         else
                         {
-                            Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
+                           // //Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Source file does not exist.");
+                        ////Console.WriteLine("Source file does not exist.");
                     }
                     ViewBag.HasError = true;
                     return View();
@@ -421,12 +421,12 @@ namespace zipSign.Controllers
                         }
                         else
                         {
-                            Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
+                            ////Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
                         }
                     }
                     else
                     {
-                        Console.WriteLine("Source file does not exist.");
+                        ////Console.WriteLine("Source file does not exist.");
                     }
                 }
 
@@ -500,12 +500,12 @@ namespace zipSign.Controllers
                     }
                     else
                     {
-                        Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
+                        //Console.WriteLine("Destination file already exists. Rename or remove the existing file.");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Source file does not exist.");
+                    //Console.WriteLine("Source file does not exist.");
                 }
             }
             catch (Exception ex)
@@ -556,7 +556,7 @@ namespace zipSign.Controllers
                 if (endIndex != -1)
                 {
                     string extractedData = originalString.Substring(startIndexForAadhar, endIndex - startIndexForAadhar);
-                    Console.WriteLine("Extracted Data: " + extractedData);
+                    //Console.WriteLine("Extracted Data: " + extractedData);
 
                     // Remove any non-numeric characters from the extracted data
                     string numericData = new string(extractedData.Where(char.IsDigit).ToArray());
@@ -566,16 +566,16 @@ namespace zipSign.Controllers
                         processedString = numericData.Substring(0, numericData.Length - 1);
                     }
                     AadharNumber = "XXXXXXXX" + processedString;
-                    Console.WriteLine("Aadhar Number: " + processedString);
+                    //Console.WriteLine("Aadhar Number: " + processedString);
                 }
                 else
                 {
-                    Console.WriteLine("End pattern not found.");
+                    //Console.WriteLine("End pattern not found.");
                 }
             }
             else
             {
-                Console.WriteLine("Start pattern not found.");
+                //Console.WriteLine("Start pattern not found.");
             }
             if (startIndex != -1)
             {
@@ -586,7 +586,7 @@ namespace zipSign.Controllers
                 if (endIndex != -1)
                 {
                     string extractedData = originalString.Substring(startIndex, endIndex - startIndex);
-                    Console.WriteLine("Extracted Data: " + extractedData);
+                    //Console.WriteLine("Extracted Data: " + extractedData);
                     string input = extractedData;
                     string processedString = "";
                     if (extractedData.EndsWith("1"))
@@ -603,12 +603,12 @@ namespace zipSign.Controllers
                         }
                     }
                     //string processedString1 = RemoveLowercaseAndUnicode(input);
-                    Console.WriteLine("Original string: " + UserName);
-                    //Console.WriteLine("Processed string: " + processedString1);
+                    //Console.WriteLine("Original string: " + UserName);
+                    ////Console.WriteLine("Processed string: " + processedString1);
                 }
                 else
                 {
-                    Console.WriteLine("End pattern not found.");
+                    //Console.WriteLine("End pattern not found.");
                 }
             }
             XmlNodeList esignRespNodes = doc.GetElementsByTagName("EsignResp");
@@ -624,7 +624,7 @@ namespace zipSign.Controllers
             }
             else
             {
-                Console.WriteLine("Start pattern not found.");
+                //Console.WriteLine("Start pattern not found.");
             }
 
             if (Status == "1")
@@ -757,7 +757,7 @@ namespace zipSign.Controllers
                 if (endIndex != -1)
                 {
                     string extractedData = originalString.Substring(startIndex, endIndex - startIndex);
-                    Console.WriteLine("Extracted Data: " + extractedData);
+                    //Console.WriteLine("Extracted Data: " + extractedData);
                     string processedString = "";
                     if (extractedData.EndsWith("1"))
                     {
@@ -773,12 +773,12 @@ namespace zipSign.Controllers
                         }
                     }
                     //string processedString1 = RemoveLowercaseAndUnicode(input);
-                    Console.WriteLine("Original string: " + UserName);
-                    //Console.WriteLine("Processed string: " + processedString1);
+                    //Console.WriteLine("Original string: " + UserName);
+                    ////Console.WriteLine("Processed string: " + processedString1);
                 }
                 else
                 {
-                    Console.WriteLine("End pattern not found.");
+                    //Console.WriteLine("End pattern not found.");
                 }
             }
             XmlNodeList esignRespNodes = doc.GetElementsByTagName("EsignResp");
@@ -792,7 +792,7 @@ namespace zipSign.Controllers
             }
             else
             {
-                Console.WriteLine("Start pattern not found.");
+                //Console.WriteLine("Start pattern not found.");
             }
             List<DataItems> obj = new List<DataItems>
             {
@@ -905,9 +905,9 @@ namespace zipSign.Controllers
                     smtp.Send(msg);
                     LogTrail(SignerID.ToString(), "Link Sent", SignerName, Email, int.Parse(UploadedDocumentId), uniqueIdentifier.ToString());
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-                    Console.Write(e);
+                    //Console.Write(e);
                 }
                 return uniqueIdentifier.ToString();
             }
@@ -1088,7 +1088,7 @@ namespace zipSign.Controllers
         //    }
         //    catch (Exception ex)
         //    {
-        //        Console.WriteLine("An error occurred: " + ex.Message);
+        //        //Console.WriteLine("An error occurred: " + ex.Message);
         //        return Json(new { error = "An error occurred while processing your request." });
         //    }
         //}
@@ -1121,9 +1121,9 @@ namespace zipSign.Controllers
                 }
                 return Json(resultList, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("An error occurred: " + ex.Message);
+                //Console.WriteLine("An error occurred: " + ex.Message);
                 return Json(new { error = "An error occurred while processing your request." });
             }
         }
@@ -1160,18 +1160,18 @@ namespace zipSign.Controllers
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            Console.WriteLine("Trail logged successfully.");
+                            //Console.WriteLine("Trail logged successfully.");
                         }
                         else
                         {
-                            Console.WriteLine("Trail logging failed.");
+                            //Console.WriteLine("Trail logging failed.");
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                //Console.WriteLine("Error: " + ex.Message);
             }
         }
         public void LogTrailforSingleSingner(string SignerID, string description, string signername, string Email, int UploadedDocumentId, string UserType)
@@ -1196,18 +1196,18 @@ namespace zipSign.Controllers
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
-                            Console.WriteLine("Trail logged successfully.");
+                            //Console.WriteLine("Trail logged successfully.");
                         }
                         else
                         {
-                            Console.WriteLine("Trail logging failed.");
+                            //Console.WriteLine("Trail logging failed.");
                         }
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                //Console.WriteLine("Error: " + ex.Message);
             }
         }
 

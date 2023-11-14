@@ -1,19 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 
 namespace BusinessLayerModel
 {
     #region FOR MODEL
-    
+
     public class SignUp
     {
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
         public string OTP { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [DataType(DataType.EmailAddress)]
+        [RegularExpression("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+/.[a-zA-Z]{2,}$", ErrorMessage = "Please Enter Correct Email Address")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Mobile Number is required")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression("^(/+/d{1,3}[- ]?)?/d{10}$",ErrorMessage ="Please Enter Correct Mobile Number")]
         public string Mobile { get; set; }
         public string State { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*/d)(?=.*[a-z])(?=.*[A-Z])(?=.*/W).{8,}$",ErrorMessage ="Please Enter Correct Paasword")]
         public string Password { get; set; }
+        [Required(ErrorMessage = "Please confirm password")]
+        [DataType(DataType.Password)]
+        [RegularExpression("^(?=.*/d)(?=.*[a-z])(?=.*[A-Z])(?=.*/W).{8,}$", ErrorMessage = "Please Enter Correct Paasword")]
         public string ConfirmPassword { get; set; }
         public string panNumber { get; set; }
         public string CorpName { get; set; }
@@ -25,18 +40,11 @@ namespace BusinessLayerModel
         public string Ref1 { get; set; }
         public string CusName { get; set; }
         public string Mandateid { get; set; }
-
         public string MobileNo { get; set; }
-
         public string Message { get; set; }
-
         public string EntityId { get; set; }
-
         public string OTP { get; set; }
-
         public string EmailID { get; set; }
-
-
     }
     public class Response
     {
@@ -46,7 +54,7 @@ namespace BusinessLayerModel
     {
         public string UserMasterID { get; set; }
     }
-    
+
     public class Login
     {
         public string Email { get; set; }
@@ -82,7 +90,6 @@ namespace BusinessLayerModel
     {
         public List<SignMaster> Table1 { get; set; }
         public List<pagination> Table2 { get; set; }
-
     }
     public class ResultDataForCertificate
     {
@@ -266,13 +273,9 @@ namespace BusinessLayerModel
         public string Emailid { get; set; }
         public string SignerID { get; set; }
         public string UniqueSignerID { get; set; }
-
         //public string documentid { get; set; }
-
-
         public int documentid { get; set; }
         public int Coordinates { get; set; }
-
         public string XmlData { get; set; }
         public string hdnmessageid { get; set; }
         public string UploadedDocumentId { get; set; }
@@ -350,26 +353,4 @@ namespace BusinessLayerModel
     //    }
     //}
     #endregion
-
-
-    //#region FOR SMS
-    //public class SmsModel
-    //{
-    //    public void SendSMS(string mobile, string message)
-    //    {
-    //        string api = Convert.ToString(System.Configuration.ConfigurationSettings.AppSettings["New_SMSAPI"]);
-    //        api = api.Replace(";", "&");
-    //        api = api.Replace("MOBILENUMBER", mobile);
-    //        api = api.Replace("MOBILEMESSAGE", message);
-    //        ServicePointManager.Expect100Continue = true;
-    //        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-    //        HttpWebRequest myReq = (HttpWebRequest)WebRequest.Create(api);
-    //        HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
-    //        System.IO.StreamReader respStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
-    //        string responseString = respStreamReader.ReadToEnd();
-    //        respStreamReader.Close();
-    //        myResp.Close();
-    //    }
-    //}
-    //#endregion
 }
