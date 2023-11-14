@@ -30,7 +30,15 @@ namespace zipSign.Controllers.APIs
             obj.Add(new DataItems("QueryType", "SignOut"));
             statusClass = bal.PostFunction(pro.Signup, obj);
             //Session.Abandon();
-            return Json(new { status = true, message = "Logout Successfully" });
+            if(statusClass.StatusCode==9)
+            {
+                return Json(new { status = true, message = "Logout Successfully" });
+            }
+            if (statusClass.StatusCode == 10)
+            {
+                return Json(new { status = false, message = "User not found" });
+            }
+            return Json("");
         }
         public static string GetClientIP()
         {

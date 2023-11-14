@@ -1315,41 +1315,37 @@ namespace zipSign.Controllers
                 return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult UpdateUserStatus1(int userId)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
 
-        //[HttpPost]
-        //public JsonResult UpdateUserStatus(int userId)
-        //{
-        //    string connectionString = GlobalMethods.Global.DocSign.ToString();
-        //    string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
-
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
-
-        //        using (SqlCommand command = new SqlCommand(updateQuery, connection))
-        //        {
-        //            command.Parameters.AddWithValue("@UserMasterID", userId);
-
-        //            try
-        //            {
-        //                connection.Open();
-        //                int rowsAffected = command.ExecuteNonQuery();
-        //                if (rowsAffected > 0)
-        //                {
-        //                    Session.Abandon();
-        //                    return Json(new { success = true });
-        //                }
-        //                else
-        //                {
-        //                    return Json(new { success = false, message = "User not found or status not updated." });
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return Json(new { success = false, message = ex.Message });
-        //            }
-        //        }
-        //    }
-        //}
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@UserMasterID", userId);
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Session.Abandon();
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = "User not found or status not updated." });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { success = false, message = ex.Message });
+                    }
+                }
+            }
+        }
     }
 }
 
