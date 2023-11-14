@@ -280,11 +280,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
-
     <Compile Include="Controllers\APIs\NSDLeSignAPIController.cs" />
-
     <Compile Include="Controllers\APIs\LogOutAPIController.cs" />
-
     <Compile Include="Controllers\APIs\SendMobileOTPAPIController.cs" />
     <Compile Include="Controllers\APIs\SignInAPIController.cs" />
     <Compile Include="Controllers\APIs\ChangePasswordFromProfileAPIController.cs" />
@@ -298,6 +295,8 @@
     <Compile Include="Controllers\CertificateManagementController.cs" />
     <Compile Include="Controllers\MySignsController.cs" />
     <Compile Include="Controllers\NSDLController.cs" />
+    <Compile Include="Controllers\NSDLeSignGetSignController.cs" />
+    <Compile Include="Controllers\PaymentIntegrationController.cs" />
     <Compile Include="Controllers\VSignController.cs" />
     <Compile Include="Controllers\zipSignController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -313,7 +312,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="abc.xml" />
     <Content Include="bin\AESEncryption.dll" />
     <Content Include="bin\AESEncryption.pdb" />
     <Content Include="bin\Antlr3.Runtime.dll" />
@@ -555,7 +553,6 @@
     <Content Include="Content\fonts\Roboto-Regular.ttf" />
     <Content Include="Content\fonts\Roboto-Thin.ttf" />
     <Content Include="Content\fonts\Roboto-ThinItalic.ttf" />
-    <Content Include="2 Page Invoice SHF_20231018110546456_Z2950YE9N_signedFinal.pdf" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

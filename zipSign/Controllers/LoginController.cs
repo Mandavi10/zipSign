@@ -18,6 +18,7 @@ using System.Web.SessionState;
 
 namespace zipSign.Controllers
 {
+    
     [SessionState(SessionStateBehavior.Required)]
     public class LoginController : Controller
     {
@@ -58,6 +59,7 @@ namespace zipSign.Controllers
         [HttpPost]
         public JsonResult SignUp(SignUp objSignUpModel, string UserType)
         {
+            Response.AddHeader("X-XSS-Protection", "1; mode=block");
             try
             {
                 if (!ModelState.IsValid)
@@ -216,6 +218,9 @@ namespace zipSign.Controllers
         [HttpPost]
         public JsonResult Login(Login objLoginModel, string captchaInput)
         {
+            HttpContext.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
+            HttpContext.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+            HttpContext.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'");
             try
             {
                 string emailRegexPattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
@@ -1044,6 +1049,8 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("UserMasterID", UserMasterID));
             obj.Add(new DataItems("QueryType", "SignOut"));
             statusClass = bal.PostFunction(pro.Signup, obj);
+            Session.Clear();
+            Session.RemoveAll();
             Session.Abandon();
             return Json(new { success = true },JsonRequestBehavior.AllowGet);
         }
@@ -1316,40 +1323,40 @@ namespace zipSign.Controllers
             }
         }
 
-        //[HttpPost]
-        //public JsonResult UpdateUserStatus(int userId)
-        //{
-        //    string connectionString = GlobalMethods.Global.DocSign.ToString();
-        //    string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
+        [HttpPost]
+        public JsonResult UpdateUserStatus(int userId)
+        {
+            string connectionString = GlobalMethods.Global.DocSign.ToString();
+            string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
 
-        //    using (SqlConnection connection = new SqlConnection(connectionString))
-        //    {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
 
-        //        using (SqlCommand command = new SqlCommand(updateQuery, connection))
-        //        {
-        //            command.Parameters.AddWithValue("@UserMasterID", userId);
+                using (SqlCommand command = new SqlCommand(updateQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@UserMasterID", userId);
 
-        //            try
-        //            {
-        //                connection.Open();
-        //                int rowsAffected = command.ExecuteNonQuery();
-        //                if (rowsAffected > 0)
-        //                {
-        //                    Session.Abandon();
-        //                    return Json(new { success = true });
-        //                }
-        //                else
-        //                {
-        //                    return Json(new { success = false, message = "User not found or status not updated." });
-        //                }
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                return Json(new { success = false, message = ex.Message });
-        //            }
-        //        }
-        //    }
-        //}
+                    try
+                    {
+                        connection.Open();
+                        int rowsAffected = command.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            Session.Abandon();
+                            return Json(new { success = true });
+                        }
+                        else
+                        {
+                            return Json(new { success = false, message = "User not found or status not updated." });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Json(new { success = false, message = ex.Message });
+                    }
+                }
+            }
+        }
     }
 }
 
