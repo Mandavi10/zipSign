@@ -1010,6 +1010,38 @@ namespace zipSign.Controllers
                 }
             }
         }
+        public ActionResult ShowProgress(int fileCode)
+        {
+            string UserName = Session["UserName"] as string;
+            List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("UserName", UserName),
+                    new DataItems("DocumentUploadId",fileCode),
+                    new DataItems("QuerySelector", "TrailDataForSignedGrid")
+                };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
+            string OriginalFilePath = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["FilePath"]);
+            string LatestFilePath = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignedPDFPath"]);
+            DataTable table3Data = statusClass.DataFetch.Tables[0];
+            List<Dictionary<string, object>> tableData = new List<Dictionary<string, object>>();
+            foreach (DataRow row in table3Data.Rows)
+            {
+                Dictionary<string, object> rowData = new Dictionary<string, object>();
+                foreach (DataColumn column in table3Data.Columns)
+                {
+                    rowData[column.ColumnName] = row[column];
+                }
+                tableData.Add(rowData);
+            }
+            var responseData = new
+            {
+                Table3Data = tableData,
+                OriginalFilePath,
+                LatestFilePath
+            };
+            return Json(new { responseData }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetDocumentAllData1(string Link)
         {
             List<DataItems> obj1 = new List<DataItems>
