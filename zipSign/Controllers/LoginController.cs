@@ -312,7 +312,7 @@ namespace zipSign.Controllers
 
         public JsonResult GetUserProfile()
         {
-            // Retrieve user profile data from the session
+
             if (Session["UserData"] is List<profile> userData)
             {
                 return Json(userData, JsonRequestBehavior.AllowGet);
@@ -1052,6 +1052,7 @@ namespace zipSign.Controllers
             Session.Clear();
             Session.RemoveAll();
             Session.Abandon();
+
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1328,6 +1329,7 @@ namespace zipSign.Controllers
                 return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
             }
         }
+
 
         //[HttpPost]
         //public JsonResult UpdateUserStatus(int userId)

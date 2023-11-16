@@ -506,6 +506,7 @@
     <Content Include="JavaScript\Page_Load.js" />
     <Content Include="JavaScript\RequestSign.js" />
     <Content Include="JavaScript\ResetPassword.js" />
+    <Content Include="JavaScript\Roles&amp;Rights.js" />
     <Content Include="JavaScript\Signed.js" />
     <Content Include="JavaScript\SigningRequest.js" />
     <Content Include="JavaScript\SignPurchaseMechanism.js" />

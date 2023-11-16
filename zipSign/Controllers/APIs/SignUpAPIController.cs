@@ -86,7 +86,7 @@ namespace zipSign.Controllers.APIs
                     {
                         status = true,
                         message = "SignUp Succcessfully",
-                       // Data
+                        // Data
                     };
                     return Json(result);
                 }

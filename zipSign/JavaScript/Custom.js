@@ -3,13 +3,37 @@
     if (UserMasterID == "" || UserMasterID == null) {
         window.location.href = "/Login/Index";
     }
-    //$(window).on('beforeunload', function () {
+    var inactivityTimeout;
+    var maxInactivityTime = 900000; // 15 minutes in milliseconds
 
-    //    $.ajax({
-    //        url: '/Login/UpdateUserStatus',
-    //        method: 'POST',
-    //        data: { userId: UserMasterID },
-    //        async: true,
-    //    });
-    //});
+    $(document).on('mousemove click keydown', function () {
+        
+        resetInactivityTimeout();
+    });
+
+    function resetInactivityTimeout() {
+        
+        clearTimeout(inactivityTimeout);
+        inactivityTimeout = setTimeout(SignOut, maxInactivityTime);
+    }
+
+    function SignOut() {
+        
+        var UserMasterID = sessionStorage.getItem('UserId');
+        $.ajax({
+            url: '/Login/SignOut',
+            type: 'POST',
+            data: {
+                UserMasterID: UserMasterID
+            },
+            success: function (data) {
+                sessionStorage.clear();
+                window.location.href = '/Login/Index';
+            },
+            error: function (error) {
+                // Handle errors if needed
+                console.error('Logout failed:', error);
+            }
+        });
+    }
 });

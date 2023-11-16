@@ -3,9 +3,6 @@ using BusinessLayerModel;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace zipSign.Controllers.APIs
@@ -47,7 +44,7 @@ namespace zipSign.Controllers.APIs
                     return Json(result);
                 }
             }
-            
+
             if (statusClass.StatusCode == 10)
             {
                 var result = new
