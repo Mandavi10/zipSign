@@ -752,10 +752,10 @@
                             <div class="left-side">
                                 <ul class="progress-bar">
                                     <li class="active">
-                                        <span class="maintxt">Upload</span>
+                                        @*<span class="maintxt">Upload</span>
                                         <div class="col-12"><span>Micheal</span></div>
                                         <div class="col-12"><span>micheal@gmail.com</span></div>
-                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>
+                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>*@
                                     </li>
                                     <li>
                                         <span class="maintxt1">Sent</span>
@@ -798,13 +798,15 @@
                                             <div class="body">
                                                 <div class="encircle position-relative">
                                                     <div class="zombtn col-md-1 col-sm-12 col-xs-12 d-flex justify-content-end">
-                                                        <i class="fa fa-search-minus btnzoom" aria-hidden="true" onclick="zoomout()"></i>
-                                                        <i class="fa fa-search-plus btnzoom" aria-hidden="true" onclick="zoomin()"></i>
+                                                        <i class="fa fa-search-minus btnzoom" aria-hidden="true" onclick="zoomout()" hidden></i>
+                                                        <i class="fa fa-search-plus btnzoom" aria-hidden="true" onclick="zoomin()" hidden></i>
 
                                                     </div>
                                                     <div class="position-relative">
                                                         <div class="previewcardimg ">
-                                                            <img id="logo" src="~/Content/images/document.png" />
+                                                            @*<img id="logo" src="~/Content/images/document.png" />*@
+                                                            @*<iframe id="logo" src=""></iframe>*@
+                                                            <iframe id="logo" src="" style="width: -webkit-fill-available;height: -webkit-fill-available;"></iframe>
                                                         </div>
                                                         <div class="overlayinmodal pt-1">
                                                             <div class="col-md-12 d-flex flex-wrap justify-content-around">
