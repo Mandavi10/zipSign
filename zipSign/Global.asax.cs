@@ -17,5 +17,9 @@ namespace zipSign
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
         }
+        protected void Application_End()
+        {
+
+        }
     }
 }

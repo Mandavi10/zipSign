@@ -1,18 +1,13 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
 using iTextSharp.text.pdf;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Pkcs7pdf_Multiple_EsignService;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
-using System.Xml;
 
 namespace zipSign.Controllers.APIs
 {

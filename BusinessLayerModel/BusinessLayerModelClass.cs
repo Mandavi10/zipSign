@@ -19,12 +19,12 @@ namespace BusinessLayerModel
 
         [Required(ErrorMessage = "Mobile Number is required")]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression("^(/+/d{1,3}[- ]?)?/d{10}$",ErrorMessage ="Please Enter Correct Mobile Number")]
+        [RegularExpression("^(/+/d{1,3}[- ]?)?/d{10}$", ErrorMessage = "Please Enter Correct Mobile Number")]
         public string Mobile { get; set; }
         public string State { get; set; }
         [Required(ErrorMessage = "Password is required")]
         [DataType(DataType.Password)]
-        [RegularExpression("^(?=.*/d)(?=.*[a-z])(?=.*[A-Z])(?=.*/W).{8,}$",ErrorMessage ="Please Enter Correct Paasword")]
+        [RegularExpression("^(?=.*/d)(?=.*[a-z])(?=.*[A-Z])(?=.*/W).{8,}$", ErrorMessage = "Please Enter Correct Paasword")]
         public string Password { get; set; }
         [Required(ErrorMessage = "Please confirm password")]
         [DataType(DataType.Password)]
@@ -221,6 +221,23 @@ namespace BusinessLayerModel
         public string Username { get; set; }
         public string EmailId { get; set; }
         public string MobileNo { get; set; }
+    }
+
+    public class PagePermission
+    {
+        public string PageName { get; set; }
+        public string PageUrl { get; set; }
+        public bool CanRead { get; set; }
+        public bool CanWrite { get; set; }
+    }
+    public class CheckboxData
+    {
+        public string id { get; set; }
+        public string name { get; set; }
+        public bool read { get; set; }
+        public bool write { get; set; }
+        public string link { get; set; }
+        public int pageId { get; set; }
     }
 
     #endregion

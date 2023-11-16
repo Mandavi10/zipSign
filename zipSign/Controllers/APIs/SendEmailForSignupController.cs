@@ -26,7 +26,7 @@ namespace zipSign.Controllers.APIs
             try
             {
                 string TxnNo = SendOTPviaEmail(otpRequest.Email);
-                return Json(new { status = true, message = "OTP Send Successfully",TxnNo = TxnNo });
+                return Json(new { status = true, message = "OTP Send Successfully", TxnNo = TxnNo });
             }
             catch (Exception ex)
             {

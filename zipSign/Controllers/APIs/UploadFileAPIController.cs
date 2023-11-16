@@ -19,7 +19,7 @@ namespace zipSign.Controllers.APIs
         public IHttpActionResult UploadFiles([FromBody] JObject requestData)
         {
             JsonRequestModel Data = requestData["Data"].ToObject<JsonRequestModel>();
-            if (Data == null || string.IsNullOrEmpty(Data.DocumentName) || string.IsNullOrEmpty(Data.UploadedDoc) || string.IsNullOrEmpty(Data.Base64String) || string.IsNullOrEmpty(Data.UserType) || string.IsNullOrEmpty(Data.UserId) || string.IsNullOrEmpty(Data.UserName)||string.IsNullOrEmpty(Data.UserEmail))
+            if (Data == null || string.IsNullOrEmpty(Data.DocumentName) || string.IsNullOrEmpty(Data.UploadedDoc) || string.IsNullOrEmpty(Data.Base64String) || string.IsNullOrEmpty(Data.UserType) || string.IsNullOrEmpty(Data.UserId) || string.IsNullOrEmpty(Data.UserName) || string.IsNullOrEmpty(Data.UserEmail))
             {
                 return Json(new { Status = false, message = "Please Fill Required Fields" });
             }
@@ -34,7 +34,7 @@ namespace zipSign.Controllers.APIs
                 string filePath = HttpContext.Current.Server.MapPath("~/Uploads/SignUpload/" + fileName);
                 File.WriteAllBytes(filePath, bytes);
                 SignInsert(Data.DocumentName, Data.UploadedDoc, filePath, Data.UserType, Data.UserId, Data.UserName, Data.UserEmail, Data.ReferenceNumber, Data.DocumentName1);
-                return Json(new { Status = true, message="Success", filePath= "/Uploads/SignUpload/" + fileName });
+                return Json(new { Status = true, message = "Success", filePath = "/Uploads/SignUpload/" + fileName });
             }
             catch (Exception ex)
             {

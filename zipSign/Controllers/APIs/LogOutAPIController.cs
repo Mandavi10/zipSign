@@ -3,9 +3,7 @@ using BusinessLayerModel;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace zipSign.Controllers.APIs
@@ -30,7 +28,7 @@ namespace zipSign.Controllers.APIs
             obj.Add(new DataItems("QueryType", "SignOut"));
             statusClass = bal.PostFunction(pro.Signup, obj);
             //Session.Abandon();
-            if(statusClass.StatusCode==9)
+            if (statusClass.StatusCode == 9)
             {
                 return Json(new { status = true, message = "Logout Successfully" });
             }

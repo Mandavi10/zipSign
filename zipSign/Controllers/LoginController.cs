@@ -18,7 +18,7 @@ using System.Web.SessionState;
 
 namespace zipSign.Controllers
 {
-    
+
     [SessionState(SessionStateBehavior.Required)]
     public class LoginController : Controller
     {
@@ -299,7 +299,7 @@ namespace zipSign.Controllers
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
@@ -312,7 +312,7 @@ namespace zipSign.Controllers
 
         public JsonResult GetUserProfile()
         {
-            // Retrieve user profile data from the session
+
             if (Session["UserData"] is List<profile> userData)
             {
                 return Json(userData, JsonRequestBehavior.AllowGet);
@@ -1052,7 +1052,8 @@ namespace zipSign.Controllers
             Session.Clear();
             Session.RemoveAll();
             Session.Abandon();
-            return Json(new { success = true },JsonRequestBehavior.AllowGet);
+            //return RedirectToAction("Login", "Login");
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ResetPassword(string Email, string captchaInput)
@@ -1322,7 +1323,7 @@ namespace zipSign.Controllers
                 return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
             }
         }
-      
+
         [HttpPost]
         public JsonResult UpdateUserStatus(int userId)
         {

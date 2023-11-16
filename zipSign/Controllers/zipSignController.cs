@@ -1,6 +1,7 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -694,5 +695,149 @@ namespace zipSign.Controllers
             //string UploadedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedBy"]);
             return Json(UploadedFileName, FilePath, JsonRequestBehavior.AllowGet);
         }
+
+
+
+        //public JsonResult SaveRolesAndPermissions(string roleName, string description, string checkboxData)
+        //{
+
+        //    try
+        //    {
+        //        // Deserialize the JSON data
+        //        var checkedCheckboxData = JsonConvert.DeserializeObject<List<CheckboxData>>(checkboxData);
+        //        var checkedCheckboxData = new List<CheckboxData>();
+        //        foreach (var page in pages)
+        //        {
+        //            // Extract the last segment of the URL as the pageId
+        //            string[] segments = new Uri(page.PageUrl).Segments;
+        //            int pageId = 0;
+        //            if (segments.Length > 0)
+        //            {
+        //                string lastSegment = segments.Last();
+        //                if (int.TryParse(lastSegment, out pageId))
+        //                {
+        //                    checkedCheckboxData.Add(new CheckboxData
+        //                    {
+        //                        name = page.PageName,
+        //                        read = false, // Set to appropriate value
+        //                        write = false, // Set to appropriate value
+        //                        link = page.PageUrl,
+        //                        pageId = pageId
+        //                    });
+        //                }
+        //            }
+        //        }
+        //        // Filter out the data where link is not null
+        //        var dataToSave = checkedCheckboxData.Where(item => !string.IsNullOrEmpty(item.link)).ToList();
+
+        //        // Connection string - Replace with your actual connection string
+        //        string connectionString = GlobalMethods.Global.DocSign.ToString();
+
+        //        using (SqlConnection connection = new SqlConnection(connectionString))
+        //        {
+        //            connection.Open();
+
+        //            foreach (var checkbox in dataToSave)
+        //            {
+
+        //                List<DataItems> obj = new List<DataItems>
+        //        {
+        //            new DataItems("PageName", checkbox.name),
+        //            new DataItems("Read", checkbox.read),
+        //            new DataItems("Write", checkbox.write),
+        //            new DataItems("PageLink", checkbox.link),
+        //            new DataItems("CreatedBy",Convert.ToInt32(Session["UserId"])),
+        //            new DataItems("QueryType", "RolesAndRights")
+        //        };
+        //                statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+        //            }
+
+        //            return Json(new { success = true, message = "Roles and permissions saved successfully." });
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = ex.Message });
+        //    }
+        //}
+
+
+
+        private static readonly Dictionary<string, int> PageIdMapping = new Dictionary<string, int>
+    {
+        { "/zipSign/BuyEnterprisePack", 1 },
+        { "/MySigns/BuySignHistory", 2 },
+        { "/MySigns/SignTransactionLog", 3 },
+        //{ "/MySigns/SignTransactionLog", 4 },
+        { "/MySigns/SignPricingMechanism", 5 },
+        { "/zipSign/SignUsesHistory", 6 },
+        { "/zipSign/PurchaseHistory", 7 },
+        //{ "/Masters/DepartmentMaster", 6 },
+        //{ "/Masters/DepartmentMaster", 6 },
+    };
+
+        [HttpPost]
+        public JsonResult SaveRolesAndPermissions(string roleName, string description, string checkboxData)
+        {
+            try
+            {
+                // Deserialize the JSON data
+                var checkedCheckboxData = JsonConvert.DeserializeObject<List<CheckboxData>>(checkboxData);
+
+                // Assign static IDs based on the mapping
+
+
+                // Filter out the data where link is not null
+                var dataToSave = checkedCheckboxData.Where(item => !string.IsNullOrEmpty(item.link)).ToList();
+                foreach (var checkbox in dataToSave)
+                {
+                    // Use the link to find the static ID from the mapping
+                    if (PageIdMapping.TryGetValue(checkbox.link, out int staticPageId))
+                    {
+                        checkbox.pageId = staticPageId;
+                    }
+                    else
+                    {
+                        // Handle the case where the link doesn't match any mapping
+                        // You might want to assign a default value or throw an exception
+                        checkbox.pageId = 0; // Change this to your default value
+                    }
+                }
+
+                // Connection string - Replace with your actual connection string
+                string connectionString = GlobalMethods.Global.DocSign.ToString();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    foreach (var checkbox in dataToSave)
+                    {
+                        List<DataItems> obj = new List<DataItems>
+                    {
+                        new DataItems("PageID",checkbox.pageId),
+                        new DataItems("PageName", checkbox.name),
+                        new DataItems("Read", checkbox.read),
+                        new DataItems("Write", checkbox.write),
+                        new DataItems("PageLink", checkbox.link),
+                        new DataItems("CreatedBy", Convert.ToInt32(Session["UserId"])),
+                        new DataItems("QueryType", "RolesAndRights")
+                    };
+                        statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+                    }
+
+                    return Json(new { success = true, message = "Roles and permissions saved successfully." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+
+
+
+
     }
 }
