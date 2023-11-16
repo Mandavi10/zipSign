@@ -680,7 +680,6 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
             return Json(JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult SendToSigningRequest(int fileCode)
         {
             List<DataItems> obj = new List<DataItems>

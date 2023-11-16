@@ -722,15 +722,14 @@
 
         <script>
             $(document).ready(function () {
-                window.onbeforeunload = function () {
-                    debugger
-                    var request = GetRequest();
-                    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
-                    request.send();
-                };
+                //window.onbeforeunload = function () {
+
+                //    var request = GetRequest();
+                //    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
+                //    request.send();
+                //};
 
                 function GetRequest() {
-                    debugger
                     var xmlhttp;
                     if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                         xmlhttp = new XMLHttpRequest();
@@ -937,18 +936,16 @@
         </script>
         <script>
 
-            var clicked = false;
-            function bodyUnload() {
-                debugger;
-                if (clicked == false)//browser is closed
-                {
-                    debugger
-                    var request = GetRequest();
-                    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), false);
-                    request.send();
-                    alert('This is close');
-                }
-            }
+            //var clicked = false;
+            //function bodyUnload() {
+            //    if (clicked == false)//browser is closed
+            //    {
+            //        var request = GetRequest();
+            //        request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), false);
+            //        request.send();
+            //        alert('This is close');
+            //    }
+            //}
             function GetRequest() {
                 var xmlhttp;
                 if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari

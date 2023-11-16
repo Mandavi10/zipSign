@@ -11,15 +11,12 @@ $(document).ready(function () {
             url: '/Login/GetDataForPasswordReset?UserCode=' + userCode,
             type: 'GET',
             dataType: 'json',
+            async: false,
             success: function (result) {
-
-                var linkCreatedOn = result.CreatedOn;
-                var linkExpiredOn = result.ExpiredOn;
-                var currentDateTime = getCurrentDateTime();
-                if (result.IsExpired == true) {
+                if (result.IsExpired === "True") {
                     window.location.href = "/zipSign/Link_Expired";
                 }
-                else if (currentDateTime > linkExpiredOn) {
+                else if (result === 0) {
                     window.location.href = "/zipSign/Link_Expired";
                 }
                 else {
