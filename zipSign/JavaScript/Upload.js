@@ -35,25 +35,25 @@ $(document).ready(function () {
     var tabClosed = false;
 
     // Capture the event before the page is unloaded
-    $(window).on('beforeunload', function (event) {
-        // Check if the tab is being closed
-        tabClosed = event.originalEvent.clientY < 0;
+    //$(window).on('beforeunload', function (event) {
+    //    // Check if the tab is being closed
+    //    tabClosed = event.originalEvent.clientY < 0;
 
-        // If the tab is closed, send data using Beacon API
-        if (tabClosed) {
-            debugger;
-            $.ajax({
-                url: '/Login/UpdateUserStatus1',
-                method: 'POST',
-                data: { userId: UserMasterID },
-                async: false,
-                success: function (response) {
-                    alert("Ok");
-                },
-                error: function (xhr, status, error) {
-                }
-            });
-        };
+    // If the tab is closed, send data using Beacon API
+    //if (tabClosed) {
+    //    debugger;
+    //    $.ajax({
+    //        url: '/Login/UpdateUserStatus1',
+    //        method: 'POST',
+    //        data: { userId: UserMasterID },
+    //        async: false,
+    //        success: function (response) {
+    //            alert("Ok");
+    //        },
+    //        error: function (xhr, status, error) {
+    //        }
+    //    });
+    //};
 
 
     var userDataString = sessionStorage.getItem('user_data');
