@@ -13,6 +13,7 @@ $(document).ready(function () {
     if (UserMasterID == "" || UserMasterID == null) {
         window.location.href = "/Login/Index";
     }
+
     //var tabClosed = false;
     //$(window).on('beforeunload', function (event) {
     //    tabClosed = event.originalEvent.clientY < 0;
@@ -54,6 +55,7 @@ $(document).ready(function () {
     //        }
     //    });
     //};
+
 
 
     var userDataString = sessionStorage.getItem('user_data');
@@ -456,7 +458,8 @@ function updateSignerNumbers() {
         var signerNumber = index + 2;
         $(this).find(".numdiv").text("Signer " + signerNumber);
     });
-
+    //var i = i - 1;
+    //$("#hiddena").val(i);
     var i = $("#hiddena").val();
     i = i - 1;
     $("#hiddena").val(i);
@@ -507,8 +510,7 @@ $("#viewrec").click(function () {
 function GetData(pagecount, keyword) {
     $("#myGrid").html("");
     var columnDefs = [
-        //{ headerName: 'Sr. No.', field: 'Sr. No.', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
-        { headerName: 'Sr. No.', field: 'SerialNumber', width: 80, sortable: true, resizable: false, suppressMovable: true, },
+        { headerName: 'Sr. No.', field: 'Sr. No.', width: 80, sortable: true, resizable: false, suppressMovable: true, valueGetter: "node.rowIndex + 1" },
         { headerName: 'Uploaded Document Name', field: 'DocumentName', width: 210, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'DocumentName', field: 'DocumentName', width: 150, resizable: false, sortable: true, suppressMovable: true, },
         { headerName: 'Status', field: 'SignStatus', width: 100, resizable: false, sortable: true, suppressMovable: true, },
@@ -516,7 +518,7 @@ function GetData(pagecount, keyword) {
         { headerName: 'Uploaded By', field: 'UploadedBy', width: 120, resizable: false, sortable: true, suppressMovable: true, },
         {
             headerName: 'Work History', field: 'vwh', width: 120, resizable: false, sortable: true, suppressMovable: true, cellRenderer: function (params) {
-                return '<button type="button" class="ingridbtn" data-file-Code="' + params.data.DocumentUploadId + '" data-bs-toggle="modal" data-bs-target="#gridviewmodal" onclick="SendToSigningRequest()">View</button>'
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#gridviewmodal">View</button>'
             }
         },
         {
@@ -544,11 +546,9 @@ function GetData(pagecount, keyword) {
         success: function (result) {
             var jsonData = result.Table1;
             var jsonData1 = result.Table2;
-            var counter = 1;
             $.each(jsonData, function (i, value) {
                 rowData.push({
                     DocumentUploadId: value.DocumentUploadId,
-                    SerialNumber: counter++,
                     Uploaded_Document_Name: value.DocumentName.substring(value.DocumentName.lastIndexOf('\\') + 1),
                     DocumentName: value.DocumentName,
                     SignStatus: value.SignStatus,
@@ -686,6 +686,22 @@ function SendToSigningRequest(fileCode) {
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, SignerExpiry) {
     var FilePath = sessionStorage.getItem('LoaclPath');

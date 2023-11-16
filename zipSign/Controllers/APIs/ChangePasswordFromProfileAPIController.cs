@@ -21,7 +21,7 @@ namespace zipSign.Controllers.APIs
         {
             ChangePasswordFromProfileModel Data = requestData["Data"].ToObject<ChangePasswordFromProfileModel>();
             string passwordPattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
-            
+
             if (string.IsNullOrWhiteSpace(Data.oldPassword))
             {
                 return Json(new { status = false, message = "Please Enter Old Password" });

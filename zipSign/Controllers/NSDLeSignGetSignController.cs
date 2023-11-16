@@ -1,13 +1,8 @@
-﻿using BusinessDataLayer;
-using BusinessLayerModel;
-using iTextSharp.text.pdf;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Pkcs7pdf_Multiple_EsignService;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Http;
 using System.Xml;
 

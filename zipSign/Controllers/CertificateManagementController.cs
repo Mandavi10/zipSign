@@ -108,7 +108,7 @@ namespace zipSign.Controllers
         }
 
         public bool ValidateCertWithPasswordForSigning(string selectedValue, string password)
-        { 
+        {
             bool flag = true;
             string Path = null;
             string connectionString = GlobalMethods.Global.DocSign.ToString();
@@ -459,7 +459,7 @@ namespace zipSign.Controllers
                             UploadedBy = Convert.ToString(dr["UploadedBy"]),
                             PasswordType = Convert.ToString(dr["PasswordType"]),
                             // UpdatedOn = Convert.ToString(dr["UpdatedOn"]),
-                             IsActive1 = Convert.ToString(dr["IsActive"]),
+                            IsActive1 = Convert.ToString(dr["IsActive"]),
                         });
                     }
                     res1.Table1 = result;

@@ -4,6 +4,7 @@
 
 
 
+
 <link href="~/Content/css/parsley.css" rel="stylesheet" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
@@ -431,9 +432,11 @@
     .readwr span {
         font-size: 12px;
     }
-    .arbtndiv{
-        position:relative;
+
+    .arbtndiv {
+        position: relative;
     }
+
         .arbtndiv .fa-angle-double-left {
             border: 1px solid #cdcdcd;
             font-size: 21px;
@@ -441,7 +444,7 @@
             position: absolute;
             top: 210px;
             left: 65px;
-            cursor:pointer;
+            cursor: pointer;
         }
 
         .arbtndiv .fa-angle-double-right {
@@ -452,7 +455,7 @@
             top: 180px;
             left: 65px;
             cursor: pointer;
-        } 
+        }
 </style>
 
 
@@ -509,10 +512,8 @@
     <div class="row clearfix">
         <div class="col-md-12">
             <div class="card">
-
                 <div class="body givenheight">
                     <form id="advanced-form">
-
                         <div class="col-md-12 d-flex">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -563,8 +564,28 @@
                                             <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
-                                                        <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Sign Usage Log</span>
+                                                        <input type="checkbox" name="control" required id="SignUsageLog">
+                                                        <span><i></i>Sign Usage Log</span><a href="/zipSign/BuyEnterprisePack" class="hidden-link" data-page-id="BuySignHistory"></a>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2 readwr">
+                                                    <label class="fancy-checkbox custom-color-green">
+                                                        <input type="checkbox" name="control" required id="SignUsageLogread">
+                                                        <span><i></i>Read</span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-md-2 readwr">
+                                                    <label class="fancy-checkbox custom-color-green">
+                                                        <input type="checkbox" name="control" required id="SignUsageLogwrite">
+                                                        <span><i></i>Write</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
+                                                <div class="col-md-8">
+                                                    <label class="fancy-checkbox custom-color-green">
+                                                        <input type="checkbox" name="control" required id="BuySignHistory">
+                                                        <span><i></i>Buy Sign History</span><a href="/MySigns/BuySignHistory" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -584,7 +605,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Buy Sign History</span>
+                                                        <span><i></i>Sign Transaction Log</span><a href="/MySigns/SignTransactionLog" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -604,7 +625,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Sign Transaction Log</span>
+                                                        <span><i></i>All Signs Pricing</span><a href="/MySigns/SignTransactionLog" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -624,7 +645,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>All Signs Pricing</span>
+                                                        <span><i></i>Sign Pricing Mechanism</span><a href="/MySigns/SignPricingMechanism" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -644,7 +665,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Sign Pricing Mechanism</span>
+                                                        <span><i></i>Department Master</span><a href="/Masters/DepartmentMaster" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -664,7 +685,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Department Master</span>
+                                                        <span><i></i>Users</span><a href="/MySigns/SignTransactionLog" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -684,7 +705,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Users</span>
+                                                        <span><i></i>Sign Uses History</span><a href="/zipSign/SignUsesHistory" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -704,27 +725,7 @@
                                                 <div class="col-md-8">
                                                     <label class="fancy-checkbox custom-color-green">
                                                         <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Sign Uses History</span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-md-2 readwr">
-                                                    <label class="fancy-checkbox custom-color-green">
-                                                        <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Read</span>
-                                                    </label>
-                                                </div>
-                                                <div class="col-md-2 readwr">
-                                                    <label class="fancy-checkbox custom-color-green">
-                                                        <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Write</span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 mb-2 d-flex flex-wrap partipage">
-                                                <div class="col-md-8">
-                                                    <label class="fancy-checkbox custom-color-green">
-                                                        <input type="checkbox" name="control" required id="OnlySigner">
-                                                        <span><i></i>Purchase History</span>
+                                                        <span><i></i>Purchase History</span><a href="/zipSign/PurchaseHistory" class="hidden-link" data-page-id="BuySignHistory"></a>
                                                     </label>
                                                 </div>
                                                 <div class="col-md-2 readwr">
@@ -913,6 +914,7 @@
 
 
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/Roles&Rights.js"></script>
 <script src="~/Content/js/MyValidator.js"></script>
 <script src="~/Content/js/sweetalert.min.js"></script>
 <script src="~/Content/js/libscripts.bundle.js"></script>
