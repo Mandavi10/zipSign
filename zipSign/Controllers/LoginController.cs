@@ -1052,7 +1052,7 @@ namespace zipSign.Controllers
             Session.Clear();
             Session.RemoveAll();
             Session.Abandon();
-            //return RedirectToAction("Login", "Login");
+
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1211,9 +1211,16 @@ namespace zipSign.Controllers
             string CreatedOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CreatedOn"]);
             string CreatedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["CreatedBy"]);
             string IsExpired = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["IsExpired"]);
-            string ExpiredOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["ExpiredOn"]);
+            //string ExpiredOn = ((DateTime)statusClass.DataFetch.Tables[0].Rows[0]["ExpiredOn"]).ToString("dd-MM-yyyy HH:mm:ss");
+            DateTime ExpiredOn = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["ExpiredOn"];
+            DateTime currentTime = DateTime.Now;
+            TimeSpan timeDifference = currentTime - ExpiredOn;
+            if (timeDifference.TotalMinutes > 10)
+            {
+                return Json(0, JsonRequestBehavior.AllowGet); // Return a status code indicating expired OTP
+            }
             string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
-            return Json(new { statusClass.StatusCode, CreatedOn, CreatedBy, IsExpired, ExpiredOn, Email }, JsonRequestBehavior.AllowGet);
+            return Json(new { CreatedBy, IsExpired, Email }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult UpdatePassword(string userCode, string Email, string OldPassword, string NewPassword, string confirmPassword)
         {
@@ -1266,7 +1273,6 @@ namespace zipSign.Controllers
             }
 
         }
-
 
         public ActionResult ChangePasswordFromProfile(string oldPassword, string newPassword, string confirmPassword, string email, string UserMasterId)
         {
@@ -1324,41 +1330,42 @@ namespace zipSign.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult UpdateUserStatus(int userId)
-        {
-            string connectionString = GlobalMethods.Global.DocSign.ToString();
-            string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
+        //[HttpPost]
+        //public JsonResult UpdateUserStatus(int userId)
+        //{
+        //    string connectionString = GlobalMethods.Global.DocSign.ToString();
+        //    string updateQuery = "UPDATE TblUserLogin SET SessionActive = 0 WHERE UserMasterID = @UserMasterID";
 
-                using (SqlCommand command = new SqlCommand(updateQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@UserMasterID", userId);
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+
+        //        using (SqlCommand command = new SqlCommand(updateQuery, connection))
+        //        {
+        //            command.Parameters.AddWithValue("@UserMasterID", userId);
 
 
-                    try
-                    {
-                        connection.Open();
-                        int rowsAffected = command.ExecuteNonQuery();
-                        if (rowsAffected > 0)
-                        {
-                            Session.Abandon();
-                            return Json(new { success = true });
-                        }
-                        else
-                        {
-                            return Json(new { success = false, message = "User not found or status not updated." });
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        return Json(new { success = false, message = ex.Message });
-                    }
-                }
-            }
-        }
+        //            try
+        //            {
+        //                connection.Open();
+        //                int rowsAffected = command.ExecuteNonQuery();
+        //                if (rowsAffected > 0)
+        //                {
+        //                    Session.Abandon();
+        //                    return Json(new { success = true });
+        //                }
+        //                else
+        //                {
+        //                    return Json(new { success = false, message = "User not found or status not updated." });
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                return Json(new { success = false, message = ex.Message });
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
 

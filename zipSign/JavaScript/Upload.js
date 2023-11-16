@@ -14,6 +14,50 @@ $(document).ready(function () {
         window.location.href = "/Login/Index";
     }
 
+    //var tabClosed = false;
+    //$(window).on('beforeunload', function (event) {
+    //    tabClosed = event.originalEvent.clientY < 0;
+    //});
+    //$(window).on('unload', function () {
+    //    if (tabClosed) {
+    //        $.ajax({
+    //            url: '/Login/UpdateUserStatus1',
+    //            method: 'POST',
+    //            data: { userId: UserMasterID },
+    //            async: false,
+    //            success: function (response) {
+    //                alert("Ok");
+    //            },
+    //            error: function (xhr, status, error) {
+    //            }
+    //        });
+    //    }
+    //});
+    var tabClosed = false;
+
+    // Capture the event before the page is unloaded
+    //$(window).on('beforeunload', function (event) {
+    //    // Check if the tab is being closed
+    //    tabClosed = event.originalEvent.clientY < 0;
+
+    // If the tab is closed, send data using Beacon API
+    //if (tabClosed) {
+    //    debugger;
+    //    $.ajax({
+    //        url: '/Login/UpdateUserStatus1',
+    //        method: 'POST',
+    //        data: { userId: UserMasterID },
+    //        async: false,
+    //        success: function (response) {
+    //            alert("Ok");
+    //        },
+    //        error: function (xhr, status, error) {
+    //        }
+    //    });
+    //};
+
+
+
     var userDataString = sessionStorage.getItem('user_data');
     $('#SendLink').click(function () {
         if (isValidData() == false) {
