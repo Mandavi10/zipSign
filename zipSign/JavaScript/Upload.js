@@ -646,7 +646,7 @@ function Delete(DocumentUploadId) {
 }
 
     function ViewHistroy(fileCode) {
-        debugger
+        //debugger
         $.ajax({
 
             url: '/NSDL/ShowProgress',
@@ -657,7 +657,7 @@ function Delete(DocumentUploadId) {
                 fileCode: fileCode
             },
             success: function (result) {
-                debugger;
+               // debugger;
                 var table3Data = result.responseData.Table3Data;
                 var trailDiv = $(".progress-bar");
                 trailDiv.empty();
@@ -690,10 +690,22 @@ function Delete(DocumentUploadId) {
 
                     trailDiv.append(activityBox);
                 }
-                var splitResult = result.responseData.OriginalFilePath.split('\\Uploads\\');
-                var pathBefore = splitResult[0];
-                var pathAfter = splitResult[1];
-                $("#logo").attr("src", "/Uploads/"+pathAfter);
+                var splitResultforOriginal = result.responseData.OriginalFilePath.split('\\Uploads\\');
+                var pathBefore = splitResultforOriginal[0];
+                var pathAfterforOriginal = splitResultforOriginal[1];
+                if (result.responseData.LatestFilePath == null || result.responseData.LatestFilePath == '') {
+                    $("#hdnlatestdown").val("\\Uploads\\" + pathAfterforOriginal);
+                    $("#logo").attr("src",  + pathAfterforOriginal);
+                }
+                else {
+                    var splitResultforlatest = result.responseData.LatestFilePath.split('\\Uploads\\');
+                    var pathBefore = splitResultforlatest[0];
+                    var pathAfterforlatest = splitResultforlatest[1];
+                    $("#logo").attr("src",  splitResultforlatest);
+                }
+                $("#hdnoriginaldown").val("\\Uploads\\" + pathAfterforOriginal);
+                
+                $("#hdnlatestdown").val(pathBefore);
             },
             error: function () {
                 alert('Failed to delete the file.');
@@ -746,8 +758,30 @@ function Delete(DocumentUploadId) {
         });
     }
 
+function downloadLatestPDF() {
+   // debugger
+    var Link = $("#hdnlatestdown").val();
+    if (Link == null || Link == '' || Link == "\\Uploads\\undefined") {
+        Link = $("#hdnoriginaldown").val();
+    }
+    var downloadLink = document.createElement('a');
+    downloadLink.href = Link;
+    downloadLink.download = 'downloaded_file.pdf';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
 
-
+function downloadOriginalPDF() {
+    //debugger
+    var Link=$("#hdnoriginaldown").val();
+    var downloadLink = document.createElement('a');
+    downloadLink.href = Link;
+    downloadLink.download = 'downloaded_file.pdf';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+}
 
 
 

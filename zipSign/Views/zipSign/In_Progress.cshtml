@@ -740,8 +740,10 @@
             <div class="modal-header" style="padding: 9px 41px 10px !important;">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <div class="col-md-12 d-flex justify-content-end mt-1">
-                    <button type="submit" class="btn btn-primary me-2"><i class="fa fa-download"></i> Download Latest Document</button>
-                    <button type="submit" class="btn btn-primary" onclick="DownloadOriginalFile()"><i class="fa fa-download"></i> Download Original Document</button>
+                    <button type="submit" class="btn btn-primary me-2" onclick="downloadLatestPDF()"><i class="fa fa-download"></i> Download Latest Document</button>
+                    <input type="hidden" id="hdnlatestdown" />
+                    <button type="submit" class="btn btn-primary" onclick="downloadOriginalPDF()"><i class="fa fa-download"></i> Download Original Document</button>
+                    <input type="hidden" id="hdnoriginaldown" />
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-left: 36px !important;"></button>
             </div>
