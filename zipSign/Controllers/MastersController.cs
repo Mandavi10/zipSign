@@ -13,7 +13,7 @@ namespace zipSign.Controllers
         private CommonStatus statusClass = new CommonStatus();
         private ProcMaster pro = new ProcMaster();
         public ActionResult DesignationMaster()
-        {
+        {    
             return View();
         }
         public ActionResult AllDesignations()
