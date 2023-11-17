@@ -42,7 +42,7 @@ $(document).ready(function () {
 
     // If the tab is closed, send data using Beacon API
     //if (tabClosed) {
-    //    debugger;
+    //    ;
     //    $.ajax({
     //        url: '/Login/UpdateUserStatus1',
     //        method: 'POST',

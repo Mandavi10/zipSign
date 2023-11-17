@@ -17,11 +17,25 @@ namespace zipSign.Controllers
         private readonly ProcMaster pro = new ProcMaster();
         public ActionResult UserCreation()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult AllUsers()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpPost]

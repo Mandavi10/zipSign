@@ -216,6 +216,7 @@ namespace zipSign.Controllers
         }
         //Function for Login
         [HttpPost]
+        [AllowAnonymous]
         public JsonResult Login(Login objLoginModel, string captchaInput)
         {
             HttpContext.Response.Headers.Add("Strict-Transport-Security", "max-age=31536000; includeSubDomains");

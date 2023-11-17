@@ -100,11 +100,10 @@ function GetDataForSignedPDF(pagecount, keyword) {
             var gridOptions = {
                 columnDefs: columnDefs,
                 rowData: rowData,
-                pagination: false, // Set this to true if you want to enable grid pagination
+                pagination: false, 
                 onRowClicked: function (params) {
                     if (params.event.target.classList.contains('fa-trash')) {
                         var fileCode = params.event.target.getAttribute('data-file-Code');
-                  
                         Delete(fileCode);
                     }
                     else {
@@ -124,7 +123,6 @@ function GetDataForSignedPDF(pagecount, keyword) {
     });
 }
 function ShowMoreForSigned(FileCode) {
-    
     $.ajax({
         url: '/Masters/GetSignedFileDetails',
         type: 'POST',
