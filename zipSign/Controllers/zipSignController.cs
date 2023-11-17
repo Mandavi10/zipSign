@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace zipSign.Controllers
+namespace zipSign.Controllers  
 {
     public class zipSignController : Controller
     {
@@ -26,8 +26,14 @@ namespace zipSign.Controllers
         }
         public ActionResult RolesAndRights()
         {
-            return View();
-
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
 
@@ -53,7 +59,14 @@ namespace zipSign.Controllers
         }
         public ActionResult Upload()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult SignRequest()
         {
@@ -73,47 +86,124 @@ namespace zipSign.Controllers
         }
         public ActionResult Draft()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult In_Progress()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Signed()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Rejected()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Expired()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult BuyMoreSign()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Billing()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult SignUsesHistory()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult PurchaseHistory()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult BuyEnterprisePack()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Invoice()
         {
-            return View();
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult ViewDocument()
         {
@@ -145,8 +235,13 @@ namespace zipSign.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult SignInsert(SignMaster objsign, string UserType)
+
+        public ActionResult SignInsert(SignMaster objsign, string UserType)
         {
+            if (Session["UserId"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (objsign == null || string.IsNullOrEmpty(objsign.DocumentName) || string.IsNullOrEmpty(objsign.UploadedDoc) || string.IsNullOrEmpty(objsign.filePath))
             {
                 var errorResult = new
@@ -325,6 +420,10 @@ namespace zipSign.Controllers
         [HttpPost]
         public ActionResult UploadFiles()
         {
+            if (Session["UserId"] == null)
+            {
+                return Json(new { redirectUrl = Url.Action("Login", "Login") });
+            }
             _ = new List<DataItems>();
 
             HttpPostedFileBase file = Request.Files["HelpSectionImages"];
