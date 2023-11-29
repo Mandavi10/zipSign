@@ -1022,6 +1022,7 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
             string OriginalFilePath = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["FilePath"]);
             string LatestFilePath = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SignedPDFPath"]);
+            string FileName = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["UploadedFileName"]);
             DataTable table3Data = statusClass.DataFetch.Tables[0];
             List<Dictionary<string, object>> tableData = new List<Dictionary<string, object>>();
             foreach (DataRow row in table3Data.Rows)
@@ -1037,7 +1038,8 @@ namespace zipSign.Controllers
             {
                 Table3Data = tableData,
                 OriginalFilePath,
-                LatestFilePath
+                LatestFilePath,
+                FileName
             };
             return Json(new { responseData }, JsonRequestBehavior.AllowGet);
         }

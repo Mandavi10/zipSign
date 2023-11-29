@@ -58,6 +58,7 @@ $(document).ready(function () {
 
 
 
+
     var userDataString = sessionStorage.getItem('user_data');
     $('#SendLink').click(function () {
         if (isValidData() == false) {
@@ -93,8 +94,26 @@ $(document).ready(function () {
         updateGridData();
     });
 });
+
+var lastKeyCode = 0;
+function validateInputName(event) {
+    var keyCode = event.keyCode;
+    if (keyCode === 32 && lastKeyCode === 32) {
+        event.preventDefault(); // Prevent the input
+    }
+    else if (keyCode === 189 && lastKeyCode === 189) {
+        event.preventDefault(); // Prevent the input
+    }
+    
+    lastKeyCode = keyCode;
+}
+
+
+
 var suggestionsList = $(".suggestions-list");
 $("#AddRecipient").click(function () {
+    $("#text-input2").prop("disabled", false);
+    $("#ExpDate").prop("disabled", false);
     AddRecipiants(1);
     $("#SendLink").show();
     $("#Proceed").hide();
@@ -103,6 +122,8 @@ $("#AddRecipient").click(function () {
     $(".recipientcheck").show();
 });
 $("#OnlySigner").click(function () {
+    $("#text-input2").prop("disabled", true);
+    $("#ExpDate").prop("disabled", true);
     SignerType = "Single_Signer";
     sessionStorage.setItem('Single_Signer', SignerType);
     $("#Proceed").show();
@@ -178,13 +199,13 @@ function isValidData() {
     }
 
     if ($("#text-input1").val().trim() === '') {
-        var row = '<div class="col-md-12 p-1" role="alert">Please Enter Document Name</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please enter a document name</div>';
         $("#message").append(row);
         $("#text-input1").focus();
         return false;
     }
     if ($('#SignImage').get(0).files.length === 0) {
-        var row = '<div class="col-md-12 p-1" role="alert">Please Select A File</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please select a file</div>';
         $("#message").append(row);
         $("#SignImage").focus();
         return false;
@@ -276,7 +297,7 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     if (!allowedExtensions.includes(fileExtension)) {
         // File extension validation
         $("#message").empty();
-        var row = '<div class="col-md-12 p-1" role="alert">Only PDF files are allowed.</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please upload PDF only.</div>';
         $("#message").append(row);
         fileInput.value = '';
         return false;
@@ -518,18 +539,12 @@ function GetData(pagecount, keyword) {
         { headerName: 'Uploaded By', field: 'UploadedBy', width: 120, resizable: false, sortable: true, suppressMovable: true, },
         {
             headerName: 'Work History', field: 'vwh', width: 120, resizable: false, sortable: true, suppressMovable: true, cellRenderer: function (params) {
-
                 return '<button type="button" class="ingridbtn" data-file-Code="' + params.data.DocumentUploadId + '" data-bs-toggle="modal" data-bs-target="#gridviewmodal" onclick="ViewHistroy(this)">View</button>'
-
             }
         },
+
         {
-            headerName: 'Action',
-            field: '',
-            width: 100,
-            sortable: true,
-            resizable: false,
-            suppressMovable: true,
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true,
             cellRenderer: function (params) {
                 return '<span class="fa fa-trash gridIcon" data-file-Code="' + params.data.DocumentUploadId + '"></span>';
             }
@@ -577,7 +592,6 @@ function GetData(pagecount, keyword) {
             } else {
                 html1 += "<li class='page-item disabled'><a href='#' class='page-link'>Previous</a></li>";
             }
-            //
             if (jsonData1.length >= 1) {
                 var FirstPageNo = Math.max(pagecount - 4, 1);
                 for (var i = FirstPageNo; i <= pagecount; i++) {
@@ -645,121 +659,115 @@ function Delete(DocumentUploadId) {
     });
 }
 
-    function ViewHistroy(fileCode) {
-        //debugger
-        $.ajax({
+function ViewHistroy(fileCode) {
+    $.ajax({
+        url: '/NSDL/ShowProgress',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            fileCode: fileCode
+        },
+        success: function (result) {
+            var table3Data = result.responseData.Table3Data;
+            var trailDiv = $(".progress-bar");
+            trailDiv.empty();
+            var activityClasses = ["active", "maintxt", "maintxt1", "maintxt2", "maintxt3", "maintxt4"];
+            for (var i = 0; i < table3Data.length; i++) {
+                var rowData = table3Data[i];
+                var activityTime1 = rowData["CreatedOn"];
+                var userName = rowData["UserName"];
+                var userEmail = rowData["EmailID"];
+                var date1 = parseInt(activityTime1.match(/\d+/)[0]);
+                var date = new Date(date1);
+                var formattedDate =
+                    ('0' + date.getDate()).slice(-2) + '/' +
+                    ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
+                    ('' + date.getFullYear()).slice(-2) + ' ' +
+                    ('0' + (date.getHours() % 12 || 12)).slice(-2) + ':' +
+                    ('0' + date.getMinutes()).slice(-2) + ' ' +
+                    (date.getHours() >= 12 ? 'PM' : 'AM');
+                var activityTime = `${formattedDate}`;
+                var activityRole = `${userName}`;
+                var activityTitle = rowData["Action"];
 
-            url: '/NSDL/ShowProgress',
-            type: 'POST',
-            dataType: 'json',
-
-            data: {
-                fileCode: fileCode
-            },
-            success: function (result) {
-               // debugger;
-                var table3Data = result.responseData.Table3Data;
-                var trailDiv = $(".progress-bar");
-                trailDiv.empty();
-                var activityClasses = ["active", "maintxt1", "maintxt2", "maintxt3", "maintxt4"];
-                for (var i = 0; i < table3Data.length; i++) {
-                    var rowData = table3Data[i];
-                    var activityTime1 = rowData["CreatedOn"];
-                    var userName = rowData["UserName"];
-                    var userEmail = rowData["EmailID"];
-                    var date1 = parseInt(activityTime1.match(/\d+/)[0]);
-                    var date = new Date(date1);
-                    var formattedDate =
-                        ('0' + date.getDate()).slice(-2) + '/' +
-                        ('0' + (date.getMonth() + 1)).slice(-2) + '/' +
-                        ('' + date.getFullYear()).slice(-2) + ' ' +
-                        ('0' + (date.getHours() % 12 || 12)).slice(-2) + ':' +
-                        ('0' + date.getMinutes()).slice(-2) + ' ' +
-                        (date.getHours() >= 12 ? 'PM' : 'AM');
-                    var activityTime = `${formattedDate}`;
-                    var activityRole = `${userName}`;
-                    var activityTitle = rowData["Action"];
-
-                    var activityBox = $(
-                        `<li class="${activityClasses[i]}">
+                var activityBox = $(
+                    `<li class="${activityClasses[i]}">
                 <span>${activityTitle}</span>
                 <div class="col-12"><span>${activityRole}</span></div>
                 <div class="col-12"><span>${formattedDate}</span></div>
             </li>`
-                    );
+                );
 
-                    trailDiv.append(activityBox);
-                }
-                var splitResultforOriginal = result.responseData.OriginalFilePath.split('\\Uploads\\');
-                var pathBefore = splitResultforOriginal[0];
-                var pathAfterforOriginal = splitResultforOriginal[1];
-                if (result.responseData.LatestFilePath == null || result.responseData.LatestFilePath == '') {
-                    $("#hdnlatestdown").val("\\Uploads\\" + pathAfterforOriginal);
-                    $("#logo").attr("src",  + pathAfterforOriginal);
-                }
-                else {
-                    var splitResultforlatest = result.responseData.LatestFilePath.split('\\Uploads\\');
-                    var pathBefore = splitResultforlatest[0];
-                    var pathAfterforlatest = splitResultforlatest[1];
-                    $("#logo").attr("src",  splitResultforlatest);
-                }
-                $("#hdnoriginaldown").val("\\Uploads\\" + pathAfterforOriginal);
-                
-                $("#hdnlatestdown").val(pathBefore);
-            },
-            error: function () {
-                alert('Failed to delete the file.');
+
+                trailDiv.append(activityBox);
             }
-        });
-    }
-
-
-
-    function SendToSigningRequest(fileCode) {
-        $.ajax({
-            type: 'POST',
-            url: '/Login/VerifyMobile',
-            dataType: 'json',
-            data: {
-                fileCode: fileCode
-
-            },
-            async: false,
-            success: function (result) {
-
-                if (result.Status == 1) {
-                    if (result.msg == 1) {
-                        $("#successmsg1").hide();
-                        window.location.href = "/zipSign/SigningRequest?UId=" + UID;
-
-                    } else {
-                        $("#successmsg1").empty();
-                        var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
-                        $("#successmsg1").append(row);
-                        $("#signin-otp").val('');
-                    }
-                }
-                else {
-                    if (result.msg == 1) {
-                        window.location.href = "/zipSign/SigningRequest?UId=" + UID;
-                        //window.location.href = "/zipSign/SigningRequest?File=" + result.Path + "&SignerName=" + SignerName + "&Fileid=" + Fileid + "&Emailid=" + Emailid + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
-                    } else {
-                        $("#successmsg1").empty();
-                        var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
-                        $("#successmsg1").append(row);
-                        $("#signin-otp").val('');
-                    }
-                }
-
-            },
-            error: function (ex) {
-                console.log("Error occurred during OTP verification");
+            var splitResultforOriginal = result.responseData.OriginalFilePath.split('\\Uploads\\');
+            var pathBefore = splitResultforOriginal[0];
+            var pathAfterforOriginal = splitResultforOriginal[1];
+            if (result.responseData.LatestFilePath == null || result.responseData.LatestFilePath == '') {
+                $("#hdnlatestdown").val("\\Uploads\\" + pathAfterforOriginal);
+                $("#logo").attr("src", "\\Uploads\\" + pathAfterforOriginal);
             }
-        });
-    }
+            else {
+                var splitResultforlatest = result.responseData.LatestFilePath.split('\\Uploads\\');
+                var pathBefore = splitResultforlatest[0];
+                var pathAfterforlatest = splitResultforlatest[1];
+                $("#logo").attr("src", splitResultforlatest);
+            }
+            $("#imgname").html(result.responseData.FileName);
+            $("#hdnoriginaldown").val("\\Uploads\\" + pathAfterforOriginal);
+            //$("#hdnlatestdown").val(pathBefore);
+        },
+        error: function () {
+            alert('Failed to delete the file.');
+        }
+    });
+}
+
+function SendToSigningRequest(fileCode) {
+    $.ajax({
+        type: 'POST',
+        url: '/Login/VerifyMobile',
+        dataType: 'json',
+        data: {
+            fileCode: fileCode
+
+        },
+        async: false,
+        success: function (result) {
+
+            if (result.Status == 1) {
+                if (result.msg == 1) {
+                    $("#successmsg1").hide();
+                    window.location.href = "/zipSign/SigningRequest?UId=" + UID;
+
+                } else {
+                    $("#successmsg1").empty();
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    $("#successmsg1").append(row);
+                    $("#signin-otp").val('');
+                }
+            }
+            else {
+                if (result.msg == 1) {
+                    window.location.href = "/zipSign/SigningRequest?UId=" + UID;
+                    //window.location.href = "/zipSign/SigningRequest?File=" + result.Path + "&SignerName=" + SignerName + "&Fileid=" + Fileid + "&Emailid=" + Emailid + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
+                } else {
+                    $("#successmsg1").empty();
+                    var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
+                    $("#successmsg1").append(row);
+                    $("#signin-otp").val('');
+                }
+            }
+
+        },
+        error: function (ex) {
+            console.log("Error occurred during OTP verification");
+        }
+    });
+}
 
 function downloadLatestPDF() {
-   // debugger
     var Link = $("#hdnlatestdown").val();
     if (Link == null || Link == '' || Link == "\\Uploads\\undefined") {
         Link = $("#hdnoriginaldown").val();
@@ -773,8 +781,7 @@ function downloadLatestPDF() {
 }
 
 function downloadOriginalPDF() {
-    //debugger
-    var Link=$("#hdnoriginaldown").val();
+    var Link = $("#hdnoriginaldown").val();
     var downloadLink = document.createElement('a');
     downloadLink.href = Link;
     downloadLink.download = 'downloaded_file.pdf';
@@ -782,20 +789,6 @@ function downloadOriginalPDF() {
     downloadLink.click();
     document.body.removeChild(downloadLink);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, SignerExpiry) {
     var FilePath = sessionStorage.getItem('LoaclPath');
@@ -821,131 +814,131 @@ function SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, Upload
 }
 
 
-    function SignInsert() {
-        var fileName = $("#SignImage").val();
-        var cleanFileName = fileName.replace(/^.*\\/, "");
-        console.log("DocumentName: " + cleanFileName);
+function SignInsert() {
+    var fileName = $("#SignImage").val();
+    var cleanFileName = fileName.replace(/^.*\\/, "");
+    console.log("DocumentName: " + cleanFileName);
 
-        var isAddRecipient = $("#AddRecipient").prop("checked");
+    var isAddRecipient = $("#AddRecipient").prop("checked");
 
-        if (isAddRecipient) {
-            signerType = "Multiple Signers";
-        } else {
-            signerType = "Single Signer";
-        }
-
-        var recipientsData = [];
-        $('.signerdiv').each(function (index) {
-
-            var recipient = {
-                Name: $(this).find('[id^="Name"]').val(),
-                Email: $(this).find('[id^="Email"]').val(),
-                MobileNumber: $(this).find('[id^="phone"]').val(),
-                ExpireInDays: $(this).find('[id^="ExpDate"]').val(),
-                signerType: signerType,
-                DocumentExpiryDay: $("#ExpDate").val(),
-            };
-            recipientsData.push(recipient);
-        });
-        $.ajax({
-            type: 'POST',
-            url: '/zipSign/SignInsert',
-            data: {
-                DocumentName1: $("#text-input1").val(),
-                ReferenceNumber: $("#text-input2").val(),
-                DocumentName: cleanFileName,
-                UploadedDoc: cleanFileName,
-                filePath: $("#hdnfilepath").val(),
-                signerInfos: recipientsData,
-                UserType: signerType
-            },
-            success: function (result) {
-                var UploadedDocumentId = result.UploadedDocumentId
-                sessionStorage.setItem('UploadedDocumentId', UploadedDocumentId);
-                sessionStorage.setItem('UniqueSignerID', UniqueSignerID);;
-                if (result.UserType == "Single Signer") {
-                    var SignerID = result.SignerID;
-                    sessionStorage.setItem('SignerID', SignerID);
-                    var redirectUrl = "/zipSign/SigningRequest?UType=" + encodeURIComponent(result.UserType) + "&UploadedDocumentId=" + encodeURIComponent(UploadedDocumentId);
-                    window.location.href = redirectUrl;
-                }
-                else {
-                    var UploadedDocumentId = result.UploadedDocumentId;
-                    var UniqueSignerID = result.UniqueID;
-                    var Email = result.EmailToSend;
-                    var SignerID = result.SignerID;
-                    var SignerName = result.SignerName;
-                    var signerT = result.UserType;
-                    var ExpireInDays = result.SignerExpiry;
-                    //$("#successpopup").modal("show");
-                    SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, ExpireInDays);
-                }
-            },
-            error: function (ex) {
-                //alert("Error");
-            }
-        });
+    if (isAddRecipient) {
+        signerType = "Multiple Signers";
+    } else {
+        signerType = "Single Signer";
     }
-    $(document).on("keyup", 'input[id^="Email"], input[id^="phone"]', function () {
-        var currentValue = $(this).val().trim();
-        var currentFieldId = $(this).attr("id");
-        var isDuplicate = false;
-        $('input[id^="Email"], input[id^="phone"]').each(function () {
-            var value = $(this).val().trim();
-            var fieldId = $(this).attr("id");
-            if (currentFieldId !== fieldId && value !== "" && value === currentValue) {
-                isDuplicate = true;
-                return false;
+
+    var recipientsData = [];
+    $('.signerdiv').each(function (index) {
+
+        var recipient = {
+            Name: $(this).find('[id^="Name"]').val(),
+            Email: $(this).find('[id^="Email"]').val(),
+            MobileNumber: $(this).find('[id^="phone"]').val(),
+            ExpireInDays: $(this).find('[id^="ExpDate"]').val(),
+            signerType: signerType,
+            DocumentExpiryDay: $("#ExpDate").val(),
+        };
+        recipientsData.push(recipient);
+    });
+    $.ajax({
+        type: 'POST',
+        url: '/zipSign/SignInsert',
+        data: {
+            DocumentName1: $("#text-input1").val(),
+            ReferenceNumber: $("#text-input2").val(),
+            DocumentName: cleanFileName,
+            UploadedDoc: cleanFileName,
+            filePath: $("#hdnfilepath").val(),
+            signerInfos: recipientsData,
+            UserType: signerType
+        },
+        success: function (result) {
+            var UploadedDocumentId = result.UploadedDocumentId
+            sessionStorage.setItem('UploadedDocumentId', UploadedDocumentId);
+            sessionStorage.setItem('UniqueSignerID', UniqueSignerID);;
+            if (result.UserType == "Single Signer") {
+                var SignerID = result.SignerID;
+                sessionStorage.setItem('SignerID', SignerID);
+                var redirectUrl = "/zipSign/SigningRequest?UType=" + encodeURIComponent(result.UserType) + "&UploadedDocumentId=" + encodeURIComponent(UploadedDocumentId);
+                window.location.href = redirectUrl;
             }
-        });
-        if (isDuplicate) {
-            $(this).addClass("duplicate-entry");
-        } else {
-            $(this).removeClass("duplicate-entry");
+            else {
+                var UploadedDocumentId = result.UploadedDocumentId;
+                var UniqueSignerID = result.UniqueID;
+                var Email = result.EmailToSend;
+                var SignerID = result.SignerID;
+                var SignerName = result.SignerName;
+                var signerT = result.UserType;
+                var ExpireInDays = result.SignerExpiry;
+                //$("#successpopup").modal("show");
+                SendLinkToRecipient(UniqueSignerID, Email, SignerID, SignerName, UploadedDocumentId, ExpireInDays);
+            }
+        },
+        error: function (ex) {
+            //alert("Error");
         }
     });
+}
+$(document).on("keyup", 'input[id^="Email"], input[id^="phone"]', function () {
+    var currentValue = $(this).val().trim();
+    var currentFieldId = $(this).attr("id");
+    var isDuplicate = false;
+    $('input[id^="Email"], input[id^="phone"]').each(function () {
+        var value = $(this).val().trim();
+        var fieldId = $(this).attr("id");
+        if (currentFieldId !== fieldId && value !== "" && value === currentValue) {
+            isDuplicate = true;
+            return false;
+        }
+    });
+    if (isDuplicate) {
+        $(this).addClass("duplicate-entry");
+    } else {
+        $(this).removeClass("duplicate-entry");
+    }
+});
 
-    function CheckExpiryDate() {
+function CheckExpiryDate() {
+    document.getElementById("MoreRecipient").disabled = false;
+    var Total = parseInt($("#ExpDate").val());
+    var a = parseInt($("#ExpDate1").val()) || 0;
+    var b = parseInt($("#ExpDate2").val()) || 0;
+    var c = parseInt($("#ExpDate3").val()) || 0;
+    if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        $("#message").empty();
+        var row = '<div class="col-md-12 p-1" role="alert">Invalid Input! Please Enter Valid Numbers</div>';
+        $("#message").append(row);
+        $("#ExpDate").focus();
+        document.getElementById("MoreRecipient").disabled = true;
+        return;
+    }
+
+    var sum = a + b + c;
+
+    if (sum >= Total) {
+        $("#message").empty();
+        var row = '<div class="col-md-12 p-1" role="alert">You reached the Maximum</div>';
+        $("#message").append(row);
+        $("#ExpDate").focus();
+        document.getElementById("MoreRecipient").disabled = true;
+
+    }
+    else {
         document.getElementById("MoreRecipient").disabled = false;
-        var Total = parseInt($("#ExpDate").val());
-        var a = parseInt($("#ExpDate1").val()) || 0;
-        var b = parseInt($("#ExpDate2").val()) || 0;
-        var c = parseInt($("#ExpDate3").val()) || 0;
-        if (isNaN(a) || isNaN(b) || isNaN(c)) {
-            $("#message").empty();
-            var row = '<div class="col-md-12 p-1" role="alert">Invalid Input! Please Enter Valid Numbers</div>';
-            $("#message").append(row);
-            $("#ExpDate").focus();
-            document.getElementById("MoreRecipient").disabled = true;
-            return;
-        }
-
-        var sum = a + b + c;
-
-        if (sum >= Total) {
-            $("#message").empty();
-            var row = '<div class="col-md-12 p-1" role="alert">You reached the Maximum</div>';
-            $("#message").append(row);
-            $("#ExpDate").focus();
-            document.getElementById("MoreRecipient").disabled = true;
-
-        }
-        else {
-            document.getElementById("MoreRecipient").disabled = false;
-        }
     }
-    $("#viewrec").click(function () {
-        addRecipientData();
-        updateGridData();
-    });
+}
+$("#viewrec").click(function () {
+    addRecipientData();
+    updateGridData();
+});
 
 
 
-    function DownloadOriginalFile() {
-        window.location = '/zipSign/DownloadFile'; // Simply navigate to the download URL
-    }
-    function Search() {
-        var keyword = $('#searchInput').val(); // Retrieve the keyword from the search input field
-        var pagecount = 1;
-        GetData(pagecount, keyword); // Call the modified GetData function with the keyword
-    }
+function DownloadOriginalFile() {
+    window.location = '/zipSign/DownloadFile'; // Simply navigate to the download URL
+}
+function Search() {
+    var keyword = $('#searchInput').val(); // Retrieve the keyword from the search input field
+    var pagecount = 1;
+    GetData(pagecount, keyword); // Call the modified GetData function with the keyword
+}

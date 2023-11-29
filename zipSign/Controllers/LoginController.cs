@@ -62,11 +62,11 @@ namespace zipSign.Controllers
             Response.AddHeader("X-XSS-Protection", "1; mode=block");
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    IEnumerable<string> errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                    return Json(new { status = "Validation failed", errors });
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    IEnumerable<string> errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                //    return Json(new { status = "Validation failed", errors });
+                //}
                 if (string.IsNullOrWhiteSpace(objSignUpModel.Name))
                 {
                     return Json(new { status = "Enter Name" });
@@ -929,10 +929,6 @@ namespace zipSign.Controllers
         new DataItems("TxnId",TxnIdForSignUp),
         new DataItems("QueryType", "IsValidOTP")
         };
-
-
-
-
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
 
             // Check if OTP record exists in the database response
@@ -1087,9 +1083,16 @@ namespace zipSign.Controllers
                     new DataItems("QueryType", "GetDataForUser")
                 };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
-                string UserCode = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterId"]);
-                string UserEmail = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
-                return Json(new { statusClass.StatusCode, UserCode, UserEmail });
+                if(statusClass.StatusCode==9)
+                {
+                    string UserCode = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterId"]);
+                    string UserEmail = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
+                    return Json(new { statusClass.StatusCode, UserCode, UserEmail });
+                }
+                else
+                {
+                    return Json(new { statusClass.StatusCode });
+                }
             }
             else
             {
@@ -1319,11 +1322,15 @@ namespace zipSign.Controllers
             statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
             if (statusClass.StatusCode == 7)
             {
-                return Json(new { error = "Password updated successfully." }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "success" }, JsonRequestBehavior.AllowGet);
             }
             else if (statusClass.StatusCode == 10)
             {
-                return Json(new { error = "Incorrect Old Password" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Please enter a valid password" }, JsonRequestBehavior.AllowGet);
+            }
+            else if (statusClass.StatusCode == 9)
+            {
+                return Json(new { error = "Change Count Limit Exceeded" }, JsonRequestBehavior.AllowGet);
             }
             else
             {
