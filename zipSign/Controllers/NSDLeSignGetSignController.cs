@@ -3,8 +3,10 @@ using Pkcs7pdf_Multiple_EsignService;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace zipSign.Controllers
 {
@@ -14,13 +16,13 @@ namespace zipSign.Controllers
         public IHttpActionResult PDFSignature([FromBody] JObject requestData)
         {
             RequestModel model = requestData["Data"].ToObject<RequestModel>();
+
             string xmlData = model.XMLFile;
             string PathToXML = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + model.filePathfromUpload + "_eSignRequestXml.txt";
             try
             {
                 // Save XML data to a text file with .txt extension
                 File.WriteAllText(PathToXML, xmlData);
-
                 Console.WriteLine("XML data saved successfully as a text file.");
             }
             catch (Exception ex)
@@ -325,12 +327,12 @@ namespace zipSign.Controllers
                 Data = ""
             };
             return Json(ApiResponseModel);
-            //string timeStamp = "";
-            //ViewBag.RedirectUrl = redirectUrl;
-            //return Redirect(redirectUrl);
-            //return View();
         }
-
+            //    //string timeStamp = "";
+            //    //ViewBag.RedirectUrl = redirectUrl;
+            //    //return Redirect(redirectUrl);
+            //    //return View();
+            //}
 
 
 

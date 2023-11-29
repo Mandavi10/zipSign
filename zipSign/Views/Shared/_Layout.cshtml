@@ -84,7 +84,7 @@
             list-style: none;
             box-shadow: 1px 1px 6px 0px #000;
             display: none;
-            width: 140px;
+            width: 165px;
         }
 
             .inidiv ul li {
@@ -192,6 +192,12 @@
         .sidebar-nav .metismenu > li:hover a {
             transform: translateX(8px);
         }
+        .corpselli{
+            display:none;
+        }
+        #btnsave {
+            background-color: #0058b1 !important;
+        }
     </style>
 
 
@@ -233,7 +239,7 @@
                                 <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
 
                             </li>
-                            <li><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>
+                            @*<li class="corpselli"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>*@
                         </ol>
                         <div class="allcorp" style="display:none">
 
@@ -335,6 +341,8 @@
 
                                     <ul class="profiletoggle">
                                         <li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
+
+                                        <li data-bs-toggle="modal" data-bs-target="#changepassmod"><i class="fa fa-key" aria-hidden="true"></i> Change Password</li>
 
                                         @*<li>Change Password</li>*@
                                         <li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
@@ -539,12 +547,12 @@
                                 <div class="card">
                                     <div class="body">
                                         @*<h6>Profile Photo</h6>*@
-                                        <div class="media col-md-12 d-flex justify-content-center">
+                                        <!--<div class="media col-md-12 d-flex justify-content-center">
                                             <div class="media-left col-md-3 position-relative" style="overflow: hidden;">
                                                 <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
                                                 <i class="fa fa-pencil-square-o editphoto"></i>
                                                 <input id="file-input" type="file" style="display: none;" />
-                                            </div>
+                                            </div>-->
 
                                             @*<div class="media-body">
                                                 <p>
@@ -556,15 +564,47 @@
                                                 <input type="file" id="filePhoto" class="sr-only" style="display:none;">
                                                 <input type="text" id="ProId" hidden />
                                             </div>*@
-                                        </div>
+                                        <!--</div>-->
 
-                                        <div class="media col-md-12 text-center profileInfo">
+                                        <div class="media col-md-12 profileInfo">
+
+                                            <div class="col-md-12 d-flex flex-wrap mb-3">
+                                                <div class="col-md-3">
+                                                    <label>Name:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p id="usernameDisplay1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 d-flex flex-wrap mb-3">
+                                                <div class="col-md-3">
+                                                    <label>Email:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p id="emailDisplay1"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 d-flex flex-wrap mb-3">
+                                                <div class="col-md-3">
+                                                    <label>Mobile No.:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p id="phoneDisplay"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 d-flex flex-wrap mb-3">
+                                                <div class="col-md-3">
+                                                    <label>State:</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <p id=""></p>
+                                                </div>
+                                            </div>
 
 
-
-                                            <h5 id="usernameDisplay1"></h5>
-                                            <p id="emailDisplay1"></p>
-                                            <p id="phoneDisplay"></p>
+                                            @*<h5 id="usernameDisplay1"></h5>
+        <p id="emailDisplay1"></p>
+        <p id="phoneDisplay"></p>*@
                                             <input type="hidden" id="UserMasterId" />
 
 
@@ -670,42 +710,53 @@
                                                                 </div>
                                                             </div>*@
 
+                          
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title m-0" id="defaultModalLabel">Change Password</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row clearfix">
+                            <div class="col-lg-12">
+                                <div class="card">
+
                                     <div class="body">
                                         <div class="row clearfix">
                                             <h6>Change Password</h6>
                                             <div class="col-lg-12 col-md-12">
 
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Old Password" id="oldPassword">
+                                                    <input type="text" class="form-control" placeholder="Old Password" id="oldPassword" autocomplete="off">
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-12 col-md-12">
 
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="New Password" id="newPassword">
+                                                    <input type="text" class="form-control" placeholder="New Password" id="newPassword" autocomplete="off">
                                                 </div>
 
                                             </div>
                                             <div class="col-lg-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword">
+                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword" autocomplete="off">
                                                 </div>
                                             </div>
 
-
-                                            @*<h6>Account Data</h6>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" value="JohnDoe" disabled placeholder="Username" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="email" class="form-control" value="john.doe@yourdomain.com" disabled placeholder="Email" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
-
-                                                </div>
-                                            </div>*@
 
                                             <div id="errormessage"></div>
 
@@ -725,6 +776,26 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+                    </div>
+                    <div class="modal-body pt-4 pb-4">
+                        <div class="col-12 text-center">
+                            <label class="modcontxt">Password Successfully Changed: You will be automatically logged out for security purposes. Please sign in with your new password.</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @*<button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>*@
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnsave" onclick="SignOut()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script src="~/JavaScript/Custom.js"></script>
         <script>
             $(document).ready(function () {
@@ -734,12 +805,12 @@
                     window.location.href = "/Login/Index";
                     return false;
 
-                //window.onbeforeunload = function () {
+                    //window.onbeforeunload = function () {
 
-                //    var request = GetRequest();
-                //    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
-                //    request.send();
-                //};
+                    //    var request = GetRequest();
+                    //    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
+                    //    request.send();
+                    //};
 
 
                 }
@@ -805,63 +876,67 @@
                 });
             });
             function changePassword() {
-
                 var oldPassword = $('#oldPassword').val().trim();
                 var newPassword = $('#newPassword').val().trim();
                 var confirmPassword = $('#confirmPassword').val().trim();
                 var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
                 var Email = $('#emailDisplay1').text();
-                if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
-                    var errorMessage = 'Please fill out all the fields.';
-                    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
-                    return false;
-                }
-                //if (oldPassword === '') {
-                //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Old Password.</div>';
-                //    $("#ErrorMessage").empty();
-                //    $("#ErrorMessage").append(row);
-                //    $("#oldPassword").focus();
+                //if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
+                //    var errorMessage = 'Please fill out all the fields.';
+                //    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
                 //    return false;
                 //}
-                else if (!oldPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
+                if (oldPassword === '') {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Old Password.</div>';
+                    $("#ErrorMessage").empty();
+                    $("#ErrorMessage").append(row);
+                    $("#oldPassword").focus();
+                    return false;
+                }
+                if (!oldPassword.match(passwordPattern)) {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
                     $("#ErrorMessage").empty().append(row);
                     $("#oldPassword").focus();
                     return false;
                 }
-                //else if (newPassword === '') {
-                //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Password.</div>';
-                //    $("#ErrorMessage").empty();
-                //    $("#ErrorMessage").append(row);
-                //    $("#newPassword").focus();
-                //    return false;
-                //}
+                else if (newPassword === '') {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Password.</div>';
+                    $("#ErrorMessage").empty();
+                    $("#ErrorMessage").append(row);
+                    $("#newPassword").focus();
+                    return false;
+                }
                 else if (!newPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">PInvalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
                     $("#ErrorMessage").empty().append(row);
                     $("#newPassword").focus();
                     return false;
                 }
-                //else if (confirmPassword === '') {
-                //    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Confirm Password.</div>';
-                //    $("#ErrorMessage").empty();
-                //    $("#ErrorMessage").append(row);
-                //    $("#confirmPassword").focus();
-                //    return false;
-                //}
+                else if (oldPassword == newPassword) {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Old password and new password cannot be the same</div>';
+                    $("#ErrorMessage").empty().append(row);
+                    return false;
+                }
+                else if (confirmPassword === '') {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Confirm Password.</div>';
+                    $("#ErrorMessage").empty();
+                    $("#ErrorMessage").append(row);
+                    $("#confirmPassword").focus();
+                    return false;
+                }
                 else if (!confirmPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">PInvalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
                     $("#ErrorMessage").empty().append(row);
                     $("#confirmPassword").focus();
                     return false;
                 }
-                else if (newPassword !== confirmPassword) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">New Password and Confirm Password should match</div>';
+                else if (newPassword !== newPassword) {
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">New password and confirm password do not match</div>';
                     $("#ErrorMessage").empty().append(row);
-
                     return false;
                 }
                 $.ajax({
+                    
                     url: '/Login/ChangePasswordFromProfile',
                     type: 'POST',
                     data: {
@@ -873,24 +948,16 @@
                     },
                     dataType: 'json',
                     success: function (response) {
-
                         if (response.error === 'success') {
-                            alert('Password changed successfully.');
-                            $('#oldPassword').val('');
-                            $('#newPassword').val('');
-                            $('#confirmPassword').val('');
+                            $("#changepassmod").hide();
+                            $('#confirmationpopupforchp').modal('show');
+                            //window.location = '/Login/SignOut?UserMasterId=' + UserMasterId;
+                            //window.location = '/Login/Index';
                         }
-                        //else if (response.error == "Enter Old Password" || response.error == "Password must have at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 8 characters long." || response.error == "Enter New Password" || response.error == "Enter Confirm Password" || response.error =="Password and confirm password do not match.") {
-                        //    $("#ErrorMessage").empty();
-                        //    var row = '<div class="alermsg col-md-12 p-1" role="alert">' + response.error + '</div>';
-                        //    $("#ErrorMessage").append(row);
-                        //    return false;
-                        //}
                         else {
                             $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1" role="alert">' + response.error + '</div>');
                         }
                     },
-
                 });
             }
 
@@ -918,10 +985,7 @@
                 $('.allcorp').hide();
             })
         </script>
-
         @*<script>
-
-
             function GetRequest() {
                 var xmlhttp;
                 if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -933,10 +997,6 @@
                 return xmlhttp;
             }
         </script>*@
-
-
-
     </div>
 </body>
-
 </html>

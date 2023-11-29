@@ -138,8 +138,6 @@ namespace zipSign.Controllers.APIs
             }
         }
 
-
-
         public class JsonRequestModel
         {
             public string Base64String { get; set; }
