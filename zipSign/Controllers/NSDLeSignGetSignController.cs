@@ -8,7 +8,9 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Xml;
+
 using System.Xml.Linq;
+
 
 namespace zipSign.Controllers
 {
@@ -17,6 +19,7 @@ namespace zipSign.Controllers
         [HttpPost]
         public IHttpActionResult PDFSignature()
         {
+
             string XMLData = "";
             string UploadedFilePath = "";
             var BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
@@ -341,12 +344,12 @@ namespace zipSign.Controllers
                 Data = ""
             };
             return Json(ApiResponseModel);
-            //string timeStamp = "";
-            //ViewBag.RedirectUrl = redirectUrl;
-            //return Redirect(redirectUrl);
-            //return View();
         }
-
+            //    //string timeStamp = "";
+            //    //ViewBag.RedirectUrl = redirectUrl;
+            //    //return Redirect(redirectUrl);
+            //    //return View();
+            //}
 
 
 

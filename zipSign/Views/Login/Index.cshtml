@@ -26,7 +26,7 @@
 
         .capdiv {
             width: 127px;
-            height: 37px;
+            height: 30px;
             overflow: hidden;
             border: 1px solid #e2e2e2;
             margin-left: 14px;
@@ -34,7 +34,8 @@
         }
 
             .capdiv img {
-                margin-top: -4px;
+                margin-top: -9px;
+                width: 100%;
             }
 
         .btn {
@@ -175,6 +176,15 @@
             text-decoration: underline;
             cursor: pointer;
         }
+        .spinloadlog {
+            position: absolute;
+            top: 31px;
+            color: #fff;
+            z-index: 9999;
+            right: 164px;
+            display:none;
+
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -232,7 +242,8 @@
             </div>*@
 
 
-                                            <div class="col-md-12 p-1 pe-0 ">
+                                            <div class="col-md-12 p-1 pe-0 position-relative">
+                                                <i class="fa fa-spinner fa-spin spinloadlog" aria-hidden="true" id="loaderrr"></i>
                                                 <button type="button" class="btn btn-primary btn-lg btn-block cmbtn " onclick="Login();" id="btnsubmit">NEXT</button>
                                             </div>
 
@@ -248,7 +259,9 @@
                                             </span>
                                         </div>
                                         <div class="col-md-12 d-flex flex-wrap justify-content-center">
-                                            <div><p class="mb-0 privtxt">By signing in, you agree to our <span>Privacy Policy</span></p></div>
+                                            <div><p class="mb-0 privtxt">
+    By signing in, you agree to our <span><a href="https://zipsign.in/Privacy.aspx" target="_blank">Privacy Policy</a></span>
+</p></div>
                                         </div>
                                     </form>
                                 </div>
@@ -257,7 +270,7 @@
                         <div class="page">
                             <div class="card">
                                 <div class="header">
-                                    <p class="lead">Enter the OTP received</p>
+                                    <p class="lead">Authenticate Your Account</p>
                                 </div>
                                 <div class="body">
                                     <form class="form-auth-small" action="index.html">
@@ -270,10 +283,10 @@
                                                 <input type="hidden" id="txtmobilehdn" />
                                                 <input type="hidden" id="txtnamehdn" />
                                             </div>
-                                            <div class="alermsg col-md-12 p-1" role="alert" id="message1"></div>
                                             <div class="timerdiv d-flex justify-content-end">
                                                 <label class="mb-0 timer" id="resmobotp">00:60</label><label class="resendotp mb-0" id="lblresend">Resend OTP</label>
                                             </div>
+                                            <div class=" col-md-12 p-1" id="message1"></div>
                                         </div>
 
 

@@ -24,6 +24,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
+       
         public ActionResult RolesAndRights()
         {
             return Session["UserId"] == null ? RedirectToAction("Index", "Login") : (ActionResult)View();
@@ -54,11 +55,11 @@ namespace zipSign.Controllers
         {
             if (Session["UserId"] == null)
             {
-                return RedirectToAction("Index", "Login");
+              return RedirectToAction("Index", "Login");
             }
             else
             {
-                return View();
+              return View();
             }
         }
         public ActionResult SignRequest()

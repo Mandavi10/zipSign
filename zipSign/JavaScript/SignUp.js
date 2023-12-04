@@ -8,10 +8,11 @@ var isMobileTimerRunning = false;
 var emailTimerIntervalId;
 var isEmailTimerRunning = false;
 $(document).ready(function () {
+
     $('#password, #ConfirmPassword').on('paste copy', function (event) {
         event.preventDefault();
     });
-    $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
+    $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword,#emailOTP").on('input', function () {
         $("#message").empty();
         row = '';
     });
@@ -28,71 +29,76 @@ $(document).ready(function () {
         resetForm();
     });
     $("#btnmobotp").attr('disabled', 'disabled');
-    $("#Phoneno").attr('disabled', 'disabled');
+    $("#Phoneno").attr('disabled', 'disabled'); 
+    $('#OnlySigner').change(function () {
+        if ($(this).is(':checked')) {
+            $('#btnSign').prop('disabled', false);
+        } else {
+            $('#btnSign').prop('disabled', true);
+        }
+    });
     //startTimer().hide();
-    $(".verifybtn").click(function () {
-        if ($("#UserName").val() === '') {
-            $("#message").empty();
-            row = '<div class="col-md-12 p-1" role="alert">Enter User Name</div>';
-            $("#message").append(row);
-            $("#UserName").focus();
-            return false;
-        }
-        else if ($("#Email").val() === "") {
-            $("#message").empty();
-            row = '<div class="col-md-12 p-1" role="alert">Please enter Email</div>';
-            $("#message").append(row);
-            $("#Email").focus();
-            return false;
-        }
-        else if (!/^[\w\.\-]+@[a-zA-Z\d\-]+(\.[a-zA-Z]+)*\.[a-zA-Z]{2,}$/.test($("#Email").val())) {
-            row = '<div class="col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
-            $("#message").empty().append(row);
-            $("#Email").focus();
-            return false;
-        }
-        else {
-            //$(".enterotpdiv").show();
-            $(".verifybtn").hide();
-            //$(".timer").show();
-        }
-    });
+    //$(".verifybtn").click(function () {
+    //    if ($("#UserName").val() === "") {
+    //        $("#message").empty();
+    //        row = '<div class="col-md-12 p-1" role="alert">Enter User Name</div>';
+    //        $("#message").append(row);
+    //        $("#UserName").focus();
+    //        return false;
+    //    }
+    //    else if ($("#Email").val() === "") {
+    //        $("#message").empty();
+    //        row = '<div class="col-md-12 p-1" role="alert">Please enter Email</div>';
+    //        $("#message").append(row);
+    //        $("#Email").focus();
+    //        return false;
+    //    }
+    //    else if (!/^[\w\.\-]+@[a-zA-Z\d\-]+(\.[a-zA-Z]+)*\.[a-zA-Z]{2,}$/.test($("#Email").val())) {
+    //        row = '<div class="col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
+    //        $("#message").empty().append(row);
+    //        $("#Email").focus();
+    //        return false;
+    //    }
+    //    else {
+    //        //$(".enterotpdiv").show();
+    //        $(".verifybtn").hide();
+    //        //$(".timer").show();
+    //    }
+    //});
 
-    $(".verifybtn1").click(function () {
-        $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
-            $("#message").empty();
-            row = '';
-        });
-        $("#State").on('change', function () {
-            $("#message").empty(); // Clear the message when a state is selected
-        });
-        if ($("#UserName").val() === '') {
+    //$(".verifybtn1").click(function () {
+    //    $("#UserName, #Email, #Phoneno, #password,#Email, #panNumber,#CorpName,#ConfirmPassword").on('input', function () {
+    //        $("#message").empty();
+    //        row = '';
+    //    });
+    //    $("#State").on('change', function () {
+    //        $("#message").empty(); // Clear the message when a state is selected
+    //    });
+    //    if ($("#UserName").val() === '') {
 
-            row += '<div class="col-md-12 p-1" role="alert">Enter User Name</div>';
-            $("#message").empty().append(row);
-            $("#UserName").focus();
-            return false;
-            MessageShown = true;
-        }
-        else if ($("#Phoneno").val() === "") {
-            row = '<div class="col-md-12 p-1" role="alert">Please enter Mobile</div>';
-            $("#message").empty().append(row);
-            $("#Phoneno").focus();
-            return false;
-        } else if (!/^[6-9]\d{9}$/.test($("#Phoneno").val())) {
-            row = '<div class="col-md-12 p-1" role="alert">Mobile Number should be 10 Digits and only starts with 6/7/8/9</div>';
-            $("#message").empty().append(row);
-            $("#Phoneno").focus();
-            return false;
-        }
-
-        else {
-            $(".verifybtn1").hide();
-        }
-    });
+    //        row += '<div class="col-md-12 p-1" role="alert">Please enter name of the user</div>';
+    //        $("#message").empty().append(row);
+    //        $("#UserName").focus();
+    //        return false;
+    //        MessageShown = true;
+    //    }
+    //    else if ($("#Phoneno").val() === "") {
+    //        row = '<div class="col-md-12 p-1" role="alert">Please enter mobile number</div>';
+    //        $("#message").empty().append(row);
+    //        $("#Phoneno").focus();
+    //        return false;
+    //    } else if (!/^[6-9]\d{9}$/.test($("#Phoneno").val())) {
+    //        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9</div>';
+    //        $("#message").empty().append(row);
+    //        $("#Phoneno").focus();
+    //        return false;
+    //    }
+    //    else {
+    //        $(".verifybtn1").hide();
+    //    }
+    //});
 
     $('#btnSign').click(function () {
-
         if (isValidData() == false) {
             return false;
         }
@@ -102,7 +108,6 @@ $(document).ready(function () {
     });
 
     $('#btnsave').click(function () {
-
         SignUp();
     });
 
@@ -165,12 +170,14 @@ function startTimer(duration, display, ismobile) {
         if (--timer < 0) {
             clearInterval(mobileTimerIntervalId);
             $('#lblsmsresend').show();
+            $("#timer3").hide();
         }
     }, 1000);
 }
 
 // Timer during signup Email Verify
 function startTimer1(duration, display, isemail) {
+    $('#lblemailresend').hide();
     if (isEmailTimerRunning) {
         clearInterval(emailTimerIntervalId);
     }
@@ -182,11 +189,11 @@ function startTimer1(duration, display, isemail) {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
         display.text(minutes + ":" + seconds);
-        $('#lblemailresend').hide();
-
+        //$('#lblemailresend').hide();
         if (--timer1 < 0) {
             clearInterval(emailTimerIntervalId);
             $('#lblemailresend').show();
+            $('#timeremail').hide();
             //$('#emailOTP').val('');
             //$(".enterotpdiv2").hide();
             //  startTimer1().hide();
@@ -250,7 +257,7 @@ function SignUp() {
                     row += '<div class="col-md-12 p-1" role="alert">' + error + '</div>';
                     $('#confirmationpopup').modal('hide');
                 });
-            } else if (result.status == "Enter Name" || result.status == "Invalid email format" || result.status == "Mobile Number should be 10 Digits and only starts with 6/7/8/9" || result.status == "Please select state" || result.status == "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" || result.status == "Invalid Confirm password format" || result.status == "Password and Confirm Password do not match" || result.status =="Invalid PAN format") {
+            } else if (result.status == "Enter Name" || result.status == "Invalid email format" || result.status == "Mobile Number should be 10 Digits and only starts with 6/7/8/9" || result.status == "Please select state" || result.status == "Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character" || result.status == "Invalid Confirm password format" || result.status == "Password and Confirm Password do not match" || result.status == "Invalid PAN format") {
                 row += '<div class="col-md-12 p-1" role="alert">' + result.status + '</div>';
                 $('#confirmationpopup').modal('hide');
 
@@ -314,10 +321,29 @@ function SignUp() {
 }
 //Send OTP on Mobile during SignUp
 function SendMobileOTP() {
+    if ($("#UserName").val() ==="") {
+        $("#message").empty();
+        row = '<div class="col-md-12 p-1" role="alert">Please Enter User Name</div>';
+        $("#message").append(row);
+        $("#UserName").focus();
+        return false;
+    }
+    else if (/[0-9!@#$%^&*(),.?":{}|<>]/.test($("#UserName").val())) {
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid name</div>';
+        $("#message").empty().append(row);
+        $("#UserName").focus();
+        return false;
+    }
+    else if ($("#Email").val().trim() === "") {
+        row = '<div class="col-md-12 p-1" role="alert">Please enter email address</div>';
+        $("#message").empty().append(row);
+        $("#Email").focus();
+        return false;
+    }
     var row = '';
     var ValidatorFor = []
-    ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile"]);
-    ValidatorFor.push(["Phoneno", "Phoneno", "", "Mobile Number should be 10 Digits and only starts with 6/7/8/9"]);
+    ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile Number"]);
+    ValidatorFor.push(["Phoneno", "Phoneno", "", "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9"]);
     var status = ValidateMe(ValidatorFor);
     if (status == false) {
         return false;
@@ -329,14 +355,16 @@ function SendMobileOTP() {
         $("#Phoneno").focus();
         return false;
     }
+    //else if ($("#UserName").val() == '') {
+    //    $("#message").empty();
+    //    row += '<div class="col-md-12 p-1" role="alert">Please Enter User Name</div>';
+    //    $("#message").append(row);
+    //    $("#UserName").focus();
+    //}
 
-    else if ($("#UserName").val() == '') {
-        $("#message").empty();
-        row += '<div class="col-md-12 p-1" role="alert">Please Enter User Name</div>';
-        $("#message").append(row);
-        $("#UserName").focus();
-    }
     else {
+        $("#loaderrr").show();
+        
         $.ajax({
             url: '/Login/GetSMSData',
             type: 'POST',
@@ -349,7 +377,7 @@ function SendMobileOTP() {
                 var mobile = $("#Phoneno").val();
                 var formattedMobile = "xxxxxxxx" + mobile.slice(-2);
                 var span = $("#lblmobile .enterddata");
-                span.text("Please enter the OTP sent to" + formattedMobile);
+                span.text("Please enter the OTP sent to " + formattedMobile);
                 console.log(response);
                 $('#overlay').css('display', 'block');
                 $('#loader').css('display', 'block');
@@ -361,10 +389,11 @@ function SendMobileOTP() {
                 $('#Phoneno').attr('disabled', 'disabled');
                 startTimer(timerDuration, display, isMobileTimerRunning);
                 $("#lblsmsresend").hide();
+                $(".verifybtn1").hide();
                 $("#timer3").show();
                 $(".timer1").show();
+                $("#loaderrr").hide();
                 $(".enterotpdiv1").show();
-
             },
             error: function (error) {
                 console.log(error);
@@ -374,17 +403,31 @@ function SendMobileOTP() {
 }
 //During Signup Send otp on Email(clicked on verify)
 function SendEmailOTP() {
+    
+    if ($("#UserName").val() === "") {
+        $("#message").empty();
+        row = '<div class="col-md-12 p-1" role="alert">Please enter name of the user</div>';
+        $("#message").append(row);
+        $("#UserName").focus();
+        return false;
+    }
+    else if (/[0-9!@#$%^&*(),.?":{}|<>]/.test($("#UserName").val())) {
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid name</div>';
+        $("#message").empty().append(row);
+        $("#UserName").focus();
+        return false;
+    }
     var ValidatorFor = [];
-    ValidatorFor.push(["Email", "Required", "", "Please enter Email"]);
-    ValidatorFor.push(["Email", "Email", "", "You have entered an invalid email address! (e.g. xxxx@gmail.com)"]);
+    ValidatorFor.push(["Email", "Required", "", "Please enter email address"]);
+    ValidatorFor.push(["Email", "Email", "", "Please enter a valid email address"]);
     var status = ValidateMe(ValidatorFor);
     if (status === false) {
-
         $(".enterotpdiv").attr("style", "display:none");
         return false;
     }
+    
     else {
-
+        $("#loaderr").show();
         $.ajax({
             url: '/Login/GetEmailData',
             type: 'POST',
@@ -392,6 +435,7 @@ function SendEmailOTP() {
                 Email: $("#Email").val()
             },
             success: function (response) {
+                
                 var Email = $("#Email").val();
                 var atIndex = Email.indexOf('@');
                 if (atIndex !== -1) {
@@ -404,9 +448,7 @@ function SendEmailOTP() {
                         var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
                         localPart = localPart[0] + xChars + localPart[localPart.length - 1];
                     }
-
                     var formattedEmail = localPart + domainPart;
-
                     var span = $("#lblemail .enterddata");
                     span.text("Please enter the OTP sent to " + formattedEmail);
                     var timerDuration = 60;
@@ -415,6 +457,9 @@ function SendEmailOTP() {
                     $('#timeremail').show();
                     $(".timer").show();
                     $(".enterotpdiv").show();
+                    $(".verifybtn").hide();
+                    $("#Email").prop("disabled", true);
+                    $(".spinload").hide();
                 }
             },
             error: function (error) {
@@ -425,6 +470,13 @@ function SendEmailOTP() {
 }
 function VerifyOTP() {
     var otp = $("#mobileotp").val();
+    if (otp=== "") {
+        $("#message").empty();
+        row = '<div class="col-md-12 p-1" role="alert">Please enter OTP</div>';
+        $("#message").append(row);
+        $("#UserName").focus();
+        return false;
+    }
     $.ajax({
         type: 'POST',
         url: '/Login/VerifyMobileOTPForSignUp',
@@ -482,7 +534,16 @@ function VerifyOTP() {
     });
 }
 function VerifyEmailOTP() {
-    var otp = $("#emailOTP").val();
+    $("#message").empty();
+    var EmailOTP = $("#emailOTP").val();
+    if (EmailOTP === "") {
+        $("#message").empty();
+        row = '<div class="col-md-12 p-1" role="alert">Please enter the OTP</div>';
+        $("#message").append(row);
+        $("#emailOTP").focus();
+        return false;
+    }
+    var otp = EmailOTP
     var isVerified = false;
     var row = '';
     $.ajax({
@@ -494,7 +555,7 @@ function VerifyEmailOTP() {
         },
         async: false,
         success: function (response) {
-             result = response;
+            result = response;
             if (result === 1) {
                 $("#message").empty();
                 $('.enterotpdiv2').css('display', 'none');
@@ -514,7 +575,7 @@ function VerifyEmailOTP() {
             }
             else if (result === 2) {
                 $("#message").empty();
-                row += '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row += '<div class="col-md-12 p-1" role="alert">Please enter the valid OTP</div>';
                 $("#message").append(row);
                 $("#emailOTP").focus();
                 EmailVerify = 0;
@@ -523,7 +584,7 @@ function VerifyEmailOTP() {
             }
             else if (result === 0) {
                 $("#message").empty();
-                row += '<div class="col-md-12 p-1" role="alert">This OTP is Expired</div>';
+                row += '<div class="col-md-12 p-1" role="alert">The OTP has expired. Please generate a new OTP to continue</div>';
                 $("#message").append(row);
                 $("#emailOTP").focus();
                 EmailVerify = 0;
@@ -532,7 +593,7 @@ function VerifyEmailOTP() {
             }
             else {
                 $("#message").empty();
-                row += '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row += '<div class="col-md-12 p-1" role="alert">Please enter the OTP</div>';
                 $("#message").append(row);
                 $("#emailOTP").focus();
                 EmailVerify = 0;
@@ -560,10 +621,10 @@ function isValidData() {
         $("#message").empty(); // Clear the message when a state is selected
     });
 
-    $("#btnmobotp, #btnmailotp").on('click', function () {
-        $("#message").empty();
-        row = '';
-    });
+    //$("#btnmobotp, #btnmailotp").on('click', function () {
+    //    $("#message").empty();
+    //    row = '';
+    //});
 
     var UserType = $('input[name="selectone"].selectonerad:checked').val();
 
@@ -573,7 +634,8 @@ function isValidData() {
             $("#message").empty().append(row);
             $("#CorpName").focus();
             return false;
-        } else if (!/^.{6,}$/.test($("#CorpName").val())) {
+        }
+        else if (!/^.{6,}$/.test($("#CorpName").val())) {
             row = '<div class="col-md-12 p-1" role="alert">Corporate Name Should be Minimum 6 Characters</div>';
             $("#message").empty().append(row);
             $("#CorpName").focus();
@@ -582,24 +644,25 @@ function isValidData() {
     }
 
     if ($("#UserName").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please enter Name</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter name of the user</div>';
         $("#message").empty().append(row);
         $("#UserName").focus();
         return false;
-    } else if (/\d/.test($("#UserName").val())) {
-        row = '<div class="col-md-12 p-1" role="alert">Name Can\'t be a Number</div>';
+    }
+    else if (/[0-9!@#$%^&*(),.?":{}|<>]/.test($("#UserName").val())) {
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid name</div>';
         $("#message").empty().append(row);
         $("#UserName").focus();
         return false;
     }
 
     if ($("#Email").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please enter Email</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter email address</div>';
         $("#message").empty().append(row);
         $("#Email").focus();
         return false;
     } else if (!/^[\w\.\-]+@[a-zA-Z\d\-]+(\.[a-zA-Z]+)*\.[a-zA-Z]{2,}$/.test($("#Email").val())) {
-        row = '<div class="col-md-12 p-1" role="alert">You have entered an invalid email address! (e.g. mailto:xxxx@gmail.com)</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid email address</div>';
         $("#message").empty().append(row);
         $("#Email").focus();
         return false;
@@ -616,12 +679,12 @@ function isValidData() {
         return false;
     }
     if ($("#Phoneno").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please enter Mobile</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter mobile number</div>';
         $("#message").empty().append(row);
         $("#Phoneno").focus();
         return false;
     } else if (!/^[6-9]\d{9}$/.test($("#Phoneno").val())) {
-        row = '<div class="col-md-12 p-1" role="alert">Mobile Number should be 10 Digits and only starts with 6/7/8/9</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9</div>';
         $("#message").empty().append(row);
         $("#Phoneno").focus();
         return false;
@@ -637,33 +700,33 @@ function isValidData() {
         return false;
     }
     if ($("#State").val() === "Select State") {
-        var row = '<div class="col-md-12 p-1" role="alert">Please select State</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please select your state</div>';
         $("#message").empty().append(row);
         $("#State").focus();
         return false;
     }
 
     if ($("#password").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please enter password</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a password</div>';
         $("#message").empty().append(row);
         $("#password").focus();
         return false;
     } else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test($("#password").val())) {
-        row = '<div class="col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
         $("#message").empty().append(row);
         $("#password").focus();
         return false;
     }
 
     if ($("#ConfirmPassword").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please Confirm password</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter confirm password</div>';
         $("#message").empty().append(row);
         $("#ConfirmPassword").focus();
         return false;
     }
 
     if ($("#password").val().trim() !== $("#ConfirmPassword").val().trim()) {
-        row = '<div class="col-md-12 p-1" role="alert">Password and Confirm Should Matching</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Password and confirm password do not match</div>';
         $("#message").empty().append(row);
         $("#ConfirmPassword").focus();
         return false;

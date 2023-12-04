@@ -1,8 +1,6 @@
 ﻿var row = '';
 var i = 1;
 $(document).ready(function () {
-
-
     $('#overlay').css('display', 'block');
     $('#loader').css('display', 'block');
     var UserMasterID = sessionStorage.getItem('UserId');
@@ -27,7 +25,6 @@ $(document).ready(function () {
 
     $(".actionbtn").click(function () {
         $(".appendinp").show();
-
     });
 
     $(".crossfrimg").click(function () {

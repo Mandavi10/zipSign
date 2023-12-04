@@ -238,15 +238,18 @@
             text-align: center;
             padding-top: 5px;
         }
-        .privtxt{
-            font-size:12px;
-            padding-top:3px;
+
+        .privtxt {
+            font-size: 12px;
+            padding-top: 3px;
         }
-        .privtxt span{
-            color:#0058b1;
-            text-decoration:underline;
-            cursor:pointer;
-        }
+
+            .privtxt span {
+                color: #0058b1;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
         .readwr .fancy-checkbox input[type="checkbox"] + span:before {
             height: 15px;
             width: 15px;
@@ -256,11 +259,19 @@
         .readwr span {
             font-size: 12px;
         }
-        .topad{
-            padding-right:70px !important;
+
+        .topad {
+            padding-right: 70px !important;
         }
-        .lead{
-            line-height:19px;
+
+        .lead {
+            line-height: 19px;
+        }
+        .spinload{
+            position:absolute;
+            right:-15px;
+            top:10px;
+            display:none;
         }
     </style>
 </head>
@@ -297,6 +308,7 @@
                                                     <input type="text" class="form-control" id="UserName" maxlength="60" placeholder="Name" onkeydown="validateInput(event)" oninput="this.value = this.value.toUpperCase()" autocomplete="off" required>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
+                                                    <i class="fa fa-spinner fa-spin spinload" aria-hidden="true" id="loaderr"></i>
                                                     <input type="text" class="form-control topad" id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
                                                     <button type="button" class="verifybtn" id="btnmailotp" onclick="SendEmailOTP();">Verify</button>
                                                     <div class="timer mt-1" id="resendemailotp">
@@ -313,6 +325,7 @@
                                                     <button type="button" class="verifybtnsub" onclick="VerifyEmailOTP()">Submit</button>
                                                 </div>
                                                 <div class="form-group p-1 col-md-12 position-relative">
+                                                    <i class="fa fa-spinner fa-spin spinload" aria-hidden="true" id="loaderrr"></i>
                                                     <input type="text" class="form-control ccinput numeric" id="Phoneno" maxlength="10" placeholder="Mobile Number" autocomplete="off">
                                                     <span class="ccode">+91</span>
                                                     <button type="button" class="verifybtn1" id="btnmobotp" onclick="SendMobileOTP();">Verify</button>
@@ -400,10 +413,15 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            <div><p class="mb-0 privtxt">I agree to the terms and conditions laid out in the <span>Privacy Policy</span></p></div>
+                                            <div>
+                                                <p class="mb-0 privtxt">
+                                                    I agree to the terms and conditions laid out in the
+                                                    <a href="https://zipsign.in/Privacy.aspx" target="_blank">Privacy Policy</a>
+                                                </p>
+                                            </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary btn-lg btn-block signbtn" id="btnSign">Sign up</button>
+                                            <button type="button" class="btn btn-primary btn-lg btn-block signbtn" id="btnSign" disabled>Sign up</button>
                                         </div>
 
                                     </form>
@@ -425,9 +443,9 @@
     </div>
     <script src="/Content/js/jquery-3.6.4.min.js"></script>
     <script src="/JavaScript/SignUp.js"></script>
-    @*<script src="/Content/js/MyValidator.js"></script>
-    <script src="/JavaScript/OTP_API.js"></script>*@
-   
+    <script src="/Content/js/MyValidator.js"></script>
+    @*<script src="/JavaScript/OTP_API.js"></script>*@
+
     <script src="/Content/js/dialogs.js"></script>
     <script src="/Content/js/bootstrap.min.js"></script>
 
@@ -465,9 +483,15 @@
             })
         })
     </script>
+
     <script>
+        var lastKeyCode = 0;
         function validateInput(event) {
             var keyCode = event.keyCode;
+            if (keyCode === 32 && lastKeyCode === 32) {
+                event.preventDefault(); // Prevent the input
+            }
+            lastKeyCode = keyCode;
             if ((keyCode >= 48 && keyCode <= 57) || // Numbers 0-9
                 (keyCode >= 96 && keyCode <= 105) || // Numpad numbers
                 (keyCode >= 186 && keyCode <= 192) || // Symbols ;=,-./`
