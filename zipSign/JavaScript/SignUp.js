@@ -401,7 +401,6 @@ function SendMobileOTP() {
         });
     }
 }
-
 //During Signup Send otp on Email(clicked on verify)
 function SendEmailOTP() {
     

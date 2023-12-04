@@ -235,20 +235,20 @@ function RowClickEventHandler2(UType, UploadedDocumentId) {
                 var activityRole = `${userName} (${emailID})`;
                 var activityBox = $(
                     `<div class="col-lg-3 col-md-3">
-                <div class="element-box-tp">
-                    <div class="activity-boxes-w">
-                        <div class="activity-box-w">
-                            <div class="activity-time">${activityTime1}</div>
-                            <div class="activity-box">
-                                <div class="activity-info">
-                                    <div class="activity-role">${activityRole}</div>
-                                    <strong class="activity-title font-weight-400">${action}</strong>
+                        <div class="element-box-tp">
+                            <div class="activity-boxes-w">
+                                <div class="activity-box-w">
+                                    <div class="activity-time">${activityTime1}</div>
+                                    <div class="activity-box">
+                                        <div class="activity-info">
+                                            <div class="activity-role">${activityRole}</div>
+                                            <strong class="activity-title font-weight-400">${action}</strong>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div >
-            </div>`
+                        </div >
+                    </div>`
                 );
                 trailDiv.append(activityBox);
                 trailDiv.show();
@@ -290,10 +290,7 @@ function Continue() {
                 success: function (data) {
                     loadDataIntoTable(data);
                 },
-                error: function (xhr, status, error) {
-
-                    //console.log("AJAX Error: " + error); // Log the error message
-                    //console.log(xhr.responseText); // Log the full response
+                error: function (_xhr, _status) {
                 }
             });
         });
@@ -395,20 +392,20 @@ function RowClickEventHandler1(UId) {
                     var activityTitle = rowData["Action"];
                     var activityBox = $(
                         `<div class="col-lg-3 col-md-3">
-        <div class="element-box-tp">
-            <div class="activity-boxes-w">
-                <div class="activity-box-w">
-                    <div class="activity-time">${activityTime}</div>
-                    <div class="activity-box">
-                        <div class="activity-info">
-                            <div class="activity-role">${activityRole}</div>
-                            <strong class="activity-title font-weight-400">${activityTitle}</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div >
-    </div>`
+                            <div class="element-box-tp">
+                                <div class="activity-boxes-w">
+                                    <div class="activity-box-w">
+                                        <div class="activity-time">${activityTime}</div>
+                                        <div class="activity-box">
+                                            <div class="activity-info">
+                                                <div class="activity-role">${activityRole}</div>
+                                                <strong class="activity-title font-weight-400">${activityTitle}</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div >
+                        </div>`
                     );
                     trailDiv.append(activityBox);
                 }
