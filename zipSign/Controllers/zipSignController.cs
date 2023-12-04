@@ -26,14 +26,7 @@ namespace zipSign.Controllers
         }
         public ActionResult RolesAndRights()
         {
-            if (Session["UserId"] == null)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            else
-            {
-                return View();
-            }
+            return Session["UserId"] == null ? RedirectToAction("Index", "Login") : (ActionResult)View();
         }
 
 

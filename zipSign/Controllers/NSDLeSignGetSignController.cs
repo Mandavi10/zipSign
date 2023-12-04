@@ -1,26 +1,41 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MoreLinq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Pkcs7pdf_Multiple_EsignService;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Http;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace zipSign.Controllers
 {
     public class NSDLeSignGetSignController : ApiController
     {
         [HttpPost]
-        public IHttpActionResult PDFSignature([FromBody] JObject requestData)
+        public IHttpActionResult PDFSignature()
         {
-            RequestModel model = requestData["Data"].ToObject<RequestModel>();
-            string xmlData = model.XMLFile;
-            string PathToXML = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + model.filePathfromUpload + "_eSignRequestXml.txt";
+            string XMLData = "";
+            string UploadedFilePath = "";
+            var BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
+            BodyStrem.BaseStream.Seek(0, SeekOrigin.Begin);
+            string bodyText = BodyStrem.ReadToEnd();
+            string[] separators = new string[] { "Path", "XMLData" };
+            string[] parts = bodyText.Split(separators, StringSplitOptions.None);
+            if (parts.Length > 1)
+            {
+                 XMLData = parts[1];
+                UploadedFilePath = parts[2];
+            }
+            string XMLPATHYU= Path.GetFileNameWithoutExtension(UploadedFilePath);
+            string xmlData = XMLData;
+            XDocument xmlDoc1 = XDocument.Parse(xmlData);
+            string PathToXML = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Uploads\\SignUpload\\" + XMLPATHYU + "_eSignRequestXml.txt";
             try
             {
-                // Save XML data to a text file with .txt extension
                 File.WriteAllText(PathToXML, xmlData);
-
                 Console.WriteLine("XML data saved successfully as a text file.");
             }
             catch (Exception ex)
@@ -28,9 +43,9 @@ namespace zipSign.Controllers
                 Console.WriteLine("Error: " + ex.Message);
             }
 
-            _ = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + model.filePathfromUpload;
+            _ = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + UploadedFilePath;
             string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
-            string filePath = model.filePathfromUpload; // Replace forward slashes with backslashes
+            string filePath = UploadedFilePath; // Replace forward slashes with backslashes
             string pdfReadServerPath = Path.Combine(baseDirectory, filePath);
 
             string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
@@ -146,7 +161,8 @@ namespace zipSign.Controllers
                 }
                 else
                 {
-                    System.IO.File.WriteAllText(responsexmlPath, responseXml);
+                    string physicalPath = System.Web.HttpContext.Current.Server.MapPath(responsexmlPath);
+                    File.WriteAllText(physicalPath, responseXml);
                     string rtn = response.SignDocument(pdfReadServerPath, jarPath, tickImagePath, responsexmlPath, serverTime, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, outputFinalPdfPath, CoordinatesPath, jrebinpath, log_err);
                 }
                 string signedPdfPath = "";

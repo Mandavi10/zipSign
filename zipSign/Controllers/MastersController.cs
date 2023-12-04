@@ -9,9 +9,9 @@ namespace zipSign.Controllers
 {
     public class MastersController : Controller
     {
-        private BusinessDataLayerClass bal = new BusinessDataLayerClass();
+        private readonly BusinessDataLayerClass bal = new BusinessDataLayerClass();
         private CommonStatus statusClass = new CommonStatus();
-        private ProcMaster pro = new ProcMaster();
+        private readonly ProcMaster pro = new ProcMaster();
         public ActionResult DesignationMaster()
         {
             if (Session["UserId"] == null)
