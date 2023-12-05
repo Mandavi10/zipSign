@@ -1,8 +1,8 @@
 ﻿
 @{
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <style>
     .givenheight {
@@ -189,7 +189,7 @@
 
     .largeimgdiv {
         overflow: hidden;
-        height: 76vh;
+        height: 79vh;
     }
 
         .largeimgdiv img {
@@ -297,7 +297,7 @@
         bottom: 16px;
         opacity: 0.8;
         color: #fff;
-        display:none;
+        display: none;
     }
 
     .lowfw {
@@ -429,7 +429,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" id="DRN" >
+                                <div class="form-group" id="DRN">
                                     <label for="text-input2">Document Reference Number</label>
                                     <div class="col-md-11">
                                         <input type="text" id="text-input2" required disabled class="form-control" @*onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"*@ maxlength="12" autocomplete="off" />
@@ -447,34 +447,25 @@
                                         <label for="text-input1">Upload File<sup class="impfld">*</sup></label>
                                         <div class="col-md-11 d-flex flex-wrap">
                                             <div class="col-md-10 col-12">
-                                                <!--<input type="file" name="myFile" class="form-control" id="SignImage" onchange="UploadImages('SignImage', 'PreviewSignImage','column')" />-->
-                                                @*<input id="SignImage" type="hidden" value="" />*@
-                                                <!--<input id="ImageID" type="hidden" value="" />-->
-                                                @*/*<input type="file" class="form-control">*/*@
+                                               
                                                 <input type="file" name="myFile" class="form-control" id="SignImage" onchange="UploadImages('SignImage', 'PreviewSignImage','column')" autocomplete="off" />
                                                 <div class="col-md-12">
                                                     <div class="alermsg" role="alert" id="message">
-                                                        @*Only files with following extensions are allowed: word, pdf, jpeg and png.*@
-                                                    </div>
-                                                    @*<div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px"></div>*@
-                                                </div>
+                                                        </div>
+                                                   </div>
                                             </div>
                                             <div class="col-md-2 col-12 position-relative">
-                                                @*<i class="fa fa-trash crossfrimg"></i>*@
-                                                @*<div class="imageLarge" data-bs-toggle="modal" data-bs-target="#docimage"></div>
-                                                    <div class="calledimg">
-                                                        <iframe id="column" src="" alt="Preview Image"></iframe>
-                                                    </div>*@
+                                               
                                                 <button type="button" class="btn btn-primary ms-1" id="viewFile" data-bs-toggle="modal" data-bs-target="#docimage">View File</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group" id="DED" >
+                                    <div class="form-group" id="DED">
                                         <label for="text-input2">Document Expire(in Days)</label>
                                         <div class="col-md-11">
-                                            <input type="text" class="form-control " placeholder="" disabled  maxlength="3" id="ExpDate" onkeypress="return onlyNumbers(event)" onchange="CheckExpiryDate()" autocomplete="off">
+                                            <input type="text" class="form-control " placeholder="" disabled maxlength="3" id="ExpDate" onkeypress="return onlyNumbers(event)" onchange="CheckExpiryDate()" autocomplete="off">
                                             <div class="alermsg col-md-12 p-1" role="alert" id="message1" style="color:darkred"></div>
                                         </div>
 
@@ -506,10 +497,7 @@
                             <div class="recipientcheck col-md-5" style="display:none;">
                                 <div class="d-flex flex-wrap">
                                     <div class="col-md-8 col-12 d-flex justify-content-end ">
-                                        @*<label class="control-inline fancy-checkbox">
-                                                <input type="checkbox" name="control" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="controlling">
-                                                <span>Use from signing list</span>
-                                            </label>*@
+                                       
                                     </div>
 
                                     <div class="col-md-4 col-12 d-flex justify-content-end "><button type="button" class="actionbtn" id="MoreRecipient"> Add More Recipient</button></div>
@@ -521,30 +509,25 @@
                             <div class="appenddiv" id="RecipientDiv">
 
                             </div>
-                           
+
 
 
                         </div>
 
-                        @*<div class="col-md-12">
-                                <button type="button" class="btn btn-primary"> Add More Recipient</button>
-                            </div>*@
+                      
 
                         <div class="col-md-12 d-flex flex-wrap fixeddiv">
                             <div class="col-md-6">
                                 <div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px"></div>
 
-                                @*<div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px">sdfgndbhfjgdjfg jlk</div>*@
-                            </div>
+                             </div>
                             <div class="col-md-6 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary me-1" id="viewrec" data-bs-toggle="modal" data-bs-target="#viewRecipients">View Recipients</button>
                                 <button type="button" class="btn btn-primary" id="Proceed">Proceed</button>
-                                <button type="button" class="btn btn-primary ms-1" @*data-bs-toggle="modal" data-bs-target="#successpopup"onclick="SignInsert();*@ id="SendLink">Send Link</button>
+                                <button type="button" class="btn btn-primary ms-1" id="SendLink">Send Link</button>
 
                                 <button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#successpopup" id="ReSendLink" style="display:none">Resend Link</button>
 
-
-                                @*<button type="button" class="btn btn-primary ms-1" data-bs-toggle="modal" data-bs-target="#successpopup" id="ReSendLink">Resend Link</button>*@
 
 
                             </div>
@@ -568,11 +551,9 @@
             </div>
             <div class="modal-body position-relative">
                 <div class="largeimgdiv col-md-12 ">
-                    @*<img src="~/Content/images/document.png" />*@
-                    @*<img id="PreviewSignImage" src="~/Content/images/document.png" alt="Preview Image" />*@
+                  
                     <iframe id="PreviewSignImage" src="" alt="Preview Image"></iframe>
-                    @*<object data="~/Content/images/document.png" id="PreviewSignImage" type="application/octet-stream">*@
-                    @*<a href="~/Content/images/document.png" download>Download File</a>*@
+             
                 </div>
                 <div class="overlayinmodal pt-1">
                     <div class="col-md-12 d-flex flex-wrap justify-content-around">
@@ -668,7 +649,7 @@
 
 
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-<script src="~/JavaScript/Upload.js"></script>
+<script src="~/JavaScript/UploadDocument.js"></script>
 <script src="~/JavaScript/Custom.js"></script>
 <script src="~/Content/js/MyValidator.js"></script>
 
@@ -699,3 +680,4 @@
         }
     }
 </script>
+
