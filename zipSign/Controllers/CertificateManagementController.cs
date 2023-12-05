@@ -60,7 +60,6 @@ namespace zipSign.Controllers
                 }
                 return Json(new { status = filePath }, JsonRequestBehavior.AllowGet);
             }
-
             return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
         }
 
