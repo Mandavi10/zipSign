@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
-namespace zipSign.Controllers  
+namespace zipSign.Controllers
 {
     public class zipSignController : Controller
     {
@@ -24,7 +24,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
-       
+
         public ActionResult RolesAndRights()
         {
             if (Session["UserId"] == null)
@@ -36,25 +36,19 @@ namespace zipSign.Controllers
                 return View();
             }
         }
-
-
         public ActionResult RolesAndRights3()
         {
             return View();
-
         }
-
         public ActionResult Link_Expired()
         {
             return View();
-
         }
         public ActionResult RolesAndRights2()
         {
             return View();
         }
         public ActionResult RequestSign()
-
         {
             return View();
         }
@@ -62,11 +56,11 @@ namespace zipSign.Controllers
         {
             if (Session["UserId"] == null)
             {
-              return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login");
             }
             else
             {
-              return View();
+                return View();
             }
         }
         public ActionResult SignRequest()
@@ -80,6 +74,23 @@ namespace zipSign.Controllers
         public ActionResult SigningRequest()
         {
             return View();
+        }
+        public ActionResult GetDetail()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetDetail(string filePath)
+        {
+            List<DataItems> obj = new List<DataItems>();
+            string querySelector = "GetSignedDetails"; // Default query selector for ShowRecord operation
+            obj.Add(new DataItems("QueryType", querySelector));
+            obj.Add(new DataItems("filePath", filePath));
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+            string DocumentID = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentUploadId"]);
+            string Name = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedFileName"]);
+            string SignedOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignedOn"]);
+            return Json(new { DocumentID, Name, SignedOn }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Received()
         {
