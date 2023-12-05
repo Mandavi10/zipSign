@@ -304,6 +304,7 @@
     <Compile Include="Controllers\APIs\NSDLeSignAPIController.cs" />
     <Compile Include="Controllers\APIs\LogOutAPIController.cs" />
     <Compile Include="Controllers\APIs\SendMobileOTPAPIController.cs" />
+    <Compile Include="Controllers\APIs\SignController.cs" />
     <Compile Include="Controllers\APIs\SignInAPIController.cs" />
     <Compile Include="Controllers\APIs\ChangePasswordFromProfileAPIController.cs" />
     <Compile Include="Controllers\APIs\ForgotPasswordAPIController.cs" />
