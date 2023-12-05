@@ -297,6 +297,7 @@
     <Compile Include="Controllers\NSDLController.cs" />
     <Compile Include="Controllers\NSDLeSignGetSignController.cs" />
     <Compile Include="Controllers\PaymentIntegrationController.cs" />
+    <Compile Include="Controllers\SignDocumentController.cs" />
     <Compile Include="Controllers\VSignController.cs" />
     <Compile Include="Controllers\zipSignController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -507,6 +508,7 @@
     <Content Include="JavaScript\RequestSign.js" />
     <Content Include="JavaScript\ResetPassword.js" />
     <Content Include="JavaScript\Roles&amp;Rights.js" />
+    <Content Include="JavaScript\SignDocument\UploadDocument.js" />
     <Content Include="JavaScript\Signed.js" />
     <Content Include="JavaScript\SigningRequest.js" />
     <Content Include="JavaScript\SignPurchaseMechanism.js" />
@@ -633,6 +635,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\SignDocument\Index.cshtml" />
+    <Content Include="Views\SignDocument\DocumentSignRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AESEncryption\AESEncryption.csproj">
