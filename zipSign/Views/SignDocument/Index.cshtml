@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <style>
     .givenheight {
         height: 81vh;
@@ -433,6 +434,7 @@
                                     <label for="text-input2">Document Reference Number</label>
                                     <div class="col-md-11">
                                         <input type="text" id="text-input2" required disabled class="form-control" @*onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"*@ maxlength="12" autocomplete="off" />
+                                        <input type="hidden" id="pathpdf"/>
                                         <div class="alermsg col-md-12 p-1" role="alert" id="message1" style="color:darkred"></div>
                                     </div>
 
@@ -447,15 +449,15 @@
                                         <label for="text-input1">Upload File<sup class="impfld">*</sup></label>
                                         <div class="col-md-11 d-flex flex-wrap">
                                             <div class="col-md-10 col-12">
-                                               
+
                                                 <input type="file" name="myFile" class="form-control" id="SignImage" onchange="UploadImages('SignImage', 'PreviewSignImage','column')" autocomplete="off" />
                                                 <div class="col-md-12">
                                                     <div class="alermsg" role="alert" id="message">
-                                                        </div>
-                                                   </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-md-2 col-12 position-relative">
-                                               
+
                                                 <button type="button" class="btn btn-primary ms-1" id="viewFile" data-bs-toggle="modal" data-bs-target="#docimage">View File</button>
                                             </div>
                                         </div>
@@ -497,7 +499,7 @@
                             <div class="recipientcheck col-md-5" style="display:none;">
                                 <div class="d-flex flex-wrap">
                                     <div class="col-md-8 col-12 d-flex justify-content-end ">
-                                       
+
                                     </div>
 
                                     <div class="col-md-4 col-12 d-flex justify-content-end "><button type="button" class="actionbtn" id="MoreRecipient"> Add More Recipient</button></div>
@@ -514,13 +516,13 @@
 
                         </div>
 
-                      
+
 
                         <div class="col-md-12 d-flex flex-wrap fixeddiv">
                             <div class="col-md-6">
                                 <div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px"></div>
 
-                             </div>
+                            </div>
                             <div class="col-md-6 d-flex justify-content-end">
                                 <button type="button" class="btn btn-primary me-1" id="viewrec" data-bs-toggle="modal" data-bs-target="#viewRecipients">View Recipients</button>
                                 <button type="button" class="btn btn-primary" id="Proceed">Proceed</button>
@@ -551,9 +553,9 @@
             </div>
             <div class="modal-body position-relative">
                 <div class="largeimgdiv col-md-12 ">
-                  
+
                     <iframe id="PreviewSignImage" src="" alt="Preview Image"></iframe>
-             
+
                 </div>
                 <div class="overlayinmodal pt-1">
                     <div class="col-md-12 d-flex flex-wrap justify-content-around">
@@ -649,7 +651,8 @@
 
 
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-<script src="~/JavaScript/UploadDocument.js"></script>
+<script src="~/JavaScript/Upload1.js"></script>
+@*<script src="~/JavaScript/UploadDocument.js"></script>*@
 <script src="~/JavaScript/Custom.js"></script>
 <script src="~/Content/js/MyValidator.js"></script>
 
