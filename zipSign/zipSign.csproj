@@ -659,6 +659,8 @@
     <None Include="packages.config" />
     <Content Include="Views\SignDocument\Index.cshtml" />
     <Content Include="Views\SignDocument\DocumentSignRequest.cshtml" />
+    <Content Include="Views\zipSign\BillingInformation.cshtml" />
+    <Content Include="Views\zipSign\BillingInformationDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AESEncryption\AESEncryption.csproj">

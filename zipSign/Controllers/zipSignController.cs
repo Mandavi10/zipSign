@@ -33,11 +33,21 @@ namespace zipSign.Controllers
         {
             return View();
         }
+
+        public ActionResult BillingInformation()
+        {
+            return View();
+        }
         public ActionResult Link_Expired()
         {
             return View();
         }
         public ActionResult RolesAndRights2()
+        {
+            return View();
+        }
+        
+        public ActionResult BillingInformationDetails()
         {
             return View();
         }
