@@ -533,9 +533,11 @@
     <Content Include="JavaScript\SignDocument\UploadDocument.js" />
     <Content Include="JavaScript\Signed.js" />
     <Content Include="JavaScript\SigningRequest.js" />
+    <Content Include="JavaScript\SigningRequest1.js" />
     <Content Include="JavaScript\SignPurchaseMechanism.js" />
     <Content Include="JavaScript\SignUp.js" />
     <Content Include="JavaScript\Upload.js" />
+    <Content Include="JavaScript\Upload1.js" />
     <Content Include="JavaScript\UserCreation.js" />
     <Content Include="JavaScript\UserProfile.js" />
     <Content Include="Content\JAR Files\Runnable2_eSign2.1_Single.jar" />
