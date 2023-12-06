@@ -10,7 +10,7 @@ var DateTime = '';
 var DateTimeParsed = '';
 var targetElement = $("#Trail_Div");
 var row = '';
-var pagecount = '';
+var pagecount = '';   
 var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
@@ -55,7 +55,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             data: {
-                filePath:filePath
+                filePath: filePath
             },
             success: function (result) {
                 //$("#uploadedFileName").html(result.Name);
@@ -64,8 +64,12 @@ $(document).ready(function () {
                 $("label#uploadedFileName").next("span").text(result.Name);
                 $("label#uploadedFileDate").next("span").text(result.SignedOn);
                 $("label#uploadedFileID").next("span").text(result.DocumentID);
+           }
+        })
+
             }
         })
+
         $("#btnproceed").hide();
         $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
@@ -555,7 +559,6 @@ function validatepassword() {
         return false;
     }
 }
-
 
 
 
