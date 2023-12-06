@@ -518,10 +518,10 @@ function updateGridData() {
     };
 
     var gridDiv = document.querySelector('#myGrid1');
-    if (gridDiv.hasChildNodes()) {
-        agGrid.Grid.destroy(gridDiv);
-    }
-    new agGrid.Grid(gridDiv, gridOptions1);
+    //if (gridDiv.hasChildNodes()) {
+    //    agGrid.Grid.destroy(gridDiv);
+    //}
+    //new agGrid.Grid(gridDiv, gridOptions1);
 }
 
 $("#viewrec").click(function () {
@@ -711,8 +711,6 @@ function ViewHistroy(fileCode) {
                 <div class="col-12"><span>${formattedDate}</span></div>
             </li>`
                 );
-
-
                 trailDiv.append(activityBox);
             }
             var splitResultforOriginal = result.responseData.OriginalFilePath.split('\\Uploads\\');
@@ -733,7 +731,7 @@ function ViewHistroy(fileCode) {
             //$("#hdnlatestdown").val(pathBefore);
         },
         error: function () {
-            alert('Failed to delete the file.');
+            //alert('Failed to delete the file.');
         }
     });
 }
@@ -956,3 +954,5 @@ function Search() {
     var pagecount = 1;
     GetData(pagecount, keyword); // Call the modified GetData function with the keyword
 }
+
+

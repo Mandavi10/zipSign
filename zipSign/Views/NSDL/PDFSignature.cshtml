@@ -26,8 +26,13 @@
 </head>
 <body>
     <div class="loader-overlay" id="loader-overlay">
-        <div class="loader">Loading...</div>
+        <div class="loader">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
     </div>
+
 
     <h2>PDF Conversion and e-Sign</h2>
 
@@ -53,7 +58,7 @@
 
     <script>
         $(document).ready(function () {
-            ;
+
             // Show the loader when the form is submitted
             $("form").submit(function () {
                 $("#loader-overlay").fadeIn();

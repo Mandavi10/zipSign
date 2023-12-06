@@ -130,11 +130,5 @@ namespace zipSign.Controllers
             }
             return View();
         }
-
-
-
-
-
-
     }
 }

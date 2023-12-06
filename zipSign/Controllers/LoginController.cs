@@ -291,6 +291,7 @@ namespace zipSign.Controllers
                             userDataList.Add(userData);
                             Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
                             Session["UserName"] = Convert.ToString(dr["Name"]);
+
                         }
                         Session["UserData"] = userDataList; // Store the list of user data in the session
                         return Json(result, JsonRequestBehavior.AllowGet);
@@ -1206,7 +1207,6 @@ namespace zipSign.Controllers
         public ActionResult GetDataForPasswordReset(string userCode)
         {
             string DecUserCode = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(userCode));
-
             List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("CreatedBy", DecUserCode),
@@ -1220,12 +1220,13 @@ namespace zipSign.Controllers
             DateTime ExpiredOn = (DateTime)statusClass.DataFetch.Tables[0].Rows[0]["ExpiredOn"];
             DateTime currentTime = DateTime.Now;
             TimeSpan timeDifference = currentTime - ExpiredOn;
-            if (timeDifference.TotalMinutes > 10)
+            if (timeDifference.TotalMinutes > 10 /*|| IsExpired=="True"*/)
             {
+                //return RedirectToAction("Link_Expired", "zipSign");
                 return Json(0, JsonRequestBehavior.AllowGet); // Return a status code indicating expired OTP
             }
-            string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
-            return Json(new { CreatedBy, IsExpired, Email }, JsonRequestBehavior.AllowGet);
+                string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
+                return Json(new { CreatedBy, IsExpired, Email }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult UpdatePassword(string userCode, string Email, string OldPassword, string NewPassword, string confirmPassword)
         {

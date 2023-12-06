@@ -39,7 +39,7 @@ function startTimer(duration, display) {
             clearInterval(intervalId);
             $('#lblresend').show();
             $(".enterotpdiv").hide();
-            //$("#resmobotp").hide();
+            $("#resmobotp").hide();
             $(".alermsg ").attr("hidden", true);
             $("#mobileotp").val('');
             startTimer().hide();
@@ -48,6 +48,7 @@ function startTimer(duration, display) {
 }
 //Resend OTP
 $('#lblresend').click(function () {
+    $("#resmobotp").show();
     clearInterval(intervalId);
     var timerDuration = 60;
     var display = $('#resmobotp');
@@ -243,8 +244,12 @@ function SendLoginEmailResendOTP(textbox, username, mobile) {
                     var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
                     localPart = localPart[0] + xChars + localPart[localPart.length - 1];
                 }
+                var mobileNumber = response.MobileNo;
+                var lastTwoDigits = mobileNumber.slice(-2);
+                var StartingTwoNumber = mobileNumber.slice(0, 2);
+                var formattedMobile = StartingTwoNumber + "xxxxxx" + lastTwoDigits;
                 var formattedEmail = localPart + domainPart;
-                var formattedMobile = "xxxxx" + "xxx00";
+                //var formattedMobile = "xxxxx" + "xxx00";
 
                 var span = $("#lblemail .enterddata");
                 span.text("Please enter the OTP sent to " + formattedEmail + " and " + formattedMobile);
@@ -299,7 +304,7 @@ function validations() {
         row = '<div class=" col-md-12 p-1" role="alert">Please enter your email or mobile number</div>';
         $("#message").empty();
         $("#message").append(row);
-        $("#textbox").focus();
+        $("#email").focus();
         isvalidate = 0;
         return false;
     }
@@ -309,7 +314,7 @@ function validations() {
 
         $("#message").empty();
         $("#message").append(row);
-        $("#textbox").focus();
+        $("#email").focus();
         isvalidate = 0;
         return false;
     }

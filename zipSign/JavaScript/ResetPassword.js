@@ -9,7 +9,7 @@ $(document).ready(function () {
         $('#oldpassword').hide();
         $.ajax({
             url: '/Login/GetDataForPasswordReset?UserCode=' + userCode,
-            type: 'GET',
+            type: 'GET', 
             dataType: 'json',
             async: false,
             success: function (result) {
@@ -25,7 +25,6 @@ $(document).ready(function () {
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
-
                 console.log('AJAX Error:');
                 console.log('Status:', textStatus);
                 console.log('Error:', errorThrown);
