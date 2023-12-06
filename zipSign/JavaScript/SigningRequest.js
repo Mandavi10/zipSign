@@ -10,7 +10,7 @@ var DateTime = '';
 var DateTimeParsed = '';
 var targetElement = $("#Trail_Div");
 var row = '';
-var pagecount = '';
+var pagecount = '';   
 var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
@@ -49,6 +49,21 @@ $(document).ready(function () {
     DateTime = getParameterByName("Date");
     DateTimeParsed = convertDateFormat(DateTime);
     if (filePath != null && filePath != "") {
+        $.ajax({
+            url: '/zipSign/GetDetail',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                filePath: filePath
+            },
+            success: function (result) {
+                //$("#uploadedFileDate").html(result.SignedOn);
+                $("label#uploadedFileName").next("span").text(result.Name);
+                $("label#uploadedFileDate").next("span").text(result.SignedOn);
+                $("label#uploadedFileID").next("span").text(result.DocumentID);
+           }
+        })
+
         $("#btnproceed").hide();
         $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
@@ -541,7 +556,6 @@ function validatepassword() {
         return false;
     }
 }
-
 
 
 

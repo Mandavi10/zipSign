@@ -162,7 +162,7 @@
                                                 <i class="fa fa-eye-slash eye2" style="display: none;"></i>
                                             </div>
                                             <div class="successmsg" role="alert" id="successmsg1" style="display: none;"></div>
-                                            <div class="alermsg" style="display:none" role="alert">Password does not match.</div>
+                                            <div class="alermsg" style="display:none" role="alert" id=" ">Password does not match.</div>
 
 
                                             <div class="col-md-12 d-flex justify-content-end timerdiv">
@@ -172,12 +172,12 @@
 
                                             <div class="form-group mt-2">
                                                 <input type="checkbox" id="chckbox" />
-                                                <label class="termstxt">By proceeding, I agree to the <a href="terms_of_service_url">Terms of service</a> and <a href="privacy_policy_url">Privacy policy</a>.</label>
+                                                <label class="termstxt">By proceeding, I agree to the <a href="https://zipsign.in/Privacy.aspx" target="_blank">Terms of service</a> and <a href="https://zipsign.in/Privacy.aspx" target="_blank">Privacy policy</a>.</label>
                                             </div>
-                                            <div id="message" style="color: red; display: none;">Please accept the terms and conditions.</div>
+                                            <div id="message" style="color: red; display: none;" >Please accept the terms and conditions.</div>
                                         </div>
 
-                                        <button type="button" class="btn btn-primary btn-lg btn-block col-md-12 otpbtn" id="submitBtn" @*onclick="SendVerifyEmailOTP()"*@>SEND OTP</button>
+                                        <button type="button" class="btn btn-primary btn-lg btn-block col-md-12 otpbtn" id="submitBtn" disabled @*onclick="SendVerifyEmailOTP()"*@>SEND OTP</button>
                                         <button type="button" class="btn btn-primary btn-lg btn-block col-md-12 submitbtn" style="display:none" onclick="VerifyOTP()">SUBMIT</button>
                                         
 
@@ -185,13 +185,11 @@
                                         <div class="form-group text-center mt-4">
                                             <label class="termstxt">Already a zipSign user? Login with a <span class="showpassdiv">password</span> instead.</label>
                                         </div>
-
+                                               
                                     </form>
                                 </div>
                             </div>
-                        </div>
-
-
+                       </div>
                     </div>
                 </div>
             </div>

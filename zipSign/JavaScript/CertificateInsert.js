@@ -9,13 +9,14 @@ $(document).ready(function () {
     GetDataForUserGrid(pagecount, keyword);
 });
 
+
+
 function UploadImages(FileUploader) {
     var fileInput = document.getElementById('SignImage');
     var file = fileInput.files[0];
     var allowedExtensions = [".p12", ".pfx", "p12", "pfx"];
     var fileExtension = file.name.split('.').pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-        alert("Only .pfx and .p12 certificates are allowed.");
         fileInput.value = '';
         return false;
     }
@@ -118,7 +119,7 @@ function SaveCertificate() {
     var selectedText = $('#AccesUserType option:selected').text();
     var selectedRowsJSON = JSON.stringify(selectedRows);
 
-    $.ajax({
+        $.ajax({
         url: '/CertificateManagement/SaveCertificate',
         type: "POST",
         dataType: "json",
@@ -133,7 +134,7 @@ function SaveCertificate() {
             Role: selectedText,
             Table: selectedRowsJSON
         }),
-        success: function (result) {
+            success: function (result) {
             ;
             if (result.status == 201) {
                 window.location.href = "/CertificateManagement/AllDocumentSignerCertificate";

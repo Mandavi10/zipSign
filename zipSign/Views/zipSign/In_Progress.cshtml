@@ -629,15 +629,15 @@
     ];
 
 
-    var rowData = [
-        { srNo: '1', dname: 'Passport', aname: 'Address proof', ts: '5', sb: '3', cod: '15-08-2023' },
-        { srNo: '2', dname: 'Aadhaar', aname: 'Varification', ts: '7', sb: '2', cod: '28-08-2023' },
-        { srNo: '2', dname: 'Birth Certificate', aname: 'DOB proof', ts: '2', sb: '1', cod: '12-09-2023' },
+    //var rowData = [
+    //    { srNo: '1', dname: 'Passport', aname: 'Address proof', ts: '5', sb: '3', cod: '15-08-2023' },
+    //    { srNo: '2', dname: 'Aadhaar', aname: 'Varification', ts: '7', sb: '2', cod: '28-08-2023' },
+    //    { srNo: '2', dname: 'Birth Certificate', aname: 'DOB proof', ts: '2', sb: '1', cod: '12-09-2023' },
 
 
 
 
-    ];
+    //];
 
     var gridOptions = {
         columnDefs: columnDefs,
@@ -703,20 +703,20 @@
 
                         <div class="row mt-2">
                             <div class="col-sm-12 col-md-5">
-                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                <div class="dataTables_info" id="Ddd" role="status" aria-live="polite"></div>
                             </div>
                             <div class="col-sm-12 col-md-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                                    </ul>
+                                <div class="dataTables_paginate paging_simple_numbers" id="pagination1">
+                                    @*<ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                            <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                            <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </ul>*@
                                 </div>
                             </div>
                         </div>
@@ -755,9 +755,9 @@
                                 <ul class="progress-bar">
                                     <li class="active">
                                         @*<span class="maintxt">Upload</span>
-                                        <div class="col-12"><span>Micheal</span></div>
-                                        <div class="col-12"><span>micheal@gmail.com</span></div>
-                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>*@
+                                            <div class="col-12"><span>Micheal</span></div>
+                                            <div class="col-12"><span>micheal@gmail.com</span></div>
+                                            <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>*@
                                     </li>
                                     <li>
                                         <span class="maintxt1">Sent</span>
@@ -824,13 +824,13 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     @*<div class="form-group d-flex flex-wrap">
-                                                                        <div class="col-md-5 col-12">
-                                                                            <label for="text-input1 highfw">Image Size:</label>
-                                                                        </div>
-                                                                        <div class="col-md-7">
-                                                                            <label class="lowfw">300kb</label>
-                                                                        </div>
-                                                                    </div>*@
+                                                                            <div class="col-md-5 col-12">
+                                                                                <label for="text-input1 highfw">Image Size:</label>
+                                                                            </div>
+                                                                            <div class="col-md-7">
+                                                                                <label class="lowfw">300kb</label>
+                                                                            </div>
+                                                                        </div>*@
                                                                 </div>
                                                             </div>
                                                         </div>
