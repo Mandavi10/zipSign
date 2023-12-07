@@ -58,7 +58,7 @@ namespace zipSign.Controllers
         public JsonResult SignUp(SignUp objSignUpModel, string UserType)
         {
             Response.AddHeader("X-XSS-Protection", "1; mode=block");
-            try
+            try             
             {
                 //if (!ModelState.IsValid)
                 //{
@@ -281,6 +281,7 @@ namespace zipSign.Controllers
                             {
                                 UserName = Convert.ToString(dr["Name"]),
                                 Email = Convert.ToString(dr["Email"]),
+                                State = Convert.ToString(dr["State"]),
                                 Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
                             };

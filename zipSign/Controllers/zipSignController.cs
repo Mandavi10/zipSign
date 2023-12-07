@@ -224,6 +224,25 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult GetDetail()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetDetail(string filePath)
+        {
+            List<DataItems> obj = new List<DataItems>();
+            string querySelector = "GetSignedDetails"; // Default query selector for ShowRecord operation
+            obj.Add(new DataItems("QueryType", querySelector));
+            obj.Add(new DataItems("filePath", filePath));
+            statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
+            string DocumentID = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["DocumentUploadId"]);
+            string Name = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedFileName"]);
+            string SignedOn = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignedOn"]);
+            return Json(new { DocumentID, Name, SignedOn }, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult NSDLPage()
         {
             return View();
@@ -249,7 +268,7 @@ namespace zipSign.Controllers
         }
         #endregion
 
-        [HttpPost]
+        [HttpPost]              
 
         public ActionResult SignInsert(SignMaster objsign, string UserType)
         {
@@ -803,6 +822,7 @@ namespace zipSign.Controllers
                 new DataItems("QuerySelector", "ShowData")
             };
             statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj);
+
             string UploadedFileName = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedFileName"]);
             string FilePath = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["FilePath"]);
             //string UploadedBy = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UploadedBy"]);

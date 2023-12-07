@@ -146,6 +146,8 @@ namespace BusinessLayerModel
         public string Email { get; set; }
         public string Mobile { get; set; }
         public string UserId { get; set; }
+        public string State { get; set; }
+        
     }
     public class UserInsert1
     {

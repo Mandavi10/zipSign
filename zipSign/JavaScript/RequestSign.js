@@ -3,13 +3,20 @@ var $checkbox = $("#chckbox");
 var $submitButton = $("#submitBtn");
 var $message = $("#message");
 $(document).ready(function () {
+    $('#chckbox').change(function () {
+        if ($(this).is(':checked')) {
+            $('#submitBtn').prop('disabled', false);
+        } else {
+            $('#submitBtn').prop('disabled', true);
+        }
+    });
     //$submitButton.prop('disabled', true);
     $("#timer").hide();
     $("#lblemailresend").hide();
     $("#signin-email,#signin-otp").on('input', function () {
-        $("#successmsg1").empty();
+        $("#message").empty();
     });
-    $("#successmsg1").empty();
+    $("#message").empty();
     var UId = getParameterByName('UId');
     if (UId !== null) {
         
@@ -73,12 +80,14 @@ function SendVerifyEmailOTP() {
 
     $("#successmsg1").empty();
     if (!emailRegex.test($("#signin-email").val())) {
-        $("#successmsg1").append("You have entered an incorrect email id..!");
-        $("#successmsg1").show();
+        $("#message").empty();
+        $("#message").append("You have entered an incorrect email id..!");
+        $("#message").show();
     }
     else if ($("#hdnEmail").val() != $("#signin-email").val()) {
-        $("#successmsg1").append("You have entered an invalid email id..!");
-        $("#successmsg1").show();
+        $("#message").empty();
+        $("#message").append("You have entered an invalid email id..!");
+        $("#message").show();
     }
     else {
         $.ajax({
@@ -92,7 +101,8 @@ function SendVerifyEmailOTP() {
                 var display = $('#timer');
                 startTimer(timerDuration, display);
                 $("#timer").show();
-                $("#successmsg1").append("One Time Password Sent To Your Email Address..");
+                $("#message").empty();
+                $("#message").append("One Time Password Sent To Your Email Address..");
                 $("#successmsg1").show();
                 $(".otpdiv").show();
                 $(".otpbtn").hide();
@@ -145,13 +155,13 @@ function VerifyOTP() {
 
             if (result.Status == 1) {
                 if (result.msg == 1) {
-                    $("#successmsg1").hide();
+                    $("#message").hide();
                     window.location.href = "/zipSign/SigningRequest?UId="+UID;
 
                 } else {
                     $("#successmsg1").empty();
                     var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
-                    $("#successmsg1").append(row);
+                    $("#message").append(row);
                     $("#signin-otp").val('');
                 }
             }
@@ -160,9 +170,9 @@ function VerifyOTP() {
                     window.location.href = "/zipSign/SigningRequest?UId=" + UID;
                     //window.location.href = "/zipSign/SigningRequest?File=" + result.Path + "&SignerName=" + SignerName + "&Fileid=" + Fileid + "&Emailid=" + Emailid + "&SignerID=" + SignerID + "&UploadedDocumentId=" + UploadedDocumentId;
                 } else {
-                    $("#successmsg1").empty();
+                    $("#message").empty();
                     var row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP.</div>';
-                    $("#successmsg1").append(row);
+                    $("#message").append(row);
                     $("#signin-otp").val('');
                 }
             }

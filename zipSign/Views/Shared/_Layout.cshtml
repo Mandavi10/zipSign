@@ -597,7 +597,7 @@
                                                     <label>State:</label>
                                                 </div>
                                                 <div class="col-md-9">
-                                                    <p id=""></p>
+                                                    <p id="state"></p>
                                                 </div>
                                             </div>
 
@@ -834,13 +834,14 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function (response) {
-
+                           
                             if (response.length > 0) {
                                 var userData = response[0];
                                 $('#usernameDisplay1').text(userData.UserName);
                                 $('#emailDisplay1').text(userData.Email);
                                 $('#phoneDisplay').text(userData.Mobile);
                                 $('#UserMasterId').val(userData.UserId);
+                                $('#state').text(userData.State);
                                 // Populate other fields as needed
                             } else {
 
@@ -985,6 +986,7 @@
                 $('.allcorp').hide();
             })
         </script>
+
         @*<script>
             function GetRequest() {
                 var xmlhttp;

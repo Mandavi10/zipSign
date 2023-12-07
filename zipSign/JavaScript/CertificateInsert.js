@@ -9,14 +9,23 @@ $(document).ready(function () {
     GetDataForUserGrid(pagecount, keyword);
 });
 
+$("#btnvalidatepassword").click(function () {
+    
+})
+
+
+
 function UploadImages(FileUploader) {
+  
     var fileInput = document.getElementById('SignImage');
     var file = fileInput.files[0];
     var allowedExtensions = [".p12", ".pfx", "p12", "pfx"];
     var fileExtension = file.name.split('.').pop().toLowerCase();
     if (!allowedExtensions.includes(fileExtension)) {
-        alert("Only .pfx and .p12 certificates are allowed.");
         fileInput.value = '';
+        $("#SignImage").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Only PFX/.P12 Files Are Allowed.</div>';
+        $("#SignImage").after(row).focus();
         return false;
     }
     $("#CertType").val(fileExtension);
@@ -31,6 +40,7 @@ function UploadImages(FileUploader) {
         data: fileData,
         success: function (result) {
             sessionStorage.setItem('CertPath', result.status);
+
         },
         error: function (err) {
             console.log(err);
@@ -57,6 +67,8 @@ function validatepassword() {
     }
     var certificate = sessionStorage.getItem('CertPath')
     if (password === confirm_password) {
+        $("#btnvalidatepassword").attr('disabled', true);
+        $("#loaderrr").css('display', 'inline-block');
         $.ajax({
             url: '/CertificateManagement/ValidateCertWithPassword',
             type: "POST",
@@ -69,15 +81,25 @@ function validatepassword() {
             success: function (result) {
 
                 if (result === "True") {
+                    $('#viewRecipi').modal('show');
                     IsValidate = 1;
+                    //$(".loaderOverlay").css('display', 'none');
+                    $("#loaderrr").css('display', 'none');
                     return true;
                 } else {
                     IsValidate = 0;
+                    $("#loaderrr").css('display', 'none');
+                    $("#btnvalidatepassword").attr('disabled', false);
+                    $('#viewRecipiforfailed').modal('show');
+                    //$("#btnvalidatepassword").attr('disabled', true);
+                   // $("#loaderrr").css('display', 'none');
                     return false;
                 }
             },
             error: function (err) {
                 IsValidate = 0;
+                //$("#btnvalidatepassword").attr('disabled', true);
+                //$("#loaderrr").css('display', 'none');
                 return false;
             }
         });
@@ -85,7 +107,9 @@ function validatepassword() {
     }
 
     else {
-        alert("Password is not matching.");
+        $("#confirmpassword").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is not matching</div>';
+        $("#confirmpassword").after(row).focus();
         IsValidate = 0;
         return false;
     }
@@ -118,7 +142,7 @@ function SaveCertificate() {
     var selectedText = $('#AccesUserType option:selected').text();
     var selectedRowsJSON = JSON.stringify(selectedRows);
 
-    $.ajax({
+        $.ajax({
         url: '/CertificateManagement/SaveCertificate',
         type: "POST",
         dataType: "json",
@@ -133,7 +157,7 @@ function SaveCertificate() {
             Role: selectedText,
             Table: selectedRowsJSON
         }),
-        success: function (result) {
+            success: function (result) {
             ;
             if (result.status == 201) {
                 window.location.href = "/CertificateManagement/AllDocumentSignerCertificate";

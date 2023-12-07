@@ -695,7 +695,7 @@ function isValidData() {
         return false;
     } else if ($("#mobileotp").val().trim() === "") {
         row = '<div class="col-md-12 p-1" role="alert">Please Enter Mobile OTP</div>';
-        $("#message").empty().append(row);
+        $("#message").empty().append(row);    
         $("#mobileotp").focus();
         return false;
     }

@@ -15,6 +15,39 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
+    $('#chk1').change(function () {
+        if ($(this).is(':checked')) {
+            $('#sendOtp').prop('disabled', false);
+        } else {
+            $('#sendOtp').prop('disabled', true);
+        }
+    });
+    //$("#sendOtp").click(function () {
+    //    
+        
+    //    }
+    //});
+
+    //function CheckId() {
+    //    var NationalId = $("#nid").val();
+    //    if (NationalId === "") {
+    //        $("#errormsg").html("Enter National Id");
+    //        return false;
+    //}
+    //$(document).ready(function () {
+    //    $('#nationalID').on('input', function () {
+    //        var nationalID = $(this).val();
+    //        var errorSpan = $('#nationalIDError');
+
+    //        if (nationalID.length !== 13) {
+    //            errorSpan.text('National ID should be 13 characters long');
+    //        } else {
+    //            errorSpan.text('');
+    //        }
+    //    });
+    //});
+
+
     $("#btnok1").click(function () {
         filepathsss = sessionStorage.getItem('LoaclPath');
         $.ajax({
@@ -25,9 +58,11 @@ $(document).ready(function () {
                 filePath: filepathsss
             },
             success: function (result) {
-        
+                
                 if (result && result.destFilePath) {
+
                     $("#PreviewSignImage1").attr("src", "\\"+result.destFilePath);
+
                 } else {
                     console.error("Error: Unable to retrieve the generated PDF.");
                 }
@@ -222,6 +257,7 @@ $(document).ready(function () {
         }
     });
 });
+
 function getParameterByName(name) {
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -579,3 +615,15 @@ function validatepassword() {
 
 
 
+$(document).ready(function () {
+    $('#nationalID').on('input', function () {
+        var nationalID = $(this).val();
+        var isValid = /^\d{10}$/.test(nationalID);
+
+        if (!isValid) {
+            $('#nationalIDError').text('Please enter a valid  National ID');
+        } else {
+            $('#nationalIDError').text('');
+        }
+    });
+});

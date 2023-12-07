@@ -38,6 +38,14 @@
     #usermod .modal-dialog {
         max-width: 1024px !important;
     }
+    .spinloadlog {
+        position: absolute;
+        top: 36px;
+        color: #fff;
+        z-index: 9999;
+        right: 53px;
+        display: none;
+    }
 </style>
 <div class="container-fluid">
     <div class="block-header">
@@ -124,8 +132,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @*<i class="fa fa-spinner fa-spin spinloadlog" aria-hidden="true" id="loaderrr"></i>*@
                                         <div class="col-md-12 d-flex justify-content-end mt-2 mb-2">
-                                            <button type="button" class="btn btn-primary" id="btnvalidatepassword" onclick="validatepassword()">Validate Password</button>
+                                            <button type="button" class="btn btn-primary" id="btnvalidatepassword" onclick="validatepassword()">
+                                                Validate Password
+                                                <i class="fa fa-spinner fa-spin ms-1" aria-hidden="true" id="loaderrr" style="display:none"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -283,8 +295,44 @@
 </div>
 
 
-
-
+<div class="modal fade" id="viewRecipi" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Validation Success.</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @*<div class="modal-body pt-4 pb-4">
+                <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                    <div class="col-md-12 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                            <div id="myGrid1" style="height: 74vh; width: 100%;" class="ag-theme-alpine"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewRecipiforfailed" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Validation Failed.Please Check Password.</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @*<div class="modal-body pt-4 pb-4">
+                    <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                        <div class="col-md-12 p-0">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div id="myGrid1" style="height: 74vh; width: 100%;" class="ag-theme-alpine"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
 
 
 
@@ -319,10 +367,9 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="usermod" tabindex="-1" role="dialog" aria-modal="true">
     <div class="modal-dialog " role="document">
-        <div class="modal-content">
+        <div class="modal-content" id="hdsave">
             <div class="modal-header">
                     <h4 class="title m-0" id="defaultModalLabel">All Users</h4>
                 </div>
@@ -345,13 +392,11 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
             </div>
         </div>
     </div>
 </div>
-
-
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
 <script src="~/JavaScript/CertificateInsert.js"></script>
 
