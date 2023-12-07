@@ -335,8 +335,8 @@ namespace zipSign.Controllers
                             new DataItems("DocumentExpiryDay", signer.DocumentExpiryDay),
                             new DataItems("IsSent", i),
                             new DataItems("UniqueSignerID", UniqueID),
-                           new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
-                        new DataItems("QuerySelector", "InsertSigner")
+                            new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])),
+                            new DataItems("QuerySelector", "InsertSigner")
                         };
                         statusClass = bal.GetFunctionWithResult(pro.Sp_SignUpload, obj1);
                         EmailToSend = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["SignerEmail"]);

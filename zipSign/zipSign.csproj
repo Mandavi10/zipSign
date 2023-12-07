@@ -653,7 +653,6 @@
     <Folder Include="NSDL_Request_Response\Request\" />
     <Folder Include="NSDL_Request_Response\Response\" />
     <Folder Include="Uploads\SignUpload\PDFs\" />
-    <Folder Include="Views\VSign\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
