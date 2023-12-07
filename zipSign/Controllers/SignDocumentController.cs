@@ -1,8 +1,8 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.IO;
 using System.Web.Mvc;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 
 namespace zipSign.Controllers
 {
@@ -178,7 +178,7 @@ namespace zipSign.Controllers
                         //    contentByte.ShowTextAligned(Element.ALIGN_LEFT, signerName, x, y, 0);
                         //    contentByte.EndText();
                         //}
-                        string signerName = "Name: Abhishek\nLocation: Delhi\nDate: " + CurrentDate.ToString("yyyy-MM-dd");
+                        string signerName = "Digitally Signed By:\nName: Abhishek\nLocation: Delhi\nDate: " + CurrentDate.ToString("yyyy-MM-dd");
 
                         if (pdfStamper.AcroFields != null)
                         {
@@ -206,7 +206,7 @@ namespace zipSign.Controllers
                     pdfStamper.Close();
                     pdfReader.Close();
 
-                    return destFilePath;
+                    return withoutExtension;
                 }
             }
         }

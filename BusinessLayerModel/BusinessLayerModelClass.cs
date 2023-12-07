@@ -188,7 +188,7 @@ namespace BusinessLayerModel
         public string HdnSameValue { get; set; }
         public object HdnFilePath { get; set; }
     }
-   
+
 
     //DSC Signature
     public class DSCCertificateMgt

@@ -60,7 +60,9 @@ $(document).ready(function () {
             success: function (result) {
                 
                 if (result && result.destFilePath) {
-                    $("#PreviewSignimg").attr("src", "\\zipSign\\zipSign\\" + result.destFilePath);
+
+                    $("#PreviewSignImage1").attr("src", "\\"+result.destFilePath);
+
                 } else {
                     console.error("Error: Unable to retrieve the generated PDF.");
                 }

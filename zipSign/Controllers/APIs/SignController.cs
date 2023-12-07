@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text.RegularExpressions;
+﻿using System.Net.Http;
 using System.Web.Http;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace zipSign.Controllers.APIs
 {
@@ -60,6 +54,6 @@ namespace zipSign.Controllers.APIs
             return Ok("PathToXML: " + pathToXML + ", SignatureValue: " + signatureValue);
         }
     }
-    
+
 }
 
