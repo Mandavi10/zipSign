@@ -27,7 +27,6 @@
 
         .green-blink {
             background-color: green;
-            
         }
 
         .txtarea {
@@ -39,7 +38,7 @@
         .iframeDiv {
             min-height: 80vh;
             border: 1px solid #ddd;
-             padding: 25px;
+            padding: 25px;
         }
 
         #PreviewSignImage1 {
@@ -622,7 +621,11 @@
         .fancy-checkbox {
             margin-right: 0px;
         }
-        #iDiv1{display:none}
+
+        #iDiv1 {
+            display: none
+        }
+
         .nationIDBox {
             width: 450px !important;
             margin: 35px auto;
@@ -631,13 +634,25 @@
             padding: 0px 0px 0px 10px !important;
             border-radius: 4px;
         }
+
             .nationIDBox input {
                 height: 36px !important;
                 width: 69%;
             }
-            .nationIDBox label{margin-top: 8px; padding-right:10px; width:32%}
-        .activityRole{width:30%}
-        .activityValue{width: 70%}
+
+            .nationIDBox label {
+                margin-top: 8px;
+                padding-right: 10px;
+                width: 32%
+            }
+
+        .activityRole {
+            width: 30%
+        }
+
+        .activityValue {
+            width: 70%
+        }
     </style>
 </head>
 <body data-theme="light" class="font-nunito">
@@ -1131,10 +1146,11 @@
 
                                         <div class="form-group p-1 col-md-12 nationIDBox">
                                             <label>National ID Number</label>
-                                            <input type="text" class="form-control" id="" maxlength="" placeholder="Enter National ID" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="nid" maxlength="13" placeholder="Enter National ID" autocomplete="off" required>
                                         </div>
+                                        <span style="color:red" id="errormsg"></span>
                                         <div class="idBox">
-                                            <button class="btn btn-primary" id="sendOtp">
+                                            <button class="btn btn-primary" id="sendOtp" disabled>
                                                 Send OTP
                                             </button>
 
@@ -1148,10 +1164,11 @@
 
                                         <div class="form-group p-1 col-md-12 nationIDBox">
                                             <label>OTP</label>
-                                            <input type="text" class="form-control" id="" maxlength="" placeholder="Enter OTP" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="otpid" maxlength="6" placeholder="Enter OTP" autocomplete="off" required>
                                         </div>
+                                        <span style="color:red" id="errormsg123"></span>
                                         <div>
-                                            <button class="btn btn-primary" id="enterOtp" data-bs-toggle="modal" data-bs-dismiss="modal"  data-bs-target="#verifyNationalID">
+                                            <button class="btn btn-primary" id="enterOtp" data-bs-toggle="modal" >
                                                 Submit
                                             </button>
                                             <button class="btn btn-danger" id="btnCancel2">
@@ -1556,10 +1573,37 @@
                 $("#iDiv").css('display', 'none');
             });
             $("#sendOtp").click(function () {
-                $(".otpBox").css('display', 'block');
-                $(".idBox").css('display', 'none');
+            
+                var NationalId = $("#nid").val();
+                
+                if (NationalId === "") {
+                    $("#errormsg").html("Enter National Id");
+                    $("#nid").focus();
+                    return false;
+                }
+                else {
+                    $(".otpBox").css('display', 'block');
+                    $(".idBox").css('display', 'none');
+                }
             })
-
+            $("#enterOtp").click(function () {
+              
+                var OTP = $("#otpid").val();
+                if (OTP === "" || OTP == null) {
+                    
+                    $("#errormsg123").html("Enter otp");
+                    $("#otpid").focus();
+                    return false;
+                }
+                else {
+                    $("#signaturetype").modal('hide');
+                    $('#verifyNationalID').modal('show');
+                }
+            });
+            $("#nid").on('input', function () {
+                $("#errormsg").empty();
+            })
+                
         });
 
     </script>
@@ -1582,10 +1626,6 @@
             })
         })
     </script>
-
-
-
-
     <script>
         var dragSrcEl = null;
 
