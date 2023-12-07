@@ -10,7 +10,7 @@ var DateTime = '';
 var DateTimeParsed = '';
 var targetElement = $("#Trail_Div");
 var row = '';
-var pagecount = '';   
+var pagecount = '';
 var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
@@ -64,12 +64,8 @@ $(document).ready(function () {
                 $("label#uploadedFileName").next("span").text(result.Name);
                 $("label#uploadedFileDate").next("span").text(result.SignedOn);
                 $("label#uploadedFileID").next("span").text(result.DocumentID);
-           }
-        })
-
             }
         })
-
         $("#btnproceed").hide();
         $(".btnSign").hide();
         $("#hdntxn").css("display", "block");
@@ -83,7 +79,7 @@ $(document).ready(function () {
         $("#PreviewSignImage1").removeAttr("src");
         $("#PreviewSignImage1").attr("src", filePath);
         $('#Btn_rec').hide();
-       // $('#Trail_Div').hide();
+        // $('#Trail_Div').hide();
         $('.doc-details').show();
         $('#btncomplete').hide();
         $('#btncomplete1').hide();
@@ -501,7 +497,7 @@ function loadDataIntoTable(data) {
         $('td.hdnRowCert').hide();
     });
     $('table tbody').on('change', 'input.OnlySignerCheckbox', function () {
-        
+
         var isChecked = $(this).prop('checked');
         if (isChecked) {
             var selectedValue = $(this).closest('tr').find('td.hdnRowCert').text();
@@ -509,7 +505,7 @@ function loadDataIntoTable(data) {
             sessionStorage.setItem('SelectedValue', selectedValue);
         }
         $("#dscbtnselect").on("click", function () {
-            
+
             $("#chooseCertPopup").modal('hide');
             $("#vuserpin").modal('show');
         })
@@ -519,7 +515,7 @@ function loadDataIntoTable(data) {
 
 
 function validatepassword() {
-    
+
     var selectedValue = sessionStorage.getItem('SelectedValue');
     var Pin = $("#txtuserpin").val();
     if (Pin === "") {
@@ -559,6 +555,7 @@ function validatepassword() {
         return false;
     }
 }
+
 
 
 
