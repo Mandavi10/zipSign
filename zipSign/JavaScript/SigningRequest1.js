@@ -55,7 +55,9 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             data: {
-                filePath: filepathsss
+                filePath: filepathsss,
+                UserName: $("#usernameDisplay1").val(),
+                Location: "UAE"
             },
             success: function (result) {
                 

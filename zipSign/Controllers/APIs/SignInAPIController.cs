@@ -73,7 +73,7 @@ namespace zipSign.Controllers.APIs
                         UserId = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"]
 
                     };
-                    var otpResponse = SendOTP(statusClass.DataFetch.Tables[0].Rows[0]["Name"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["Email"].ToString());
+                    OTPResult otpResponse = SendOTP(statusClass.DataFetch.Tables[0].Rows[0]["Name"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["MobileNumber"].ToString(), statusClass.DataFetch.Tables[0].Rows[0]["Email"].ToString());
 
                     var response = new
                     {

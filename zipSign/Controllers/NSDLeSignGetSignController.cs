@@ -19,7 +19,7 @@ namespace zipSign.Controllers
 
             string XMLData = "";
             string UploadedFilePath = "";
-            var BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
+            StreamReader BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
             BodyStrem.BaseStream.Seek(0, SeekOrigin.Begin);
             string bodyText = BodyStrem.ReadToEnd();
             string[] separators = new string[] { "Path", "XMLData" };
