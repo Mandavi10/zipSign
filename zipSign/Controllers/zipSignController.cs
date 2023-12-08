@@ -268,7 +268,7 @@ namespace zipSign.Controllers
         }
         #endregion
 
-        [HttpPost]              
+        [HttpPost]
 
         public ActionResult SignInsert(SignMaster objsign, string UserType)
         {
@@ -915,14 +915,14 @@ namespace zipSign.Controllers
             try
             {
                 // Deserialize the JSON data
-                var checkedCheckboxData = JsonConvert.DeserializeObject<List<CheckboxData>>(checkboxData);
+                List<CheckboxData> checkedCheckboxData = JsonConvert.DeserializeObject<List<CheckboxData>>(checkboxData);
 
                 // Assign static IDs based on the mapping
 
 
                 // Filter out the data where link is not null
-                var dataToSave = checkedCheckboxData.Where(item => !string.IsNullOrEmpty(item.link)).ToList();
-                foreach (var checkbox in dataToSave)
+                List<CheckboxData> dataToSave = checkedCheckboxData.Where(item => !string.IsNullOrEmpty(item.link)).ToList();
+                foreach (CheckboxData checkbox in dataToSave)
                 {
                     // Use the link to find the static ID from the mapping
                     if (PageIdMapping.TryGetValue(checkbox.link, out int staticPageId))
@@ -944,7 +944,7 @@ namespace zipSign.Controllers
                 {
                     connection.Open();
 
-                    foreach (var checkbox in dataToSave)
+                    foreach (CheckboxData checkbox in dataToSave)
                     {
                         List<DataItems> obj = new List<DataItems>
                     {
