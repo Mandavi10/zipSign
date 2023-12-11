@@ -47,17 +47,19 @@
         font-family: sans-serif;
     }
 </style>
-@*<button id="enableRectangleBtn">Enable Rectangle</button>
+<button id="enableRectangleBtn">Enable Rectangle</button>
     <canvas id="pdfCanvas"></canvas>
     <div id="page-controls">
         <button id="prevPageBtn">Previous Page</button>
         <span>Page <span id="pageNumber">1</span> of <span id="totalPages">1</span></span>
         <button id="nextPageBtn">Next Page</button>
-    </div>*@
+    </div>
 <script src="https://unpkg.com/pdfjs-dist/build/pdf.js"></script>
 <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist/build/pdf.worker.js';
-    var pdfUrl = '@Url.Content("~/2 Page Invoice SHF_20231018110546456_Z2950YE9N_signedFinal.pdf")';
+    //var pdfUrl = '@Url.Content("~/2 Page Invoice SHF_20231018110546456_Z2950YE9N_signedFinal.pdf")';
+    var pdfUrl = '@Url.Content("~/ Uploads / SignUploadexample_20231030120446958_DBY3901C7_MobApp.pdf")';
+
     var canvas = document.getElementById('pdfCanvas');
     var context = canvas.getContext('2d');
     var pdf;
@@ -175,4 +177,4 @@
         });
     }
 </script>
-@*<script src="~/JavaScript/Upload.js"></script>*@
+<script src="~/JavaScript/Upload.js"></script>
