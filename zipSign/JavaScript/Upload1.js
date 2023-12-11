@@ -322,7 +322,6 @@ function UploadImages(FileUploader, Preview, ColumnName) {
         for (var i = 0; i < files.length; i++) {
             fileData.append("HelpSectionImages", files[i]);
         }
-
         $.ajax({
             url: '/zipSign/UploadFiles',
             type: "POST",
@@ -347,7 +346,6 @@ function UploadImages(FileUploader, Preview, ColumnName) {
                 var LoaclPath = result.LocalPath;
                 var FileName = result.uniquefileName;
                 $("#hdnfilepath").val(filePath);
-                $("#pathpdf").val(filePath);
                 //$("#" + ColumnID).val(filePath);
                 filePathss = filePath;
                 sessionStorage.setItem('uploadedFilePath', filePath);
@@ -356,7 +354,8 @@ function UploadImages(FileUploader, Preview, ColumnName) {
                 var relativePath = absoluteFilePath.replace("D:\\Project\\ZipSign\\zipSign\\zipSign", ""); // Adjust this based on your project structure
                 $("#hdnfilepath").val(relativePath);
                 $("#Hdnfield").val(filePath);
-                $("#" + Preview).attr("src", relativePath);
+                $("#" + Preview).attr("src", LoaclPath);
+                
             },
             error: function (err) {
                 console.log(err);
@@ -366,6 +365,40 @@ function UploadImages(FileUploader, Preview, ColumnName) {
         alert("Format is not supported.");
     }
 }
+
+
+
+
+function handleUploadSuccess(result, Preview) {
+    $('#viewFile').attr('disabled', false);
+    sessionStorage.setItem('UpoladedId', result.UploadId);
+    $("#RemoveImage").css("display", "block");
+
+    // Format and store the upload date
+    var formattedDate = formatCurrentDate();
+    sessionStorage.setItem('uploadedFileDate', formattedDate);
+
+    // Set file paths
+    var relativePath = result.status.replace("D:\\Project\\ZipSign\\zipSign\\zipSign", "");
+    $("#hdnfilepath").val(relativePath);
+    $("#pathpdf").val(relativePath);
+    $("#Hdnfield").val(relativePath);
+
+    // Display the PDF in the iframe
+    $("#" + Preview).attr("src", result.status);
+}
+
+function formatCurrentDate() {
+    var currentDate = new Date();
+    var day = String(currentDate.getDate()).padStart(2, '0');
+    var month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    var year = currentDate.getFullYear();
+    var hours = String(currentDate.getHours()).padStart(2, '0');
+    var minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    var amOrPm = currentDate.getHours() >= 12 ? 'PM' : 'AM';
+    return day + '/' + month + '/' + year + ' ' + hours + ':' + minutes + ' ' + amOrPm;
+}
+
 
 function formatBytes(bytes) {
     if (bytes === 0) {

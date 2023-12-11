@@ -297,7 +297,7 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     if (!allowedExtensions.includes(fileExtension)) {
         // File extension validation
         $("#message").empty();
-        var row = '<div class="col-md-12 p-1" role="alert">Please upload PDF only.</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please upload PDF only</div>';
         $("#message").append(row);
         fileInput.value = '';
         return false;

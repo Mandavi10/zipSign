@@ -186,13 +186,24 @@ namespace zipSign.Controllers
                 return false;
             }
         }
-
-
-
-
-
-
-
+        public ActionResult ValidateCertWithPasswordForSigning1(string selectedValue, string password)
+        {
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", selectedValue),
+                new DataItems("Password", AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(password))),
+                new DataItems("QueryType", "VaildatePassword")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
+            if (statusClass.StatusCode == 1)
+            {
+                return Json(new { status = "Validated", password });
+            }
+            else
+            {
+                return Json(new { status = "Invalid" });
+            }
+        }
         public class CertificationManagement
         {
             public int Userid { get; set; }
@@ -449,7 +460,7 @@ namespace zipSign.Controllers
                 {
                     foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
                     {
-                        result.Add(new DSCCertificateMgt
+                        result.Add(new DSCCertificateMgt   
                         {
                             Row = Convert.ToInt32(dr["Row"]),
                             CertificateName = Convert.ToString(dr["CertificateName"]),
@@ -465,7 +476,7 @@ namespace zipSign.Controllers
                 }
                 else
                 {
-                    res1.Error = "No data found."; // Set an appropriate error message
+                    res1.Error = "No data found."; // Set an appropriate error message    
                 }
             }
             catch (Exception ex)
@@ -477,5 +488,112 @@ namespace zipSign.Controllers
             return Json(res1, JsonRequestBehavior.AllowGet);
         }
 
+
+
+
+        public ActionResult SearchCertificateForPasswordPrompt(string CertificateID)
+        {
+            List<DataItems> obj = new List<DataItems>
+            {
+                new DataItems("CertificateId", CertificateID),
+                new DataItems("QueryType", "SearchForPasswordPrompt")
+            };
+            statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
+            var PATH = statusClass.DataFetch.Tables[0].Rows[0]["Path"];
+            if (statusClass.StatusCode == 1)
+            {
+                return Json(new { status = "Prompt/Non", PATH });
+            }
+            else
+            {
+                return Json(new { status = "Invalid" });
+            }
+        }
+        public ActionResult DSCSign(string selectedValue, string Location, string Reason, string password, string FilePath)
+        {
+            string UserName = Session["UserName"] as string;
+            string timestamp = "";
+            string TxnID = "61000" + DateTime.Now.ToString("yyyyMMddHHmmssfff");
+            int ResponseCode = 0;
+            string destinationPath = "";
+            string LocalPath = "";
+            string DSCCertificateName= Path.GetFileNameWithoutExtension(selectedValue);
+            try
+            {
+                string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
+                string pdfFilePath = FilePath;  //"D:\\DSC\\dummy.pdf";
+                string fileName = Path.GetFileNameWithoutExtension(pdfFilePath);
+                timestamp = DateTime.Now.ToString("yyyyMMddHHmmssfff");
+                destinationPath = Path.Combine(baseDirectory, $"{fileName}_{timestamp}_signed.pdf");
+                LocalPath = $"{fileName}_{timestamp}_signed.pdf";
+                PdfReader pdfReader = new PdfReader(Server.MapPath(pdfFilePath));
+                string pfxFilePath = selectedValue;  //"D:\\DSC\\PFXs\\Shiv Health.pfx";
+                string pfxPassword = password;
+                Pkcs12Store pfxKeyStore = new Pkcs12Store(new FileStream(pfxFilePath, FileMode.Open, FileAccess.Read), pfxPassword.ToCharArray());
+                int page = pdfReader.NumberOfPages;
+                for (int i = 1; i <= page; i++)
+                {
+                    if (i > 1)
+                    {
+                        FileStream stremfile = new FileStream(destinationPath, FileMode.Open, FileAccess.Read);
+                        pdfReader = new PdfReader(stremfile);
+                        // File.Delete(destinationPath);
+                    }
+                    FileStream signedPdf = new FileStream(destinationPath, FileMode.Create, FileAccess.ReadWrite);
+                    PdfStamper pdfStamper = PdfStamper.CreateSignature(pdfReader, signedPdf, '\0', null, true);
+                    PdfSignatureAppearance signatureAppearance = pdfStamper.SignatureAppearance;
+                    signatureAppearance.Reason = Reason;
+                    signatureAppearance.Location = Location;
+                    signatureAppearance.Acro6Layers = false;
+                    float x = 430;
+                    float y = 55;
+                    signatureAppearance.Acro6Layers = false;
+                    signatureAppearance.Layer4Text = PdfSignatureAppearance.questionMark;
+                    signatureAppearance.SetVisibleSignature(new iTextSharp.text.Rectangle(x, y, x + 150, y + 40), i, null);
+                    string alias = pfxKeyStore.Aliases.Cast<string>().FirstOrDefault(entryAlias => pfxKeyStore.IsKeyEntry(entryAlias));
+                    ICipherParameters privateKey = pfxKeyStore.GetKey(alias).Key;
+                    IExternalSignature pks = new PrivateKeySignature(privateKey, DigestAlgorithms.SHA256);
+                    MakeSignature.SignDetached(signatureAppearance, pks, new Org.BouncyCastle.X509.X509Certificate[] { pfxKeyStore.GetCertificate(alias).Certificate }, null, null, null, 0, CryptoStandard.CMS);
+                    pdfReader.Close();
+                    pdfStamper.Close();
+                }
+                ResponseCode = 1;
+                List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("UserName", UserName),
+                    new DataItems("DSC_Certificate", DSCCertificateName),
+                    new DataItems("ResponseCode", 1),
+                    new DataItems("TxnId", TxnID),
+                    new DataItems("ErrorMessage", "No_Error"),
+                    new DataItems("TIMESTAMP", timestamp),
+                    //new DataItems("UniqueSignerID", fileid),
+                    //new DataItems("SignedPDFPath", destinationPath),
+                    //obj.Add(new DataItems("DocumentUploadId", DocumentId));
+                    new DataItems("QueryType", "SaveLogForDSC")
+                };
+                statusClass = bal.GetFunctionWithResult(pro.SignatureResponseLog, obj);
+                return Json(LocalPath, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                List<DataItems> obj = new List<DataItems>
+                {
+                    new DataItems("UserName", UserName),
+                    new DataItems("TimeStamp", timestamp),
+                    new DataItems("DSC_Certificate", DSCCertificateName),
+                    new DataItems("ResponseCode", 0),
+                    new DataItems("TxnId", TxnID),
+                    new DataItems("ErrorCode", ResponseCode),
+                    new DataItems("ErrorMessage", ex.Message),
+                    new DataItems("TIMESTAMP", timestamp),
+                    //new DataItems("UniqueSignerID", fileid),
+                    //new DataItems("SignedPDFPath", destinationPath),
+                    //obj.Add(new DataItems("DocumentUploadId", DocumentId));
+                    new DataItems("QueryType", "SaveLogForDSC")
+                };
+                statusClass = bal.GetFunctionWithResult(pro.SignatureResponseLog, obj);
+                return Json(ex, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

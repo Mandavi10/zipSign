@@ -662,6 +662,7 @@
     <Content Include="Views\SignDocument\DocumentSignRequest.cshtml" />
     <Content Include="Views\zipSign\BillingInformation.cshtml" />
     <Content Include="Views\zipSign\BillingInformationDetails.cshtml" />
+    <Content Include="Uploads\SignUploadexample_20231030120446958_DBY3901C7_MobApp.pdf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AESEncryption\AESEncryption.csproj">
