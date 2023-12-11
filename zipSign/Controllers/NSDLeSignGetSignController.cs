@@ -27,7 +27,7 @@ namespace zipSign.Controllers
             if (parts.Length > 1)
             {
                 XMLData = parts[1];
-                UploadedFilePath = parts[2].Trim('"'); 
+                UploadedFilePath = parts[2].Trim('"');
             }
             string XMLPATHYU = Path.GetFileNameWithoutExtension(UploadedFilePath);
             string xmlData = XMLData;
@@ -189,7 +189,7 @@ namespace zipSign.Controllers
 
                 }
 
-                 FilePath = "/Uploads/SignUpload/" + PdfName + "_signedFinal.pdf";
+                FilePath = "/Uploads/SignUpload/" + PdfName + "_signedFinal.pdf";
 
                 while (!System.IO.File.Exists(signedPdfPath))
                 {

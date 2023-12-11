@@ -1,17 +1,15 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
+using JWTs_Verification;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace zipSign.Controllers.APIs
@@ -25,7 +23,7 @@ namespace zipSign.Controllers.APIs
         [Route("StateManagementForSignup/GetStates")]
         public IHttpActionResult GetStates([FromBody] JObject requestData)
         {
-            var tokenHeader = Request.Headers.Authorization;
+            System.Net.Http.Headers.AuthenticationHeaderValue tokenHeader = Request.Headers.Authorization;
             if (tokenHeader == null || tokenHeader.Scheme.ToLower() != "bearer")
             {
                 var response = new
@@ -38,7 +36,8 @@ namespace zipSign.Controllers.APIs
             QType Data = requestData["Data"].ToObject<QType>();
 
             string token = tokenHeader.Parameter;
-            string a = GetUserIdFromToken(token);
+            // string a = GetUserIdFromToken(token);
+            string a = VerifyToken.GetUserIdFromToken(token);
             //var regex = "^[A-Za-z0-9\\-_.]+$";
             if (Data.QueryType != "GetAllState")
             {
@@ -194,10 +193,10 @@ namespace zipSign.Controllers.APIs
 
         private ClaimsPrincipal ValidateJwtToken(string token)
         {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("a1b2c3d4e5f6g7h8i9j0kA1B2C3D4E5F6G7H8I9J0");
+            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            byte[] key = Encoding.ASCII.GetBytes("a1b2c3d4e5f6g7h8i9j0kA1B2C3D4E5F6G7H8I9J0");
 
-            var validationParameters = new TokenValidationParameters
+            TokenValidationParameters validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -210,7 +209,7 @@ namespace zipSign.Controllers.APIs
             };
             try
             {
-                var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
+                ClaimsPrincipal principal = tokenHandler.ValidateToken(token, validationParameters, out _);
                 return principal;
             }
             catch (SecurityTokenExpiredException ex)
@@ -229,10 +228,10 @@ namespace zipSign.Controllers.APIs
             {
                 if (Token != null)
                 {
-                    var principal = ValidateJwtToken(Token);
+                    ClaimsPrincipal principal = ValidateJwtToken(Token);
                     if (principal != null)
                     {
-                        var userIdClaim = principal.FindFirst(ClaimTypes.Name);
+                        Claim userIdClaim = principal.FindFirst(ClaimTypes.Name);
                         return userIdClaim?.Value;
                     }
                 }

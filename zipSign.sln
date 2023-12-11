@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalMethods", "GlobalMeth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AESEncryption", "AESEncryption\AESEncryption.csproj", "{7ABCC994-2DFC-432D-ABEC-53F17A7EFD64}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTs_Verification", "JWTs_Verification\JWTs_Verification.csproj", "{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{7ABCC994-2DFC-432D-ABEC-53F17A7EFD64}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ABCC994-2DFC-432D-ABEC-53F17A7EFD64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ABCC994-2DFC-432D-ABEC-53F17A7EFD64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

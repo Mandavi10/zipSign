@@ -460,7 +460,7 @@ namespace zipSign.Controllers
                 {
                     foreach (DataRow dr in statusClass.DataFetch.Tables[0].Rows)
                     {
-                        result.Add(new DSCCertificateMgt   
+                        result.Add(new DSCCertificateMgt
                         {
                             Row = Convert.ToInt32(dr["Row"]),
                             CertificateName = Convert.ToString(dr["CertificateName"]),
@@ -499,7 +499,7 @@ namespace zipSign.Controllers
                 new DataItems("QueryType", "SearchForPasswordPrompt")
             };
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
-            var PATH = statusClass.DataFetch.Tables[0].Rows[0]["Path"];
+            object PATH = statusClass.DataFetch.Tables[0].Rows[0]["Path"];
             if (statusClass.StatusCode == 1)
             {
                 return Json(new { status = "Prompt/Non", PATH });
@@ -517,7 +517,7 @@ namespace zipSign.Controllers
             int ResponseCode = 0;
             string destinationPath = "";
             string LocalPath = "";
-            string DSCCertificateName= Path.GetFileNameWithoutExtension(selectedValue);
+            string DSCCertificateName = Path.GetFileNameWithoutExtension(selectedValue);
             try
             {
                 string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];

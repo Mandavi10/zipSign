@@ -78,7 +78,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
-      
+
         public ActionResult Received()
         {
             return View();
@@ -229,7 +229,7 @@ namespace zipSign.Controllers
             return Json(new { DocumentID, Name, SignedOn }, JsonRequestBehavior.AllowGet);
         }
 
-       
+
         public ActionResult NSDLPage()
         {
             return View();

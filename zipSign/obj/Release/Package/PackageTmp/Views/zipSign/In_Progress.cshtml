@@ -1,0 +1,909 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    #gridviewmodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+    #gridviewmodal .modal-content {
+        height: 92vh;
+    }
+
+    .lowfw {
+        font-weight: 400;
+    }
+
+    .highfw {
+        font-weight: bolder !important;
+        color: #000;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    /*.container .card{
+        height:500px;
+        width:800px;
+        background-color:#fff;
+        position:relative;
+        box-shadow:0 15px 30px rgba(0,0,0,0.1);
+        font-family: 'Poppins', sans-serif;
+        border-radius:20px;
+    }*/
+    .container .card .form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+
+    .container .card .left-side {
+        width: 30%;
+        /* background-color: #304767; */
+        /* height: 100%; */
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        /* padding: 20px 30px; */
+        box-sizing: border-box;
+        border-right: 1px dashed #cdcdcd;
+    }
+    /*left-side-start*/
+    .left-heading {
+        color: #fff;
+    }
+
+    .steps-content {
+        margin-top: 30px;
+        color: #fff;
+    }
+
+        .steps-content p {
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+    .progress-bar {
+        list-style: none;
+        /* color: #fff; */
+        /* margin-top: 30px; */
+        font-size: 13px;
+        font-weight: 700;
+        counter-reset: container 0;
+        margin-bottom: 0px;
+    }
+
+        .progress-bar li {
+            position: relative;
+            margin-left: 48px;
+            margin-top: 35px;
+            counter-increment: container;
+            color: #cdcdcd;
+            position: relative;
+        }
+
+            .progress-bar li::before {
+                content: counter(container);
+                line-height: 25px;
+                text-align: center;
+                position: absolute;
+                height: 25px;
+                width: 25px;
+                border: 1px solid #cdcdcd;
+                border-radius: 50%;
+                left: -39px;
+                top: 20px;
+                z-index: 10;
+                background-color: #fff;
+            }
+
+
+            .progress-bar li::after {
+                content: '';
+                position: absolute;
+                height: 45px;
+                width: 2px;
+                background-color: #cdcdcd;
+                z-index: 1;
+                left: -27px;
+                top: -49px;
+            }
+
+
+            .progress-bar li.active::after {
+                background-color: #0058b1;
+            }
+
+            .progress-bar li:first-child:after {
+                display: none;
+            }
+
+            /*.progress-bar li:last-child:after{*/
+            /*  display:none;  */
+            /*}*/
+            .progress-bar li.active::before {
+                color: #0058b1;
+                border: 1px solid #0058b1;
+            }
+
+            .progress-bar li.active {
+                color: #0058b1;
+            }
+
+    .d-none {
+        display: none;
+    }
+
+
+    .progress-bar {
+        justify-content: flex-start !important;
+        background-color: transparent !important;
+    }
+
+
+    .active .maintxt, .active .maintxt1, .active .maintxt2, .active .maintxt3, .active .maintxt4 {
+        color: #0058b1;
+    }
+
+
+    .active .progress-bar li::after {
+        color: #0058b1;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*left-side-end*/
+    .container .card .right-side {
+        width: 70%;
+        background-color: #fff;
+        height: 100%;
+        border-radius: 20px;
+    }
+    /*right-side-start*/
+    .main {
+        display: none;
+    }
+
+    .active {
+        display: block;
+    }
+
+    .main {
+        padding: 40px;
+    }
+
+        .main small {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2px;
+            height: 30px;
+            width: 30px;
+            background-color: #ccc;
+            border-radius: 50%;
+            color: yellow;
+            font-size: 19px;
+        }
+
+    .text {
+        margin-top: 20px;
+    }
+
+    .congrats {
+        text-align: center;
+    }
+
+    .text p {
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        color: #cbced4;
+    }
+
+    .input-text {
+        margin: 30px 0;
+        display: flex;
+        gap: 20px;
+    }
+
+        .input-text .input-div {
+            width: 100%;
+            position: relative;
+        }
+
+
+
+    input[type="text"] {
+        width: 100%;
+        height: 40px;
+        border: none;
+        outline: 0;
+        border-radius: 5px;
+        border: 1px solid #cbced4;
+        gap: 20px;
+        box-sizing: border-box;
+        padding: 0px 10px;
+    }
+
+    select {
+        width: 100%;
+        height: 40px;
+        border: none;
+        outline: 0;
+        border-radius: 5px;
+        border: 1px solid #cbced4;
+        gap: 20px;
+        box-sizing: border-box;
+        padding: 0px 10px;
+    }
+
+    .input-text .input-div span {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 14px;
+        transition: all 0.5s;
+    }
+
+    .input-div input:focus ~ span, .input-div input:valid ~ span {
+        top: -15px;
+        left: 6px;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .input-div span {
+        top: -15px;
+        left: 6px;
+        font-size: 10px;
+    }
+
+    .buttons button {
+        height: 40px;
+        width: 100px;
+        border: none;
+        border-radius: 5px;
+        background-color: #0075ff;
+        font-size: 12px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .button_space {
+        display: flex;
+        gap: 20px;
+    }
+
+        .button_space button:nth-child(1) {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid#000;
+        }
+
+    .user_card {
+        margin-top: 20px;
+        margin-bottom: 40px;
+        height: 200px;
+        width: 100%;
+        border: 1px solid #c7d3d9;
+        border-radius: 10px;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+        box-sizing: border-box;
+    }
+
+        .user_card span {
+            height: 80px;
+            width: 100%;
+            background-color: #dfeeff;
+        }
+
+    .circle {
+        position: absolute;
+        top: 40px;
+        left: 60px;
+    }
+
+        .circle span {
+            height: 70px;
+            width: 70px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #fff;
+            border-radius: 50%;
+        }
+
+            .circle span img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+    .social {
+        display: flex;
+        position: absolute;
+        top: 100px;
+        right: 10px;
+    }
+
+        .social span {
+            height: 30px;
+            width: 30px;
+            border-radius: 7px;
+            background-color: #fff;
+            border: 1px solid #cbd6dc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+            color: #cbd6dc;
+        }
+
+            .social span i {
+                cursor: pointer;
+            }
+
+    .heart {
+        color: red !important;
+    }
+
+    .share {
+        color: red !important;
+    }
+
+    .user_name {
+        position: absolute;
+        top: 110px;
+        margin: 10px;
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+        .user_name h3 {
+            color: #4c5b68;
+        }
+
+    .detail {
+        /*margin-top:10px;*/
+        display: flex;
+        justify-content: space-between;
+        margin-right: 50px;
+    }
+
+        .detail p {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+            .detail p a {
+                text-decoration: none;
+                color: blue;
+            }
+
+
+
+
+
+
+    .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: #7ac142;
+        fill: none;
+        animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        margin: 10% auto;
+        box-shadow: inset 0px 0px 0px #7ac142;
+        animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    }
+
+    .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @@keyframes stroke {
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @@keyframes scale {
+        0%, 100% {
+            transform: none;
+        }
+
+        50% {
+            transform: scale3d(1.1, 1.1, 1);
+        }
+    }
+
+    @@keyframes fill {
+        100% {
+            box-shadow: inset 0px 0px 0px 30px #7ac142;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    .warning {
+        border: 1px solid red !important;
+    }
+
+
+    /*right-side-end*/
+    @@media (max-width:750px) {
+        .container {
+            height: scroll;
+        }
+
+            .container .card {
+                max-width: 350px;
+                height: auto !important;
+                margin: 30px 0;
+            }
+
+                .container .card .right-side {
+                    width: 100%;
+                }
+
+        .input-text {
+            display: block;
+        }
+
+            .input-text .input-div {
+                margin-top: 20px;
+            }
+
+        .container .card .left-side {
+            display: none;
+        }
+    }
+
+    .maintxt {
+        position: absolute;
+        left: -50px;
+        top: -3px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: #cdcdcd;
+    }
+
+    .maintxt1 {
+        position: absolute;
+        left: -41px;
+        top: -3px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: #cdcdcd;
+    }
+
+    .maintxt2 {
+        position: absolute;
+        left: -53px;
+        top: -3px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: #cdcdcd;
+    }
+
+    .maintxt3 {
+        position: absolute;
+        left: -50px;
+        top: -3px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: #cdcdcd;
+    }
+
+    .maintxt4 {
+        position: absolute;
+        left: -60px;
+        top: -3px;
+        font-size: 14px;
+        font-weight: bolder;
+        color: #cdcdcd;
+    }
+
+
+    .aboveimagediv ul {
+        padding-left: 0px;
+        list-style: none;
+    }
+
+        .aboveimagediv ul li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+    .ftxt {
+        color: #000;
+    }
+
+    .previewcardimg {
+        width: 100%;
+        margin: auto;
+        overflow: auto;
+        height: 75vh;
+        /* margin-top: 5px; */
+        border: 1px solid #cdcdcd;
+    }
+
+        .previewcardimg img {
+            width: 100%;
+        }
+
+    .zombtn {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        z-index: 999;
+    }
+
+    .btnzoom {
+        border: 1px solid #cdcdcd;
+        padding: 4px 8px;
+        margin-right: 3px;
+        cursor: pointer;
+    }
+
+    .overlayinmodal {
+        position: absolute;
+        width: 100%;
+        height: 30px;
+        background-color: #000;
+        bottom: 1px;
+        opacity: 0.8;
+        color: #fff;
+    }
+</style>
+
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'File Name', field: 'dname', width: 180, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Document Name', field: 'aname', width: 180, resizable: false, sortable: true, suppressMovable: true },
+        /*  { headerName: 'Status', field: 'stat', width: 90, resizable: false, sortable: true, suppressMovable: true   },*/
+        { headerName: 'Total No. of signers', field: 'ts', width: 190, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Signed By', field: 'sb', width: 130, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Cut off Date', field: 'cod', width: 120, resizable: false, sortable: true, suppressMovable: true },
+        {
+            headerName: 'Work History', field: 'vwh', width: 140, resizable: false, sortable: true, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#gridviewmodal">View</button>'
+            }
+        },
+
+
+        //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false, sortable: true,suppressMovable: true   },
+        //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false, sortable: true, suppressMovable: true  },
+        //{ headerName: 'Signing Initiated On', field: 'sio', width: 200, resizable: false, sortable: true,suppressMovable: true   },
+        //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false, sortable: true,suppressMovable: true   },
+        //{
+        //    headerName: 'Action', field: 'act', width: 110, sortable: true, resizable: false, cellRenderer: function (params) {
+        //        return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#gridviewmodal">View</button>'
+        //    }
+        //},
+
+
+    ];
+
+
+    //var rowData = [
+    //    { srNo: '1', dname: 'Passport', aname: 'Address proof', ts: '5', sb: '3', cod: '15-08-2023' },
+    //    { srNo: '2', dname: 'Aadhaar', aname: 'Varification', ts: '7', sb: '2', cod: '28-08-2023' },
+    //    { srNo: '2', dname: 'Birth Certificate', aname: 'DOB proof', ts: '2', sb: '1', cod: '12-09-2023' },
+
+
+
+
+    //];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>In-Progress</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">In-Progress</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+
+
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-12">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative">
+                                                Search:
+                                                <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="myGrid" style="height: 67vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="Ddd" role="status" aria-live="polite"></div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="pagination1">
+                                    @*<ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                            <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                            <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </ul>*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<div class="modal fade" id="gridviewmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: 9px 41px 10px !important;">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <div class="col-md-12 d-flex justify-content-end mt-1">
+                    <button type="submit" class="btn btn-primary me-2" onclick="downloadLatestPDF()"><i class="fa fa-download"></i> Download Latest Document</button>
+                    <input type="hidden" id="hdnlatestdown" />
+                    <button type="submit" class="btn btn-primary" onclick="downloadOriginalPDF()"><i class="fa fa-download"></i> Download Original Document</button>
+                    <input type="hidden" id="hdnoriginaldown" />
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="padding-left: 36px !important;"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;overflow:hidden">
+                <div class="container p-0">
+                    <div class="card">
+                        <div class="form">
+                            <div class="left-side">
+                                <ul class="progress-bar">
+                                    <li class="active">
+                                        @*<span class="maintxt">Upload</span>
+                                            <div class="col-12"><span>Micheal</span></div>
+                                            <div class="col-12"><span>micheal@gmail.com</span></div>
+                                            <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>*@
+                                    </li>
+                                    <li>
+                                        <span class="maintxt1">Sent</span>
+                                        <div class="col-12"><span>Micheal</span></div>
+                                        <div class="col-12"><span>micheal@gmail.com</span></div>
+                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>
+                                    </li>
+                                    <li>
+                                        <span class="maintxt2">Opened</span>
+                                        <div class="col-12"><span>Micheal</span></div>
+                                        <div class="col-12"><span>micheal@gmail.com</span></div>
+                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>
+                                    </li>
+                                    <li>
+                                        <span class="maintxt3">Signed</span>
+                                        <div class="col-12"><span>Micheal</span></div>
+                                        <div class="col-12"><span>micheal@gmail.com</span></div>
+                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>
+                                    </li>
+                                    <li>
+                                        <span class="maintxt4">Completed</span>
+                                        <div class="col-12"><span>Micheal</span></div>
+                                        <div class="col-12"><span>micheal@gmail.com</span></div>
+                                        <div class="col-12"><span>(12-May-2023) 12:05 PM</span></div>
+                                    </li>
+                                </ul>
+
+
+
+                            </div>
+                            <div class="right-side">
+
+                                <div class="col-md-12 col-sm-12 col-xs-12 d-flex flex-wrap justify-content-between">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 pe-1">
+                                        <div class="">
+                                            @*<div class="col-md-12 d-flex justify-content-end mt-1">
+                                                    <button type="submit" class="btn btn-primary me-2"><i class="fa fa-download"></i> Download Latest Document</button>
+                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i> Download Original Document</button>
+                                                </div>*@
+                                            <div class="body">
+                                                <div class="encircle position-relative">
+                                                    <div class="zombtn col-md-1 col-sm-12 col-xs-12 d-flex justify-content-end">
+                                                        <i class="fa fa-search-minus btnzoom" aria-hidden="true" onclick="zoomout()" hidden></i>
+                                                        <i class="fa fa-search-plus btnzoom" aria-hidden="true" onclick="zoomin()" hidden></i>
+
+                                                    </div>
+                                                    <div class="position-relative">
+                                                        <div class="previewcardimg ">
+                                                            @*<img id="logo" src="~/Content/images/document.png" />*@
+                                                            @*<iframe id="logo" src=""></iframe>*@
+                                                            <iframe id="logo" src="" style="width: -webkit-fill-available;height: -webkit-fill-available;"></iframe>
+                                                        </div>
+                                                        <div class="overlayinmodal pt-1">
+                                                            <div class="col-md-12 d-flex flex-wrap justify-content-around">
+                                                                <div class="col-md-4">
+                                                                    <div class="form-group d-flex flex-wrap">
+                                                                        <div class="col-md-5 col-12">
+                                                                            <label for="text-input1 highfw">File Name:</label>
+                                                                        </div>
+                                                                        <div class="col-md-7">
+                                                                            <label class="lowfw" id="imgname"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4">
+                                                                    @*<div class="form-group d-flex flex-wrap">
+                                                                            <div class="col-md-5 col-12">
+                                                                                <label for="text-input1 highfw">Image Size:</label>
+                                                                            </div>
+                                                                            <div class="col-md-7">
+                                                                                <label class="lowfw">300kb</label>
+                                                                            </div>
+                                                                        </div>*@
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/Upload.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+
+
+<script>
+    function zoomin() {
+        var myImg = document.getElementById("logo");
+        var currWidth = myImg.clientWidth;
+        if (currWidth == 500) {
+            alert("Maximum zoom-in level reached.");
+        } else {
+            myImg.style.width = (currWidth + 50) + "px";
+        }
+    }
+    function zoomout() {
+        var myImg = document.getElementById("logo");
+        var currWidth = myImg.clientWidth;
+        if (currWidth == 50) {
+            alert("Maximum zoom-out level reached.");
+        } else {
+            myImg.style.width = (currWidth - 50) + "px";
+        }
+    }
+
+
+
+    function InZoom() {
+        var myImg2 = document.getElementById("logoT");
+        var currWidth2 = myImg2.clientWidth;
+        if (currWidth2 == 500) {
+            alert("Maximum zoom-in level reached.");
+        } else {
+            myImg2.style.width = (currWidth2 + 50) + "px";
+        }
+    }
+    function OutZoom() {
+        var myImg = document.getElementById("logoT");
+        var currWidth1 = myImg.clientWidth;
+        if (currWidth1 == 50) {
+            alert("Maximum zoom-out level reached.");
+        } else {
+            myImg.style.width = (currWidth1 - 50) + "px";
+        }
+    }
+</script>

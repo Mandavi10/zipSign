@@ -1,0 +1,226 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+/*    .user-photo{
+        width:140px;
+        height:140px;
+        object-fit:cover;
+    }*/
+    .media-left, .media-body {
+        display: inline-block
+    }
+
+    .input-group-text {
+        padding: 0.55rem 0.75rem;
+    }
+
+    .radioBox {
+        height: 36px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>User Profile</h2>
+                <ul class="breadcrumb">
+
+                    <li class="breadcrumb-item active">User Profile</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        <button type="button" class="btn btn-primary" onclick="SaveProfile()"><i class="fa fa-save"></i> Save</button>
+                        @*<button type="button" class="btn btn-secondary"><i class="fa fa-send"></i> Send report</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="body">
+                    <h6>Profile Photo</h6>
+                    <div class="media">
+                        <div class="media-left m-r-15">
+                            <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
+                        </div>
+                        <div class="media-body">
+                            <p>
+                                Upload your photo.
+                                <br> <em>Image should be at least 140px x 140px</em>
+                            </p>
+                            <button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
+                            @*//<img id="profilephoto" src="~/Content\images\profiles\81a28e93-525a-4110-a875-afdea21832af.jpg" />*@
+                            <input type="file" id="filePhoto" class="sr-only" style="display:none;">
+                            <input type="text" id="ProId" hidden />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body">
+                    <h6>Basic Information</h6>
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="First Name" id="fname">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Last Name" id="lname">
+                            </div>
+                            <div class="form-group">
+                                <div class="radioBox pt-2" id="gender">
+                                    <label class="fancy-radio">
+                                        <input name="gender2" value="male" type="radio" id="chckmale" checked>
+                                        <span><i></i>Male</span>
+                                    </label>
+                                    <label class="fancy-radio">
+                                        <input name="gender2" value="female" type="radio" id="chckfemale">
+                                        <span><i></i>Female</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                    </div>
+                                    <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate" id="caldob">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="India" disabled />
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Address Line 1" id="add1">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Address Line 2" id="add2">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="PIN" id="pincode">
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control" disabled id="state">
+                                    <option value="0">Select State</option>
+                                    <option value="1">Andaman and Nicobar Islands</option>
+                                    <option value="2">Andhra Pradesh</option>
+                                    <option value="3">Arunachal Pradesh</option>
+                                    <option value="4">Assam</option>
+                                    <option value="5">Bangalore</option>
+                                    <option value="6">Bihar</option>
+                                    <option value="7">Chandigarh</option>
+                                    <option value="8">Chhattisgarh</option>
+                                    <option value="9">Chennai</option>
+                                    <option value="10">Dadra & Nagar Haveli and Daman & Diu</option>
+                                    <option value="11">Delhi</option>
+                                    <option value="12">Goa</option>
+                                    <option value="13">Gujarat</option>
+                                    <option value="14">Haryana</option>
+                                    <option value="15">Himachal Pradesh</option>
+                                    <option value="16">Jammu and Kashmir</option>
+                                    <option value="17">Jharkhand</option>
+                                    <option value="18">Karnataka</option>
+                                    <option value="19">Kerala</option>
+                                    <option value="20">Ladakh</option>
+                                    <option value="21">Lakshadweep Islands</option>
+                                    <option value="22">Madhya Pradesh</option>
+                                    <option value="23">Maharashtra</option>
+                                    <option value="24">Manipur</option>
+                                    <option value="25">Meghalaya</option>
+                                    <option value="26">Mizoram</option>
+                                    <option value="27">Nagaland</option>
+                                    <option value="28">Odisha</option>
+                                    <option value="29">Other Territory</option>
+                                    <option value="30">Pondicherry</option>
+                                    <option value="31">Punjab</option>
+                                    <option value="32">Rajasthan</option>
+                                    <option value="33">Sikkim</option>
+                                    <option value="34">Tamil Nadu</option>
+                                    <option value="35">Telangana</option>
+                                    <option value="36">Tripura</option>
+                                    <option value="37">Uttar Pradesh</option>
+                                    <option value="38">Uttarakhand</option>
+                                    <option value="39">West Bengal</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="row clearfix">
+                        <div class="col-lg-6 col-md-12">
+                            <h6>Company Info</h6>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="GST" id="gst">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Company Website URL" id="comweburl">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email Domain" id="edomain">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <h6>Account Data</h6>
+                            <div class="form-group">
+                                <input type="text" class="form-control" value="JohnDoe" disabled placeholder="Username" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" value="john.doe@yourdomain.com" disabled placeholder="Email" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Phone Number" value="9876543210" disabled />
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/UserProfile.js"></script>
+<script>var jquery_3_6 = jQuery.noConflict();</script>
+<script src="~/Content/js/bootstrap-datepicker.min.js"></script>
+<script>
+    jquery_3_6(function () {
+        // photo upload
+        jquery_3_6('#btn-upload-photo').on('click', function () {
+            jquery_3_6(this).siblings('#filePhoto').trigger('click');
+        });
+
+        // plans
+        jquery_3_6('.btn-choose-plan').on('click', function () {
+            jquery_3_6('.plan').removeClass('selected-plan');
+            jquery_3_6('.plan-title span').find('i').remove();
+
+            jquery_3_6(this).parent().addClass('selected-plan');
+            jquery_3_6(this).parent().find('.plan-title').append('<span><i class="fa fa-check-circle"></i></span>');
+        });
+    });
+
+    jquery_3_6(document).ready(function () {
+        jquery_3_6("#state").val('11');
+    });
+
+</script>
