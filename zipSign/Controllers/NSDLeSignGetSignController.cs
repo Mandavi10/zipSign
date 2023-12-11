@@ -1,7 +1,4 @@
-﻿using MoreLinq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Pkcs7pdf_Multiple_EsignService;
+﻿using Pkcs7pdf_Multiple_EsignService;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -22,17 +19,17 @@ namespace zipSign.Controllers
 
             string XMLData = "";
             string UploadedFilePath = "";
-            var BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
+            StreamReader BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
             BodyStrem.BaseStream.Seek(0, SeekOrigin.Begin);
             string bodyText = BodyStrem.ReadToEnd();
             string[] separators = new string[] { "Path", "XMLData" };
             string[] parts = bodyText.Split(separators, StringSplitOptions.None);
             if (parts.Length > 1)
             {
-                 XMLData = parts[1];
+                XMLData = parts[1];
                 UploadedFilePath = parts[2];
             }
-            string XMLPATHYU= Path.GetFileNameWithoutExtension(UploadedFilePath);
+            string XMLPATHYU = Path.GetFileNameWithoutExtension(UploadedFilePath);
             string xmlData = XMLData;
             XDocument xmlDoc1 = XDocument.Parse(xmlData);
             string PathToXML = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Uploads\\SignUpload\\" + XMLPATHYU + "_eSignRequestXml.txt";
@@ -49,10 +46,15 @@ namespace zipSign.Controllers
             _ = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + UploadedFilePath;
             string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
             string filePath = UploadedFilePath; // Replace forward slashes with backslashes
-            string pdfReadServerPath = Path.Combine(baseDirectory, filePath);
+            string a = filePath.Remove(0, 1);
+            string pdfReadServerPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + a; //Path.Combine(baseDirectory, filePath);
+
+
 
             string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
+            // Correct usage
+
             int serverTime = 15;
             string nameToShowOnSignatureStamp = "Aadhar_E-sign";
             string locationToShowOnSignatureStamp = "";
@@ -164,9 +166,17 @@ namespace zipSign.Controllers
                 }
                 else
                 {
-                    string physicalPath = System.Web.HttpContext.Current.Server.MapPath(responsexmlPath);
+                    string physicalPath = responsexmlPath;
                     File.WriteAllText(physicalPath, responseXml);
-                    string rtn = response.SignDocument(pdfReadServerPath, jarPath, tickImagePath, responsexmlPath, serverTime, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, outputFinalPdfPath, CoordinatesPath, jrebinpath, log_err);
+                    try
+                    {
+                        string rtn = response.SignDocument(pdfReadServerPath, jarPath, tickImagePath, responsexmlPath, serverTime, nameToShowOnSignatureStamp, locationToShowOnSignatureStamp, reasonForSign, pdfPassword, outputFinalPdfPath, CoordinatesPath, jrebinpath, log_err);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
                 }
                 string signedPdfPath = "";
                 if (outputFinalPdfPath == "")
@@ -345,13 +355,6 @@ namespace zipSign.Controllers
             };
             return Json(ApiResponseModel);
         }
-            //    //string timeStamp = "";
-            //    //ViewBag.RedirectUrl = redirectUrl;
-            //    //return Redirect(redirectUrl);
-            //    //return View();
-            //}
-
-
 
         public class RequestModel
         {

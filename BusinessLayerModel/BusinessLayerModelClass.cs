@@ -147,7 +147,8 @@ namespace BusinessLayerModel
         public string Mobile { get; set; }
         public string UserId { get; set; }
         public string State { get; set; }
-        
+        public string SecondLastLoginOn { get; set; }
+
     }
     public class UserInsert1
     {
@@ -188,7 +189,7 @@ namespace BusinessLayerModel
         public string HdnSameValue { get; set; }
         public object HdnFilePath { get; set; }
     }
-   
+
 
     //DSC Signature
     public class DSCCertificateMgt

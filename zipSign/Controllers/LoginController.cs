@@ -4,10 +4,8 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -60,7 +58,7 @@ namespace zipSign.Controllers
         public JsonResult SignUp(SignUp objSignUpModel, string UserType)
         {
             Response.AddHeader("X-XSS-Protection", "1; mode=block");
-            try             
+            try
             {
                 //if (!ModelState.IsValid)
                 //{
@@ -286,6 +284,7 @@ namespace zipSign.Controllers
                                 State = Convert.ToString(dr["State"]),
                                 Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
+                                SecondLastLoginOn=Convert.ToString(dr["SecondLastLoginOn"])
                             };
 
                             userDataList.Add(userData);
@@ -1085,7 +1084,7 @@ namespace zipSign.Controllers
                     new DataItems("QueryType", "GetDataForUser")
                 };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
-                if(statusClass.StatusCode==9)
+                if (statusClass.StatusCode == 9)
                 {
                     string UserCode = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterId"]);
                     string UserEmail = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
@@ -1225,8 +1224,8 @@ namespace zipSign.Controllers
                 //return RedirectToAction("Link_Expired", "zipSign");
                 return Json(0, JsonRequestBehavior.AllowGet); // Return a status code indicating expired OTP
             }
-                string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
-                return Json(new { CreatedBy, IsExpired, Email }, JsonRequestBehavior.AllowGet);
+            string Email = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Email"]);
+            return Json(new { CreatedBy, IsExpired, Email }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult UpdatePassword(string userCode, string Email, string OldPassword, string NewPassword, string confirmPassword)
         {

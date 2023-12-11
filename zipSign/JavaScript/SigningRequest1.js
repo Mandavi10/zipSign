@@ -55,12 +55,16 @@ $(document).ready(function () {
             type: 'POST',
             dataType: 'json',
             data: {
-                filePath: filepathsss
+                filePath: filepathsss,
+                UserName: $("#usernameDisplay1").val(),
+                Location: "UAE"
             },
             success: function (result) {
                 
                 if (result && result.destFilePath) {
-                    $("#PreviewSignimg").attr("src", "\\zipSign\\zipSign\\" + result.destFilePath);
+
+                    $("#PreviewSignImage1").attr("src", "\\"+result.destFilePath);
+
                 } else {
                     console.error("Error: Unable to retrieve the generated PDF.");
                 }
