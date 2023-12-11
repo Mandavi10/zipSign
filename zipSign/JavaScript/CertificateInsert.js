@@ -108,7 +108,7 @@ function validatepassword() {
 
     else {
         $("#confirmpassword").siblings(".alermsg").remove();
-        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is not matching</div>';
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is not matching</div>';        
         $("#confirmpassword").after(row).focus();
         IsValidate = 0;
         return false;
@@ -270,4 +270,70 @@ function ShowMore(UserCode) {
             alert('Failed to retrieve department details.');
         }
     });
+}
+function validatepassword1() {
+    $("#password").siblings(".alermsg").remove();
+    $("#confirmpassword").siblings(".alermsg").remove();
+    var password = $("#password").val();
+    var confirm_password = $("#confirmpassword").val();
+    if (password === "") {
+        $("#password").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Password</div>';
+        $("#password").after(row).focus();
+        return false;
+    }
+    else if (confirm_password === "") {
+        $("#confirmpassword").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Confirm Password</div>';
+        $("#confirmpassword").after(row).focus();
+        return false;
+    }
+    var certificate = sessionStorage.getItem('CertPath')
+    if (password === confirm_password) {
+        $("#btnvalidatepassword").attr('disabled', true);
+        $("#loaderrr").css('display', 'inline-block');
+        $.ajax({
+            url: '/CertificateManagement/ValidateCertWithPassword',
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {
+                certificateforvalidate: certificate,
+                password: password
+            },
+            success: function (result) {
+
+                if (result === "True") {
+                    $('#viewRecipi').modal('show');
+                    IsValidate = 1;
+                    //$(".loaderOverlay").css('display', 'none');
+                    $("#loaderrr").css('display', 'none');
+                    return true;
+                } else {
+                    IsValidate = 0;
+                    $("#loaderrr").css('display', 'none');
+                    $("#btnvalidatepassword").attr('disabled', false);
+                    $('#viewRecipiforfailed').modal('show');
+                    //$("#btnvalidatepassword").attr('disabled', true);
+                    // $("#loaderrr").css('display', 'none');
+                    return false;
+                }
+            },
+            error: function (err) {
+                IsValidate = 0;
+                //$("#btnvalidatepassword").attr('disabled', true);
+                //$("#loaderrr").css('display', 'none');
+                return false;
+            }
+        });
+        return IsValidate;
+    }
+
+    else {
+        $("#confirmpassword").siblings(".alermsg").remove();
+        row = '<div class="alermsg col-md-12 p-1" role="alert">Password is not matching</div>';
+        $("#confirmpassword").after(row).focus();
+        IsValidate = 0;
+        return false;
+    }
 }

@@ -681,7 +681,7 @@ function ViewHistroy(fileCode) {
         },
         success: function (result) {
             $('#overlay').css('display', 'none');
-            $('#loader').css('display', 'none');
+            $('# loader').css('display', 'none');
             var table3Data = result.responseData.Table3Data;
             var trailDiv = $(".progress-bar");
             trailDiv.empty();
@@ -733,7 +733,7 @@ function ViewHistroy(fileCode) {
         error: function () {
             //alert('Failed to delete the file.');
         }
-    });
+    });   
 }
 
 function SendToSigningRequest(fileCode) {

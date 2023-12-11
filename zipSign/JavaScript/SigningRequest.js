@@ -15,7 +15,6 @@ var keyword = '';
 var selectedRadio = '';
 var iframeSrcSet = false;
 $(document).ready(function () {
-
     var UId = getParameterByName('UId');
     var queryParams = getAllUrlParams();
     if (queryParams.UType !== undefined && queryParams.UploadedDocumentId !== undefined) {
@@ -293,13 +292,11 @@ function getAllUrlParams(url) {
 function Continue() {
 
     if (selectedRadio == 'dsc') {
-
         row = '';
         $("#dscmsg").empty();
         $("#signaturetype").modal('hide');
         $("#chooseCertPopup").modal("show");
         $('#chooseCertPopup').on('shown.bs.modal', function () {
-
             $.ajax({
                 url: '/CertificateManagement/SearchAndShowDataForCertificateForSelection',
                 type: 'GET',
@@ -434,14 +431,14 @@ function RowClickEventHandler1(UId) {
             $("#hdnUploadedDocumentId").val(result.responseData.UploadedDocumentId);
             $("#hdnSignerId").val(result.responseData.SignerId);
             $("#hdnFileId").val(result.responseData.FileID);
-            $("#hdnEmailId").val(result.responseData.EmailID);
+            $("#hdnEmailId").val(result.responseData.EmailID);      
             $("#hdnSignerName").val(result.responseData.SignerName);
             $("label#uploadedFileName").next("span").text(result.responseData.UploadedFileName);
             $("label#uploadedFileStatus").next("span").text("Unsigned");
             $("label#uploadedFileDate").next("span").text(result.responseData.UploadedOn);
             //}
         },
-        error: function () {
+        error: function () {             
             alert('Something Went Wrong');
         }
     });
@@ -505,9 +502,36 @@ function loadDataIntoTable(data) {
             sessionStorage.setItem('SelectedValue', selectedValue);
         }
         $("#dscbtnselect").on("click", function () {
-
-            $("#chooseCertPopup").modal('hide');
-            $("#vuserpin").modal('show');
+       
+            var selectedValue = sessionStorage.getItem('SelectedValue');
+            $.ajax({
+                url: '/CertificateManagement/SearchCertificateForPasswordPrompt',
+                type: "POST",
+                async: false,
+                dataType: "text",
+                data: {
+                    CertificateID: selectedValue,
+                },
+                success: function (result) {
+                 
+                    let resultObject = JSON.parse(result);
+                    if (resultObject.status === "Prompt/Non") {
+                        $("#chooseCertPopup").modal('hide');
+                        $("#vuserpin").modal('show');
+                        $("#hdncertpath").val(resultObject.PATH);
+                        return true;
+                    } else {
+                        $("#chooseCertPopup").modal('hide');
+                        $("#vuserpin").modal('hide');
+                        return true;
+                    }
+                },
+                error: function (err) {
+                    IsValidate = 0;
+                    return false;
+                }
+            });
+            
         })
     });
 }
@@ -515,15 +539,14 @@ function loadDataIntoTable(data) {
 
 
 function validatepassword() {
-
     var selectedValue = sessionStorage.getItem('SelectedValue');
-    var Pin = $("#txtuserpin").val();
-    if (Pin === "") {
-        return false;
-    }
+    var Pin = $("#hdndscpassword").val();
+    var Location = $("#txtlocation").val();
+    var Reason = $("#txtreason").val();
+    txtreason
     if (Pin) {
         $.ajax({
-            url: '/CertificateManagement/ValidateCertWithPasswordForSigning',
+            url: '/CertificateManagement/DSCSign',
             type: "POST",
             async: false,
             dataType: "text",
@@ -555,7 +578,98 @@ function validatepassword() {
         return false;
     }
 }
+function validatepassword1() {
 
+    var selectedValue = sessionStorage.getItem('SelectedValue');
+    var Pin = $("#txtuserpin").val();
+    if (Pin === "") {
+        return false;
+    }
+    if (Pin) {
+        $.ajax({
+            url: '/CertificateManagement/ValidateCertWithPasswordForSigning1',
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {
+                selectedValue: selectedValue,
+                password: Pin
+            },
+            success: function (result) {
+        
+                let resultObject = JSON.parse(result);
+                if (resultObject.status === "Validated") {
+                    $("#chooseCertPopup").modal('hide');
+                    $("#vuserpin").modal('hide'); 
+                    $("#dataonstamp").modal('show');
+                    $("#hdndscpassword").val(resultObject.password);
+                    return true;
+                } else {
+                    $("#chooseCertPopup").modal('hide');
+                    $("#vuserpin").modal('hide');
+                    return true;
+                }
+            },
+            error: function (err) {
+                IsValidate = 0;
+                return false;
+            }
+        });
+    }
+
+    else {
+        alert("Password is not matching.");
+        IsValidate = 0;
+        return false;
+    }
+}
+
+
+function proceed() {
+    var selectedValue = $("#hdncertpath").val();
+    var Pin = $("#hdndscpassword").val();
+    var Location = $("#txtlocation").val();
+    var Reason = $("#txtreason").val();
+
+        $.ajax({
+            url: '/CertificateManagement/DSCSign',
+            type: "POST",
+            async: false,
+            dataType: "text",
+            data: {
+                selectedValue: selectedValue,
+                password: Pin,
+                Location: Location,
+                Reason: Reason,
+                FilePath: filepathsss
+            },
+            success: function (result) {
+                let resultObject = JSON.parse(result);
+                if (resultObject != null) {
+                    $("#PreviewSignImage1").attr("src", "/zipSign/zipSign/"+resultObject);
+                    $("#chooseCertPopup").modal('hide');
+                    $("#vuserpin").modal('hide');
+                    $("#dataonstamp").modal('hide');
+                    $("#hdntxn").css("display", "block");
+                    $("#hdnSigningmode").css("display", "block");
+                    $("label#uploadedFileStatus").next("span").text("Signed");
+                    $("label#uploadedFileDate").next("span").text(DateTimeParsed);
+                    $("#uploadedFileDate").show();
+                    $("label#Txnno").next("span").text(TxnId);
+                    $("label#signingmode").next("span").text("DSC");
+                    return true;
+                } else {
+                    $("#chooseCertPopup").modal('hide');
+                    $("#vuserpin").modal('hide');
+                    return true;
+                }
+            },
+            error: function (err) {
+                IsValidate = 0;
+                return false;
+            }
+        });
+}
 
 
 

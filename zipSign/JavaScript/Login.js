@@ -59,6 +59,7 @@ $('#lblresend').click(function () {
 });
 //Login Function
 function Login() {
+   
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
@@ -69,14 +70,14 @@ function Login() {
     }
     var textbox = $("#email").val();
     var password = $("#password").val();
-    window.textbox1 = textbox;
+    //window.textbox1 = textbox;
     var captchaInput = $('#signin-password').val();
     
     $.ajax({
         url: '/Login/Login',
         type: 'POST',
         data: {
-            captchaInput: captchaInput,
+            captchaInput: captchaInput,                 
             Email: textbox,
             Mobile: textbox,
             Password: password,
@@ -123,7 +124,7 @@ function Login() {
                 }
 
             }
-            else if (result.status == 0) {
+            else if (result.status == 0) {    
                 $("#message").empty();
                 var row = '<div class="  col-md-12 p-1" role="alert">Please enter valid CAPTCHA</div>';
                 $("#message").append(row);
@@ -188,7 +189,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
             var mobileNumber = response.MobileNo;
             var lastTwoDigits = mobileNumber.slice(-2);
             var StartingTwoNumber = mobileNumber.slice(0,2);
-            var formattedMobile = StartingTwoNumber+"xxxxxx" + lastTwoDigits;
+            var formattedMobile = StartingTwoNumber+"xxxxxx" + lastTwoDigits;  
             var atIndex = Email.indexOf('@');
             if (atIndex !== -1) {
                 var localPart = Email.slice(0, atIndex);
@@ -293,7 +294,7 @@ function SendLoginMobileOTP(username, textbox) {
     });
 }
 function validations() {
-    var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var emailRegex = /.+\@.+\..+/;
     var mobileRegex = /^[6789]\d{9}$/;
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
@@ -437,7 +438,7 @@ function ForgotPassword() {
 
     if (email.trim() === '') {
         $("#message").empty();
-        var row = '<div class=" col-md-12 p-1" role="alert">Email field cannot be left empty</div>';
+        var row = '<div class=" col-md-12 p-1" role="alert">Please enter your registered email address.</div>';
         $("#emailresetpassword").focus();
         $("#message").append(row);
         return false;
@@ -454,13 +455,14 @@ function ForgotPassword() {
 
     if (captchaInput.trim() === '') {
         $("#message").empty();
-        var row = '<div class=" col-md-12 p-1" role="alert">Please enter CAPTCHA</div>';
+        var row = '<div class=" col-md-12 p-1" role="alert">Please Verify CAPTCHA.</div>';
         $("#signin-password").focus();
         $("#message").append(row);
         return false;
     }
 
     else {
+        $("#loaderrr").show();
         $.ajax({
             url: '/Login/ResetPassword',
             type: 'POST',
@@ -470,12 +472,7 @@ function ForgotPassword() {
             },
             success: function (result) {
                 if (result.StatusCode === 9) {
-                    $("#loaderrr").show();
                     SendPasswordResetLink(result.UserCode, result.UserEmail);
-                    
-                    //setTimeout(function () {
-                    //    window.location.href = 'Login/Index'; 
-                    //}, 6000); 
                 }
                 else if (result.StatusCode === 10) {
                     $("#message").empty();

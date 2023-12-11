@@ -297,7 +297,7 @@ function SignUp() {
                 MessageShown = true;
             } else if (result.status == 3) {
                 $("#message").empty();
-                row += '<div class="col-md-12 p-1" role="alert">Mobile No. Already Exists</div>';
+                row += '<div class="col-md-12 p-1" role="alert">Account with this mobile number already exists. Please use a different one.</div>';
                 $("#message").append(row);
                 $("#Phoneno").focus();
                 $('#Phoneno').removeAttr('disabled');
@@ -308,7 +308,7 @@ function SignUp() {
                 $(".verifybtn1").show();
                 $("#mobileotp").val('');
                 return false;
-                MessageShown = true;
+                MessageShown = true;s
             }
 
             // Append error messages to the message container
@@ -342,7 +342,7 @@ function SendMobileOTP() {
     }
     var row = '';
     var ValidatorFor = []
-    ValidatorFor.push(["Phoneno", "Required", "", "Please enter Mobile Number"]);
+    ValidatorFor.push(["Phoneno", "Required", "", "Please enter mobile number"]);
     ValidatorFor.push(["Phoneno", "Phoneno", "", "Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9"]);
     var status = ValidateMe(ValidatorFor);
     if (status == false) {
@@ -375,7 +375,8 @@ function SendMobileOTP() {
             success: function (response) {
 
                 var mobile = $("#Phoneno").val();
-                var formattedMobile = "xxxxxxxx" + mobile.slice(-2);
+                var start2digit = mobile.slice(0, 2);
+                var formattedMobile = start2digit+"xxxxxx" + mobile.slice(-2);
                 var span = $("#lblmobile .enterddata");
                 span.text("Please enter the OTP sent to " + formattedMobile);
                 console.log(response);
@@ -435,18 +436,17 @@ function SendEmailOTP() {
                 Email: $("#Email").val()
             },
             success: function (response) {
-                
                 var Email = $("#Email").val();
                 var atIndex = Email.indexOf('@');
                 if (atIndex !== -1) {
                     var localPart = Email.slice(0, atIndex);
                     var domainPart = Email.slice(atIndex);
 
-                    var remainingChars = localPart.length - 2; // Calculate the number of characters to replace
+                    var remainingChars = localPart.length - 4; // Calculate the number of characters to replace
 
                     if (remainingChars > 0) {
                         var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
-                        localPart = localPart[0] + xChars + localPart[localPart.length - 1];
+                        localPart = localPart[0] + localPart[1] + xChars + localPart[localPart.length - 2] + localPart[localPart.length -1 ];
                     }
                     var formattedEmail = localPart + domainPart;
                     var span = $("#lblemail .enterddata");
@@ -472,7 +472,7 @@ function VerifyOTP() {
     var otp = $("#mobileotp").val();
     if (otp=== "") {
         $("#message").empty();
-        row = '<div class="col-md-12 p-1" role="alert">Please enter OTP</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter the OTP</div>';
         $("#message").append(row);
         $("#UserName").focus();
         return false;
@@ -511,7 +511,7 @@ function VerifyOTP() {
             }
             else if (result === 2) {
                 $("#message").empty();
-                row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="col-md-12 p-1" role="alert">Please enter the valid OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;
@@ -519,7 +519,7 @@ function VerifyOTP() {
             }
             else {
                 $("#message").empty();
-                row = '<div class="col-md-12 p-1" role="alert">Please Enter Correct OTP</div>';
+                row = '<div class="col-md-12 p-1" role="alert">Please enter the valid OTP</div>';
                 $("#message").append(row);
                 $("#mobileotp").focus();
                 mobileverified = 0;
@@ -668,7 +668,7 @@ function isValidData() {
         return false;
     }
     if (EmailVerify == 0) {
-        row = '<div class="col-md-12 p-1" role="alert">Please Verify Email</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please verify the email</div>';
         $("#message").empty().append(row);
         $("#emailOTP").focus();
         return false;
@@ -690,11 +690,11 @@ function isValidData() {
         return false;
     }
     if (mobileverified == 0) {
-        row = '<div class="col-md-12 p-1" role="alert">Please Verify Mobile Number</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please verify the mobile number</div>';
         $("#message").empty().append(row);
         return false;
     } else if ($("#mobileotp").val().trim() === "") {
-        row = '<div class="col-md-12 p-1" role="alert">Please Enter Mobile OTP</div>';
+        row = '<div class="col-md-12 p-1" role="alert">Please enter the OTP</div>';
         $("#message").empty().append(row);    
         $("#mobileotp").focus();
         return false;
