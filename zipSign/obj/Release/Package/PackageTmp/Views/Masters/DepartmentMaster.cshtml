@@ -1,0 +1,172 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .givenheight1 {
+        height: 82vh;
+    }
+</style>*@
+<link href="~/Content/css/parsley.css" rel="stylesheet" />
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Department Creation</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">Masters</li>
+                    <li class="breadcrumb-item active">Department Creation</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="submit" class="btn btn-primary" onclick="InsertDepartment()"><i class="fa fa-save"></i> Save</button>*@
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i> Send report</button>*@
+                        @*<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>*@
+
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                @*<div class="header">
+                        <h2>Basic Validation</h2>
+                    </div>*@
+
+                <div class="body givenheight1">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+                        <div class="form-group">
+                            <label for="text-input1">Department Code</label>
+                            <input type="text" id="DepartmentCode" class="form-control" pattern="[A-Za-z0-9]{1,20}" maxlength="20" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="text-input2">Department Name</label>
+                            <input type="text" id="DepartmentName" class="form-control" autocomplete="off">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="text-input4">Description</label>
+                            <textarea class="form-control" rows="4" cols="30" id="Description"></textarea>
+
+                        </div>
+                        <div class="form-group" hidden>
+                            <input type="text" id="DepartmentId" class="form-control" autocomplete="off">
+
+                        </div>
+
+                        <div class="alermsg col-md-12 p-1" role="alert" id="message" style="color:firebrick;"></div>
+
+                        <div class="col-md-12 col-sm-12 d-flex flex-wrap">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group">
+
+                                    @*<label class="control-inline fancy-checkbox">
+                                            <input type="checkbox" name="checkbox2" required data-parsley-mincheck="2" data-parsley-errors-container="#error-checkbox2">
+                                            <span>Active</span>
+                                        </label>*@
+
+
+                                    @*<label class="control-inline fancy-checkbox">
+                                            <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
+                                            <span>Active</span>
+                                        </label>*@
+
+
+                                    <label class="control-inline fancy-checkbox">
+                                        <input type="checkbox" name="checkbox2" required data-parsley-mincheck="1" data-parsley-errors-container="#error-checkbox2" id="chkIsActive">
+                                        <span>Active</span>
+                                    </label>
+
+                                    <p id="error-checkbox2"></p>
+                                </div>
+                            </div>
+
+
+                            <br />
+                            @*<div class="col-lg-6 col-md-6 col-sm-12">
+                                    <button type="button" class="btn btn-light pull-right" onclick="window.location.href='../Masters/AllDepartments';"><i class="fa fa-angle-double-left"></i> Back</button>
+                                </div>*@
+                        </div>
+
+
+
+                        <br />
+
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <button type="button" class="btn btn-light" onclick="window.location.href='../Masters/AllDepartments';"><i class="fa fa-angle-double-left"></i> Back</button>
+                            <button type="button" class="btn btn-primary btn-lg btn-block" id="btnInsert">Save</button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/DepartmentMaster.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/MyValidator.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        // initialize after multiselect
+        $('#basic-form').parsley();
+    });
+
+</script>
+
+
+
+<div class="modal fade" id="confirmationpopup" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+            </div>
+            <div class="modal-body pt-4 pb-4">
+                <div class="col-12 text-center">
+                    <label class="modcontxt">Are you sure you want to save.</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnsave">Yes, save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="successpopup" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Success</h4>
+            </div>
+            <div class="modal-body pt-4 pb-4">
+                <div class="col-12 text-center">
+                    <label class="modcontxt">Data Saved Successfully.</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

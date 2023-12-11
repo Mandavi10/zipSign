@@ -1,0 +1,261 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+</style>
+
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false,suppressMovable: true,  sortable: true},
+        { headerName: 'File Name', field: 'dname', width: 280, resizable: false,suppressMovable: true,  sortable: true, },
+        { headerName: 'Document Name', field: 'aname', width: 300, resizable: false,suppressMovable: true,  sortable: true, },
+        { headerName: 'Status', field: 'stat', width: 240, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Document Uploaded On', field: 'don', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Document Uploaded By', field: 'uby', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Signing Initiated On', field: 'sio', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Signing Initiated By', field: 'sib', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Signing Rejected On', field: 'sro', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        //{ headerName: 'Signing Rejected By', field: 'srb', width: 200, resizable: false,suppressMovable: true,  sortable: true, },
+        {
+            headerName: 'Action', field: '', width: 100, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<button type="button" class="ingridbtn" data-bs-toggle="modal" data-bs-target="#usermodal">View More</button>'
+            }
+        },
+        {
+            headerName: '', field: '', width: 50, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<span class="fa fa-trash gridIcon" id=""></span>'
+            }
+        },
+    ];
+
+
+    var rowData = [
+        { srNo: '1', dcode: '4a56dfs6a', desc: '', stat: '' },
+
+
+
+
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Rejected</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">Rejected</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn  btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div class="col-md-12">
+                                        <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                            <label class="position-relative">
+                                                Search:
+                                                <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="myGrid" style="height: 65vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rejected Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;">
+                <div class="col-md-12 d-flex flex-wrap flex-wrap">
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">File Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">2562126888888</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Document Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Status:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw"> Uploaded On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw"> Uploaded By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">Jai Prkash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Sign Initiated On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Sign Inititated By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">Jai Prakash</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Sign Rejected On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw">22/04/2023</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Sign Rejected By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Reject Reason:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-12 d-flex justify-content-end fixeddiv">
+            <button type="button" class="btn btn-primary"> Update</button>
+        </div>*@
+
+                </div>
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>

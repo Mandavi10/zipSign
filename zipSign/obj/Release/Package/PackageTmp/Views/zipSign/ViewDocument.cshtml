@@ -1,0 +1,700 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .modal-content {
+        height: 91vh;
+    }
+
+    /*.card {
+        height: 58vh;
+    }*/
+
+    .previewcardimg {
+        width: 100%;
+        margin: auto;
+        overflow: auto;
+        height: 70vh;
+        margin-top:5px;
+        border:1px solid #cdcdcd;
+    }
+
+        .previewcardimg img {
+            width: 100%;
+        }
+
+    .modal-body {
+        padding-bottom: 0px;
+    }
+
+    .panel {
+        border: none;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: none;
+    }
+    /*
+    Template Name: Monster Admin
+    Author: Themedesigner
+    Email: niravjoshi87@gmail.com
+    File: css
+    */
+    .wizard > .steps a {
+        margin: 0 10px 0 0;
+    }
+
+        .wizard > .steps a:hover, .wizard > .steps a:active {
+            margin: 0 10px 0 0;
+        }
+
+    .wizard > .steps > ul > li {
+        float: none;
+    }
+
+    .btn-close {
+        display: none;
+    }
+
+    .wizard-content .wizard > .content {
+        display: none;
+    }
+
+    .wizard-content .wizard > .actions {
+        display: none !important;
+    }
+
+    .wizard-content .wizard > .steps > ul > li:after,
+    .wizard-content .wizard > .steps > ul > li:before {
+        content: '';
+        z-index: 9;
+        display: block;
+        position: absolute
+    }
+
+    .wizard-content .wizard {
+        width: 100%;
+        overflow: hidden
+    }
+
+        .wizard-content .wizard .content {
+            margin-left: 0 !important
+        }
+
+        .wizard-content .wizard > .steps {
+            position: relative;
+            display: block;
+            width: 100%
+        }
+
+            .wizard-content .wizard > .steps .current-info {
+                position: absolute;
+                left: -99999px
+            }
+
+            .wizard-content .wizard > .steps > ul {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+                margin: 0;
+                padding: 0;
+                list-style: none
+            }
+
+                .wizard-content .wizard > .steps > ul > li {
+                    display: table-cell;
+                    width: auto;
+                    vertical-align: top;
+                    text-align: center;
+                    position: relative
+                }
+
+                    .wizard-content .wizard > .steps > ul > li a {
+                        position: relative;
+                        padding-top: 52px;
+                        margin-top: 20px;
+                        display: block
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:before {
+                        left: 0
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:after {
+                        right: 0
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li:first-child:before,
+                    .wizard-content .wizard > .steps > ul > li:last-child:after {
+                        content: none
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.current > a {
+                        color: #fff;
+                        cursor: default;
+                        /*height: 10vh;*/
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.current .step {
+                        border-color: #009efb;
+                        background-color: #fff;
+                        color: #009efb
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.disabled a,
+                    .wizard-content .wizard > .steps > ul > li.disabled a:focus,
+                    .wizard-content .wizard > .steps > ul > li.disabled a:hover {
+                        color: #999;
+                        cursor: default
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.done a,
+                    .wizard-content .wizard > .steps > ul > li.done a:focus,
+                    .wizard-content .wizard > .steps > ul > li.done a:hover {
+                        color: #999
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.done .step {
+                        background-color: #009efb;
+                        border-color: #009efb;
+                        color: #fff
+                    }
+
+                    .wizard-content .wizard > .steps > ul > li.error .step {
+                        border-color: #f62d51;
+                        color: #f62d51
+                    }
+
+            .wizard-content .wizard > .steps .step {
+                background-color: #fff;
+                display: inline-block;
+                position: absolute;
+                top: 10px;
+                left: 50%;
+                margin-left: -24px;
+                z-index: 10;
+                text-align: center
+            }
+
+        .wizard-content .wizard > .content {
+            overflow: hidden;
+            position: relative;
+            width: auto;
+            padding: 0;
+            margin: 0
+        }
+
+            .wizard-content .wizard > .content > .title {
+                position: absolute;
+                left: -99999px
+            }
+
+            .wizard-content .wizard > .content > .body {
+                padding: 0 20px
+            }
+
+            .wizard-content .wizard > .content > iframe {
+                border: 0;
+                width: 100%;
+                height: 100%
+            }
+
+        .wizard-content .wizard > .actions {
+            position: relative;
+            display: block;
+            text-align: right;
+            padding: 0 20px 20px
+        }
+
+            .wizard-content .wizard > .actions > ul {
+                float: right;
+                list-style: none;
+                padding: 0;
+                margin: 0
+            }
+
+                .wizard-content .wizard > .actions > ul:after {
+                    content: '';
+                    display: table;
+                    clear: both
+                }
+
+                .wizard-content .wizard > .actions > ul > li {
+                    float: left
+                }
+
+                    .wizard-content .wizard > .actions > ul > li + li {
+                        margin-left: 10px
+                    }
+
+                    .wizard-content .wizard > .actions > ul > li > a {
+                        background: #009efb;
+                        color: #fff;
+                        display: block;
+                        padding: 7px 12px;
+                        border-radius: 4px;
+                        border: 1px solid transparent
+                    }
+
+                        .wizard-content .wizard > .actions > ul > li > a:focus,
+                        .wizard-content .wizard > .actions > ul > li > a:hover {
+                            -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .05) inset;
+                            box-shadow: 0 0 0 100px rgba(0, 0, 0, .05) inset
+                        }
+
+                        .wizard-content .wizard > .actions > ul > li > a:active {
+                            -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .1) inset;
+                            box-shadow: 0 0 0 100px rgba(0, 0, 0, .1) inset
+                        }
+
+                        .wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
+                            background-color: #fff;
+                            color: #54667a;
+                            border: 1px solid #d9d9d9
+                        }
+
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:focus,
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:hover {
+                                -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .02) inset;
+                                box-shadow: 0 0 0 100px rgba(0, 0, 0, .02) inset
+                            }
+
+                            .wizard-content .wizard > .actions > ul > li > a[href="#previous"]:active {
+                                -webkit-box-shadow: 0 0 0 100px rgba(0, 0, 0, .04) inset;
+                                box-shadow: 0 0 0 100px rgba(0, 0, 0, .04) inset
+                            }
+
+                    .wizard-content .wizard > .actions > ul > li.disabled > a,
+                    .wizard-content .wizard > .actions > ul > li.disabled > a:focus,
+                    .wizard-content .wizard > .actions > ul > li.disabled > a:hover {
+                        color: #999
+                    }
+
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"],
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"]:focus,
+                        .wizard-content .wizard > .actions > ul > li.disabled > a[href="#previous"]:hover {
+                            -webkit-box-shadow: none;
+                            box-shadow: none
+                        }
+
+        .wizard-content .wizard.wizard-circle > .steps > ul > li:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li:before {
+            top: 50px;
+            width: 50%;
+            height: 3px;
+            background-color: #009efb
+        }
+
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:after,
+        .wizard-content .wizard.wizard-circle > .steps > ul > li.current ~ li:before {
+            background-color: #F3F3F3
+        }
+
+        .wizard-content .wizard.wizard-circle > .steps .step {
+            width: 40px;
+            height: 40px;
+            line-height: 35px;
+            border: 3px solid #F3F3F3;
+            font-size: 1.3rem;
+            border-radius: 50%
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li:before {
+            top: 39px;
+            width: 50%;
+            height: 2px;
+            background-color: #009efb
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current .step {
+            border: 2px solid #009efb;
+            color: #009efb;
+            line-height: 36px
+        }
+
+            .wizard-content .wizard.wizard-notification > .steps > ul > li.current .step:after,
+            .wizard-content .wizard.wizard-notification > .steps > ul > li.done .step:after {
+                border-top-color: #009efb
+            }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current ~ li:after,
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.current ~ li:before {
+            background-color: #F3F3F3
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps > ul > li.done .step {
+            color: #FFF
+        }
+
+        .wizard-content .wizard.wizard-notification > .steps .step {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 1.3rem;
+            border-radius: 15%;
+            background-color: #F3F3F3
+        }
+
+            .wizard-content .wizard.wizard-notification > .steps .step:after {
+                content: "";
+                width: 0;
+                height: 0;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                margin-left: -8px;
+                margin-bottom: -8px;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-top: 8px solid #F3F3F3
+            }
+
+        .wizard-content .wizard.vertical > .steps {
+            display: inline;
+            float: left;
+            width: 20%
+        }
+
+            .wizard-content .wizard.vertical > .steps > ul > li {
+                display: block;
+                width: 100%
+            }
+
+                .wizard-content .wizard.vertical > .steps > ul > li.current:after,
+                .wizard-content .wizard.vertical > .steps > ul > li.current:before,
+                .wizard-content .wizard.vertical > .steps > ul > li.current ~ li:after,
+                .wizard-content .wizard.vertical > .steps > ul > li.current ~ li:before,
+                .wizard-content .wizard.vertical > .steps > ul > li:after,
+                .wizard-content .wizard.vertical > .steps > ul > li:before {
+                    background-color: transparent
+                }
+
+    @@media (max-width:768px) {
+        .wizard-content .wizard > .steps > ul {
+            margin-bottom: 20px
+        }
+
+            .wizard-content .wizard > .steps > ul > li {
+                display: block;
+                float: left;
+                width: 50%
+            }
+
+                .wizard-content .wizard > .steps > ul > li > a {
+                    margin-bottom: 0
+                }
+
+                .wizard-content .wizard > .steps > ul > li:first-child:before {
+                    content: ''
+                }
+
+                .wizard-content .wizard > .steps > ul > li:last-child:after {
+                    content: '';
+                    background-color: #009efb
+                }
+
+        .wizard-content .wizard.vertical > .steps {
+            width: 15%
+        }
+    }
+
+    @@media (max-width:480px) {
+        .wizard-content .wizard > .steps > ul > li {
+            width: 100%
+        }
+
+            .wizard-content .wizard > .steps > ul > li.current:after {
+                background-color: #009efb
+            }
+
+        .wizard-content .wizard.vertical > .steps > ul > li {
+            display: block;
+            float: left;
+            width: 50%
+        }
+
+        .wizard-content .wizard.vertical > .steps {
+            width: 100%;
+            float: none;
+        }
+    }
+
+    .dataofform {
+        margin-bottom: 10px;
+    }
+    .ftxt{
+        color:#000;
+    }
+    .btnzoom{
+        border:1px solid #cdcdcd;
+        padding:4px 8px;
+        margin-right:3px;
+        cursor:pointer;
+    }
+    .pagination {
+        justify-content: center;
+    }
+    .zombtn {
+        position: absolute;
+        right: 10px;
+        top: 5px;
+        z-index: 999;
+    }
+    .stepsli {
+
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .donestep {
+        color: #ffc5c5;
+    }
+    .aboveimagediv ul{
+        padding-left:0px;
+        list-style:none;
+    }
+    .aboveimagediv ul li{
+    display:inline-block;
+    margin-right:20px;
+    }
+</style>
+
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>View Document</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">View Document</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i> Send report</button>*@
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-download"></i> Download</button>
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="container">
+            <div class="panel">
+                <div class="panel-body wizard-content">
+                    <form id="example-form" action="#" class="tab-wizard wizard-circle wizard">
+               
+                        <h6><span class="stepsli donestep">Upload</span><br/>Michael@gmail.com<br/>(12-May-2023) 12:05 PM</h6>
+                        <section>
+                            
+                        </section>
+                        <h6><span class="stepsli">Sent</span><br />william@gmail.com<br>(13-May-2023) 01:05 PM</h6>
+                        <section>
+                           
+                        </section>
+
+                        <h6><span class="stepsli">Opened</span><br />richard@gmail.com<br>(14-May-2023) 02:05 PM</h6>
+                        <section></section>
+
+                        <h6><span class="stepsli">Signed</span><br />charles@gmail.com<br>(14-May-2023) 03:05 PM</h6>
+                        <section></section>
+
+                        <h6><span class="stepsli">Completed</span><br />danial543@gmail.com<br>(15-May-2023) 06:05 PM</h6>
+                        <section></section>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12 d-flex flex-wrap justify-content-between mt-3">
+                <div class="col-md-12 col-sm-12 col-xs-12 pe-1">
+                    <div class="card">
+                        <div class="body">
+
+
+                            <div class="col-md-12 col-xs-12 col-sm-12 aboveimagediv">
+                                <ul>
+                                    <li><label class="ftxt">File Name:</label><label class="ps-2">25362145</label></li>
+                                    <li><label class="ftxt">Alias Name:</label><label class="ps-2">Aadhaar Card</label></li>
+                                    <li><label class="ftxt">Reference No.:</label><label class="ps-2">5456564641</label></li>
+                                    <li><label class="ftxt">File Type:</label><label class="ps-2">png</label></li>
+                                    <li><label class="ftxt">File Size:</label><label class="ps-2">346kb</label></li>
+                                </ul>
+                            </div>
+
+
+
+                            @*<div class="col-md-12 d-flex flex-wrap">
+                                <div class="col-md-4 d-flex flex-wrap">
+                                    <div class="col-md-5">
+                                        <label class="ftxt">Document Name:</label>
+                                    </div>
+                                    <div class="col-md-7"><label>Passport</label></div>
+                                </div>
+
+                                <div class="col-md-4 d-flex flex-wrap">
+                                    <div class="col-md-3">
+                                        <label class="ftxt">Alias Name:</label>
+                                    </div>
+                                    <div class="col-md-9"><label class="ps-1">John Doe</label></div>
+                                </div>
+
+
+                                <div class="col-md-4 d-flex flex-wrap">
+                                    <div class="col-md-5">
+                                        <label class="ftxt">Reference Number:</label>
+                                    </div>
+                                    <div class="col-md-7"><label >456456455</label></div>
+                                </div>
+
+                            
+                            </div>*@
+
+
+                            <div class="encircle position-relative">
+                                <div class="zombtn col-md-1 col-sm-12 col-xs-12 d-flex justify-content-end">
+                                    <i class="fa fa-search-minus btnzoom" aria-hidden="true" onclick="zoomout()"></i>
+                                    <i class="fa fa-search-plus btnzoom" aria-hidden="true" onclick="zoomin()"></i>
+
+                                </div>
+                                <div class="previewcardimg ">
+                                    <img id="logo" src="~/Content/images/document.png" />
+                                </div>
+                            </div>
+
+
+
+                            @*<div class="col-md-12 mt-2">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>*@
+
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-md-3 col-sm-12 col-xs-12 ps-1">
+                    <div class="card">
+                        <div class="body">
+                            <div class="dataofform">
+                                <small class="text-muted">Document Name: </small>
+                                <p class="mb-0">Passport</p>
+                            </div>
+
+
+                            <div class="dataofform">
+                                <small class="text-muted">Alias Name: </small>
+                                <p class="mb-0">John Doe</p>
+                            </div>
+
+
+                            <div class="dataofform">
+                                <small class="text-muted">Reference Number: </small>
+                                <p class="mb-0">987654323456</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+</div>
+
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/parsley.min.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.min.js"></script>
+
+<script>
+    var form = $("#example-form");
+
+    form.steps({
+        headerTag: "h6",
+        bodyTag: "section",
+        transitionEffect: "fade",
+        titleTemplate: '<span class="step">#index#</span> #title#'
+    });
+</script>
+
+
+<script>
+    function zoomin() {
+        var myImg = document.getElementById("logo");
+        var currWidth = myImg.clientWidth;
+        if (currWidth == 500) {
+            alert("Maximum zoom-in level reached.");
+        } else {
+            myImg.style.width = (currWidth + 50) + "px";
+        }
+    }
+    function zoomout() {
+        var myImg = document.getElementById("logo");
+        var currWidth = myImg.clientWidth;
+        if (currWidth == 50) {
+            alert("Maximum zoom-out level reached.");
+        } else {
+            myImg.style.width = (currWidth - 50) + "px";
+        }
+    }
+
+
+
+    function InZoom() {
+        var myImg2 = document.getElementById("logoT");
+        var currWidth2 = myImg2.clientWidth;
+        if (currWidth2 == 500) {
+            alert("Maximum zoom-in level reached.");
+        } else {
+            myImg2.style.width = (currWidth2 + 50) + "px";
+        }
+    }
+    function OutZoom() {
+        var myImg = document.getElementById("logoT");
+        var currWidth1 = myImg.clientWidth;
+        if (currWidth1 == 50) {
+            alert("Maximum zoom-out level reached.");
+        } else {
+            myImg.style.width = (currWidth1 - 50) + "px";
+        }
+    }
+
+
+
+</script>

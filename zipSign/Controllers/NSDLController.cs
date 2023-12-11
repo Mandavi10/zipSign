@@ -29,7 +29,7 @@ namespace zipSign.Controllers
         public ActionResult NSDLPageAction(string xmlData)
         {
             ViewBag.XmlData = xmlData;
-            return View();         
+            return View();
         }
         public ActionResult PDFSignature(AuthViewModel objModel)
         {

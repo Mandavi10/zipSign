@@ -685,6 +685,10 @@
       <Project>{3fd8f3d4-07ce-4605-a902-cb04d53ee3b5}</Project>
       <Name>GlobalMethods</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JWTs_Verification\JWTs_Verification.csproj">
+      <Project>{EC4CAF61-817D-4606-8DD9-75A7B4D5DA70}</Project>
+      <Name>JWTs_Verification</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

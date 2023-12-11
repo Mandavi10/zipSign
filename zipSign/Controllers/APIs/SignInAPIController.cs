@@ -1,5 +1,6 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,12 +8,12 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Http;
 using System.Web.Script.Serialization;
-using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+using JWTs_Verification;
 namespace zipSign.Controllers.APIs
 {
     public class SignInAPIController : ApiController
@@ -24,11 +25,9 @@ namespace zipSign.Controllers.APIs
         [HttpPost]
         public IHttpActionResult Login([FromBody] JObject requestData)
         {
-            string secretKey = "a1b2c3d4e5f6g7h8i9j0kA1B2C3D4E5F6G7H8I9J0";
-            string issuer = "Test";
-            string audience = "Demo";
-           
-            
+            //string secretKey = "a1b2c3d4e5f6g7h8i9j0kA1B2C3D4E5F6G7H8I9J0";
+           // string issuer = "Test";
+            //string audience = "Demo";
             Login Data = requestData["Data"].ToObject<Login>();
             try
             {
@@ -64,12 +63,12 @@ namespace zipSign.Controllers.APIs
                 new DataItems("QueryType", "LoginData")
             };
                 statusClass = bal.GetFunctionWithResult(pro.Signup, obj);
-                
-                
+
+
                 if (statusClass.StatusCode == 5)
                 {
                     string UserId = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"]);
-                    string Token = GenerateJwtToken(secretKey, issuer, audience, UserId);
+                    //string Token = GenerateJWT.GenerateJwtToken(secretKey, issuer, audience, UserId);
                     var result = new
                     {
                         status = true,
@@ -93,14 +92,14 @@ namespace zipSign.Controllers.APIs
                             Mobile = result.Mobile,
                             Name = result.Name,
                             UserId = result.UserId,
-                            Token= Token
+                            //Token = Token
                         },
                         OtpResult = new
                         {
                             TraceNumber = otpResponse.TraceNumber
                         }
                     };
-                    
+
                     return Json(response);
 
                 }
@@ -283,20 +282,20 @@ namespace zipSign.Controllers.APIs
             public string status { get; set; }
             public object Data { get; set; }
         }
-        public string GenerateJwtToken(string secretKey, string issuer, string audience, string userId)
-        {
-            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(secretKey));
-            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: issuer,
-                audience: audience,
-                claims: new[] { new Claim(ClaimTypes.Name, userId) },
-                expires: DateTime.UtcNow.AddMinutes(2), // Adjust the token expiration as needed
-                signingCredentials: credentials
-            );
+        //public string GenerateJwtToken(string secretKey, string issuer, string audience, string userId)
+        //{
+        //    SymmetricSecurityKey securityKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(secretKey));
+        //    SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        //    JwtSecurityToken token = new JwtSecurityToken(
+        //        issuer: issuer,
+        //        audience: audience,
+        //        claims: new[] { new Claim(ClaimTypes.Name, userId) },
+        //        expires: DateTime.UtcNow.AddMinutes(2), // Adjust the token expiration as needed
+        //        signingCredentials: credentials
+        //    );
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        //    return new JwtSecurityTokenHandler().WriteToken(token);
+        //}
 
     }
 

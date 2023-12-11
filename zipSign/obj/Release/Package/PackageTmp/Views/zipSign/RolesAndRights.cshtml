@@ -1,0 +1,585 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/parsley.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<link rel="stylesheet" href="~/Content/css/sweetalert.css" />
+<link href="~/Content/css/bootstrap-datepicker3.min.css" rel="stylesheet" />
+
+<style>
+    .givenheight {
+        height: 74vh;
+    }
+
+    .drop-zone {
+        width: 460px;
+        height: 250px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: Roboto-Medium;
+        font-size: 20px;
+        cursor: pointer;
+        color: #cccccc;
+        border: 1px dashed #e2e2e2;
+        border-radius: 10px;
+    }
+
+    .viewzone {
+        max-width: 250px;
+        height: 200px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-weight: 500;
+        font-size: 14px;
+        color: #cccccc;
+        border: 1px solid #e2e2e2;
+        border-radius: 10px;
+    }
+
+    .drop-zone--over {
+        border-style: solid;
+    }
+
+    .drop-zone__input {
+        display: none;
+    }
+
+    .drop-zone__thumb {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #cccccc;
+        background-size: cover;
+        position: relative;
+    }
+
+        .drop-zone__thumb::after {
+            content: attr(data-label);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 0;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.75);
+            font-size: 14px;
+            text-align: center;
+        }
+
+    .delete {
+        position: absolute;
+        top: 25px;
+        right: -207px;
+        font-weight: 600;
+        font-size: 16px;
+        color: #ed3d3d;
+        z-index: 999;
+        background: transparent;
+        border: none;
+    }
+
+    .signerdiv {
+        /*       border: 1px solid #dfdfdf;*/
+        border-radius: 0.25rem;
+        /*        margin-bottom: 5px;*/
+        /*     cursor: move;*/
+        position: relative;
+    }
+
+    .columns {
+        padding-left: 0px;
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+
+        .columns li {
+            list-style: none;
+        }
+
+    .txtsign {
+        font-family: Roboto-Medium;
+    }
+
+    .draggable {
+        position: absolute;
+        right: 8px;
+        top: 5px;
+    }
+
+    .excl {
+        padding-left: 5px;
+        padding-top: 3px;
+    }
+
+    .signerdiv .form-group {
+        margin: 0px 0px 0px 0px;
+    }
+
+    .numdiv {
+        /*     height: 60px;*/
+        padding: 10px 11px 0px;
+        font-size: 13px;
+        font-family: 'Roboto-Bold';
+        margin-bottom: 5px;
+    }
+
+    .simgdiv {
+        height: 160px;
+        overflow: hidden;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+        .simgdiv img {
+            width: 100%;
+        }
+
+    .snamediv {
+        height: 40px;
+        background-color: #fff;
+        box-shadow: 0px 1px 5px 3px #cdcdcd;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        overflow: hidden;
+    }
+
+
+        .snamediv label {
+            margin: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 200px;
+            color: #323A45;
+            font-weight: 700;
+        }
+
+    .fullimgofdoc {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        background-color: #000;
+        opacity: 0.5;
+        display: none;
+    }
+
+    .simgdiv:hover .fullimgofdoc {
+        display: block;
+    }
+
+    .fullimgofdoc button {
+        margin: 75px auto;
+    }
+
+    .viewbtn {
+        border: 1px solid #fff;
+        color: #fff;
+        background-color: transparent;
+        padding: 4px 10px;
+        font-weight: 700;
+    }
+
+    .hiveimgdiv {
+        top: -5px;
+    }
+
+    .largeimgdiv {
+        overflow: hidden;
+        height: 76vh;
+    }
+
+        .largeimgdiv img {
+            width: 100%;
+        }
+
+    #docimage .modal-dialog {
+        max-width: 1024px !important;
+    }
+
+    #viewFile {
+        padding: 4px 7px;
+    }
+
+    .suggestions-list {
+        max-height: 110px !important;
+        width: auto !important;
+        margin-top: 5px;
+        border-radius: 4px;
+        padding-left: 15px;
+        padding-right: 20px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+
+
+    .cross {
+        position: absolute;
+        right: -2px;
+        font-size: 15px;
+        color: #fff;
+        font-weight: 600;
+        top: 0px;
+        cursor: pointer;
+        background-color: #d73131;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        line-height: 16px;
+        z-index: 99;
+        display: none;
+    }
+
+    .addedimgdiv:hover .cross {
+        display: block;
+    }
+
+    .addedimgdiv {
+        margin-top: 20px;
+    }
+
+    .titletxt {
+        font-family: Roboto-Bold;
+        padding-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .alermsg {
+        color: #de4848;
+        font-size: 0.9em;
+        margin-top: 3px;
+    }
+
+    .calledimg {
+        width: 100%;
+        height: 70px;
+        border: 1px solid #cdcdcd;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .calledimg img {
+            width: 100%;
+        }
+
+    .crossfrimg {
+        position: absolute;
+        right: 2px;
+        top: 3px;
+        cursor: pointer;
+        color: #ff3f3f;
+        font-size: 14px;
+        z-index: 99;
+    }
+
+    /*    .fixeddiv {
+            position: fixed;
+            right: 32px;
+            bottom: 25px;
+        }
+    */
+    .overflowdiv {
+        overflow: auto;
+        height: 157px;
+    }
+
+    .overlayinmodal {
+        position: absolute;
+        width: 96.2%;
+        height: 30px;
+        background-color: #000;
+        bottom: 16px;
+        opacity: 0.8;
+        color: #fff;
+    }
+
+    .lowfw {
+        font-weight: 400;
+    }
+
+    .highfw {
+        font-family: Roboto-Bold;
+    }
+
+    .delbtn {
+        position: absolute;
+        right: 8px;
+        top: 11px;
+        color: #f33434;
+        cursor: pointer;
+    }
+
+    input::-webkit-calendar-picker-indicator {
+        display: none !important;
+    }
+
+
+    /*signature request*/
+
+    .signdiv {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 9999;
+        left: 0px;
+    }
+
+    .leftimgdiv {
+        max-height: 80vh;
+        width: 100%;
+        overflow-y: auto;
+    }
+
+        .leftimgdiv img {
+            width: 100%;
+        }
+
+    .signersList {
+        margin-bottom: 20px;
+    }
+
+    #SignImage {
+        width: 95%
+    }
+
+    #viewRecipients .modal-dialog {
+        max-width: 1024px !important;
+    }
+
+    #column img {
+        z-index: 99;
+    }
+
+    #column {
+        z-index: 9999;
+    }
+
+    .calledimg {
+        background: #edf1f3
+    }
+
+        .calledimg iframe html body img {
+            width: 100%
+        }
+
+    .imageLarge {
+        position: absolute;
+        width: 128px;
+        height: 72px;
+        z-index: 9999;
+        cursor: pointer;
+    }
+
+    #PreviewSignImage {
+        width: 100%;
+        height: 100%
+    }
+    .lineonly{
+        border-top:1px solid #cdcdcd;
+    }
+    .pagesdiv{
+        height:45vh;
+    }
+</style>
+
+
+<div class="signdiv" style="display:none">
+    <div class="row clearfix ">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="block-header">
+                    <div class="row pe-3 ps-3">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="page_action d-flex justify-content-between">
+                                <button type="button" class="btn btn-light closesignerdiv"><i class="fa fa-angle-double-left"></i> Back</button>
+                                @*<button type="button" class="btn btn-primary me-2"><i class="fa fa-ban"></i> Reject</button>*@
+                                <button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Download</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+          
+
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="container-fluid">
+    <input type="text" id="hdnfilepath" hidden />
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Roles & Rights</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">Upload</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        <!--<button type="button" class="btn btn-primary js-sweetalert" data-type="cancel"--> @*onclick="SignInsert()"*@ <!--id="btnsign"><i class="fa fa-check-square-o" aria-hidden="true"></i> Sign</button>-->
+                    </div>
+                    <div class="p-2 d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="body givenheight">
+                    <form id="advanced-form">
+                        <div class="col-md-12">
+                            <label class="titletxt">Basic Details</label>
+                        </div>
+
+                        <div class="col-md-12 d-flex">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="DocName">Name</label>
+                                    <div class="col-md-11">
+                                        <input type="text" id="text-input1" required class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="text-input2">Email</label>
+                                    <div class="col-md-11">
+                                        <input type="text" id="text-input2" required class="form-control" />
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="text-input2">Mobile No.</label>
+                                    <div class="col-md-11">
+                                        <input type="text" id="text-input2" required class="form-control" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 d-flex justify-content-center mt-3 mb-3">
+
+                            <div class="col-md-11 lineonly"></div>
+
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <label class="titletxt">Pages Access</label>
+                        </div>
+
+                        <div class="col-md-12  pagesdiv">
+                            <div class="d-flex flex-wrap">
+                                <div class="col-md-3 mb-2">
+                                    <label class="fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                        <span><i></i>Draft</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label class="fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                        <span><i></i>Expired</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3  mb-2">
+                                    <label class="fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                        <span><i></i>Buy Sign History</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3  mb-2">
+                                    <label class="fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                        <span><i></i>Signs Pricing</span>
+                                    </label>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label class="fancy-checkbox custom-color-green">
+                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                        <span><i></i>Sign Uses</span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+</div>
+
+                        @*<div class="col-md-12">
+                                <button type="button" class="btn btn-primary"> Add More Recipient</button>
+                            </div>*@
+
+                        <div class="col-md-12 d-flex flex-wrap fixeddiv p-2">
+                            <div class="col-md-6">
+                                <div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px"></div>
+
+                                @*<div class="alermsg col-md-12 p-1" role="alert" id="message" style="font-size:15px">sdfgndbhfjgdjfg jlk</div>*@
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-end">
+                                <button type="button" class="btn btn-primary" id="Proceed">Save</button>
+                          
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+
+
+
+
+
+
+
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/Content/js/MyValidator.js"></script>
+<script src="~/Content/js/sweetalert.min.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/vendorscripts.bundle.js"></script>
+@*<script src="~/Content/js/mainscripts.bundle.js"></script>*@
+<script src="~/Content/js/dialogs.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script src="~/Content/js/bootstrap-datepicker.min.js"></script>
+
+
+

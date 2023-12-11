@@ -284,7 +284,7 @@ namespace zipSign.Controllers
                                 State = Convert.ToString(dr["State"]),
                                 Mobile = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(dr["MobileNumber"])),
                                 UserId = Convert.ToString(dr["UserMasterID"]),
-                                SecondLastLoginOn=Convert.ToString(dr["SecondLastLoginOn"])
+                                SecondLastLoginOn = Convert.ToString(dr["SecondLastLoginOn"])
                             };
 
                             userDataList.Add(userData);
@@ -1108,7 +1108,7 @@ namespace zipSign.Controllers
             DateTime currentDateTime = DateTime.Now;
             string TxnId = rnd.Next(1000, 9999).ToString() + currentDateTime.ToString("yyyyMMddHHmmss");
             string EncUserCode = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UserCode));
-            string LinkText = GenerateResetLink(EncUserCode,TxnId);
+            string LinkText = GenerateResetLink(EncUserCode, TxnId);
 
             //string LinkText = GenerateResetLink(UserCode);
 
@@ -1187,13 +1187,13 @@ namespace zipSign.Controllers
             return "";
         }
 
-        private string GenerateResetLink(string userCode,string TxnId)
+        private string GenerateResetLink(string userCode, string TxnId)
         {
 
             return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
             //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
         }
-        private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText,string TxnId)
+        private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText, string TxnId)
         {
             List<DataItems> obj = new List<DataItems>
             {
@@ -1208,10 +1208,10 @@ namespace zipSign.Controllers
             statusClass = bal.PostFunction(pro.Signup, obj);
         }
         [HttpGet]
-        public ActionResult GetDataForPasswordReset(string userCode,string TxnId)
+        public ActionResult GetDataForPasswordReset(string userCode, string TxnId)
         {
             string[] parameters = userCode.Split('?');
-             userCode = parameters[0];
+            userCode = parameters[0];
             string DecUserCode = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(userCode));
             List<DataItems> obj = new List<DataItems>
             {

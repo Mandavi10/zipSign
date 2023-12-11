@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "SignsPricing";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    var columnDefs = [
+        { headerName: 'Sr No.', field: 'srNo', width: 80, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Corporate Name', field: 'entityName', width: 250, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Corporate ID', field: 'entityID', width: 122, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Sign Range', field: 'signRange', width: 110, resizable: false, sortable: true, suppressMovable: true  },
+        //{ headerName: 'UIDAI Price', field: 'UIDAIPrice', width: 108, resizable: false, sortable: true, suppressMovable: true  },
+        //{ headerName: 'Our Rate', field: 'ourRate', width: 94, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Net Price', field: 'netPrice', width: 95, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Amount with Tax', field: 'taxAmount', width: 145, resizable: false, sortable: true, suppressMovable: true },
+        //{ headerName: 'Validity (in Days)', field: 'validity', width: 145, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Created By', field: 'createdBy', width: 190, resizable: false, sortable: true, suppressMovable: true },
+        { headerName: 'Created On', field: 'createdOn', width: 175, resizable: false, sortable: true, suppressMovable: true },
+        {
+            headerName: 'Action', field: '', width: 230, sortable: true, resizable: false, suppressMovable: true, cellRenderer: function (params) {
+                return '<a href="../MySigns/SignPricingMechanism" class="ingridbtn" >View More</button> '
+            }
+        },
+    ];
+
+    var rowData = [
+        { srNo: '1', entityName: 'Yoeki Soft Pvt Ltd', entityID: '12345', createdBy: 'Arpit Singh', createdOn: '11/09/2023', ourRate: '7', netPrice: '10', taxAmount: '12', validity:'90' },
+        { srNo: '2', entityName: 'Amysoft Pvt Ltd', entityID: '12345', createdBy: 'Sandeep Singh', createdOn: '08/09/2023', ourRate: '5', netPrice: '8', taxAmount: '10', validity: '90'},
+
+    ];
+
+    var gridOptions = {
+        columnDefs: columnDefs,
+        rowData: rowData,
+        pagination: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var gridDiv = document.querySelector('#myGrid');
+        new agGrid.Grid(gridDiv, gridOptions);
+    });
+</script>
+<style>
+    #Signmodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+    .lowfw {
+        font-family: Roboto-Regualr;
+    }
+
+
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Signs Pricing</h2>
+               
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        <button type="button" class="btn  btn-primary" id="" onclick="window.location.href='../MySigns/SignPricingMechanism';"><i class="fa fa-plus"></i> New</button>
+                         </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                    <div id="myGrid" style="height: 70vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                    <ul class="pagination">
+                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                        <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                        <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                        <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

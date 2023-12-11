@@ -1,0 +1,582 @@
+@{
+    Layout = null;
+}
+@*Html.AntiForgeryToken()*@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>zipSign</title>
+    <link href="/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/css/main.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        .top h3 {
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        #btnSign {
+            margin-top: 3px !important
+        }
+
+        .capdiv {
+            width: 127px;
+            height: 37px;
+            overflow: hidden;
+            border: 1px solid #e2e2e2;
+            margin-left: 14px;
+            border-radius: 0.25rem;
+        }
+
+        .refcap {
+            position: absolute;
+            right: 11px;
+            top: 7px;
+            font-size: 20px;
+            color: #0058b1;
+            cursor: pointer;
+        }
+
+        .pages {
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 100%;
+            transition: all 0.7s;
+            color: white;
+        }
+
+        .auth-box {
+            width: 450px;
+            overflow: hidden;
+        }
+
+        .auth-main .card {
+            height: 625px !important;
+        }
+
+        .alert {
+            padding: 0.3rem 1.25rem !important;
+        }
+
+        a {
+            color: #0058b1 !important;
+        }
+
+        .resendotp {
+            color: #0058b1;
+            margin-left: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .captchainput {
+            width: 40%;
+        }
+
+        .alermsg {
+            color: #de4848;
+            font-size: 13px;
+            font-family: Roboto-Medium;
+        }
+
+        .ccode {
+            position: absolute;
+            top: 9px;
+            left: 17px;
+        }
+
+        .ccinput {
+            padding-left: 45px !important;
+            padding-right: 55px !important;
+        }
+
+        .card .header {
+            padding: 0px 20px;
+        }
+
+        .formHeight {
+            height: 502px;
+        }
+
+        .signbtn {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .card .body {
+            padding: 0px 20px;
+        }
+
+        .lbltochoose {
+            width: 160px;
+        }
+
+        .selectonerad {
+            vertical-align: middle !important;
+            margin-top: -5px !important;
+        }
+
+        .verifybtn, .verifybtn1 {
+            position: absolute;
+            right: 9px;
+            top: 9px;
+            background: transparent;
+            border: 1px solid #6ea3d9;
+            color: #0058b1;
+            border-radius: 5px;
+            padding: 0px 5px;
+            font-size: 12px;
+            font-family: Roboto-Medium;
+            border: 1px solid #0058b1;
+        }
+
+
+        .verifybtnsub, .verifybtnsub1 {
+            position: absolute;
+            right: 9px;
+            top: 27px;
+            background: transparent;
+            border: 1px solid #0058b1;
+            color: #0058b1;
+            border-radius: 5px;
+            padding: 0px 5px;
+            font-size: 12px;
+            font-family: Roboto-Medium;
+        }
+
+            .verifybtnsub:hover, .verifybtnsub1:hover, .verifybtnsub:focus, .verifybtnsub1:focus {
+                box-shadow: 1px 1px 3px #8f8888;
+            }
+
+        .afterverify, .afterverify1 {
+            position: absolute;
+            right: 14px;
+            top: 12px;
+            color: #29c129;
+            font-size: 18px;
+            display: none;
+        }
+
+        .corporatediv {
+            display: none;
+        }
+
+        #corpradio:checked ~ #corporatediv {
+            display: block !important;
+        }
+
+        /*add class after verified inputbox*/
+        .verifiedinp {
+            background-color: #d6f9d6 !important;
+            border: 1px solid #35f335 !important;
+        }
+
+        .enterddata {
+            margin-left: 5px;
+            font-family: Roboto-Medium;
+            font-size: 13px;
+        }
+
+        .timer, .timer1 {
+            /*position: absolute;
+            right: -73px;
+            top: 12px;*/
+            display: none;
+            font-size: 12px;
+        }
+
+        .fa-eye, .fa-eye-slash {
+            position: absolute;
+            right: 15px;
+            top: 13px;
+            cursor: pointer;
+            color: #0058b1;
+        }
+
+        .fa-eye-slash {
+            display: none
+        }
+
+        .newvbtn {
+            text-decoration: none;
+        }
+
+        .card {
+            border: none !important;
+        }
+
+        .pasin {
+            padding: 0.375rem 1.8rem 0.375rem 0.75rem !important;
+        }
+
+        .modal-footer .btn-primary {
+            background-color: #0058b1 !important;
+            color: #fff !important;
+        }
+
+        .modcontxt {
+            font-family: Roboto-Medium;
+            font-size: 18px;
+        }
+
+        .bottom {
+            text-align: center;
+            padding-top: 5px;
+        }
+
+        .privtxt {
+            font-size: 12px;
+            padding-top: 3px;
+        }
+
+            .privtxt span {
+                color: #0058b1;
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+        .readwr .fancy-checkbox input[type="checkbox"] + span:before {
+            height: 15px;
+            width: 15px;
+            line-height: 13px;
+        }
+
+        .readwr span {
+            font-size: 12px;
+        }
+
+        .topad {
+            padding-right: 70px !important;
+        }
+
+        .lead {
+            line-height: 19px;
+        }
+        .spinload{
+            position:absolute;
+            right:-15px;
+            top:10px;
+            display:none;
+        }
+    </style>
+</head>
+<body data-theme="light" class="font-nunito">
+    <div id="wrapper" class="theme-cyan">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle auth-main">
+                <div class="auth-box">
+                    <div class="top">
+
+                        <h3 style="color:#fff">zipSign</h3>
+                    </div>
+                    <div class="pages">
+                        <div class="page">
+                            <div class="card">
+                                <div class="header">
+                                    <p class="lead mt-0">Create an account</p>
+                                </div>
+                                <div class="body pl-0 pr-0">
+                                    <form class="form-auth-small" action="index.html">
+
+                                        <div class="formHeight ">
+                                            <div class="col-md-12 d-flex flex-wrap">
+                                                <div class="col-md-12 p-1">
+                                                    <label class="lbltochoose"><span class="me-1"><input type="radio" class="selectonerad" name="selectone" checked="checked" id="indivradio" value="individual" /></span>Individual</label>
+                                                    <label class="lbltochoose"><span class="me-1"><input type="radio" class="selectonerad" name="selectone" id="corpradio" value="corporate" /></span>Corporate</label>
+                                                </div>
+                                                <div class="corporatediv col-md-12">
+                                                    <div class="form-group p-1 col-md-12">
+                                                        <input type="text" class="form-control" id="CorpName" maxlength="200" placeholder="Corporate Name" minlength="5" autocomplete="off" oninput="this.value = this.value.toUpperCase()" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12">
+                                                    <input type="text" class="form-control" id="UserName" maxlength="60" placeholder="Name" onkeydown="validateInput(event)" oninput="this.value = this.value.toUpperCase()" autocomplete="off" required>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12 position-relative">
+                                                    <i class="fa fa-spinner fa-spin spinload" aria-hidden="true" id="loaderr"></i>
+                                                    <input type="text" class="form-control topad" id="Email" maxlength="60" autocomplete="off" placeholder="Email" oninput="this.value = this.value.toLowerCase()" />
+                                                    <button type="button" class="verifybtn" id="btnmailotp" onclick="SendEmailOTP();">Verify</button>
+                                                    <div class="timer mt-1" id="resendemailotp">
+                                                        <div class="col-md-12 d-flex justify-content-end">
+                                                            <label class="mb-0" id="timeremail">00:60</label><label class="resendotp mb-0" id="lblemailresend">Resend OTP</label>
+                                                        </div>
+                                                    </div>
+                                                    <i class="fa fa-check afterverify" aria-hidden="true"></i>
+                                                </div>
+
+                                                <div class="form-group p-1 col-md-12 enterotpdiv position-relative pt-0 enterotpdiv2" style="display:none" id="divemailotp">
+                                                    <label id="lblemail"><span class="enterddata"></span></label>
+                                                    <input type="text" class="form-control" id="emailOTP" maxlength="6" onkeypress="return onlyNumbers(event)" placeholder="Email OTP" autocomplete="off" />
+                                                    <button type="button" class="verifybtnsub" onclick="VerifyEmailOTP()">Submit</button>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12 position-relative">
+                                                    <i class="fa fa-spinner fa-spin spinload" aria-hidden="true" id="loaderrr"></i>
+                                                    <input type="text" class="form-control ccinput numeric" id="Phoneno" maxlength="10" placeholder="Mobile Number" autocomplete="off">
+                                                    <span class="ccode">+91</span>
+                                                    <button type="button" class="verifybtn1" id="btnmobotp" onclick="SendMobileOTP();">Verify</button>
+                                                    <div class="timer1 mt-1" id="divmobotp">
+                                                        <div class="col-md-12 d-flex justify-content-end">
+                                                            <label class="mb-0" id="timer3">00:60</label><label class="resendotp mb-0" id="lblsmsresend">Resend OTP</label>
+                                                        </div>
+                                                    </div> <i class="fa fa-check afterverify1" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12 position-relative pt-0 enterotpdiv1" style="display:none">
+                                                    <label id="lblmobile"> <span class="enterddata"></span></label>
+                                                    <input type="text" class="form-control" id="mobileotp" maxlength="6" onkeypress="return onlyNumbers(event)" placeholder="Mobile Number OTP" autocomplete="off" />
+                                                    <button type="button" class="verifybtnsub1" id="verifyBtn" onclick="VerifyOTP()">Submit</button>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12">
+                                                    <select class="form-control" id="State" required>
+                                                        <option selected>Select State</option>
+                                                        <option>Andaman and Nicobar Islands</option>
+                                                        <option>Andhra Pradesh</option>
+                                                        <option>Arunachal Pradesh</option>
+                                                        <option>Assam</option>
+                                                        <option>Bihar</option>
+                                                        <option>Chandigarh</option>
+                                                        <option>Chhattisgarh</option>
+                                                        <option>Dadra & Nagar Haveli and Daman & Diu</option>
+                                                        <option>Delhi</option>
+                                                        <option>Goa</option>
+                                                        <option>Gujarat</option>
+                                                        <option>Haryana</option>
+                                                        <option>Himachal Pradesh</option>
+                                                        <option>Jammu and Kashmir</option>
+                                                        <option>Jharkhand</option>
+                                                        <option>Karnataka</option>
+                                                        <option>Kerala</option>
+                                                        <option>Ladakh</option>
+                                                        <option>Lakshadweep</option>
+                                                        <option>Madhya Pradesh</option>
+                                                        <option>Maharashtra</option>
+                                                        <option>Manipur</option>
+                                                        <option>Meghalaya</option>
+                                                        <option>Mizoram</option>
+                                                        <option>Nagaland</option>
+                                                        <option>Odisha</option>
+                                                        <option>Puducherry</option>
+                                                        <option>Punjab</option>
+                                                        <option>Rajasthan</option>
+                                                        <option>Sikkim</option>
+                                                        <option>Tamil Nadu</option>
+                                                        <option>Telangana</option>
+                                                        <option>Tripura</option>
+                                                        <option>Uttarakhand</option>
+                                                        <option>Uttar Pradesh</option>
+                                                        <option>West Bengal</option>
+                                                    </select>
+                                                </div>
+
+
+                                                <div class="corporatediv col-md-12">
+                                                    <div class="form-group p-1 col-md-12">
+                                                        <input type="text" oninput="this.value = this.value.toUpperCase()" class="form-control" id="panNumber" maxlength="10" placeholder="PAN" autocomplete="off">
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group p-1 col-md-12 position-relative">
+                                                    <input type="password" class="form-control pasin" id="password" maxlength="30" placeholder="Password" autocomplete="off">
+                                                    <i class="fa fa-eye eye1"></i>
+                                                    <i class="fa fa-eye-slash eyesl1"></i>
+                                                </div>
+                                                <div class="form-group p-1 col-md-12 mb-0 position-relative">
+                                                    <input type="password" class="form-control pasin" id="ConfirmPassword" maxlength="30" placeholder="Confirm Password" autocomplete="off">
+                                                    <i class="fa fa-eye eye2"></i>
+                                                    <i class="fa fa-eye-slash eyesl2"></i>
+                                                </div>
+
+
+                                                <div class="alermsg col-md-12" role="alert" id="message"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 d-flex flex-wrap ps-1">
+                                            <div>
+                                                <div class="col-md-2 readwr">
+                                                    <label class="fancy-checkbox custom-color-green me-0">
+                                                        <input type="checkbox" name="control" required id="OnlySigner">
+                                                        <span><i></i></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <p class="mb-0 privtxt">
+                                                    I agree to the terms and conditions laid out in the
+                                                    <a href="https://zipsign.in/Privacy.aspx" target="_blank">Privacy Policy</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="button" class="btn btn-primary btn-lg btn-block signbtn" id="btnSign" disabled>Sign up</button>
+                                        </div>
+
+                                    </form>
+                                    <div class="bottom">
+                                        <span class="position-relative">
+                                            Already have an account?<a href="/Login/Index" class="ps-1">Sign in</a>
+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Content/js/jquery-3.6.4.min.js"></script>
+    <script src="/JavaScript/SignUp.js"></script>
+    <script src="/Content/js/MyValidator.js"></script>
+    @*<script src="/JavaScript/OTP_API.js"></script>*@
+
+    <script src="/Content/js/dialogs.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+
+
+    <script>
+        function isNumberKey(event) {
+            var charCode = (event.which) ? event.which : event.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+            return true;
+        }
+        $(document).ready(function () {
+            $('.eye1').click(function () {
+                $(this).hide();
+                $('.eyesl1').show();
+                $('#password').attr('type', 'text')
+            })
+            $('.eyesl1').click(function () {
+                $(this).hide();
+                $('.eye1').show();
+                $('#password').attr('type', 'password')
+            })
+        })
+        $(document).ready(function () {
+            $('.eye2').click(function () {
+                $(this).hide();
+                $('.eyesl2').show();
+                $('#ConfirmPassword').attr('type', 'text')
+            })
+            $('.eyesl2').click(function () {
+                $(this).hide();
+                $('.eye2').show();
+                $('#ConfirmPassword').attr('type', 'password')
+            })
+        })
+    </script>
+
+    <script>
+        var lastKeyCode = 0;
+        function validateInput(event) {
+            var keyCode = event.keyCode;
+            if (keyCode === 32 && lastKeyCode === 32) {
+                event.preventDefault(); // Prevent the input
+            }
+            lastKeyCode = keyCode;
+            if ((keyCode >= 48 && keyCode <= 57) || // Numbers 0-9
+                (keyCode >= 96 && keyCode <= 105) || // Numpad numbers
+                (keyCode >= 186 && keyCode <= 192) || // Symbols ;=,-./`
+                (keyCode >= 219 && keyCode <= 222)) { // Symbols [\]''
+                event.preventDefault(); // Prevent the input
+            }
+        }
+    </script>
+    <div class="modal fade" id="confirmationpopup" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Confirm Your Decision</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">Do you want to proceed with creating an individual account?</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnsave">Yes, create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="successpopup" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Success</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">Account created successfully.</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="confirmationpopup1" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">You may loose your data</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancel">Cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnsave1">Don't Worry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="confirmationpopup2" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+                </div>
+                <div class="modal-body pt-4 pb-4">
+                    <div class="col-12 text-center">
+                        <label class="modcontxt">You May Loose Your Data</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="cancel1">No,cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btnsave2">Don't Worry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

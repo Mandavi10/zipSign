@@ -1,5 +1,6 @@
 ﻿using BusinessAccessLayer;
 using BusinessLayerModel;
+using JWTs_Verification;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,81 @@ namespace zipSign.Controllers.APIs
         [HttpPost]
         public IHttpActionResult UploadFiles([FromBody] JObject requestData)
         {
+           // System.Net.Http.Headers.AuthenticationHeaderValue tokenHeader = Request.Headers.Authorization;
+           // if (tokenHeader == null || tokenHeader.Scheme.ToLower() != "bearer")
+           // {
+           //     var response = new
+           //     {
+           //         status = false,
+           //         message = "Authorization header is missing or invalid."
+           //     };
+           //     return Json(response);
+           // }
+           // string token = tokenHeader.Parameter;
+           // string a = VerifyToken.GetUserIdFromToken(token);
+           // switch (a)
+           // {
+           //     case null:
+           //         Errors("The token header is malformed or not base64url-encoded.");
+           //         break;
+           //     case "IDX10000":
+           //         Errors("The token header is malformed or not base64url-encoded.");
+           //         break;
+           //     case "IDX10003":
+           //         Errors("The 'kid' (key identifier) of the token doesn't match the key identifier of any keys provided by the issuer.");
+           //         break;
+           //     case "IDX10008":
+           //         Errors("The issuer (iss) is null or whitespace.");
+           //         break;
+           //     case "IDX10205":
+           //         Errors("Lifetime validation failed. The 'nbf' (not before) claim is in the future.");
+           //         break;
+           //     case "IDX10214":
+           //         Errors("The 'exp' (expiration time) claim of the token is invalid or not a number.");
+           //         break;
+           //     case "IDX10223":
+           //         Errors("Lifetime validation failed. The token is expired.");
+           //         break;
+           //     case "IDX10224":
+           //         Errors("Lifetime validation failed. The token is not yet valid.");
+           //         break;
+           //     case "IDX10230":
+           //         Errors("The token does not have an audience (aud) claim.");
+           //         break;
+           //     case "IDX10231":
+           //         Errors("The 'aud' claim is empty or only contains whitespace.");
+           //         break;
+           //     case "IDX10232":
+           //         Errors("The 'aud' claim is not valid for this resource.");
+           //         break;
+           //     case "IDX10234":
+           //         Errors("The signature is invalid. This is often caused by a mismatch between the signing key and the key used to validate the signature.");
+           //         break;
+           //     case "IDX10235":
+           //         Errors("The algorithm specified in the token header is not supported.");
+           //         break;
+           //     default:
+           //         Errors("An unknown IDX error occurred.");
+           //         break;
+           // }
+           // if (a == null || a == "")
+           // {
+           //     var response = new
+           //     {
+           //         status = false,
+           //         message = "Authorization has been denied for this request."
+           //     };
+           //     return Json(response);
+           // }
+           // if (a.Contains("The token is expired"))
+           // {
+           //     var response = new
+           //     {
+           //         status = false,
+           //         message = "The token is expired."
+           //     };
+           //     return Json(response);
+           // }
             JsonRequestModel Data = requestData["Data"].ToObject<JsonRequestModel>();
             if (Data == null || string.IsNullOrEmpty(Data.DocumentName) || string.IsNullOrEmpty(Data.UploadedDoc) || string.IsNullOrEmpty(Data.Base64String) || string.IsNullOrEmpty(Data.UserType) || string.IsNullOrEmpty(Data.UserId) || string.IsNullOrEmpty(Data.UserName) || string.IsNullOrEmpty(Data.UserEmail))
             {
@@ -152,6 +228,14 @@ namespace zipSign.Controllers.APIs
             public string DocumentName1 { get; set; }
 
         }
-
+        private IHttpActionResult Errors(string errors)
+        {
+            var response = new
+            {
+                status = false,
+                message = errors
+            };
+            return Json(response);
+        }
     }
 }

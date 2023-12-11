@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .headtxt {
+        font-size: 20px;
+        color: #323a45;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .belowhtext {
+        padding-bottom: 20px;
+    }
+
+    .buybtndiv {
+        padding-bottom: 20px;
+    }
+
+    .uloffeatures {
+        list-style: none;
+        padding-left: 0px;
+    }
+
+        .uloffeatures li {
+            padding-bottom: 5px;
+        }
+
+    .maindivofr {
+        padding: 10px;
+        margin: 5px;
+        box-shadow: 1px 1px 6px #ada9a9;
+        width: 24%;
+    }
+
+    .standtxt {
+        padding-bottom: 10px;
+    }
+
+    .maindivofr:hover {
+        background-color: #e0f0ff;
+    }
+
+    .totaltxt {
+        font-weight: 700;
+        color: var(--dark-color);
+        font-size: 20px;
+    }
+
+    .selectopt {
+        margin-right: 25px;
+    }
+
+        .selectopt input[type="checkbox"] {
+            vertical-align: initial;
+            margin-right: 3px;
+        }
+
+        .selectopt label {
+            vertical-align: text-bottom;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Domain Control</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">Masters</li>
+                    <li class="breadcrumb-item active">Domain Control</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn btn-primary"><i class="fa fa-file-excel-o"></i> Excel</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-send"></i> Send report</button>*@
+                        @*<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                @*<div class="header">
+                        <h2>Basic Validation</h2>
+                    </div>*@
+
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+                        <div class="col-md-12 topdiv">
+                            <div class="col-md-12 d-flex flex-wrap">
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-2">
+                                        <label class="fancy-radio custom-color-green"><input name="control" vlaue="all" id="controlling" type="radio" checked="checked" /><span><i></i>All</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="fancy-radio custom-color-green"><input name="control" vlaue="selected" type="radio" /><span><i></i>Selected</span></label>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="fancy-radio custom-color-green"><input name="control" vlaue="specific" type="radio" /><span><i></i>Specific Domain</span></label>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12 mt-2"><label style="color: #de4848;">Note: Need to select anyone of the above</label></div>
+
+                                <div class="col-md-6 mt-4 mb-5 indiv" style="display:none">
+                                    <input type="text" class="form-control inputofnumbers">
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end mt-3">
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+
+<script>
+    $('input[name=control]').click(function () {
+        if (this.id == "controlling") {
+            $(".indiv").hide();
+        } else {
+            $(".indiv").show();
+        }
+    });
+</script>
