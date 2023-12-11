@@ -48,6 +48,8 @@ function startTimer(duration, display) {
 }
 //Resend OTP
 $('#lblresend').click(function () {
+    $("#message1").empty();
+    $("#message1").hide();
     $("#resmobotp").show();
     clearInterval(intervalId);
     var timerDuration = 60;
@@ -170,6 +172,8 @@ function Login() {
 }
 //Send OPT During Login Time
 function SendLoginEmailOTP(textbox, username, mobile) {
+    //$("$message1").empty();
+    //$("$message1").hide();
     //$("#email, #password, #signin-password, #mobileotp").on('input', function () {
     //    $("#message").empty();
     //    row = '';
@@ -218,6 +222,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
     });
 }
 function SendLoginEmailResendOTP(textbox, username, mobile) {
+
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
@@ -277,7 +282,6 @@ function SendLoginMobileOTP(username, textbox) {
         url: '/Login/GetSMSData1',
         type: 'POST',
         data: {
-
             CusName: username,
             MobileNo: textbox,
         },

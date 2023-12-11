@@ -1104,8 +1104,11 @@ namespace zipSign.Controllers
 
         public string SendLinkviaEmail(string Email, string UserCode)
         {
+            Random rnd = new Random();
+            DateTime currentDateTime = DateTime.Now;
+            string TxnId = rnd.Next(1000, 9999).ToString() + currentDateTime.ToString("yyyyMMddHHmmss");
             string EncUserCode = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(UserCode));
-            string LinkText = GenerateResetLink(EncUserCode);
+            string LinkText = GenerateResetLink(EncUserCode,TxnId);
 
             //string LinkText = GenerateResetLink(UserCode);
 
@@ -1177,23 +1180,25 @@ namespace zipSign.Controllers
 
                 DateTime createdOn = DateTime.Now;
                 DateTime expiryTime = createdOn.AddMinutes(10); // Changed to 10 minutes for link validity
-                InsertLinkIntoDatabase(UserCode, Email, createdOn, expiryTime, LinkText);
+
+                InsertLinkIntoDatabase(UserCode, Email, createdOn, expiryTime, LinkText, TxnId);
             }
 
             return "";
         }
 
-        private string GenerateResetLink(string userCode)
+        private string GenerateResetLink(string userCode,string TxnId)
         {
 
-            return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}";
-            //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}";
+            return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
+            //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
         }
-        private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText)
+        private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText,string TxnId)
         {
             List<DataItems> obj = new List<DataItems>
             {
                 new DataItems("Email", email),
+                new DataItems("TxnId", TxnId),
                 new DataItems("CreatedOn", createdOn),
                 new DataItems("CreatedBy", userCode),
                 new DataItems("ExpiredOn", expiryTime),
@@ -1203,8 +1208,10 @@ namespace zipSign.Controllers
             statusClass = bal.PostFunction(pro.Signup, obj);
         }
         [HttpGet]
-        public ActionResult GetDataForPasswordReset(string userCode)
+        public ActionResult GetDataForPasswordReset(string userCode,string TxnId)
         {
+            string[] parameters = userCode.Split('?');
+             userCode = parameters[0];
             string DecUserCode = AESEncryption.AESEncryptionClass.DecryptAES(Convert.ToString(userCode));
             List<DataItems> obj = new List<DataItems>
             {
@@ -1284,7 +1291,7 @@ namespace zipSign.Controllers
             string passwordPattern = @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$";
             if (string.IsNullOrWhiteSpace(oldPassword))
             {
-                return Json(new { error = "Enter Old Password" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Please enter your old password" }, JsonRequestBehavior.AllowGet);
             }
             else if (!Regex.IsMatch(oldPassword, passwordPattern))
             {
@@ -1327,7 +1334,7 @@ namespace zipSign.Controllers
             }
             else if (statusClass.StatusCode == 10)
             {
-                return Json(new { error = "Please enter a valid password" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Please choose a password that doesn't match any of your last five passwords" }, JsonRequestBehavior.AllowGet);
             }
             else if (statusClass.StatusCode == 9)
             {
@@ -1335,7 +1342,7 @@ namespace zipSign.Controllers
             }
             else
             {
-                return Json(new { error = "User Not Found" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Please enter a valid password" }, JsonRequestBehavior.AllowGet);
             }
         }
 
