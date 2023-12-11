@@ -198,6 +198,13 @@
         #btnsave {
             background-color: #0058b1 !important;
         }
+		.sub_list {
+			display: none;
+		}
+		.open{
+			display:block;
+		}
+
     </style>
 
 
@@ -224,789 +231,817 @@
     </div>
 
 
-    <div id="wrapper" class="theme-cyan">
-
-        <nav class="navbar navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-brand col-md-5">
-                    @*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-            <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
-                    @*   <a href="index.html">zipSign</a>*@
-                    <nav aria-label="breadcrumb" class="position-relative breadtxt">
-                        <ol class="breadcrumb m-0" style="display:block !important;">
-                            <li class="breadcrumb-item active visitxt" aria-current="page">
-                                <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-                                <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
-
-                            </li>
-                            @*<li class="corpselli"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>*@
-                        </ol>
-                        <div class="allcorp" style="display:none">
-
-                            <div class="ulofcorp">
-                                <div class="col-12 position-relative">
-                                    <input type="text" class="form-control searchofcorp" style="width:100% !important" />
-                                    <i class="fa fa-search serrcorp" aria-hidden="true"></i>
-                                </div>
-                                <ul class="scrolli">
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                    <li>Yoeki Soft pvt. Ltd</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-
-                <div class="col-md-6 d-flex justify-content-end">
-                    <label>Last Login :</label>
-                    <label><strong class="text-black" id="txtlastlogin"></strong></label>&nbsp;&nbsp;&nbsp;
-                    <label>Today Time :</label>
-                    <label><iframe style="pointer-events: none; margin-bottom:-3px;" class="mt-0" src="https://free.timeanddate.com/clock/i8yd4h2c/n176/fc555/tct/pct/ftb/tt0/tw0/tm1/tb1" frameborder="0" width="170" height="18" allowtransparency="true"></iframe></label>
-                </div>
-                <div class="navbar-right">
-                    @*<form id="navbar-search" class="navbar-form search-form">
-                <input value="" class="form-control" placeholder="Search here..." type="text">
-                <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
-            </form>*@
-
-                    <div id="navbar-menu">
-                        <ul class="nav navbar-nav">
-                            <li class="dropdown" style="display:none">
-                                <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i>
-                                    <span class="notification-dot"></span>
-                                </a>
-                                <ul class="dropdown-menu notifications">
-                                    <li class="header"><strong>You have 4 new Notifications</strong></li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <i class="icon-info text-warning"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
-                                                    <span class="timestamp">10:00 AM Today</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <i class="icon-like text-success"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
-                                                    <span class="timestamp">11:30 AM Today</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <i class="icon-pie-chart text-info"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p class="text">Website visits from Twitter is 27% higher than last week.</p>
-                                                    <span class="timestamp">04:00 PM Today</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="media">
-                                                <div class="media-left">
-                                                    <i class="icon-info text-danger"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <p class="text">Error on website analytics configurations</p>
-                                                    <span class="timestamp">Yesterday</span>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                @*<a href="page-login.html" class="icon-menu"><i class="fa fa-power-off"></i></a>*@
-                                <div class="inidiv">
-                                    <span class="fa fa-user-o"></span>
-
-                                    <ul class="profiletoggle">
-                                        <li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
-
-                                        <li data-bs-toggle="modal" data-bs-target="#changepassmod"><i class="fa fa-key" aria-hidden="true"></i> Change Password</li>
-
-                                        @*<li>Change Password</li>*@
-                                        <li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-
-        <div id="left-sidebar" class="sidebar">
-            <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-arrow-left"></i></button>
-            <div class="sidebar-scroll">
-                <div class="user-account">
-                    <h2 class="mainLogo">zipSign</h2>
-                    <hr />
-                </div>
-                @*<div class="user-account">
-                    <img src="../Content/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
-                    <div class="dropdown">
-                        <span>Welcome,</span>
-                        <a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Pamela Petrus</strong></a>
-                        <ul class="dropdown-menu dropdown-menu-right account">
-                            <li><a href="page-profile2.html"><i class="icon-user"></i>My Profile</a></li>
-                            <li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
-                            <li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
-                            <li class="divider"></li>
-                            <li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
-                        </ul>
-                    </div>
-                    <hr>
-
-                </div>*@
-
-
-                @*<ul class="nav nav-tabs">
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i class="icon-book-open"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i class="icon-question"></i></a></li>
-                </ul>*@
-
-
-                <div class="tab-content padding-0">
-                    <div class="tab-pane active" id="menu">
-                        <nav id="left-sidebar-nav" class="sidebar-nav">
-                            <ul id="main-menu" class="metismenu li_animation_delay">
-                                @*
-
-                                                    <li class="active">
-                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                        <ul>
-
-                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
-
-
-                                <div class="tab-content padding-0">
-                                    <div class="tab-pane active" id="menu">
-                                        <nav id="left-sidebar-nav" class="sidebar-nav">
-                                            <ul id="main-menu" class="metismenu li_animation_delay">
-                                                @*
-                                                    <li class="active">
-                                                        <a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-                                                        <ul>
-
-
-                                                            <li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
-
-
-
-                                                        </ul>
-                                                    </li>*@
-
-                                <li class="active">
-                                    <a href="/Dashboard/Index2"><i class="fa fa-dashboard"></i><span>Home</span></a>
-                                </li>
-
-                                <li>
-                                    <a href="/zipSign/Upload"><i class="fa fa-upload"></i><span>Sign Document </span></a>
-
-                                </li>
-                                <li>
-                                    <a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Signs</span></a>
-                                    <ul>
-                                        <li><a href="/zipSign/BuyMoreSign" title="Open to track progress of signing">Buy More Sign</a></li>
-                                        <li><a href="/MySigns/SignUses" title="Open to draft records">Sign Usage Log</a></li>
-                                        <li><a href="/MySigns/BuySignHistory" title="Open to track progress of signing">Buy Sign History</a></li>
-                                        <li><a href="/MySigns/SigntransactionLog" title="Open to track progress of signing">Sign Transaction Log</a></li>
-                                        <li><a href="/MySigns/SignsPricing" title="">All Signs Pricing</a></li>
-                                        <li><a href="/MySigns/SignPricingMechanism" title="">Sign Pricing Mechanism</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-
-                                    <a href="#" class="has-arrow"><i class="fa fa-th-large"></i><span>My Documents</span></a>
-                                    <ul>
-                                        <li><a href="/zipSign/Draft" title="Open to draft records">Drafts</a></li>
-                                        <li><a href="/zipSign/In_Progress" title="Open to track progress of signing">In-Progress</a></li>
-                                        <li><a href="/zipSign/Signed" title="Open to signed documents">Signed</a></li>
-                                        <li><a href="/zipSign/Received">Received</a></li>
-                                        <li><a href="/zipSign/Rejected" title="Either one or all signing recipients">Rejected</a></li>
-                                        <li><a href="/zipSign/Expired" title="Either one or all signing recipients">Expired</a></li>
-                                        @*<li><a href="/zipSign/SignRequest">Sign Request</a></li>*@
-                                    </ul>
-                                </li>
-
-
-                                <li>
-                                    <a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Account</span></a>
-                                    <ul>
-                                        <li><a href="#" title="Open to draft records">Account</a></li>
-
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Certificate Management</span></a>
-                                    <ul>
-                                        <li><a href="/CertificateManagement/AllDocumentSignerCertificate" title="Open to draft records">All Document Signer Certificate</a></li>
-
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="has-arrow"><i class="fa fa-cog"></i><span>Settings</span></a>
-                                    <ul>
-                                        <li><a href="/Masters/AllDepartments">Department Master</a></li>
-                                        <li><a href="/Masters/GSTInformation">GST Information</a></li>
-                                        @*<li><a href="/Masters/DomainControl">Domain Control</a></li>*@
-                                        <li><a href="/Users/AllUsers">Users</a></li>
-                                        @*<li><a href="/zipSign/ViewDocument">View Document</a></li>*@
-
-                                    </ul>
-                                </li>
-                                @*<li>
-
-                                    <a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
-
-                                </li>*@
-
-                                @*<li>
-                                    <a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
-
-                                </li>*@
-
-                                <li>
-                                    <a href="/zipSign/BuyEnterprisePack"><i class="fa fa-rupee"></i><span>Buy Enterprise Pack</span></a>
-
-                                </li>
-                                <li>
-                                    <a href="#" class="has-arrow"><i class="fa fa-history"></i><span>History</span></a>
-                                    <ul>
-                                        <li><a href="/zipSign/SignUsesHistory">Sign Uses History</a></li>
-                                        <li><a href="/zipSign/PurchaseHistory">Purchase History</a></li>
-
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-
-
-        <div id="main-content">
-
-            @RenderBody()
-
-
-        </div>
-
-
-        <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-        <script src="~/JavaScript/Custom.js"></script>
-        @*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
-        <script src="~/JavaScript/Login.js"></script>
-        <script src="~/Content/js/index.js"></script>
-
-        <script src="~/Content/js/ag-grid-community.min.js"></script>
-
-        <script src="~/Content/js/bootstrap.min.js"></script>
-        <script src="~/Content/js/jquery-ui.js"></script>
-        <script src="~/Content/js/moment.min.js"></script>
-
-        <div class="modal" id="profilemodal" tabindex="-1" role="dialog" aria-modal="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="title m-0" id="defaultModalLabel">Profile</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row clearfix">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="body">
-                                        @*<h6>Profile Photo</h6>*@
-                                        <!--<div class="media col-md-12 d-flex justify-content-center">
-                                            <div class="media-left col-md-3 position-relative" style="overflow: hidden;">
-                                                <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
-                                                <i class="fa fa-pencil-square-o editphoto"></i>
-                                                <input id="file-input" type="file" style="display: none;" />
-                                            </div>-->
-
-                                            @*<div class="media-body">
-                                                <p>
-                                                    Upload your photo.
-                                                    <br> <em>Image should be at least 140px x 140px</em>
-                                                </p>
-                                                <button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
-
-                                                <input type="file" id="filePhoto" class="sr-only" style="display:none;">
-                                                <input type="text" id="ProId" hidden />
-                                            </div>*@
-                                        <!--</div>-->
-
-                                        <div class="media col-md-12 profileInfo">
-
-                                            <div class="col-md-12 d-flex flex-wrap mb-3">
-                                                <div class="col-md-3">
-                                                    <label>Name:</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <p id="usernameDisplay1"></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 d-flex flex-wrap mb-3">
-                                                <div class="col-md-3">
-                                                    <label>Email:</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <p id="emailDisplay1"></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 d-flex flex-wrap mb-3">
-                                                <div class="col-md-3">
-                                                    <label>Mobile No.:</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <p id="phoneDisplay"></p>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 d-flex flex-wrap mb-3">
-                                                <div class="col-md-3">
-                                                    <label>State:</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <p id="state"></p>
-                                                </div>
-                                            </div>
-
-
-                                            @*<h5 id="usernameDisplay1"></h5>
-        <p id="emailDisplay1"></p>
-        <p id="phoneDisplay"></p>*@
-                                            <input type="hidden" id="UserMasterId" />
-
-
-                                        </div>
-                                    </div>
-
-
-                                    @*<div class="body pt-0">
-                                                                <h6>Basic Information</h6>
-                                                                <div class="row clearfix">
-                                                                    <div class="col-lg-6 col-md-12">
-                                                                        <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="First Name" id="fname">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Last Name" id="lname">
-                                    </div>
-                                                                        <div class="form-group">
-                                                                            <div class="radioBox pt-2" id="gender">
-                                                                                <label class="fancy-radio">
-                                                                                    <input name="gender2" value="male" type="radio" id="chckmale" checked>
-                                                                                    <span><i></i>Male</span>
-                                                                                </label>
-                                                                                <label class="fancy-radio">
-                                                                                    <input name="gender2" value="female" type="radio" id="chckfemale">
-                                                                                    <span><i></i>Female</span>
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control" placeholder="India" disabled />
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-12">
-
-                                                                        <div class="form-group">
-                                                                            <div class="input-group">
-                                                                                <div class="input-group-prepend">
-                                                                                    <span class="input-group-text" style="padding: 0.4rem 0.75rem !important;"><i class="icon-calendar"></i></span>
-                                                                                </div>
-                                                                                <input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate" id="caldob">
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                    </div>
-                                                                    <div class="col-lg-6 col-md-12">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Address Line 1" id="add1">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="Address Line 2" id="add2">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="PIN" id="pincode">
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" disabled id="state">
-                                                <option value="0">Select State</option>
-                                                <option value="1">Andaman and Nicobar Islands</option>
-                                                <option value="2">Andhra Pradesh</option>
-                                                <option value="3">Arunachal Pradesh</option>
-                                                <option value="4">Assam</option>
-                                                <option value="5">Bangalore</option>
-                                                <option value="6">Bihar</option>
-                                                <option value="7">Chandigarh</option>
-                                                <option value="8">Chhattisgarh</option>
-                                                <option value="9">Chennai</option>
-                                                <option value="10">Dadra & Nagar Haveli and Daman & Diu</option>
-                                                <option value="11">Delhi</option>
-                                                <option value="12">Goa</option>
-                                                <option value="13">Gujarat</option>
-                                                <option value="14">Haryana</option>
-                                                <option value="15">Himachal Pradesh</option>
-                                                <option value="16">Jammu and Kashmir</option>
-                                                <option value="17">Jharkhand</option>
-                                                <option value="18">Karnataka</option>
-                                                <option value="19">Kerala</option>
-                                                <option value="20">Ladakh</option>
-                                                <option value="21">Lakshadweep Islands</option>
-                                                <option value="22">Madhya Pradesh</option>
-                                                <option value="23">Maharashtra</option>
-                                                <option value="24">Manipur</option>
-                                                <option value="25">Meghalaya</option>
-                                                <option value="26">Mizoram</option>
-                                                <option value="27">Nagaland</option>
-                                                <option value="28">Odisha</option>
-                                                <option value="29">Other Territory</option>
-                                                <option value="30">Pondicherry</option>
-                                                <option value="31">Punjab</option>
-                                                <option value="32">Rajasthan</option>
-                                                <option value="33">Sikkim</option>
-                                                <option value="34">Tamil Nadu</option>
-                                                <option value="35">Telangana</option>
-                                                <option value="36">Tripura</option>
-                                                <option value="37">Uttar Pradesh</option>
-                                                <option value="38">Uttarakhand</option>
-                                                <option value="39">West Bengal</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                                                </div>
-                                                            </div>*@
-
-                          
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
-                    </div>*@
-                </div>
-            </div>
-        </div>
-
-        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="title m-0" id="defaultModalLabel">Change Password</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row clearfix">
-                            <div class="col-lg-12">
-                                <div class="card">
-
-                                    <div class="body">
-                                        <div class="row clearfix">
-                                            <h6>Change Password</h6>
-                                            <div class="col-lg-12 col-md-12">
-
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Old Password" id="oldPassword" autocomplete="off">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-12 col-md-12">
-
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="New Password" id="newPassword" autocomplete="off">
-                                                </div>
-
-                                            </div>
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword" autocomplete="off">
-                                                </div>
-                                            </div>
-
-
-                                            <div id="errormessage"></div>
-
-                                        </div>
-                                        <div id="ErrorMessage"></div>
-                                        <div class="col-md-12 d-flex justify-content-end p-2">
-                                            <button type="submit" class="btn btn-primary" id="changePasswordButton" onclick="changePassword()">Update</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
-                    </div>*@
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
-                    </div>
-                    <div class="modal-body pt-4 pb-4">
-                        <div class="col-12 text-center">
-                            <label class="modcontxt">Password Successfully Changed: You will be automatically logged out for security purposes. Please sign in with your new password.</label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        @*<button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>*@
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnsave" onclick="SignOut()">Ok</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="~/JavaScript/Custom.js"></script>
-        <script>
-            $(document).ready(function () {
-
-                var UserMasterID = sessionStorage.getItem('UserId');
-                if (UserMasterID == "" || UserMasterID == null) {
-                    window.location.href = "/Login/Index";
-                    return false;
-
-                    //window.onbeforeunload = function () {
-
-                    //    var request = GetRequest();
-                    //    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
-                    //    request.send();
-                    //};
-
-
-                }
-
-
-
-                $('#edit-icon').on('click', function () {
-                    $('#file-input').click();
-
-                });
-
-
-                loadUserProfile(); // Call the function when the page is ready
-                $("#oldPassword, #newPassword, #confirmPassword").on('input', function () {
-                    $("#ErrorMessage").empty();
-                    row = '';
-                });
-                function loadUserProfile() {
-                    $.ajax({
-                        url: '/Login/GetUserProfile',
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (response) {
-                            debugger
-                            if (response.length > 0) {
-                                var userData = response[0];
-                                $('#usernameDisplay1').text(userData.UserName);
-                                $('#emailDisplay1').text(userData.Email);
-                                $('#phoneDisplay').text(userData.Mobile);
-                                $('#UserMasterId').val(userData.UserId);
-                                $('#state').text(userData.State);
-                                $('#txtlastlogin').text(userData.SecondLastLoginOn);
-                                // Populate other fields as needed
-                            } else {
-
-                                alert("User data not found");
-                            }
-                        },
-                        error: function () {
-                            // Handle AJAX error
-                            //alert("An error occurred while loading user data.");
-                        }
-                    });
-                }
-            });
-
-            $('#file-input').on('change', function () {
-                ;
-                var formData = new FormData();
-                var file = this.files[0];
-                formData.append('file', file);
-                $.ajax({
-                    url: '/Users/ChangeProfilePicture',
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        $('#user-profile-picture').attr('src', response.newProfilePictureUrl);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(error);
-                        // Handle errors
-                    }
-                });
-            });
-            function changePassword() {
-                var oldPassword = $('#oldPassword').val().trim();
-                var newPassword = $('#newPassword').val().trim();
-                var confirmPassword = $('#confirmPassword').val().trim();
-                var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
-                var Email = $('#emailDisplay1').text();
-                //if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
-                //    var errorMessage = 'Please fill out all the fields.';
-                //    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
-                //    return false;
-                //}
-                if (oldPassword === '') {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter your old password</div>';
-                    $("#ErrorMessage").empty();
-                    $("#ErrorMessage").append(row);
-                    $("#oldPassword").focus();
-                    return false;
-                }
-                if (!oldPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
-                    $("#ErrorMessage").empty().append(row);
-                    $("#oldPassword").focus();
-                    return false;
-                }
-                else if (newPassword === '') {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Password.</div>';
-                    $("#ErrorMessage").empty();
-                    $("#ErrorMessage").append(row);
-                    $("#newPassword").focus();
-                    return false;
-                }
-                else if (!newPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
-                    $("#ErrorMessage").empty().append(row);
-                    $("#newPassword").focus();
-                    return false;
-                }
-                else if (oldPassword == newPassword) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Old password and new password cannot be the same</div>';
-                    $("#ErrorMessage").empty().append(row);
-                    return false;
-                }
-                else if (confirmPassword === '') {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Confirm Password.</div>';
-                    $("#ErrorMessage").empty();
-                    $("#ErrorMessage").append(row);
-                    $("#confirmPassword").focus();
-                    return false;
-                }
-                else if (!confirmPassword.match(passwordPattern)) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
-                    $("#ErrorMessage").empty().append(row);
-                    $("#confirmPassword").focus();
-                    return false;
-                }
-                else if (newPassword !== confirmPassword) {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">New password and confirm password do not match</div>';
-                    $("#ErrorMessage").empty().append(row);
-                    return false;
-                }
-                
-                $.ajax({
-                    
-                    url: '/Login/ChangePasswordFromProfile',
-                    type: 'POST',
-                    data: {
-                        oldPassword: oldPassword,
-                        newPassword: newPassword,
-                        confirmPassword: confirmPassword,
-                        email: Email,
-                        UserMasterId: $('#UserMasterId').val()
-                    },
-                    dataType: 'json',
-                    success: function (response) {
-                        if (response.error === 'success') {
-                            $("#changepassmod").hide();
-                            $('#confirmationpopupforchp').modal('show');
-                            //window.location = '/Login/SignOut?UserMasterId=' + UserMasterId;
-                            //window.location = '/Login/Index';
-                        }
-                        else {
-                            $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1" role="alert">' + response.error + '</div>');
-                        }
-                    },
-                });
-            }
-
-        </script>
-        <script>
-            $(document).ready(function () {
-                $(".inidiv").click(function () {
-                    $(".profiletoggle").toggle();
-                    event.stopPropagation()
-                });
-            });
-            $('body').click(function () {
-                $('.profiletoggle').hide();
-            })
-        </script>
-
-        <script>
-            $(document).ready(function () {
-                $(".opencorp").click(function () {
-                    $(".allcorp").toggle();
-                    event.stopPropagation()
-                });
-            });
-            $('body').click(function () {
-                $('.allcorp').hide();
-            })
-        </script>
-
-        @*<script>
-            function GetRequest() {
-                var xmlhttp;
-                if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-                    xmlhttp = new XMLHttpRequest();
-                }
-                else {// code for IE6, IE5
-                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                return xmlhttp;
-            }
-        </script>*@
-    </div>
+	<div id="wrapper" class="theme-cyan">
+
+		<nav class="navbar navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-brand col-md-8">
+					@*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+					<button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
+					@*   <a href="index.html">zipSign</a>*@
+					<nav aria-label="breadcrumb" class="position-relative breadtxt">
+						<ol class="breadcrumb m-0" style="display:block !important;">
+							<li class="breadcrumb-item active visitxt" aria-current="page">
+								<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+								<button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
+
+							</li>
+							@*<li class="corpselli"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>*@
+						</ol>
+						<div class="allcorp" style="display:none">
+
+							<div class="ulofcorp">
+								<div class="col-12 position-relative">
+									<input type="text" class="form-control searchofcorp" style="width:100% !important" />
+									<i class="fa fa-search serrcorp" aria-hidden="true"></i>
+								</div>
+								<ul class="scrolli">
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+									<li>Yoeki Soft pvt. Ltd</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
+				</div>
+
+				<div class="navbar-right">
+					@*<form id="navbar-search" class="navbar-form search-form">
+						<input value="" class="form-control" placeholder="Search here..." type="text">
+						<button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+					</form>*@
+
+					<div id="navbar-menu">
+						<ul class="nav navbar-nav">
+							<li class="dropdown" style="display:none">
+								<a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+									<i class="fa fa-bell"></i>
+									<span class="notification-dot"></span>
+								</a>
+								<ul class="dropdown-menu notifications">
+									<li class="header"><strong>You have 4 new Notifications</strong></li>
+									<li>
+										<a href="javascript:void(0);">
+											<div class="media">
+												<div class="media-left">
+													<i class="icon-info text-warning"></i>
+												</div>
+												<div class="media-body">
+													<p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
+													<span class="timestamp">10:00 AM Today</span>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);">
+											<div class="media">
+												<div class="media-left">
+													<i class="icon-like text-success"></i>
+												</div>
+												<div class="media-body">
+													<p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
+													<span class="timestamp">11:30 AM Today</span>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);">
+											<div class="media">
+												<div class="media-left">
+													<i class="icon-pie-chart text-info"></i>
+												</div>
+												<div class="media-body">
+													<p class="text">Website visits from Twitter is 27% higher than last week.</p>
+													<span class="timestamp">04:00 PM Today</span>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);">
+											<div class="media">
+												<div class="media-left">
+													<i class="icon-info text-danger"></i>
+												</div>
+												<div class="media-body">
+													<p class="text">Error on website analytics configurations</p>
+													<span class="timestamp">Yesterday</span>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
+								</ul>
+							</li>
+							<li>
+								@*<a href="page-login.html" class="icon-menu"><i class="fa fa-power-off"></i></a>*@
+								<div class="inidiv">
+									<span class="fa fa-user-o"></span>
+
+									<ul class="profiletoggle">
+										<li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
+
+										<li data-bs-toggle="modal" data-bs-target="#changepassmod"><i class="fa fa-key" aria-hidden="true"></i> Change Password</li>
+
+										@*<li>Change Password</li>*@
+										<li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+
+		<div id="left-sidebar" class="sidebar">
+			<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-arrow-left"></i></button>
+			<div class="sidebar-scroll">
+				<div class="user-account">
+					<h2 class="mainLogo">zipSign</h2>
+					<hr />
+				</div>
+				@*<div class="user-account">
+					<img src="../Content/images/user.png" class="rounded-circle user-photo" alt="User Profile Picture">
+					<div class="dropdown">
+						<span>Welcome,</span>
+						<a href="javascript:void(0);" class="dropdown-toggle user-name" data-toggle="dropdown"><strong>Pamela Petrus</strong></a>
+						<ul class="dropdown-menu dropdown-menu-right account">
+							<li><a href="page-profile2.html"><i class="icon-user"></i>My Profile</a></li>
+							<li><a href="app-inbox.html"><i class="icon-envelope-open"></i>Messages</a></li>
+							<li><a href="javascript:void(0);"><i class="icon-settings"></i>Settings</a></li>
+							<li class="divider"></li>
+							<li><a href="page-login.html"><i class="icon-power"></i>Logout</a></li>
+						</ul>
+					</div>
+					<hr>
+
+				</div>*@
+
+
+				@*<ul class="nav nav-tabs">
+					<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#menu">Menu</a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Chat"><i class="icon-book-open"></i></a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#setting"><i class="icon-settings"></i></a></li>
+					<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#question"><i class="icon-question"></i></a></li>
+				</ul>*@
+
+
+				<div class="tab-content padding-0">
+					<div class="tab-pane active" id="menu">
+						<nav id="left-sidebar-nav" class="sidebar-nav">
+							<ul id="main-menu" class="metismenu li_animation_delay">
+								@*
+
+													<li class="active">
+														<a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+														<ul>
+
+															<li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+
+
+								<div class="tab-content padding-0">
+									<div class="tab-pane active" id="menu">
+										<nav id="left-sidebar-nav" class="sidebar-nav">
+											<ul id="main-menu" class="metismenu li_animation_delay">
+												@*
+													<li class="active">
+														<a href="#" class="has-arrow"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+														<ul>
+
+
+															<li class="active"><a href="/Dashboard/Index">Dashboard</a></li>
+
+
+
+														</ul>
+													</li>*@
+
+								<li class="">
+									<a href="/Dashboard/Index2"><i class="fa fa-dashboard"></i><span>Home</span></a>
+								</li>
+
+								<li>
+									<a href="/zipSign/Upload"><i class="fa fa-upload"></i><span>Sign Document </span></a>
+
+								</li>
+								<li>
+									<a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Signs</span></a>
+									<ul>
+										<li><a href="/zipSign/BuyMoreSign" title="Open to track progress of signing">Buy More Sign</a></li>
+										<li><a href="/MySigns/SignUses" title="Open to draft records">Sign Usage Log</a></li>
+										<li><a href="/MySigns/BuySignHistory" title="Open to track progress of signing">Buy Sign History</a></li>
+										<li><a href="/MySigns/SigntransactionLog" title="Open to track progress of signing">Sign Transaction Log</a></li>
+										<li><a href="/MySigns/SignsPricing" title="">All Signs Pricing</a></li>
+										<li><a href="/MySigns/SignPricingMechanism" title="">Sign Pricing Mechanism</a></li>
+									</ul>
+								</li>
+
+								<li>
+
+									<a href="#" class="has-arrow"><i class="fa fa-th-large"></i><span>My Documents</span></a>
+									<ul>
+										<li><a href="/zipSign/Draft" title="Open to draft records">Drafts</a></li>
+										<li><a href="/zipSign/In_Progress" title="Open to track progress of signing">In-Progress</a></li>
+										<li><a href="/zipSign/Signed" title="Open to signed documents">Signed</a></li>
+										<li><a href="/zipSign/Received">Received</a></li>
+										<li><a href="/zipSign/Rejected" title="Either one or all signing recipients">Rejected</a></li>
+										<li><a href="/zipSign/Expired" title="Either one or all signing recipients">Expired</a></li>
+										@*<li><a href="/zipSign/SignRequest">Sign Request</a></li>*@
+									</ul>
+								</li>
+
+
+								<li>
+									<a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Account</span></a>
+									<ul>
+										<li><a href="#" title="Open to draft records">Account</a></li>
+
+									</ul>
+								</li>
+								<li>
+									<a href="#" class="has-arrow"><i class="fa fa-rupee"></i><span>My Certificate Management</span></a>
+									<ul>
+										<li><a href="/CertificateManagement/AllDocumentSignerCertificate" title="Open to draft records">All Document Signer Certificate</a></li>
+
+									</ul>
+								</li>
+
+								<li>
+									<a href="#" class="has-arrow"><i class="fa fa-cog"></i><span>Settings</span></a>
+									<ul>
+										<li><a href="/Masters/AllDepartments">Department Master</a></li>
+										<li><a href="/Masters/GSTInformation">GST Information</a></li>
+										@*<li><a href="/Masters/DomainControl">Domain Control</a></li>*@
+										<li><a href="/Users/AllUsers">Users</a></li>
+										@*<li><a href="/zipSign/ViewDocument">View Document</a></li>*@
+
+									</ul>
+								</li>
+								@*<li>
+
+									<a href="/zipSign/Folder"><i class="fa fa-folder"></i><span>Folder</span></a>
+
+								</li>*@
+
+								@*<li>
+									<a href="/zipSign/BuyMoreSign"><i class="fa fa-rupee"></i><span>Buy More Sign</span></a>
+
+								</li>*@
+
+								<li>
+									<a href="/zipSign/BuyEnterprisePack"><i class="fa fa-rupee"></i><span>Buy Enterprise Pack</span></a>
+
+								</li>
+								<li>
+									<a href="#" class="has-arrow"><i class="fa fa-history"></i><span>History</span></a>
+									<ul>
+										<li><a href="/zipSign/SignUsesHistory">Sign Uses History</a></li>
+										<li><a href="/zipSign/PurchaseHistory">Purchase History</a></li>
+
+									</ul>
+								</li>
+							</ul>
+						</nav>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div id="main-content">
+
+			@RenderBody()
+
+
+		</div>
+
+
+		<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+		<script src="~/JavaScript/Custom.js"></script>
+		@*<script>var jquery_3_6 = jQuery.noConflict();</script>*@
+		<script src="~/JavaScript/Login.js"></script>
+		<script src="~/Content/js/index.js"></script>
+
+		<script src="~/Content/js/ag-grid-community.min.js"></script>
+
+		<script src="~/Content/js/bootstrap.min.js"></script>
+		<script src="~/Content/js/jquery-ui.js"></script>
+		<script src="~/Content/js/moment.min.js"></script>
+
+		<div class="modal" id="profilemodal" tabindex="-1" role="dialog" aria-modal="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="title m-0" id="defaultModalLabel">Profile</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row clearfix">
+							<div class="col-lg-12">
+								<div class="card">
+									<div class="body">
+										@*<h6>Profile Photo</h6>*@
+										<!--<div class="media col-md-12 d-flex justify-content-center">
+									<div class="media-left col-md-3 position-relative" style="overflow: hidden;">
+										<img src="/Content/images/user.png" class="user-photo media-object" alt="User">
+										<i class="fa fa-pencil-square-o editphoto"></i>
+										<input id="file-input" type="file" style="display: none;" />
+									</div>-->
+										@*<div class="media-body">
+											<p>
+												Upload your photo.
+												<br> <em>Image should be at least 140px x 140px</em>
+											</p>
+											<button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
+
+											<input type="file" id="filePhoto" class="sr-only" style="display:none;">
+											<input type="text" id="ProId" hidden />
+										</div>*@
+										<!--</div>-->
+
+										<div class="media col-md-12 profileInfo">
+
+											<div class="col-md-12 d-flex flex-wrap mb-3">
+												<div class="col-md-3">
+													<label>Name:</label>
+												</div>
+												<div class="col-md-9">
+													<p id="usernameDisplay1"></p>
+												</div>
+											</div>
+											<div class="col-md-12 d-flex flex-wrap mb-3">
+												<div class="col-md-3">
+													<label>Email:</label>
+												</div>
+												<div class="col-md-9">
+													<p id="emailDisplay1"></p>
+												</div>
+											</div>
+											<div class="col-md-12 d-flex flex-wrap mb-3">
+												<div class="col-md-3">
+													<label>Mobile No.:</label>
+												</div>
+												<div class="col-md-9">
+													<p id="phoneDisplay"></p>
+												</div>
+											</div>
+											<div class="col-md-12 d-flex flex-wrap mb-3">
+												<div class="col-md-3">
+													<label>State:</label>
+												</div>
+												<div class="col-md-9">
+													<p id="state"></p>
+												</div>
+											</div>
+
+
+											@*<h5 id="usernameDisplay1"></h5>
+											<p id="emailDisplay1"></p>
+											<p id="phoneDisplay"></p>*@
+											<input type="hidden" id="UserMasterId" />
+
+
+										</div>
+									</div>
+
+
+									@*<div class="body pt-0">
+																<h6>Basic Information</h6>
+																<div class="row clearfix">
+																	<div class="col-lg-6 col-md-12">
+																		<div class="form-group">
+										<input type="text" class="form-control" placeholder="First Name" id="fname">
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Last Name" id="lname">
+									</div>
+																		<div class="form-group">
+																			<div class="radioBox pt-2" id="gender">
+																				<label class="fancy-radio">
+																					<input name="gender2" value="male" type="radio" id="chckmale" checked>
+																					<span><i></i>Male</span>
+																				</label>
+																				<label class="fancy-radio">
+																					<input name="gender2" value="female" type="radio" id="chckfemale">
+																					<span><i></i>Female</span>
+																				</label>
+																			</div>
+																		</div>
+																		<div class="form-group">
+																			<input type="text" class="form-control" placeholder="India" disabled />
+																		</div>
+
+																	</div>
+																	<div class="col-lg-6 col-md-12">
+
+																		<div class="form-group">
+																			<div class="input-group">
+																				<div class="input-group-prepend">
+																					<span class="input-group-text" style="padding: 0.4rem 0.75rem !important;"><i class="icon-calendar"></i></span>
+																				</div>
+																				<input data-provide="datepicker" data-date-autoclose="true" class="form-control" placeholder="Birthdate" id="caldob">
+																			</div>
+																		</div>
+
+
+																	</div>
+																	<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Address Line 1" id="add1">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="Address Line 2" id="add2">
+										</div>
+										<div class="form-group">
+											<input type="text" class="form-control" placeholder="PIN" id="pincode">
+										</div>
+										<div class="form-group">
+											<select class="form-control" disabled id="state">
+												<option value="0">Select State</option>
+												<option value="1">Andaman and Nicobar Islands</option>
+												<option value="2">Andhra Pradesh</option>
+												<option value="3">Arunachal Pradesh</option>
+												<option value="4">Assam</option>
+												<option value="5">Bangalore</option>
+												<option value="6">Bihar</option>
+												<option value="7">Chandigarh</option>
+												<option value="8">Chhattisgarh</option>
+												<option value="9">Chennai</option>
+												<option value="10">Dadra & Nagar Haveli and Daman & Diu</option>
+												<option value="11">Delhi</option>
+												<option value="12">Goa</option>
+												<option value="13">Gujarat</option>
+												<option value="14">Haryana</option>
+												<option value="15">Himachal Pradesh</option>
+												<option value="16">Jammu and Kashmir</option>
+												<option value="17">Jharkhand</option>
+												<option value="18">Karnataka</option>
+												<option value="19">Kerala</option>
+												<option value="20">Ladakh</option>
+												<option value="21">Lakshadweep Islands</option>
+												<option value="22">Madhya Pradesh</option>
+												<option value="23">Maharashtra</option>
+												<option value="24">Manipur</option>
+												<option value="25">Meghalaya</option>
+												<option value="26">Mizoram</option>
+												<option value="27">Nagaland</option>
+												<option value="28">Odisha</option>
+												<option value="29">Other Territory</option>
+												<option value="30">Pondicherry</option>
+												<option value="31">Punjab</option>
+												<option value="32">Rajasthan</option>
+												<option value="33">Sikkim</option>
+												<option value="34">Tamil Nadu</option>
+												<option value="35">Telangana</option>
+												<option value="36">Tripura</option>
+												<option value="37">Uttar Pradesh</option>
+												<option value="38">Uttarakhand</option>
+												<option value="39">West Bengal</option>
+											</select>
+										</div>
+									</div>
+																</div>
+															</div>*@
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+					@*<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
+					</div>*@
+				</div>
+			</div>
+		</div>
+
+		<div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="title m-0" id="defaultModalLabel">Change Password</h4>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row clearfix">
+							<div class="col-lg-12">
+								<div class="card">
+
+									<div class="body">
+										<div class="row clearfix">
+											<h6>Change Password</h6>
+											<div class="col-lg-12 col-md-12">
+
+												<div class="form-group">
+													<input type="text" class="form-control" placeholder="Old Password" id="oldPassword" autocomplete="off">
+												</div>
+
+											</div>
+											<div class="col-lg-12 col-md-12">
+
+												<div class="form-group">
+													<input type="text" class="form-control" placeholder="New Password" id="newPassword" autocomplete="off">
+												</div>
+
+											</div>
+											<div class="col-lg-12 col-md-12">
+												<div class="form-group">
+													<input type="text" class="form-control" placeholder="Confirm New Password" id="confirmPassword" autocomplete="off">
+												</div>
+											</div>
+
+
+											<div id="errormessage"></div>
+
+										</div>
+										<div id="ErrorMessage"></div>
+										<div class="col-md-12 d-flex justify-content-end p-2">
+											<button type="submit" class="btn btn-primary" id="changePasswordButton" onclick="changePassword()">Update</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@*<div class="modal-footer">
+						<button type="button" class="btn btn-primary" id="btnok" data-bs-dismiss="modal">OK</button>
+					</div>*@
+				</div>
+			</div>
+		</div>
+
+
+		<div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="title m-0" id="defaultModalLabel">Confirmation</h4>
+					</div>
+					<div class="modal-body pt-4 pb-4">
+						<div class="col-12 text-center">
+							<label class="modcontxt">Password Successfully Changed: You will be automatically logged out for security purposes. Please sign in with your new password.</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						@*<button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>*@
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" id="btnsave" onclick="SignOut()">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		<script>
+
+
+			$(document).ready(function () {
+				$("#main-menu li ul").addClass('sub_list')
+				$("#main-menu > li").click(function () {
+					$(this).find("ul.sub_list").toggle(500);
+				});
+
+
+				let url = window.location.href;
+				$('#main-menu li a').each(function () {
+					if (this.href === url) {
+						$('#main-menu li').removeClass('active');
+						$(this).parent().addClass('active');
+						
+					}
+				})
+			
+				$('#main-menu li ul li a').each(function () {
+					
+					if (this.href === url) {
+						$('#main-menu li').removeClass('active');
+						
+						$(this).parent().addClass('active');
+						$(this).closest('ul').addClass('in');
+						$(this).closest('ul').parent().addClass('active');
+						$(this).closest('ul').addClass('open');
+					}
+				})
+			})
+		</script>
+
+		<script src="~/JavaScript/Custom.js"></script>
+		<script>
+			$(document).ready(function () {
+
+				var UserMasterID = sessionStorage.getItem('UserId');
+				if (UserMasterID == "" || UserMasterID == null) {
+					window.location.href = "/Login/Index";
+					return false;
+
+					//window.onbeforeunload = function () {
+
+					//    var request = GetRequest();
+					//    request.open("POST", "Login/UpdateUserStatus?userId=" + $("#UserMasterId").val(), true);
+					//    request.send();
+					//};
+
+
+				}
+
+
+
+				$('#edit-icon').on('click', function () {
+					$('#file-input').click();
+
+				});
+
+
+				loadUserProfile(); // Call the function when the page is ready
+				$("#oldPassword, #newPassword, #confirmPassword").on('input', function () {
+					$("#ErrorMessage").empty();
+					row = '';
+				});
+				function loadUserProfile() {
+					$.ajax({
+						url: '/Login/GetUserProfile',
+						type: 'GET',
+						dataType: 'json',
+						success: function (response) {
+
+							if (response.length > 0) {
+								var userData = response[0];
+								$('#usernameDisplay1').text(userData.UserName);
+								$('#emailDisplay1').text(userData.Email);
+								$('#phoneDisplay').text(userData.Mobile);
+								$('#UserMasterId').val(userData.UserId);
+								$('#state').text(userData.State);
+								// Populate other fields as needed
+							} else {
+
+								alert("User data not found");
+							}
+						},
+						error: function () {
+							// Handle AJAX error
+							//alert("An error occurred while loading user data.");
+						}
+					});
+				}
+			});
+
+			$('#file-input').on('change', function () {
+				;
+				var formData = new FormData();
+				var file = this.files[0];
+				formData.append('file', file);
+				$.ajax({
+					url: '/Users/ChangeProfilePicture',
+					type: 'POST',
+					data: formData,
+					processData: false,
+					contentType: false,
+					success: function (response) {
+						$('#user-profile-picture').attr('src', response.newProfilePictureUrl);
+					},
+					error: function (xhr, status, error) {
+						console.error(error);
+						// Handle errors
+					}
+				});
+			});
+			function changePassword() {
+				var oldPassword = $('#oldPassword').val().trim();
+				var newPassword = $('#newPassword').val().trim();
+				var confirmPassword = $('#confirmPassword').val().trim();
+				var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+				var Email = $('#emailDisplay1').text();
+				//if (oldPassword === '' || newPassword === '' || confirmPassword === '') {
+				//    var errorMessage = 'Please fill out all the fields.';
+				//    $("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1 ps-3" role="alert">' + errorMessage + '</div>');
+				//    return false;
+				//}
+				if (oldPassword === '') {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter your old password</div>';
+					$("#ErrorMessage").empty();
+					$("#ErrorMessage").append(row);
+					$("#oldPassword").focus();
+					return false;
+				}
+				if (!oldPassword.match(passwordPattern)) {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
+					$("#ErrorMessage").empty().append(row);
+					$("#oldPassword").focus();
+					return false;
+				}
+				else if (newPassword === '') {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Password.</div>';
+					$("#ErrorMessage").empty();
+					$("#ErrorMessage").append(row);
+					$("#newPassword").focus();
+					return false;
+				}
+				else if (!newPassword.match(passwordPattern)) {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters</div>';
+					$("#ErrorMessage").empty().append(row);
+					$("#newPassword").focus();
+					return false;
+				}
+				else if (oldPassword == newPassword) {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Old password and new password cannot be the same</div>';
+					$("#ErrorMessage").empty().append(row);
+					return false;
+				}
+				else if (confirmPassword === '') {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter New Confirm Password.</div>';
+					$("#ErrorMessage").empty();
+					$("#ErrorMessage").append(row);
+					$("#confirmPassword").focus();
+					return false;
+				}
+				else if (!confirmPassword.match(passwordPattern)) {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">Invalid password format. Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.</div>';
+					$("#ErrorMessage").empty().append(row);
+					$("#confirmPassword").focus();
+					return false;
+				}
+				else if (newPassword !== confirmPassword) {
+					var row = '<div class="alermsg col-md-12 p-1" role="alert">New password and confirm password do not match</div>';
+					$("#ErrorMessage").empty().append(row);
+					return false;
+				}
+
+				$.ajax({
+
+					url: '/Login/ChangePasswordFromProfile',
+					type: 'POST',
+					data: {
+						oldPassword: oldPassword,
+						newPassword: newPassword,
+						confirmPassword: confirmPassword,
+						email: Email,
+						UserMasterId: $('#UserMasterId').val()
+					},
+					dataType: 'json',
+					success: function (response) {
+						if (response.error === 'success') {
+							$("#changepassmod").hide();
+							$('#confirmationpopupforchp').modal('show');
+							//window.location = '/Login/SignOut?UserMasterId=' + UserMasterId;
+							//window.location = '/Login/Index';
+						}
+						else {
+							$("#ErrorMessage").empty().append('<div class="alermsg col-md-12 p-1" role="alert">' + response.error + '</div>');
+						}
+					},
+				});
+			}
+
+		</script>
+		<script>
+			$(document).ready(function () {
+				$(".inidiv").click(function () {
+					$(".profiletoggle").toggle();
+					event.stopPropagation()
+				});
+			});
+			$('body').click(function () {
+				$('.profiletoggle').hide();
+			})
+		</script>
+
+		<script>
+			$(document).ready(function () {
+				$(".opencorp").click(function () {
+					$(".allcorp").toggle();
+					event.stopPropagation()
+				});
+			});
+			$('body').click(function () {
+				$('.allcorp').hide();
+			})
+		</script>
+
+		@*<script>
+			function GetRequest() {
+				var xmlhttp;
+				if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp = new XMLHttpRequest();
+				}
+				else {// code for IE6, IE5
+					xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+				}
+				return xmlhttp;
+			}
+		</script>*@
+	</div>
+
 </body>
 </html>
