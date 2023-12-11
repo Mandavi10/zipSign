@@ -664,7 +664,7 @@
     <input type="text" hidden id="hdnFilePath" />
     <input type="text" hidden id="hdnFilePath1" />
     <div id="wrapper" class="theme-cyan">
-
+        <input type="hidden" id="hdnnid" />
         <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="sidebar-scroll">
@@ -1129,7 +1129,7 @@
                                     </h3>
                                     <h5 class="align-center">has requested to Digitally sign the document</h5>
                                     <p style="text-align: center; font-family: 'Roboto-Bold';">
-                                        Transaction ID: <strong>61200004122023161950</strong> dated <strong>2023-12-04T16:19:00</strong>
+                                        Transaction ID: <strong>61200004122023161950</strong> dated <strong id="date"></strong>
                                     </p>
                                     <p>
                                         Please click on the checkbox and enter National ID Number.
@@ -1164,7 +1164,7 @@
 
                                         <div class="form-group p-1 col-md-12 nationIDBox">
                                             <label>OTP</label>
-                                            <input type="text" class="form-control" id="otpid" maxlength="6" placeholder="Enter OTP" autocomplete="off" required>
+                                            <input type="text" class="form-control" id="otpid" maxlength="6" placeholder="Enter OTP" autocomplete="off" onkeypress="return onlyNumbers(event)" required>
                                         </div>
                                         <span style="color:red" id="errormsg123"></span>
                                         <div>
@@ -1210,21 +1210,21 @@
                     <div class="col-lg-12 col-md-12 col-sm-12 d-flex flex-wrap pt-2">
 
                         <div class="col-lg-12 col-md-10 col-sm-5 d-flex flex-wrap">
-                            <label class="activityRole">National ID No.</label>
+                            <label class="activityRole"id="nationalid">National ID No.</label>
                             <label class="activityValue"></label>
                         </div>
                         <div class="col-lg-12 col-md-10 col-sm-5 d-flex flex-wrap">
-                            <label class="activityRole">Document Name</label>
-                            <label class="activityValue">Property paper</label>
+                            <label class="activityRole" id="documentname">Document Name</label>
+                            <label class="activityValue" >Property paper</label>
                         </div>
                         <div class="col-lg-12 col-md-10 col-sm-5 d-flex flex-wrap">
-                            <label class="activityRole">Name</label>
-                            <label class="activityValue">Lavkush Tyagi</label>
+                            <label class="activityRole" id="signername">Name</label>
+                            <label class="activityValue" >Lavkush Tyagi</label>
                         </div>
 
                         <div class="col-lg-12 col-md-10 col-sm-5 d-flex flex-wrap">
-                            <label class="activityRole">Location</label>
-                            <label class="activityValue">Noida</label>
+                            <label class="activityRole" id="location">Location</label>
+                            <label class="activityValue" >Noida</label>
                         </div>
                     </div>
 
@@ -1552,8 +1552,6 @@
             </div>
         </div>
     </div>
-
-
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
     <script src="~/Content/js/bootstrap.min.js"></script>
     @*<script src="~/JavaScript/SigningRequest.js"></script>*@
@@ -1564,6 +1562,7 @@
 
     <script>
         $(document).ready(function () {
+            var d = new Date();            var year = d.getFullYear();            var month = String(d.getMonth() + 1).padStart(2, '0');            var day = String(d.getDate()).padStart(2, '0');            var hours = String(d.getHours()).padStart(2, '0');            var minutes = String(d.getMinutes()).padStart(2, '0');            var seconds = String(d.getSeconds()).padStart(2, '0');            var formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;            document.getElementById("date").innerHTML = formattedDate;
             $(".opencorp").click(function () {
                 $(".allcorp").toggle();
                 event.stopPropagation()
@@ -1573,9 +1572,7 @@
                 $("#iDiv").css('display', 'none');
             });
             $("#sendOtp").click(function () {
-            
                 var NationalId = $("#nid").val();
-                
                 if (NationalId === "") {
                     $("#errormsg").html("Enter National Id");
                     $("#nid").focus();
@@ -1584,18 +1581,23 @@
                 else {
                     $(".otpBox").css('display', 'block');
                     $(".idBox").css('display', 'none');
+                    $("#hdnnid").val(NationalId);
+                    $("#nid").attr('disabled', true);
                 }
             })
             $("#enterOtp").click(function () {
-              
                 var OTP = $("#otpid").val();
                 if (OTP === "" || OTP == null) {
-                    
                     $("#errormsg123").html("Enter otp");
                     $("#otpid").focus();
                     return false;
                 }
                 else {
+                    debugger
+                    $("label#nationalid").next("label").text($("#nid").val());
+                    $("label#documentname").next("label").text(sessionStorage.getItem('uploadedFileName'));
+                    $("label#signername").next("label").text($("#usernameDisplay1").val());
+                    $("label#location").next("label").text("UAE");
                     $("#signaturetype").modal('hide');
                     $('#verifyNationalID').modal('show');
                 }
@@ -1603,9 +1605,7 @@
             $("#nid").on('input', function () {
                 $("#errormsg").empty();
             })
-                
         });
-
     </script>
     <script>
         $(document).ready(function () {
@@ -1630,12 +1630,9 @@
         var dragSrcEl = null;
 
         function handleDragStart(e) {
-
             dragSrcEl = this;
-
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('text/html', this.outerHTML);
-
             this.classList.add('dragElem');
         }
         function handleDragOver(e) {
@@ -1643,16 +1640,11 @@
                 e.preventDefault();
             }
             this.classList.add('over');
-
             e.dataTransfer.dropEffect = 'move';
-
             return false;
         }
-
         function handleDragEnter(e) {
-
             e.preventDefault();
-
         }
 
         function handleDragLeave(e) {
@@ -1700,6 +1692,12 @@
 
         var cols_1 = document.querySelectorAll('#columns_1 .column');
         [].forEach.call(cols_1, addDnDHandlers);
+        function onlyNumbers(event) {
+            var charCode = event.charCode || event.keyCode;
+            if (charCode < 48 || charCode > 57 || charCode == 46 || charCode == 45) {
+                event.preventDefault();
+            }
+        }
     </script>
 
 </body>

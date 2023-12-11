@@ -487,7 +487,6 @@ function VerifyOTP() {
         async: false, // Make the request synchronous to wait for the response
         success: function (response) {
             var result = response;
-
             if (result === 1) {
                 $("#message").empty();
                 $("#formattedMobile").hide();
@@ -529,7 +528,6 @@ function VerifyOTP() {
         error: function (ex) {
             console.log("Error occurred during OTP verification");
             mobileverified = 0;
-
         }
     });
 }
