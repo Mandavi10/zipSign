@@ -5,10 +5,11 @@ $(document).ready(function () {
     });
     var url = window.location.href;
     var userCode = getUrlParameter('UserCode');
+    var TxnId = getUrlParameter('TxnId');
     if (userCode) {
         $('#oldpassword').hide();
         $.ajax({
-            url: '/Login/GetDataForPasswordReset?UserCode=' + userCode,
+            url: '/Login/GetDataForPasswordReset?UserCode=' + userCode + '&TxnId=' + TxnId,
             type: 'GET', 
             dataType: 'json',
             async: false,

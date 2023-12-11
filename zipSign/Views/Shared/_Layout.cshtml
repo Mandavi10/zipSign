@@ -888,7 +888,7 @@
                 //    return false;
                 //}
                 if (oldPassword === '') {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Old Password.</div>';
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter your old password</div>';
                     $("#ErrorMessage").empty();
                     $("#ErrorMessage").append(row);
                     $("#oldPassword").focus();
@@ -931,7 +931,7 @@
                     $("#confirmPassword").focus();
                     return false;
                 }
-                else if (newPassword !== newPassword) {
+                else if (newPassword !== confirmPassword) {
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">New password and confirm password do not match</div>';
                     $("#ErrorMessage").empty().append(row);
                     return false;

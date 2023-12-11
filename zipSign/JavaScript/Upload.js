@@ -104,15 +104,19 @@ function validateInputName(event) {
     else if (keyCode === 189 && lastKeyCode === 189) {
         event.preventDefault(); // Prevent the input
     }
-    
     lastKeyCode = keyCode;
+    if ((keyCode >= 48 && keyCode <= 57) || // Numbers 0-9
+        (keyCode >= 96 && keyCode <= 105) || // Numpad numbers
+        (keyCode >= 186 && keyCode <= 192) || // Symbols ;=,-./`
+        (keyCode >= 219 && keyCode <= 222)) { // Symbols [\]''
+        event.preventDefault(); // Prevent the input
+    }
 }
 
 
 
 var suggestionsList = $(".suggestions-list");
 $("#AddRecipient").click(function () {
-    $("#text-input2").prop("disabled", false);
     $("#ExpDate").prop("disabled", false);
     AddRecipiants(1);
     $("#SendLink").show();
@@ -122,7 +126,6 @@ $("#AddRecipient").click(function () {
     $(".recipientcheck").show();
 });
 $("#OnlySigner").click(function () {
-    $("#text-input2").prop("disabled", true);
     $("#ExpDate").prop("disabled", true);
     SignerType = "Single_Signer";
     sessionStorage.setItem('Single_Signer', SignerType);
@@ -201,6 +204,12 @@ function isValidData() {
     if ($("#text-input1").val().trim() === '') {
         var row = '<div class="col-md-12 p-1" role="alert">Please enter a document name</div>';
         $("#message").append(row);
+        $("#text-input1").focus();
+        return false;
+    }
+    else if (/[0-9!@#$%^&*(),.?":{}|<>]/.test($("#text-input1").val())) {
+        row = '<div class="col-md-12 p-1" role="alert">Please enter a valid document name</div>';
+        $("#message").empty().append(row);
         $("#text-input1").focus();
         return false;
     }
@@ -297,7 +306,7 @@ function UploadImages(FileUploader, Preview, ColumnName) {
     if (!allowedExtensions.includes(fileExtension)) {
         // File extension validation
         $("#message").empty();
-        var row = '<div class="col-md-12 p-1" role="alert">Please upload PDF only.</div>';
+        var row = '<div class="col-md-12 p-1" role="alert">Please upload PDF only</div>';
         $("#message").append(row);
         fileInput.value = '';
         return false;

@@ -16,7 +16,7 @@ namespace zipSign.Controllers
         [HttpPost]
         public IHttpActionResult PDFSignature()
         {
-
+            string FilePath = "";
             string XMLData = "";
             string UploadedFilePath = "";
             var BodyStrem = new StreamReader(HttpContext.Current.Request.InputStream);
@@ -27,7 +27,7 @@ namespace zipSign.Controllers
             if (parts.Length > 1)
             {
                 XMLData = parts[1];
-                UploadedFilePath = parts[2];
+                UploadedFilePath = parts[2].Trim('"'); 
             }
             string XMLPATHYU = Path.GetFileNameWithoutExtension(UploadedFilePath);
             string xmlData = XMLData;
@@ -47,7 +47,7 @@ namespace zipSign.Controllers
             string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
             string filePath = UploadedFilePath; // Replace forward slashes with backslashes
             string a = filePath.Remove(0, 1);
-            string pdfReadServerPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + a; //Path.Combine(baseDirectory, filePath);
+            string pdfReadServerPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + filePath; //Path.Combine(baseDirectory, filePath);
 
 
 
@@ -189,7 +189,7 @@ namespace zipSign.Controllers
 
                 }
 
-                string FilePath = "/Uploads/SignUpload/" + PdfName + "_signedFinal.pdf";
+                 FilePath = "/Uploads/SignUpload/" + PdfName + "_signedFinal.pdf";
 
                 while (!System.IO.File.Exists(signedPdfPath))
                 {
@@ -351,7 +351,7 @@ namespace zipSign.Controllers
             {
                 status = true,
                 message = "File Signed Successfully.",
-                Data = ""
+                Data = FilePath
             };
             return Json(ApiResponseModel);
         }
