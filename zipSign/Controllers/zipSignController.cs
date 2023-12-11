@@ -224,7 +224,9 @@ namespace zipSign.Controllers
         {
             return View();
         }
+
         [HttpGet]
+
         //public ActionResult GetDetail()
         //{
 
@@ -967,10 +969,5 @@ namespace zipSign.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
-
-
-
-
-
     }
 }
