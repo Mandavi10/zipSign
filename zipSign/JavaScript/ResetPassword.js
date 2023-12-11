@@ -73,21 +73,21 @@ function UpdatePassword() {
         return false;
     }
     else if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(Newpassword)) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter, one uppercase letter, one numeric digit, at least 8 characters, and one special character</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password must contain one lowercase letter; one uppercase letter;  one numeral; one special character and at least 8 characters.</div>';
         $("#message").append(row);
         $("#newpassword").focus();
         return false;
     }
 
     if (confirmpassword === "") {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please confirm the password</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter confirm password</div>';
         $("#message").append(row);
         $("#confirmpassword").focus();
         return false;
     }
 
     if (Newpassword !== confirmpassword) {
-        var row = '<div class="alermsg col-md-12 p-1" role="alert">Passwords do not match</div>';
+        var row = '<div class="alermsg col-md-12 p-1" role="alert">Password and confirm password do not match.</div>';
         $("#message").append(row);
         $("#confirmpassword").focus();
         return false;
@@ -104,8 +104,8 @@ function UpdatePassword() {
         },
         success: function (result) {
             if (result.success) {
-                console.log('Password updated successfully');
-                window.location.href = '/Login/Index';
+                $('#successpopup1').modal('show');
+                //window.location.href = '/Login/Index';
                 sessionStorage.clear();
             } else if (result.error) {
                 $("#message").empty();

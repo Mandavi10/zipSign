@@ -722,7 +722,7 @@
             </div>
         </div>
 
-        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -778,7 +778,7 @@
         </div>
 
 
-        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true">
+        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -936,6 +936,7 @@
                     $("#ErrorMessage").empty().append(row);
                     return false;
                 }
+                
                 $.ajax({
                     
                     url: '/Login/ChangePasswordFromProfile',

@@ -737,10 +737,10 @@
                                                     <span></span>
                                                 </div>
                                                 @*<div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
-                                                    <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
-                                                    <span>Signed</span>
-                                                    <span></span>
-                                                </div>*@
+                                                        <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                                                        <span>Signed</span>
+                                                        <span></span>
+                                                    </div>*@
 
                                                 @*<div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
                                                         <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
@@ -750,10 +750,10 @@
                                                 @*<span>Signed</span>*@
                                             </div>
                                             @*<div class="col-md-12 doc-details" id="hdntxn" style="display:none;">
-                                                <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
-                                                <span>Signed</span>
-                                            </div>*@
-
+                                                    <label class="col-md-12 titletxt" id="Txnno">Txn No. :</label>
+                                                    <span>Signed</span>
+                                                </div>*@
+                                                                      
                                         </div>
                                         <div class="col-md-8 addingsigner position-relative">
 
@@ -1149,7 +1149,7 @@
 
                                         </div>
 
-                                     
+
                                     </div>
                                 </div>
                                 <iframe src="" id="NSDLiframe" style="display:none">
@@ -1354,9 +1354,9 @@
                                                 <span><i></i></span>
                                             </label>
                                         </td>
-                                        <td style="width:150px">Prabhar Khattar</td>
-                                        <td style="width:150px">Prabhar Khattar</td>
-                                        <td style="width:150px">Yes</td>
+                                        <td style="width:150px"></td>
+                                        <td style="width:150px"></td>
+                                        <td style="width:150px"></td>
 
                                     </tr>
                                 </tbody>
@@ -1445,19 +1445,21 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="title m-0" id="defaultModalLabel">Verify user PIN</h5>
+                    <h5 class="title m-0" id="defaultModalLabel">Verify Password</h5>
                 </div>
                 <div class="modal-body">
 
                     <div class="col-12 text-center mt-2 pb-2">
-                        <label class="">Now verify your user PIN</label>
+                        <label class="">Now verify your Password</label>
                     </div>
 
 
                     <div class="col-md-12">
                         <div class="form-group col-md-12">
-                            <label for="">User PIN</label>
+                            <label for="">Password</label>
                             <input type="text" id="txtuserpin" class="form-control" autocomplete="off" />
+                            <input type="hidden" id="hdndscpassword" />
+                            <input type="hidden" id="hdncertpath" />
                         </div>
                     </div>
 
@@ -1466,16 +1468,53 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Change User PIN</button>
-                    <button type="button" class="btn btn-primary" onclick="validatepassword()">Login</button>
+                    @*<button type="button" class="btn btn-primary">Change User PIN</button>*@
+                    <button type="button" class="btn btn-primary" onclick="validatepassword1()">validate Password</button>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <div class="modal fade" id="dataonstamp" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="title m-0" id="defaultModalLabel">Please Enter Details You Want To Append On Signature.</h5>
+                </div>
+                <div class="modal-body">
+
+                    @*<div class="col-12 text-center mt-2 pb-2">
+                        <label class=""></label>
+                    </div>*@
+
+
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="">Location</label>
+                            <input type="text" id="txtlocation" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group col-md-12">
+                            <label for="">Reason</label>
+                            <input type="text" id="txtreason" class="form-control" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    @*<button type="button" class="btn btn-primary">Change User PIN</button>*@
+                    <button type="button" class="btn btn-primary" onclick="proceed()">Proceed To Sign</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="~/Content/js/jquery-3.6.4.min.js"></script>
-   <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
     <script src="~/JavaScript/SigningRequest.js"></script>
 
     <script src="~/Content/js/ag-grid-community.min.js"></script>
@@ -1510,7 +1549,7 @@
         })
     </script>
 
-  
+
 
 
     <script>
