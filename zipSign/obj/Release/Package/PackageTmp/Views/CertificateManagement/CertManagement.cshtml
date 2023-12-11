@@ -1,0 +1,402 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .alermsg{position: absolute}
+    #Signmodal .modal-dialog {
+        width: 1024px !important;
+        max-width: 1024px !important;
+    }
+
+    .fixeddiv {
+        position: absolute;
+        right: 32px;
+        bottom: 23px;
+    }
+    /*
+        .giveweidth {
+            width: 80% !important;
+            margin-top: 7%;
+        }
+    */
+    .poptit {
+        font-size: 20px;
+        margin: 0px 0px 20px 0px;
+        font-family: Roboto-Bold;
+    }
+
+    #passprom .modal-dialog {
+        max-width: 400px !important;
+    }
+
+    .gheight {
+        height: 26vh;
+    }
+
+    #usermod .modal-dialog {
+        max-width: 1024px !important;
+    }
+    .spinloadlog {
+        position: absolute;
+        top: 36px;
+        color: #fff;
+        z-index: 9999;
+        right: 53px;
+        display: none;
+    }
+</style>
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Certificate Management</h2>
+                <ul class="breadcrumb">
+
+                    <li class="breadcrumb-item">Buy More Sign</li>
+                    <li class="breadcrumb-item active">Sign Usage Log</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+
+
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 d-flex justify-content-center">
+            <div class="card giveweidth">
+                <div class="body">
+
+                    <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                        <div class="col-md-12 p-0 d-flex flex-wrap mt-3">
+
+                            <div class="col-md-12 d-flex flex-wrap">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        <div class="form-group d-flex flex-wrap">
+                                            <label for="DocName" class="col-md-2">Upload Certificate</label>
+                                            <div class="col-md-8">
+                                                @*@<input type="file" />*@
+                                                <input type="file" name="Cert" id="SignImage" onchange="UploadImages('SignImage')" autocomplete="off" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Certificate Name</label>
+                                        <div class="col-md-11">
+                                            <input type="text" id="CertName" required class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DocName">Certificate Type</label>
+                                        <input type="text" id="CertType" required class="form-control" autocomplete="off">
+                                        @*<div class="col-md-11">
+                                                <select name="single_selection" class="form-control" id="">
+                                                    <option value="">Select</option>
+                                                    <option>.pfx</option>
+
+                                                </select>
+                                            </div>*@
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3 mb-2 pt-2">
+                                    <div class="body d-flex flex-wrap">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="DocName">Password</label>
+                                                <div class="col-md-11">
+                                                    <input type="password" id="password" required class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="DocName">Confirm Password</label>
+                                                <div class="col-md-11">
+                                                    <input type="password" id="confirmpassword" required class="form-control" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<i class="fa fa-spinner fa-spin spinloadlog" aria-hidden="true" id="loaderrr"></i>*@
+                                        <div class="col-md-12 d-flex justify-content-end mt-2 mb-2">
+                                            <button type="button" class="btn btn-primary" id="btnvalidatepassword" onclick="validatepassword()">
+                                                Validate Password
+                                                <i class="fa fa-spinner fa-spin ms-1" aria-hidden="true" id="loaderrr" style="display:none"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-12 d-flex flex-wrap gheight">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="DocName">Select Role</label>
+                                <div class="col-md-11 d-flex flex-wrap">
+                                    <div class="col-md-9">
+                                        <select name="single_selection" class="form-control" id="AccesUserType">
+                                            <option value="">Select</option>
+                                            <option>Superadmin</option>
+                                            <option>Admin</option>
+                                            <option>User</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 ps-3">
+                                        <button type="button" class="btn ingridbtn" style="margin-top:0px !important;" data-bs-toggle="modal" data-bs-target="#usermod">Select Users</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="DocName" data-toggle="modal" data-target="#usermod">Select User</label>
+                                    <div class="col-md-11">
+
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="DocName">Select the type of password for private key</label>
+                                <div class="col-md-11 d-flex flex-wrap pt-1">
+
+                                    <div class="col-md-4">
+                                        <div class="col-md-12 d-flex flex-wrap">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control" required id="Automatic">
+                                                <span><i></i>Automatic</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-12 d-flex flex-wrap ">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control" required id="PasswordPrompt">
+                                                <span><i></i>Password Prompt</span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="btnsavecert" onclick="SaveCertificate()">Save</button>
+                    </div>
+                    @*<div class="col-md-12 text-center">
+                            <label class="poptit">DSC Details</label>
+                        </div>*@
+
+                    @*<div class="col-md-12">
+                            <div class="form-group d-flex flex-wrap">
+                                <div class="col-md-6">
+                                    <label for="DocName">Select the type of Digital Signature Certificate:</label>
+                                </div>
+                                <div class="col-md-6 d-flex flex-wrap">
+                                    <div class="col-md-5">
+                                        <div class="col-md-12 d-flex flex-wrap">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control1" required id="OnlySigner">
+                                                <span><i></i>.pfx file</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="col-md-12 d-flex flex-wrap ">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control1" required id="OnlySigner">
+                                                <span><i></i>USB Token</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group d-flex flex-wrap">
+                                <div class="col-md-6">
+                                    <label for="DocName">Select your certificate keystore file(.PFX/P12):</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-primary ingridbtn" style="margin-top:0px !important;">Browse DSC File</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group d-flex flex-wrap">
+                                <div class="col-md-6">
+                                    <label for="DocName">Select the type of password for your private key:</label>
+                                </div>
+                                <div class="col-md-6 d-flex flex-wrap">
+                                    <div class="col-md-5">
+                                        <div class="col-md-12 d-flex flex-wrap">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control" required id="OnlySigner">
+                                                <span><i></i>Automatic</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="col-md-12 d-flex flex-wrap ">
+                                            <label class="fancy-radio custom-color-green">
+                                                <input type="radio" name="control" required id="OnlySigner">
+                                                <span data-toggle="modal" data-target="#passprom"><i></i>Password Prompt</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="form-group d-flex flex-wrap">
+                                <div class="col-md-6">
+                                    <label for="DocName">Select USB token certificate:</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="c_multiselect">
+                                        <select name="single_selection" class="form-control" id="">
+                                            <option value="">Select</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="viewRecipi" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Validation Success.</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @*<div class="modal-body pt-4 pb-4">
+                <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                    <div class="col-md-12 p-0">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                            <div id="myGrid1" style="height: 74vh; width: 100%;" class="ag-theme-alpine"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="viewRecipiforfailed" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="title m-0" id="defaultModalLabel">Validation Failed.Please Check Password.</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            @*<div class="modal-body pt-4 pb-4">
+                    <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                        <div class="col-md-12 p-0">
+                            <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+                                <div id="myGrid1" style="height: 74vh; width: 100%;" class="ag-theme-alpine"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="passprom" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            @*<div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">Password Prompt</h4>
+                </div>*@
+            <div class="modal-body pt-4 pb-3">
+                <div class="col-md-12">
+                    <div class="form-group ">
+                        <div class="col-md-12 mb-1">
+                            <label for="DocName">Enter Password</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" id="" required class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 d-flex justify-content-end ">
+                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No, cancel</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#successpopup">Yes, save</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="usermod" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content" id="hdsave">
+            <div class="modal-header">
+                    <h4 class="title m-0" id="defaultModalLabel">All Users</h4>
+                </div>
+            <div class="modal-body pt-2 pb-3">
+                <div class="col-md-12">
+                    <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                        <label class="position-relative">
+                            Search:
+                            <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                            <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                        </label>
+                    </div>
+                </div>
+                <div id="myGrid1" style="height: 59vh; width: 100%;" class="ag-theme-alpine mt-2"></div>
+
+
+                @*<div class="col-md-12 d-flex justify-content-end ">
+            <button type="button" class="btn btn-primary " data-dismiss="modal">OK</button>
+        </div>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/CertificateInsert.js"></script>
+

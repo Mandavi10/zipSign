@@ -1,0 +1,532 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/css/inbox.css" rel="stylesheet" />
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(body).addClass("layout-fullwidth");
+    });
+</script>
+<style>
+
+    #wrapper .sidebar {
+        left: -280px;
+    }
+
+    .layout-fullwidth #wrapper .sidebar {
+        left: 0px;
+    }
+
+    #main-content {
+        width: calc(100% - 50px);
+    }
+
+    .layout-fullwidth #wrapper #main-content {
+        width: calc(100% - 330px);
+        left: 0px;
+    }
+
+    #wrapper .navbar-fixed-top {
+        width: calc(100% - 50px);
+        left: 0;
+    }
+
+    .layout-fullwidth #wrapper .navbar-fixed-top {
+        left: 280px;
+        width: calc(100% - 330px);
+    }
+
+    .mail-inbox .mail-left {
+        width: 50%;
+    }
+
+    .mail-inbox .mail-right {
+        width: 50%;
+    }
+
+    .ag-header-container {
+        background-color: #fff !important;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .ag-header {
+        min-height: 28px !important;
+    }
+
+    .ag-theme-alpine .ag-header {
+        height: 34px !important;
+    }
+
+    .ag-header-cell {
+        height: 30px !important;
+    }
+
+    .ag-row {
+        height: 34px !important;
+    }
+
+    .ag-theme-alpine .ag-cell {
+        border: 1px solid transparent;
+        line-height: 35px !important;
+    }
+
+    .tbl_grid_btn {
+        padding: 1px 70px;
+        border: 1px solid #0058B1;
+        background-color: #fff;
+    }
+
+    .htmltable td {
+        border: none;
+    }
+
+    .tablehead tr th {
+        border: none;
+    }
+
+    .table-responsive-sm {
+        border-left: 1px solid #e3e3e3;
+        border-right: 1px solid #e3e3e3;
+    }
+
+    .table {
+        --bs-table-striped-bg: rgb(0 0 0 / 0%);
+    }
+
+
+    .tablehead tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+
+    .htmlbody {
+        overflow-y: auto;
+        height: 70vh;
+        overflow-x: hidden;
+        font-size: 12px;
+        border-bottom: 1px solid #dee2e6;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+        .htmlbody tr {
+            width: 100%;
+            display: table;
+            table-layout: fixed;
+            height: 23px;
+        }
+
+    .uploadedimgdiv {
+        border: 1px solid #cdcdcd;
+        width: 100%;
+        height: 56vh;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
+
+        .uploadedimgdiv img {
+            width: 100%;
+        }
+
+    .multiimgdiv {
+        overflow: auto;
+        height: 84vh;
+    }
+
+    label {
+        margin-bottom: 0rem !important;
+    }
+
+    .lblofmdl {
+        padding: 7px 17px;
+        font-family: Roboto-Bold;
+        font-size: 14px;
+        cursor: pointer;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom: none !important;
+    }
+
+    .lblofbox {
+        padding: 7px 17px;
+        font-family: Roboto-Bold;
+        font-size: 14px;
+        cursor: pointer;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border-bottom: none !important;
+    }
+
+    .activebtnsign, .activebtnbox {
+        border: 1px solid #cdcdcd;
+        background-color: #fff;
+        z-index: 9;
+        position: relative;
+    }
+
+
+    .bldtxt {
+        font-family: Roboto-Bold;
+    }
+
+    .bluetxt {
+        color: blue;
+    }
+
+    .redtxt {
+        color: red;
+    }
+
+    .greentxt {
+        color: green;
+    }
+
+    .bodybtn {
+        border-top: 1px solid #cdcdcd;
+        margin-top: -1px;
+        padding-top: 30px;
+    }
+
+    .ulofsecond {
+        margin-top: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #cdcdcd;
+    }
+
+        .ulofsecond li {
+            list-style: circle;
+            padding-top: 10px;
+            color: #a5a2a2;
+        }
+
+    .signbox {
+        border: 1px solid #cdcdcd;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    .intitlediv {
+        padding: 12px 10px;
+        background-color: #cdcdcd;
+        font-size: 14px;
+        font-family: Roboto-Medium;
+    }
+
+    .intitlediv1 {
+        padding: 7px 2px;
+        background-color: #cdcdcd;
+    }
+
+    .insign {
+        height: 40vh;
+    }
+
+    .thirdbtn {
+        overflow: auto;
+        height: 84vh;
+    }
+
+    .btn-clear {
+        padding: 2px 10px;
+        font-size: 12px;
+        border: 1px solid #cdcdcd;
+    }
+
+    .drawit {
+        font-size: 16px;
+        margin-right: 15px;
+        margin-top: 4px;
+        cursor: pointer;
+    }
+
+    .activepencil {
+        border-bottom: 1px solid #000;
+    }
+
+    .signaturebox {
+        border: 1px solid #cdcdcd;
+        height: 23vh;
+    }
+
+
+
+    #wrapper .sidebar {
+        left: -280px;
+    }
+
+    .layout-fullwidth #wrapper .sidebar {
+        left: 0px;
+    }
+
+    #main-content {
+        width: calc(100% - 50px);
+    }
+
+    .layout-fullwidth #wrapper #main-content {
+        width: calc(100% - 330px);
+        left: 0px;
+    }
+
+    #wrapper .navbar-fixed-top {
+        width: calc(100% - 50px);
+        left: 0;
+    }
+
+    .layout-fullwidth #wrapper .navbar-fixed-top {
+        left: 280px;
+        width: calc(100% - 330px);
+    }
+</style>
+
+
+
+
+
+
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h2>RequestSign</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">RequestSign</li>
+                </ul>
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    @*<div class="page_action">
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Request Sign</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-id-card-o" aria-hidden="true"></i> Preview</button>
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-location-arrow" aria-hidden="true"></i> Move to folder</button>
+                            <button type="button" class="btn btn-primary "><i class="fa fa-pencil" aria-hidden="true"></i> Rename</button>
+                        </div>*@
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="mobile-left">
+                    <a class="btn btn-primary toggle-email-nav collapsed" data-toggle="collapse" href="#email-nav" role="button" aria-expanded="false" aria-controls="email-nav">
+                        <span class="btn-label"><i class="la la-bars"></i></span>
+                        Menu
+                    </a>
+                </div>
+                <div class="mail-inbox">
+                    <div class="mail-left collapse" id="email-nav">
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 pe-1 firsthalfmdl">
+                            <div class="col-md-12 text-center">
+                                <label>User.pdf</label>
+                            </div>
+
+                            @*<div class="col-md-12 mt-2 multiimgdiv p-0 pr-1" id="document-preview-div">
+                                    <div class="uploadedimgdiv">
+                                        <img src="../assets/Images/banner.png" />
+                                        <iframe id="column" alt="Preview Image"></iframe>
+                                    </div>
+                                    <div class="uploadedimgdiv">
+                                        <img src="../assets/Images/banner.png" />
+                                    </div>
+                                    <div class="uploadedimgdiv">
+                                        <img src="../assets/Images/banner.png" />
+                                    </div>
+                                </div>*@
+                            <div class="col-md-12 mt-2 multiimgdiv p-0 pr-1">
+                                <div class="uploadedimgdiv">
+                                    <iframe id="document-preview-frame" src=""></iframe>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label id="uploaded-file-name"></label>
+                                <label id="uploaded-file-size"></label>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="mail-right mt-2">
+                        @*<div class="header d-flex align-center">
+                                <h2>Sign</h2>
+
+                            </div>*@
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 p-0 ps-1">
+                            <div class="col-md-12">
+                                <label class="lblofmdl adhar activebtnsign"><i class="fa fa-id-card-o pr-1" aria-hidden="true"></i><span>Aadhaar eSign</span></label>
+                                <label class="lblofmdl dsc"><i class="fa fa-usb pr-1" aria-hidden="true"></i><span>DSC eSign</span></label>
+                                <label class="lblofmdl elect"><i class="fa fa-pencil pr-1" aria-hidden="true"></i><span>Electronic</span></label>
+                            </div>
+
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 bodybtn firstbtn ">
+                                <div class="col-md-12 ">
+                                    <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>By continuing, I agree to do eKYC using aadhaar to eSign with one of ESPs ( NSDL e-Gov or verasys ) Digio is registered as ASP.</label>
+                                </div>
+                                <div class="col-md-12 p-0 mt-3">
+                                    <input type="text" class="col-md-12 form-control" placeholder="Enter Name as on Aadhaar card" />
+                                </div>
+                                <div class="col-md-12 p-0 mt-2">
+                                    <button type="button" class="btn btn-primary" style="width: 100%" disabled>Continue</button>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 bodybtn secondbtn" style="display: none">
+                                <div class="col-md-12 ">
+                                    <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>Download and install or start Yoekisoft SmartClient</label>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-primary">Download</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="mt-4 ulofsecond">
+                                        <li>Double click the downloaded package for <b>windows</b></li>
+                                        <li>Follow the installer instructions to install</li>
+                                        <li>We will take you to next step automatically once you install the SmartClient</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>Connect token device</label>
+                                </div>
+                                <div class="col-md-12 ">
+                                    <label><i class="fa fa-info-circle pr-1" aria-hidden="true"></i>Install token drivers</label>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12 bodybtn thirdbtn" style="display: none">
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>Click add signature box(below) to add signature copies on any page.</li>
+                                        <li>Place the signature box(on the left) where you would like to have the sign pasted.</li>
+                                        <li>If you remove all the signature boxes, your signature will be pasted at the default position on each page of the document.</li>
+                                        <li>Draw your signature in the box provided below and click Submit to sign the document.</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 mt-3 text-center">
+                                    <button type="button" class="btn btn-primary" style="line-height: 8px">Click to Add Signature Box (Signatures:0)</button>
+                                </div>
+                                <div class="col-md-12 mt-3 text-center">
+                                    <input type="checkbox" /><label class="pl-1">Certify Your Sign</label>
+                                </div>
+
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <div class="col-md-12 p-0 signbox">
+                                        <div class="col-md-12 intitlediv " style="">
+                                            <label>Sign Inside The Box</label>
+                                        </div>
+                                        <div class="col-md-12 insign p-0">
+                                            <div class="col-md-12 mt-2">
+                                                <label class="lblofbox activebtnbox ms-2 drw"><span>Draw</span></label>
+                                                <label class="lblofbox upimg"><span>Upload Image</span></label>
+                                            </div>
+                                            <div class="col-md-12 bodybtn">
+
+                                                <div class="drawdiv">
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        <i class="fa fa-pencil drawit activepencil" aria-hidden="true"></i>
+                                                        <button type="button" class="btn btn-clear">Clear</button>
+                                                    </div>
+                                                    <div class="col-md-12 d-flex justify-content-center mt-2">
+                                                        <div class="col-md-11 signaturebox">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="uploaddiv" style="display: none;">
+                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                        <input type="file" />
+                                                    </div>
+                                                    <div class="col-md-12 d-flex justify-content-center mt-2">
+                                                        <div class="col-md-11 signaturebox">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 intitlediv1 text-center">
+                                            <button type="button" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>s
+        </div>
+    </div>
+</div>
+<script src="~/Content/js/jquery-3.6.4.min.js"></script>
+<script src="~/JavaScript/RequestSign.js"></script>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/JavaScript/Upload.js"></script>
+<script>
+    // Retrieve the stored file details and base64 data from session storage
+    var uploadedFileName = sessionStorage.getItem('uploadedFileName');
+    var uploadedFileSize = sessionStorage.getItem('uploadedFileSize');
+    var uploadedFileData = sessionStorage.getItem('uploadedFileData');
+
+    // Update the corresponding elements with the retrieved values
+    $("#uploaded-file-name").text(uploadedFileName);
+    $("#uploaded-file-size").text(uploadedFileSize);
+
+    // Set the base64 data as the source of the iframe to display the document preview
+    $("#document-preview-frame").attr("src", uploadedFileData);
+</script>
+
+<script>
+
+    $(document).ready(function () {
+        $(".adhar").click(function () {
+            $(".adhar").addClass("activebtnsign");
+            $(".dsc").removeClass("activebtnsign");
+            $(".elect").removeClass("activebtnsign");
+            $(".firstbtn").show();
+            $(".secondbtn").hide();
+            $(".thirdbtn").hide();
+        });
+        $(".dsc").click(function () {
+            $(".dsc").addClass("activebtnsign");
+            $(".adhar").removeClass("activebtnsign");
+            $(".elect").removeClass("activebtnsign");
+            $(".firstbtn").hide();
+            $(".secondbtn").show();
+            $(".thirdbtn").hide();
+        });
+        $(".elect").click(function () {
+            $(".elect").addClass("activebtnsign");
+            $(".adhar").removeClass("activebtnsign");
+            $(".dsc").removeClass("activebtnsign");
+            $(".firstbtn").hide();
+            $(".secondbtn").hide();
+            $(".thirdbtn").show();
+        });
+        $(".drw").click(function () {
+            $(".drw").addClass("activebtnbox");
+            $(".upimg").removeClass("activebtnbox");
+            $(".drawdiv").show();
+            $(".uploaddiv").hide();
+        });
+        $(".upimg").click(function () {
+            $(".upimg").addClass("activebtnbox");
+            $(".drw").removeClass("activebtnbox");
+            $(".drawdiv").hide();
+            $(".uploaddiv").show();
+        });
+    });
+</script>
+
+

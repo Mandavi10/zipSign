@@ -1,0 +1,200 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/css/parsley.css" rel="stylesheet" />
+
+
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>All Departments</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">Masters</li>
+                    <li class="breadcrumb-item active">All Departments</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        @*<button type="button" class="btn  btn-primary" id="downloadButton1"><i class="fa fa-file-excel-o"></i> Excel</button>*@
+                        <button type="button" class="btn btn-primary" onclick="window.location.href='../Masters/DepartmentMaster';"><i class="fa fa-plus" aria-hidden="true"></i> New</button>
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="body">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+
+
+                        <div class="col-md-12 col-xs-12 col-sm-12 p-0">
+                            <div class="col-md-12 p-0">
+                                <div class="col-md-12 col-sm-12 col-xs-12 p-0">
+
+
+                                    @*<div class="col-md-12">
+                                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                                <label>Search:<input type="text" id="searchInput"><i class="fa fa-search" onclick="Search()"></i> </label>
+                                            </div>
+                                        </div>*@
+
+                                    <div class="col-md-12">
+                                        <div id="" class="dataTables_filter">
+                                            <label class="position-relative">
+                                                Search:
+                                                <input type="text" class="form-control" placeholder="" aria-controls="" id="searchInput" autocomplete="off">
+                                                <i class="fa fa-search iconinsearch" aria-hidden="true" onclick="Search()"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="myGrid" style="height: 67vh; width: 100%;" class="ag-theme-alpine"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-2" id="DivPagination">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="Ddd" role="status" aria-live="polite"></div>
+                            </div>
+                            <div class="col-sm-12 col-md-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="pagination1">
+                                    @*<ul class="pagination">
+                                            <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                            <li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
+                                            <li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
+                                            <li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </ul>*@
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script src="~/Content/js/libscripts.bundle.js"></script>
+<script src="~/Content/js/mainscripts.bundle.js"></script>
+<script src="~/Content/js/bootstrap.min.js"></script>
+<script src="~/JavaScript/AllDepartment.js"></script>
+<script src="~/JavaScript/ExcelDownload.js"></script>
+
+
+<div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Department Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height:78vh;position:relative;">
+                <div class="col-md-12 d-flex flex-wrap flex-wrap">
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Department Code:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="departmentCode" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Department Name:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="departmentName" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Description:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="description" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Created By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="createdBy" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Created On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="createdOn" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Updated By:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="updatedBy" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Updated On:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="updatedOn" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mt-2">
+                        <div class="form-group d-flex flex-wrap">
+                            <div class="col-md-5 col-12">
+                                <label class="text-input1 highfw">Status:</label>
+                            </div>
+                            <div class="col-md-6">
+                                <label id="status" class="lowfw"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

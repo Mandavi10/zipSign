@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Conversion and e-Sign</title>
+    <style>
+        .loader-overlay {
+            display: none;
+            position: fixed;
+            background-color: rgba(255, 255, 255, 0.7);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 99999;
+        }
+
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="loader-overlay" id="loader-overlay">
+        <div class="loader">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+
+    <h2>PDF Conversion and e-Sign</h2>
+
+    @if (ViewBag.HtmlContent != null)
+    {
+        <h3>e-Sign Form Submission Result</h3>
+        @Html.Raw(ViewBag.HtmlContent)
+    }           
+    else
+    {
+        <h3>Submit for e-Sign</h3>
+        <form action="/PdfSign/SubmitRequest" method="post" style="display: none;">
+            <input type="hidden" name="msg" value="@Model.XmlData" style="display: none;" />
+
+            <input type="submit" id="submit-button" value="Submit" />
+        </form>
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p class="error">@ViewBag.ErrorMessage</p>
+    }
+
+    <script>
+        $(document).ready(function () {
+
+            // Show the loader when the form is submitted
+            $("form").submit(function () {
+                $("#loader-overlay").fadeIn();
+                $("#submit-button").prop("disabled", true);
+            });
+
+            // Hide the loader when the page is fully loaded
+            $(window).on("load", function () {
+                $("#loader-overlay").fadeOut();
+                $("#submit-button").prop("disabled", false);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+D:\NewProject\zipSign\AESEncryption\bin\Debug\AESEncryption.dll
+D:\NewProject\zipSign\AESEncryption\bin\Debug\AESEncryption.pdb
+D:\NewProject\zipSign\AESEncryption\obj\Debug\AESEncryption.csproj.CoreCompileInputs.cache
+D:\NewProject\zipSign\AESEncryption\obj\Debug\AESEncryption.dll
+D:\NewProject\zipSign\AESEncryption\obj\Debug\AESEncryption.pdb
+D:\NewProject\zipSign\AESEncryption\obj\Debug\AESEncryption.csproj.AssemblyReference.cache

@@ -1,0 +1,232 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>zipSign</title>
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+
+    <style>
+        .top h3 {
+            color: #fff;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .capdiv {
+            width: 127px;
+            height: 37px;
+            overflow: hidden;
+            border: 1px solid #e2e2e2;
+            margin-left: 14px;
+        }
+
+        .refcap {
+            position: absolute;
+            right: 11px;
+            top: 7px;
+            font-size: 20px;
+            color: #0058b1;
+            cursor: pointer;
+        }
+
+        .pages {
+            display: flex;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page {
+            width: 100%;
+            transition: all 0.7s;
+            color: white;
+        }
+
+        .auth-box {
+            overflow: hidden;
+            width: 450px;
+        }
+
+        .auth-main .card {
+            height: 425px !important;
+            border: none !important;
+        }
+
+        .loginbtn {
+            margin-top: 100px !important;
+        }
+
+        .alert {
+            padding: 0.3rem 1.25rem !important;
+        }
+
+        a {
+            color: #0058b1 !important;
+        }
+
+        .resendotp {
+            color: #0058b1;
+            margin-left: 10px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .captchainput {
+            width: 40%;
+        }
+
+        .alermsg {
+            color: #de4848;
+            font-size: 0.9em;
+            margin-top: 3px;
+        }
+
+        .successmsg {
+            color: #057a05;
+            font-size: 0.9em;
+            margin-top: 3px;
+        }
+
+        .erdiv {
+            margin-bottom: 0.3rem !important;
+        }
+
+        .formHeight {
+            height: 170px;
+        }
+
+        .lead {
+            font-weight: bolder;
+        }
+
+        .fa-eye, .fa-eye-slash {
+            position: absolute;
+            right: 12px;
+            top: 10px;
+            cursor: pointer;
+            color: #0058b1;
+        }
+
+        .termstxt {
+            font-size: 12px;
+        }
+
+        #password {
+            padding-right: 30px;
+        }
+
+        .showpassdiv {
+            color: #0058b1;
+            cursor: pointer;
+            font-family: 'Roboto-Bold';
+        }
+    </style>
+</head>
+<body data-theme="light" class="font-nunito">
+    <div id="wrapper" class="theme-cyan">
+        <div class="vertical-align-wrap">
+            <div class="vertical-align-middle auth-main">
+                <div class="auth-box">
+                    <div class="top">
+                        @*<img src="assets/images/logo-white.svg" alt="Iconic">*@
+                        <h3 style="color:#fff">zipSign</h3>
+                    </div>
+                    <div class="pages">
+                        <div class="page">
+                            <div class="card">
+                                <div class="header">
+                                    <p class="lead text-center">Please confirm your identity</p>
+                                </div>
+                                <div class="body">
+                                    <form class="form-auth-small" action="index.html" id="myForm">
+                                        <div class="formHeight">
+
+                                            <div class="form-group ">
+                                                <label>Enter Email ID / Mobile No.</label>
+                                                <input type="text" class="form-control" id="signin-email" placeholder="Email ID / Mobile No." autocomplete="off" oninput="this.value = this.value.toLowerCase()">
+                                                <input type="hidden" id="hdnEmail" />
+                                            </div>
+
+                                            <div class="form-group otpdiv erdiv" style="display:none" id="otodiv">
+                                                <input type="text" class="form-control" id="signin-otp" placeholder="Enter OTP" maxlength="6" autocomplete="off">
+                                            </div>
+                                            <div class="form-group erdiv position-relative pasdiv" style="display:none">
+                                                <input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">s
+                                                <i class="fa fa-eye eye1"></i>
+                                                <i class="fa fa-eye-slash eye2" style="display: none;"></i>
+                                            </div>
+                                            <div class="successmsg" role="alert" id="successmsg1" style="display: none;"></div>
+                                            <div class="alermsg" style="display:none" role="alert" id=" ">Password does not match.</div>
+
+
+                                            <div class="col-md-12 d-flex justify-content-end timerdiv">
+                                                <label class="mb-0" id="timer">00:60</label><label class="resendotp mb-0" id="lblemailresend">Resend OTP</label>
+                                            </div>
+
+
+                                            <div class="form-group mt-2">
+                                                <input type="checkbox" id="chckbox" />
+                                                <label class="termstxt">By proceeding, I agree to the <a href="https://zipsign.in/Privacy.aspx" target="_blank">Terms of service</a> and <a href="https://zipsign.in/Privacy.aspx" target="_blank">Privacy policy</a>.</label>
+                                            </div>
+                                            <div id="message" style="color: red; display: none;" >Please accept the terms and conditions.</div>
+                                        </div>
+
+                                        <button type="button" class="btn btn-primary btn-lg btn-block col-md-12 otpbtn" id="submitBtn" disabled @*onclick="SendVerifyEmailOTP()"*@>SEND OTP</button>
+                                        <button type="button" class="btn btn-primary btn-lg btn-block col-md-12 submitbtn" style="display:none" onclick="VerifyOTP()">SUBMIT</button>
+                                        
+
+
+                                        <div class="form-group text-center mt-4">
+                                            <label class="termstxt">Already a zipSign user? Login with a <span class="showpassdiv">password</span> instead.</label>
+                                        </div>
+                                               
+                                    </form>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/jquery-3.6.4.min.js"></script>
+    <script src="~/JavaScript/RequestSign.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.eye1').click(function () {
+                $(this).hide();
+                $('.eye2').show();
+                $('#password').attr('type', 'text')
+            })
+            $('.eye2').click(function () {
+                $(this).hide();
+                $('.eye1').show();
+                $('#password').attr('type', 'password')
+            })
+            //$('.showpassdiv').click(function () {
+            //    $('.pasdiv').show();
+            //    $('.otpdiv').hide();
+            //    $('.timerdiv').css('visibility', 'hidden');
+            //})
+            //$('.otpbtn').click(function () {
+            //    $('.otpbtn').hide();
+            //    $('.submitbtn').show();
+            //    $('.otpdiv').show();
+
+            //})
+        })
+
+    </script>
+
+
+
+</body>
+</html>

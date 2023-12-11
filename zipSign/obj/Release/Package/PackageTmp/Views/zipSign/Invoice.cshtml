@@ -1,0 +1,237 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .maintle {
+        font-weight: 700;
+        color: var(--dark-color);
+    }
+    .compdiv{
+        width:200px;
+        /*position:absolute;
+        top:50px;*/
+    }
+    .fisrtlbl{
+        font-weight:bolder;
+    }
+    .finaltxt{
+        text-align:right;
+        color:#000;
+        font-weight:bolder;
+    }
+    .txtright{
+        text-align:right;
+    }
+    .lasttxt{
+        font-weight:bolder;
+        color:#000;
+    }
+    .invisibletd{
+        border-bottom:none;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="block-header">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h2>Invoice</h2>
+                <ul class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html"><i class="fa fa-dashboard"></i></a></li>*@
+                    <li class="breadcrumb-item">zipSign</li>
+                    <li class="breadcrumb-item active">Invoice</li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="d-flex flex-row-reverse">
+                    <div class="page_action">
+                        <button type="button" class="btn btn-primary"><i class="fa fa-print"></i> Print</button>
+                            <button type="button" class="btn btn-primary"><i class="fa fa-download"></i> Download</button>
+                        @*<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>*@
+                    </div>
+                    <div class="p-2 d-flex">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12">
+            <div class="card">
+                @*<div class="header">
+                        <h2>Basic Validation</h2>
+                    </div>*@
+
+                <div class="body position-relative">
+                    <form id="advanced-form" data-parsley-validate novalidate>
+       
+                      
+
+                        <div class="col-md-12 text-center">
+                            <h2 class="maintle">Invoice</h2>
+                        </div>
+
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <div class="compdiv">
+                                <h1 class="maintle m-0">zipSign</h1>
+                                <label>H-221 Infinity business Tower</label>
+                                <label>Noida Sector 63,</label>
+                                <label>Pin- 201301</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Invoice Date:</label></div>
+                                    <div class="col-md-6 ps-2"><label>12/06/2023</label></div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Invoice ID:</label></div>
+                                    <div class="col-md-6 ps-2"><label>4585286</label></div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Payment Terms:</label></div>
+                                    <div class="col-md-6 ps-2"><label>Due Upon Receipt</label></div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Due Date:</label></div>
+                                    <div class="col-md-6 ps-2"><label>12/06/2023</label></div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Account Name:</label></div>
+                                    <div class="col-md-6 ps-2"><label>John Doe</label></div>
+                                </div>
+                                <div class="col-md-12 d-flex flex-wrap">
+                                    <div class="col-md-6 d-flex justify-content-end "><label class="fisrtlbl">Billing Account:</label></div>
+                                    <div class="col-md-6 ps-2"><label>A458755B</label></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+
+                        <div class="col-md-12 d-flex flex-wrap mt-4 mb-4">
+                            <div class="col-md-6 d-flex flex-wrap">
+                                <div class="col-md-2"><label>Bill To:</label></div>
+                                <div class="col-md-4"><label>Teresa Stefaneli Therapy info@teresatherapy@gmail.com Noida</label></div>
+
+                            </div>
+
+                            <div class="col-md-6 d-flex flex-wrap">
+                                <div class="col-md-2"><label>Ship To:</label></div>
+                                <div class="col-md-4"><label>Teresa Stefaneli Therapy info@teresatherapy@gmail.com Noida</label></div>
+                            </div>
+
+                        </div>
+
+                     
+                        <div class="col-md-12">
+                            <table id="mainTable" class="table table-hover" style="cursor: pointer;">
+                                <thead>
+                                    <tr>
+                                        <th>Subscription</th>
+                                        <th>Item</th>
+                                        <th>Description</th>
+                                        <th>Service Period</th>
+                                        <th>Quantity</th>
+                                        <th class="txtright">Unit Price</th>
+                                        <th class="txtright">Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1">A-SOODNFNHJ</td>
+                                        <td tabindex="1">SKU-678</td>
+                                        <td tabindex="1">zipSign Personal Edition</td>
+                                        <td tabindex="1">11/05/2023 to 11/06/2023</td>
+                                        <td tabindex="1">15</td>
+                                        <td tabindex="1" class="txtright">25</td>
+                                        <td tabindex="1" class="txtright">375</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1" colspan="5" class="invisibletd"></td>
+                                        <td tabindex="1" class="finaltxt">Tax:</td>
+                                        <td tabindex="1" class="txtright lasttxt">18</td>
+                                    </tr>
+                                    <tr>
+                                        <td tabindex="1" colspan="5" class="invisibletd"></td>
+                                        <td tabindex="1" class="finaltxt">Total:</td>
+                                        <td tabindex="1" class="txtright lasttxt">2643</td>
+                                    </tr>
+
+
+                                </tbody>
+                                @*<tfoot>
+                                    <tr>
+                                        <th><strong>TOTAL</strong></th>
+                                        <th>1290</th>
+                                        <th>1420</th>
+                                        <th>5</th>
+                                    </tr>
+                                </tfoot>*@
+                            </table>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

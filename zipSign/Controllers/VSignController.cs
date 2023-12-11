@@ -11,10 +11,10 @@ namespace zipSign.Controllers
 {
     public class VSignController : Controller
     {
-        // GET: VSign
+        // GET: VSign   //
         public ActionResult Index()
         {
-            return View();
+              return View();
         }
 
         public ActionResult PDFSignature(AuthViewModel objModel)
