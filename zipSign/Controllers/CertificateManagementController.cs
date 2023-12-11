@@ -32,6 +32,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
+        [HttpPost]
         public ActionResult UploadDocument()
         {
             HttpPostedFileBase file = Request.Files["HelpSectionImages"];
@@ -62,7 +63,6 @@ namespace zipSign.Controllers
             }
             return Json(new { status = "101" }, JsonRequestBehavior.AllowGet);
         }
-
         public static string CreateRandomKey()
         {
             string _allowedChars = "09876543212345678901234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -72,9 +72,9 @@ namespace zipSign.Controllers
             {
                 chars[i] = _allowedChars[randNum.Next(_allowedChars.Length)];
             }
+
             return new string(chars);
         }
-
 
         [HttpPost]
         public bool ValidateCertWithPassword(string certificateforvalidate, string password)

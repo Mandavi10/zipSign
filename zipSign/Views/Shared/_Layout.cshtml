@@ -228,9 +228,9 @@
 
         <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
-                <div class="navbar-brand col-md-8">
+                <div class="navbar-brand col-md-5">
                     @*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-                    <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
+            <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
                     @*   <a href="index.html">zipSign</a>*@
                     <nav aria-label="breadcrumb" class="position-relative breadtxt">
                         <ol class="breadcrumb m-0" style="display:block !important;">
@@ -264,11 +264,17 @@
                     </nav>
                 </div>
 
+                <div class="col-md-6 d-flex justify-content-end">
+                    <label>Last Login :</label>
+                    <label><strong class="text-black" id="txtlastlogin"></strong></label>&nbsp;&nbsp;&nbsp;
+                    <label>Today Time :</label>
+                    <label><iframe style="pointer-events: none; margin-bottom:-3px;" class="mt-0" src="https://free.timeanddate.com/clock/i8yd4h2c/n176/fc555/tct/pct/ftb/tt0/tw0/tm1/tb1" frameborder="0" width="170" height="18" allowtransparency="true"></iframe></label>
+                </div>
                 <div class="navbar-right">
                     @*<form id="navbar-search" class="navbar-form search-form">
-                        <input value="" class="form-control" placeholder="Search here..." type="text">
-                        <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
-                    </form>*@
+                <input value="" class="form-control" placeholder="Search here..." type="text">
+                <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+            </form>*@
 
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
@@ -834,7 +840,7 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function (response) {
-                           
+                            debugger
                             if (response.length > 0) {
                                 var userData = response[0];
                                 $('#usernameDisplay1').text(userData.UserName);
@@ -842,6 +848,7 @@
                                 $('#phoneDisplay').text(userData.Mobile);
                                 $('#UserMasterId').val(userData.UserId);
                                 $('#state').text(userData.State);
+                                $('#txtlastlogin').text(userData.SecondLastLoginOn);
                                 // Populate other fields as needed
                             } else {
 
