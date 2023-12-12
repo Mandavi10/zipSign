@@ -6,6 +6,8 @@
 # User-specific files
 *.rsuser
 *.suo
+*.suo
+
 *.user
 *.userosscache
 *.sln.docstates
@@ -97,6 +99,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.dll
 
 # Chutzpah Test files
 _Chutzpah*
@@ -109,6 +112,7 @@ ipch/
 *.opensdf
 *.sdf
 *.cachefile
+*.cache
 *.VC.db
 *.VC.VC.opendb
 

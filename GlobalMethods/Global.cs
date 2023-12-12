@@ -1,5 +1,5 @@
 ﻿namespace GlobalMethods
-{
+{        
     public class Global
     {
         public static string DocSign = "Data Source=192.168.40.86;Initial Catalog=UATDocumentZipSign;Integrated Security=False;User ID=aditi;Password=gBg7$52F";
