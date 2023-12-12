@@ -84,7 +84,7 @@ function Login() {
             Mobile: textbox,
             Password: password,
         },
-        success: function (result) {
+        success: function (result) {    
             if (result && result.length > 0) {
                 sessionStorage.setItem('UserId', result[0].UserId);
                 var username = result[0].UserName;
@@ -198,10 +198,10 @@ function SendLoginEmailOTP(textbox, username, mobile) {
             if (atIndex !== -1) {
                 var localPart = Email.slice(0, atIndex);
                 var domainPart = Email.slice(atIndex);
-                var remainingChars = localPart.length - 2; // Calculate the number of characters to replace
+                var remainingChars = localPart.length - 4; // Calculate the number of characters to replace
                 if (remainingChars > 0) {
                     var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
-                    localPart = localPart[0] + xChars + localPart[localPart.length - 1];
+                    localPart = localPart[0] + localPart[1] + xChars + localPart[localPart.length - 2] + localPart[localPart.length - 1];
                 }
                 var formattedEmail = localPart + domainPart; 
                 var span = $("#lblemail .enterddata");
