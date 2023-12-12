@@ -57,7 +57,6 @@ function getCurrentDateTime() {
 }
 
 
-
 function UpdatePassword() {
     var OldPassword = $("#oldpassword").val();
     var Newpassword = $("#newpassword").val();
