@@ -80,3 +80,4 @@ D:\zipSign\zipSign\obj\Release\zipSign.csproj.CoreCompileInputs.cache
 D:\zipSign\zipSign\obj\Release\zipSign.csproj.CopyComplete
 D:\zipSign\zipSign\obj\Release\zipSign.dll
 D:\zipSign\zipSign\obj\Release\zipSign.pdb
+D:\zipSign\zipSign\bin\System.Memory.xml
