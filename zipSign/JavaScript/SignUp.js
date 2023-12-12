@@ -740,7 +740,7 @@ function restartEmailTimer() {
 }
 function restartMobileTimer() {
     startTimer(60, $('#timer3'), true);
-    isMobileTimerRunning = true;
+    isMobileTimerRunning = true;               
 }
 function stopEmailTimer() {
     clearInterval(emailTimerIntervalId);
@@ -773,7 +773,7 @@ function ClearOnSwitchCheckBox() {
     $('#Phoneno').css('border-style', '').css('border-color', '');
     $('#Email').css('border-style', '').css('border-color', '');
     $('#Email').removeAttr('disabled', true);
-    $("#btnmobotp").attr('disabled', 'disabled');
+    $("#btnmobotp").attr('disabled', 'disabled'); 
     $("#Phoneno").attr('disabled', 'disabled');
     //span.text('');
     mobileverified = 0;

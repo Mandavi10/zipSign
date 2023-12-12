@@ -21,29 +21,26 @@
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes">
             <summary>
-            Constants that indicate how the <see cref="P:System.Security.Claims.Claim.Value"/> should be evaluated.
+            Constants for Json Web tokens.
             </summary>
         </member>
         <member name="F:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.Json">
             <summary>
-            A value that indicates the <see cref="P:System.Security.Claims.Claim.Value"/> is a Json object.
+            A URI that represents the JSON XML data type.
             </summary>
-            <remarks>When creating a <see cref="T:System.Security.Claims.Claim"/> from Json if the value was not a simple type {String, Null, True, False, Number}
-            then <see cref="P:System.Security.Claims.Claim.Value"/> will contain the Json value. If the Json was a JsonObject, the <see cref="P:System.Security.Claims.Claim.ValueType"/> will be set to "JSON".</remarks>
+            <remarks>When mapping json to .Net Claim(s), if the value was not a string (or an enumeration of strings), the ClaimValue will serialized using the current JSON serializer, a property will be added with the .Net type and the ClaimTypeValue will be set to 'JsonClaimValueType'.</remarks>
         </member>
         <member name="F:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.JsonArray">
             <summary>
-            A value that indicates the <see cref="P:System.Security.Claims.Claim.Value"/> is a Json object.
+            A URI that represents the JSON array XML data type.
             </summary>
-            <remarks>When creating a <see cref="T:System.Security.Claims.Claim"/> from Json if the value was not a simple type {String, Null, True, False, Number}
-            then <see cref="P:System.Security.Claims.Claim.Value"/> will contain the Json value. If the Json was a JsonArray, the <see cref="P:System.Security.Claims.Claim.ValueType"/> will be set to "JSON_ARRAY".</remarks>
+            <remarks>When mapping json to .Net Claim(s), if the value was not a string (or an enumeration of strings), the ClaimValue will serialized using the current JSON serializer, a property will be added with the .Net type and the ClaimTypeValue will be set to 'JsonClaimValueType'.</remarks>
         </member>
         <member name="F:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes.JsonNull">
             <summary>
-            A value that indicates the <see cref="P:System.Security.Claims.Claim.Value"/> is Json null.
+            A URI that represents the JSON null data type
             </summary>
-            <remarks>When creating a <see cref="T:System.Security.Claims.Claim"/> the <see cref="P:System.Security.Claims.Claim.Value"/> cannot be null. If the Json value was null, then the <see cref="P:System.Security.Claims.Claim.Value"/>
-            will be set to <see cref="F:System.String.Empty"/> and the <see cref="P:System.Security.Claims.Claim.ValueType"/> will be set to "JSON_NULL".</remarks>
+            <remarks>When mapping json to .Net Claim(s), we use empty string to represent the claim value and set the ClaimValueType to JsonNull</remarks>
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken">
             <summary>
@@ -218,101 +215,16 @@
             <exception cref="T:Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException">if <paramref name="encodedJson"/> does not have an non-empty authentication tag after the 4th dot for a JWE.</exception>
             <exception cref="T:Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException">if <paramref name="encodedJson"/> has more than 4 dots.</exception>
         </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ToString">
-            <summary>
-            Returns the encoded token without signature or authentication tag.
-            </summary>
-            <returns>Encoded token string without signature or authentication tag.</returns>
-        </member>
         <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.UnsafeToString">
             <inheritdoc/>
         </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Claims">
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Actor">
             <summary>
-            Gets a <see cref="T:System.Collections.Generic.IEnumerable`1"/> where each claim in the JWT { name, value } is returned as a <see cref="T:System.Security.Claims.Claim"/>.
+            Gets the 'value' of the 'actort' claim the payload.
             </summary>
             <remarks>
-            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
-            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
+            If the 'actort' claim is not found, an empty string is returned.
             </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetClaim(System.String)">
-            <summary>
-            Gets a <see cref="T:System.Security.Claims.Claim"/> representing the { key, 'value' } pair corresponding to the provided <paramref name="key"/>.
-            </summary>
-            <remarks>
-            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
-            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
-            <para>
-            If the key has no corresponding value, this method will throw.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetClaim(System.String,System.Security.Claims.Claim@)">
-            <summary>
-            Try to get a <see cref="T:System.Security.Claims.Claim"/> representing the { key, 'value' } pair corresponding to the provided <paramref name="key"/>.
-            The value is obtained from the Payload.
-            </summary>
-            <remarks>
-            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
-            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
-            </remarks>
-            <returns>true if successful, false otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetHeaderValue``1(System.String)">
-            <summary>
-            Gets the 'value' corresponding to key from the JWT header transformed as type 'T'.
-            </summary>
-            <remarks>
-            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
-            The 5 basic types: number, string, true / false, nil, array (of basic types).
-            This is not a general purpose translation layer for complex types.
-            </remarks>
-            <returns>The value as <typeparamref name="T"/>.</returns>
-            <exception cref="T:System.ArgumentException">if claim is not found or a transformation to <typeparamref name="T"/> cannot be made.</exception>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetPayloadValue``1(System.String)">
-            <summary>
-            Gets the 'value' corresponding to key from the JWT payload transformed as type 'T'.
-            </summary>
-            <remarks>
-            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
-            The 5 basic types: number, string, true / false, nil, array (of basic types).
-            This is not a general purpose translation layer for complex types.
-            </remarks>
-            <returns>The value as <typeparamref name="T"/>.</returns>
-            <exception cref="T:System.ArgumentException">if claim is not found or a transformation to <typeparamref name="T"/> cannot be made.</exception>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetValue``1(System.String,``0@)">
-            <summary>
-            Tries to get the claim from the JWT payload.
-            </summary>
-            <remarks>
-            The 'value' a type T if possible.
-            </remarks>
-            <returns>true if successful, false otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetHeaderValue``1(System.String,``0@)">
-            <summary>
-            Tries to get the value corresponding to the provided key from the JWT header { key, 'value' }.
-            </summary>
-            <remarks>
-            The expectation is that the 'value' corresponds to a type expected in a JWT token.
-            The 5 basic types: number, string, true / false, nil, array (of basic types).
-            This is not a general purpose translation layer for complex types.
-            </remarks>
-            <returns>true if successful, false otherwise.</returns>
-        </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetPayloadValue``1(System.String,``0@)">
-            <summary>
-            Try to get the 'value' corresponding to key from the JWT payload transformed as type 'T'.
-            </summary>
-            <remarks>
-            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
-            The 5 basic types: number, string, true / false, nil, array (of basic types).
-            This is not a general purpose translation layer for complex types.
-            </remarks>
-            <returns>true if successful, false otherwise.</returns>
         </member>
         <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Alg">
             <summary>
@@ -325,6 +237,27 @@
             <para>
             If the 'alg' claim is not found, an empty string is returned.
             </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Audiences">
+            <summary>
+            Gets the list of 'aud' claims from the payload.
+            </summary>
+            <remarks>
+            Identifies the recipients that the JWT is intended for.
+            see: https://datatracker.ietf.org/doc/html/rfc7519#section-4-1-3
+            <para>
+            If the 'aud' claim is not found, enumeration will be empty.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Claims">
+            <summary>
+            Gets a <see cref="T:System.Collections.Generic.IEnumerable`1"/> where each claim in the JWT { name, value } is returned as a <see cref="T:System.Security.Claims.Claim"/>.
+            </summary>
+            <remarks>
+            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
+            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
             </remarks>
         </member>
         <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Cty">
@@ -350,82 +283,52 @@
             see: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.2
             </remarks>
         </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Kid">
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetClaim(System.String)">
             <summary>
-            Gets the 'value' of the 'kid' claim from the header.
+            Gets a <see cref="T:System.Security.Claims.Claim"/> representing the { key, 'value' } pair corresponding to the provided <paramref name="key"/>.
             </summary>
             <remarks>
-            'kid'is a hint indicating which key was used to secure the JWS.
-            see: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.4 (JWS)
-            see: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.6 (JWE)
+            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
+            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
             <para>
-            If the 'kid' claim is not found, an empty string is returned.
+            If the key has no corresponding value, this method will throw.
             </para>
             </remarks>
         </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Typ">
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetHeaderValue``1(System.String)">
             <summary>
-            Gets the 'value' of the 'typ' claim from the header.
+            Gets the 'value' corresponding to key from the JWT header transformed as type 'T'.
             </summary>
             <remarks>
-            Is used by JWT applications to declare the media type.
-            see: https://datatracker.ietf.org/doc/html/rfc7519#section-5.1
+            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            </remarks>
+            <returns>The value as <typeparamref name="T"/>.</returns>
+            <exception cref="T:System.ArgumentException">if claim is not found or a transformation to <typeparamref name="T"/> cannot be made.</exception>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.GetPayloadValue``1(System.String)">
+            <summary>
+            Gets the 'value' corresponding to key from the JWT payload transformed as type 'T'.
+            </summary>
+            <remarks>
+            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            </remarks>
+            <returns>The value as <typeparamref name="T"/>.</returns>
+            <exception cref="T:System.ArgumentException">if claim is not found or a transformation to <typeparamref name="T"/> cannot be made.</exception>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Id">
+            <summary>
+            Gets the 'value' of the 'jti' claim from the payload.
+            </summary>
+            <remarks>
+            Provides a unique identifier for the JWT.
+            see: https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7
             <para>
-            If the 'typ' claim is not found, an empty string is returned.
+            If the 'jti' claim is not found, an empty string is returned.
             </para>
-            </remarks>
-        </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.X5t">
-            <summary>
-            Gets the 'value' of the 'x5t' claim from the header.
-            </summary>
-            <remarks>
-            Is the base64url-encoded SHA-1 thumbprint(a.k.a.digest) of the DER encoding of the X.509 certificate used to sign this token.
-            see: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.7
-            <para>
-            If the 'x5t' claim is not found, an empty string is returned.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Zip">
-            <summary>
-            Gets the 'value' of the 'zip' claim from the header.
-            </summary>
-            <remarks>
-            The "zip" (compression algorithm) applied to the plaintext before encryption, if any.
-            see: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.3
-            <para>
-            If the 'zip' claim is not found, an empty string is returned.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Actor">
-            <summary>
-            Gets the 'value' of the 'actort' claim the payload.
-            </summary>
-            <remarks>
-            If the 'actort' claim is not found, an empty string is returned.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Audiences">
-            <summary>
-            Gets the list of 'aud' claims from the payload.
-            </summary>
-            <remarks>
-            Identifies the recipients that the JWT is intended for.
-            see: https://datatracker.ietf.org/doc/html/rfc7519#section-4-1-3
-            <para>
-            If the 'aud' claim is not found, enumeration will be empty.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Azp">
-            <summary>
-            Gets the 'azp' claim from the payload.
-            </summary>
-            <remarks>
-            Identifies the authorized party for the id_token.
-            see: https://openid.net/specs/openid-connect-core-1_0.html
             </remarks>
         </member>
         <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.IssuedAt">
@@ -452,15 +355,16 @@
             </para>
             </remarks>
         </member>
-        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Id">
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Kid">
             <summary>
-            Gets the 'value' of the 'jti' claim from the payload.
+            Gets the 'value' of the 'kid' claim from the header.
             </summary>
             <remarks>
-            Provides a unique identifier for the JWT.
-            see: https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.7
+            'kid'is a hint indicating which key was used to secure the JWS.
+            see: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.4 (JWS)
+            see: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.6 (JWE)
             <para>
-            If the 'jti' claim is not found, an empty string is returned.
+            If the 'kid' claim is not found, an empty string is returned.
             </para>
             </remarks>
         </member>
@@ -473,6 +377,78 @@
             Identifies the principal that is the subject of the JWT.
             <para>
             If the 'sub' claim is not found, an empty string is returned.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ToString">
+            <summary>
+            Returns the encoded token without signature or authentication tag.
+            </summary>
+            <returns>Encoded token string without signature or authentication tag.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetClaim(System.String,System.Security.Claims.Claim@)">
+            <summary>
+            Try to get a <see cref="T:System.Security.Claims.Claim"/> representing the { key, 'value' } pair corresponding to the provided <paramref name="key"/>.
+            The value is obtained from the Payload.
+            </summary>
+            <remarks>
+            A <see cref="T:System.Security.Claims.Claim"/> requires each value to be represented as a string. If the value was not a string, then <see cref="P:System.Security.Claims.Claim.Type"/> contains the json type.
+            <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimValueTypes"/> and <see cref="T:System.Security.Claims.ClaimValueTypes"/> to determine the json type.
+            </remarks>
+            <returns>true if successful, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetValue``1(System.String,``0@)">
+            <summary>
+            Tries to get the value
+            </summary>
+            <remarks>
+            The expectation is that the 'value' corresponds to a type expected in a JWT token.
+            </remarks>
+            <returns>true if successful, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetHeaderValue``1(System.String,``0@)">
+            <summary>
+            Tries to get the value corresponding to the provided key from the JWT header { key, 'value' }.
+            </summary>
+            <remarks>
+            The expectation is that the 'value' corresponds to a type expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            </remarks>
+            <returns>true if successful, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.TryGetPayloadValue``1(System.String,``0@)">
+            <summary>
+            Try to get the 'value' corresponding to key from the JWT payload transformed as type 'T'.
+            </summary>
+            <remarks>
+            The expectation is that the 'value' corresponds to a type are expected in a JWT token.
+            The 5 basic types: number, string, true / false, nil, array (of basic types).
+            This is not a general purpose translation layer for complex types.
+            </remarks>
+            <returns>true if successful, false otherwise.</returns>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Typ">
+            <summary>
+            Gets the 'value' of the 'typ' claim from the header.
+            </summary>
+            <remarks>
+            Is used by JWT applications to declare the media type.
+            see: https://datatracker.ietf.org/doc/html/rfc7519#section-5.1
+            <para>
+            If the 'typ' claim is not found, an empty string is returned.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.X5t">
+            <summary>
+            Gets the 'value' of the 'x5t' claim from the header.
+            </summary>
+            <remarks>
+            Is the base64url-encoded SHA-1 thumbprint(a.k.a.digest) of the DER encoding of the X.509 certificate used to sign this token.
+            see: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.7
+            <para>
+            If the 'x5t' claim is not found, an empty string is returned.
             </para>
             </remarks>
         </member>
@@ -497,6 +473,18 @@
             see: https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.4
             <para>
             If the 'exp' claim is not found, then <see cref="F:System.DateTime.MinValue"/> is returned.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.Zip">
+            <summary>
+            Gets the 'value' of the 'zip' claim from the header.
+            </summary>
+            <remarks>
+            The "zip" (compression algorithm) applied to the plaintext before encryption, if any.
+            see: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.3
+            <para>
+            If the 'zip' claim is not found, an empty string is returned.
             </para>
             </remarks>
         </member>
@@ -742,6 +730,17 @@
             are present inside of <paramref name="additionalHeaderClaims"/>.</exception>
             <returns>A JWE in compact serialization format.</returns>
         </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.CompressToken(System.String,System.String)">
+            <summary>
+            Compress a JWT token string.
+            </summary>
+            <param name="token"></param>
+            <param name="compressionAlgorithm"></param>
+            <exception cref="T:System.ArgumentNullException">if <paramref name="token"/> is null.</exception>
+            <exception cref="T:System.ArgumentNullException">if <paramref name="compressionAlgorithm"/> is null.</exception>
+            <exception cref="T:System.NotSupportedException">if the compression algorithm is not supported.</exception>
+            <returns>Compressed JWT token bytes.</returns>
+        </member>
         <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.CreateClaimsIdentity(Microsoft.IdentityModel.JsonWebTokens.JsonWebToken,Microsoft.IdentityModel.Tokens.TokenValidationParameters)">
             <summary>
             Creates a <see cref="T:System.Security.Claims.ClaimsIdentity"/> from a <see cref="T:Microsoft.IdentityModel.JsonWebTokens.JsonWebToken"/>.
@@ -927,6 +926,18 @@
             Validates the JWT signature.
             </summary>
         </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateSignature(System.Byte[],System.Byte[],Microsoft.IdentityModel.Tokens.SecurityKey,System.String,Microsoft.IdentityModel.Tokens.SecurityToken,Microsoft.IdentityModel.Tokens.TokenValidationParameters)">
+            <summary>
+            Obtains a <see cref="T:Microsoft.IdentityModel.Tokens.SignatureProvider"/> and validates the signature.
+            </summary>
+            <param name="encodedBytes">Bytes to validate.</param>
+            <param name="signature">Signature to compare against.</param>
+            <param name="key"><See cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> to use.</param>
+            <param name="algorithm">Crypto algorithm to use.</param>
+            <param name="securityToken">The <see cref="T:Microsoft.IdentityModel.Tokens.SecurityToken"/> being validated.</param>
+            <param name="validationParameters">Priority will be given to <see cref="P:Microsoft.IdentityModel.Tokens.TokenValidationParameters.CryptoProviderFactory"/> over <see cref="P:Microsoft.IdentityModel.Tokens.SecurityKey.CryptoProviderFactory"/>.</param>
+            <returns>'true' if signature is valid.</returns>
+        </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JsonClaimSet">
             <summary>
             This class provides an abstraction over the json parser for net461+ using System.Text.Json.
@@ -942,7 +953,7 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
-            <param name="throwEx">if this is called from TryGetValue then we don't want to throw.</param>
+            <param name="throwEx"></param>
             <param name="found"></param>
             <returns></returns>
         </member>
@@ -1023,21 +1034,6 @@
             See: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.1
             </summary>
         </member>
-        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Apu">
-            <summary>
-            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.2
-            </summary>
-        </member>
-        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Apv">
-            <summary>
-            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.3
-            </summary>
-        </member>
-        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Epk">
-            <summary>
-            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.1
-            </summary>
-        </member>
         <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Cty">
             <summary>
             See: https://datatracker.ietf.org/doc/html/rfc7515#section-4.1.10
@@ -1095,10 +1091,19 @@
             See: https://datatracker.ietf.org/doc/html/rfc7516#section-4.1.3
             </summary>
         </member>
-        <member name="T:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderUtf8Bytes">
+        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Epk">
             <summary>
-            Parameter names for JsonWebToken header values as UTF8 bytes.
-            Used by UTF8JsonReader/Writer for performance gains.
+            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.1
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Apu">
+            <summary>
+            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.2
+            </summary>
+        </member>
+        <member name="F:Microsoft.IdentityModel.JsonWebTokens.JwtHeaderParameterNames.Apv">
+            <summary>
+            See: https://datatracker.ietf.org/doc/html/rfc7518#section-4.6.1.3
             </summary>
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames">
@@ -1248,12 +1253,6 @@
             <summary>
             </summary>
         </member>
-        <member name="T:Microsoft.IdentityModel.JsonWebTokens.JwtPayloadUtf8Bytes">
-            <summary>
-            Parameter names for JsonWebToken registered claim names in UTF8 bytes.
-            Used by UTF8JsonReader/Writer for performance gains.
-            </summary>
-        </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.JwtTokenDecryptionParameters">
             <summary>
             Represents the parameters needed to decrypt a JSON Web Token
@@ -1375,6 +1374,17 @@
             Gets all decryption keys.
             </summary>
         </member>
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.GetDateTime(System.String,Microsoft.IdentityModel.Json.Linq.JObject)">
+            <summary>
+            Gets the <see cref="T:System.DateTime"/> using the number of seconds from 1970-01-01T0:0:0Z (UTC)
+            </summary>
+            <param name="key">Claim in the payload that should map to an integer, float, or string.</param>
+            <param name="payload">The payload that contains the desired claim value.</param>
+            <remarks>If the claim is not found, the function returns: <see cref="F:System.DateTime.MinValue"/>
+            </remarks>
+            <exception cref="T:System.FormatException">If the value of the claim cannot be parsed into a long.</exception>
+            <returns>The <see cref="T:System.DateTime"/> representation of a claim.</returns>
+        </member>
         <member name="M:Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.ResolveTokenSigningKey(System.String,System.String,Microsoft.IdentityModel.Tokens.TokenValidationParameters,Microsoft.IdentityModel.Tokens.BaseConfiguration)">
             <summary>
             Returns a <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> to use when validating the signature of a token.
@@ -1396,13 +1406,14 @@
             <returns>Returns a <see cref="T:Microsoft.IdentityModel.Tokens.SecurityKey"/> to use for signature validation.</returns>
             <remarks>If key fails to resolve, then null is returned</remarks>
         </member>
-        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.CountJwtTokenPart(System.String,System.Int32)">
+        <member name="M:Microsoft.IdentityModel.JsonWebTokens.JwtTokenUtilities.GetJsonDocumentFromBase64UrlEncodedString(System.String,System.Int32,System.Int32)">
             <summary>
-            Counts the number of Jwt Token segments.
+            
             </summary>
-            <param name="token">The Jwt Token.</param>
-            <param name="maxCount">The maximum number of segments to count up to.</param>
-            <returns>The number of segments up to <paramref name="maxCount"/>.</returns>
+            <param name="rawString"></param>
+            <param name="startIndex"></param>
+            <param name="length"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.IdentityModel.JsonWebTokens.LogMessages">
             <summary>

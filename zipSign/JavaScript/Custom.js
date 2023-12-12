@@ -14,7 +14,7 @@
     function resetInactivityTimeout() {
         
         clearTimeout(inactivityTimeout);
-        inactivityTimeout = setTimeout(SignOut, maxInactivityTime);         
+        inactivityTimeout = setTimeout(SignOut, maxInactivityTime);           
     }
 
     function SignOut() {
