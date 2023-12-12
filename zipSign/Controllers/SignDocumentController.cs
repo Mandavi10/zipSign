@@ -17,7 +17,7 @@ namespace zipSign.Controllers
         {
             return View();
         }
-        public ActionResult NewDoc()
+        public ActionResult NewDoc()       
         {
             return View();
         }
@@ -51,13 +51,13 @@ namespace zipSign.Controllers
                             pdfStamper.AcroFields.SetField("Reason", signerName);
                             pdfStamper.AcroFields.SetField("Location", "Kota, Rajasthan");
 
-                            float x = 470;
+                            float x = 470; 
                             float y = 150;
 
                             contentByte.SetColorFill(BaseColor.BLACK);
                             contentByte.SetFontAndSize(BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.WINANSI, BaseFont.NOT_EMBEDDED), 12);
                             contentByte.BeginText();
-                            // Use Phrase to handle line breaks
+                            // Use Phrase to handle line breaks            
                             Phrase phrase = new Phrase(signerName, new Font(Font.FontFamily.HELVETICA, 12));
                             ColumnText columnText = new ColumnText(contentByte);
                             columnText.SetSimpleColumn(phrase, x, y, 550, 0, 12, Element.ALIGN_LEFT);
