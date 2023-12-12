@@ -205,7 +205,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
             //        localPart = localPart[0] + xChars + localPart[localPart.length - 1];
             //    }
             //    var formattedEmail = localPart + domainPart; 
-            if (atIndex !== -1) {
+            if (atIndex !== -1) { 
                 var localPart = Email.slice(0, atIndex);
                 var domainPart = Email.slice(atIndex);
                 var remainingChars = localPart.length - 4; // Calculate the number of characters to replace (keeping the first two and last two characters)
