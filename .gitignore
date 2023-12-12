@@ -6,6 +6,8 @@
 # User-specific files
 *.rsuser
 *.suo
+*.suo
+*\.suo
 *.user
 *.userosscache
 *.sln.docstates
