@@ -77,3 +77,7 @@ D:\New_Zipsign_Project\zipSign\zipSign\obj\Debug\zipSign.csproj.CoreCompileInput
 D:\New_Zipsign_Project\zipSign\zipSign\obj\Debug\zipSign.csproj.CopyComplete
 D:\New_Zipsign_Project\zipSign\zipSign\obj\Debug\zipSign.dll
 D:\New_Zipsign_Project\zipSign\zipSign\obj\Debug\zipSign.pdb
+D:\New_Zipsign_Project\zipSign\zipSign\bin\JWTs_Verification.dll
+D:\New_Zipsign_Project\zipSign\zipSign\bin\JWTs_Verification.pdb
+D:\New_Zipsign_Project\zipSign\zipSign\bin\JWTs_Verification.dll.config
+D:\New_Zipsign_Project\zipSign\zipSign\bin\System.Memory.xml
