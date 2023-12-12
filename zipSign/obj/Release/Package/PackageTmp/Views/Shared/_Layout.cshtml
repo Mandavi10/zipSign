@@ -38,7 +38,13 @@
         #toast-container {
             display: none !important
         }
+        .sub_list {
+            display: none;
+        }
 
+        .open {
+            display: block;
+        }
         .inidiv {
             border: 1px solid #0058b1;
             border-radius: 50%;
@@ -192,9 +198,11 @@
         .sidebar-nav .metismenu > li:hover a {
             transform: translateX(8px);
         }
-        .corpselli{
-            display:none;
+
+        .corpselli {
+            display: none;
         }
+
         #btnsave {
             background-color: #0058b1 !important;
         }
@@ -230,7 +238,7 @@
             <div class="container-fluid">
                 <div class="navbar-brand col-md-5">
                     @*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-            <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
+                    <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
                     @*   <a href="index.html">zipSign</a>*@
                     <nav aria-label="breadcrumb" class="position-relative breadtxt">
                         <ol class="breadcrumb m-0" style="display:block !important;">
@@ -272,9 +280,9 @@
                 </div>
                 <div class="navbar-right">
                     @*<form id="navbar-search" class="navbar-form search-form">
-                <input value="" class="form-control" placeholder="Search here..." type="text">
-                <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
-            </form>*@
+                        <input value="" class="form-control" placeholder="Search here..." type="text">
+                        <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                    </form>*@
 
                     <div id="navbar-menu">
                         <ul class="nav navbar-nav">
@@ -554,22 +562,21 @@
                                     <div class="body">
                                         @*<h6>Profile Photo</h6>*@
                                         <!--<div class="media col-md-12 d-flex justify-content-center">
-                                            <div class="media-left col-md-3 position-relative" style="overflow: hidden;">
-                                                <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
-                                                <i class="fa fa-pencil-square-o editphoto"></i>
-                                                <input id="file-input" type="file" style="display: none;" />
-                                            </div>-->
+                                        <div class="media-left col-md-3 position-relative" style="overflow: hidden;">
+                                            <img src="/Content/images/user.png" class="user-photo media-object" alt="User">
+                                            <i class="fa fa-pencil-square-o editphoto"></i>
+                                            <input id="file-input" type="file" style="display: none;" />
+                                        </div>-->
+                                        @*<div class="media-body">
+                                            <p>
+                                                Upload your photo.
+                                                <br> <em>Image should be at least 140px x 140px</em>
+                                            </p>
+                                            <button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
 
-                                            @*<div class="media-body">
-                                                <p>
-                                                    Upload your photo.
-                                                    <br> <em>Image should be at least 140px x 140px</em>
-                                                </p>
-                                                <button type="button" class="btn btn-default" id="btn-upload-photo">Upload Photo</button>
-
-                                                <input type="file" id="filePhoto" class="sr-only" style="display:none;">
-                                                <input type="text" id="ProId" hidden />
-                                            </div>*@
+                                            <input type="file" id="filePhoto" class="sr-only" style="display:none;">
+                                            <input type="text" id="ProId" hidden />
+                                        </div>*@
                                         <!--</div>-->
 
                                         <div class="media col-md-12 profileInfo">
@@ -609,8 +616,8 @@
 
 
                                             @*<h5 id="usernameDisplay1"></h5>
-        <p id="emailDisplay1"></p>
-        <p id="phoneDisplay"></p>*@
+                                            <p id="emailDisplay1"></p>
+                                            <p id="phoneDisplay"></p>*@
                                             <input type="hidden" id="UserMasterId" />
 
 
@@ -716,7 +723,7 @@
                                                                 </div>
                                                             </div>*@
 
-                          
+
                                 </div>
                             </div>
                         </div>
@@ -728,7 +735,7 @@
             </div>
         </div>
 
-        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal" id="changepassmod" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -784,7 +791,7 @@
         </div>
 
 
-        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true" data-bs-keyboard="false" data-bs-backdrop="static">
+        <div class="modal fade" id="confirmationpopupforchp" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -895,7 +902,7 @@
                 //    return false;
                 //}
                 if (oldPassword === '') {
-                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please enter your old password</div>';
+                    var row = '<div class="alermsg col-md-12 p-1" role="alert">Please Enter Old Password.</div>';
                     $("#ErrorMessage").empty();
                     $("#ErrorMessage").append(row);
                     $("#oldPassword").focus();
@@ -938,14 +945,13 @@
                     $("#confirmPassword").focus();
                     return false;
                 }
-                else if (newPassword !== confirmPassword) {
+                else if (newPassword !== newPassword) {
                     var row = '<div class="alermsg col-md-12 p-1" role="alert">New password and confirm password do not match</div>';
                     $("#ErrorMessage").empty().append(row);
                     return false;
                 }
-                
                 $.ajax({
-                    
+
                     url: '/Login/ChangePasswordFromProfile',
                     type: 'POST',
                     data: {
@@ -994,7 +1000,38 @@
                 $('.allcorp').hide();
             })
         </script>
+        <script>
 
+
+            $(document).ready(function () {
+                $("#main-menu li ul").addClass('sub_list')
+                $("#main-menu > li").click(function () {
+                    $(this).find("ul.sub_list").toggle(500);
+                });
+
+
+                let url = window.location.href;
+                $('#main-menu li a').each(function () {
+                    if (this.href === url) {
+                        $('#main-menu li').removeClass('active');
+                        $(this).parent().addClass('active');
+
+                    }
+                })
+
+                $('#main-menu li ul li a').each(function () {
+
+                    if (this.href === url) {
+                        $('#main-menu li').removeClass('active');
+
+                        $(this).parent().addClass('active');
+                        $(this).closest('ul').addClass('in');
+                        $(this).closest('ul').parent().addClass('active');
+                        $(this).closest('ul').addClass('open');
+                    }
+                })
+            })
+        </script>
         @*<script>
             function GetRequest() {
                 var xmlhttp;
