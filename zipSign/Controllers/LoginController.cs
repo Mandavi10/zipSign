@@ -290,7 +290,6 @@ namespace zipSign.Controllers
                             userDataList.Add(userData);
                             Session["UserId"] = statusClass.DataFetch.Tables[0].Rows[0]["UserMasterID"];
                             Session["UserName"] = Convert.ToString(dr["Name"]);
-
                         }
                         Session["UserData"] = userDataList; // Store the list of user data in the session
                         return Json(result, JsonRequestBehavior.AllowGet);
@@ -497,9 +496,7 @@ namespace zipSign.Controllers
                 Sm.Message = Convert.ToString(statusClass.DataFetch.Tables[1].Rows[0]["SMS_MessageString"]);
 
                 Sm.MobileNo = AESEncryption.AESEncryptionClass.EncryptAES(Sm.MobileNo);
-
                 Sm.OTP = AESEncryption.AESEncryptionClass.EncryptAES(OTP1);
-
                 Sm.CusName = Sm.CusName.ToString();
 
                 Sm.Ref1 = Convert.ToString(statusClass.DataFetch.Tables[0].Rows[0]["Refrenceno"]);
@@ -1015,8 +1012,8 @@ namespace zipSign.Controllers
                 string Emailid = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(Email));
                 string File = AESEncryption.AESEncryptionClass.EncryptAES(Convert.ToString(fileId));
                 msg.Subject = "Document for signing";
-                string mss = "http://localhost:50460/Login/SignLogin";
-                //string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
+                //string mss = "http://localhost:50460/Login/SignLogin";
+                string mss = "https://uataadharsign.zipsign.in/Login/SignLogin";
                 string urlWithEncodedFileId = mss + "?Emailid=" + Emailid + "&File=" + File;
                 DateTime expirationDate = DateTime.Today.AddDays(expday);
                 string linkText = "Click here to view & sign the document";
@@ -1190,8 +1187,8 @@ namespace zipSign.Controllers
         private string GenerateResetLink(string userCode, string TxnId)
         {
 
-            return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
-            //return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
+            //return $"http://localhost:50460/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
+            return $"https://uataadharsign.zipsign.in/Login/ChangePassword?UserCode={userCode}?TxnId={TxnId}";
         }
         private void InsertLinkIntoDatabase(string userCode, string email, DateTime createdOn, DateTime expiryTime, string LinkText, string TxnId)
         {
