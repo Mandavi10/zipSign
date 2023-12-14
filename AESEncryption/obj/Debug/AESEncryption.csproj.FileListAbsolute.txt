@@ -4,3 +4,9 @@ D:\New_Zipsign_Project\zipSign\AESEncryption\obj\Debug\AESEncryption.csproj.Asse
 D:\New_Zipsign_Project\zipSign\AESEncryption\obj\Debug\AESEncryption.csproj.CoreCompileInputs.cache
 D:\New_Zipsign_Project\zipSign\AESEncryption\obj\Debug\AESEncryption.dll
 D:\New_Zipsign_Project\zipSign\AESEncryption\obj\Debug\AESEncryption.pdb
+D:\zipSign\AESEncryption\bin\Debug\AESEncryption.dll
+D:\zipSign\AESEncryption\bin\Debug\AESEncryption.pdb
+D:\zipSign\AESEncryption\obj\Debug\AESEncryption.csproj.CoreCompileInputs.cache
+D:\zipSign\AESEncryption\obj\Debug\AESEncryption.dll
+D:\zipSign\AESEncryption\obj\Debug\AESEncryption.pdb
+D:\zipSign\AESEncryption\obj\Debug\AESEncryption.csprojAssemblyReference.cache

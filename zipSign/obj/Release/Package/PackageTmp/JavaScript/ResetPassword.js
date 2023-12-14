@@ -57,7 +57,6 @@ function getCurrentDateTime() {
 }
 
 
-
 function UpdatePassword() {
     var OldPassword = $("#oldpassword").val();
     var Newpassword = $("#newpassword").val();
@@ -84,7 +83,7 @@ function UpdatePassword() {
         $("#message").append(row);
         $("#confirmpassword").focus();
         return false;
-    }
+    } 
 
     if (Newpassword !== confirmpassword) {
         var row = '<div class="alermsg col-md-12 p-1" role="alert">Password and confirm password do not match.</div>';

@@ -16,8 +16,8 @@ D:\zipSign\GlobalMethods\bin\Release\ExcelNumberFormat.xml
 D:\zipSign\GlobalMethods\bin\Release\MoreLinq.xml
 D:\zipSign\GlobalMethods\bin\Release\System.Linq.Dynamic.Core.xml
 D:\zipSign\GlobalMethods\bin\Release\System.ValueTuple.xml
-D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.csproj.AssemblyReference.cache
 D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.csproj.CoreCompileInputs.cache
 D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.csproj.CopyComplete
 D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.dll
 D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.pdb
+D:\zipSign\GlobalMethods\obj\Release\GlobalMethods.csprojAssemblyReference.cache

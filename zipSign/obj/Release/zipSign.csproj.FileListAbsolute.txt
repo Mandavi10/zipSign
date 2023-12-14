@@ -75,9 +75,9 @@ D:\zipSign\zipSign\bin\System.IdentityModel.Tokens.Jwt.xml
 D:\zipSign\zipSign\bin\System.Text.Encodings.Web.xml
 D:\zipSign\zipSign\bin\System.Text.Json.xml
 D:\zipSign\zipSign\bin\System.Web.Http.WebHost.xml
-D:\zipSign\zipSign\obj\Release\zipSign.csproj.AssemblyReference.cache
 D:\zipSign\zipSign\obj\Release\zipSign.csproj.CoreCompileInputs.cache
 D:\zipSign\zipSign\obj\Release\zipSign.csproj.CopyComplete
 D:\zipSign\zipSign\obj\Release\zipSign.dll
 D:\zipSign\zipSign\obj\Release\zipSign.pdb
 D:\zipSign\zipSign\bin\System.Memory.xml
+D:\zipSign\zipSign\obj\Release\zipSign.csprojAssemblyReference.cache

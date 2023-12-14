@@ -20,3 +20,4 @@ D:\zipSign\BusinessLayerModel\obj\Release\BusinessLayerModel.csproj.CoreCompileI
 D:\zipSign\BusinessLayerModel\obj\Release\BusinessLayerModel.csproj.CopyComplete
 D:\zipSign\BusinessLayerModel\obj\Release\BusinessLayerModel.dll
 D:\zipSign\BusinessLayerModel\obj\Release\BusinessLayerModel.pdb
+D:\zipSign\BusinessLayerModel\obj\Release\BusinessLayerModel.csprojAssemblyReference.cache

@@ -19,7 +19,7 @@ namespace JWTs_Verification
                 issuer: issuer,
                 audience: audience,
                 claims: new[] { new Claim(ClaimTypes.Name, userId) },
-                expires: DateTime.UtcNow.AddHours(1), // Adjust the token expiration as needed
+                expires: DateTime.UtcNow.AddMinutes(2), // Adjust the token expiration as needed
                 signingCredentials: credentials
             );
 

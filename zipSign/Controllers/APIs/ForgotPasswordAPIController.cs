@@ -1,5 +1,6 @@
 ﻿using BusinessDataLayer;
 using BusinessLayerModel;
+using JWTs_Verification;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,18 @@ namespace zipSign.Controllers.APIs
         [HttpPost]
         public IHttpActionResult ResetPassword([FromBody] JObject requestData)
         {
+            System.Net.Http.Headers.AuthenticationHeaderValue tokenHeader = Request.Headers.Authorization;
+            if (tokenHeader == null || tokenHeader.Scheme.ToLower() != "bearer")
+            {
+                var response = new
+                {
+                    status = false,
+                    message = "Authorization header is missing or invalid."
+                };
+                return Json(response);
+            }
+            string token = tokenHeader.Parameter;
+            string a = VerifyToken.GetUserIdFromToken(token);
             ForgotPasswordModel Data = requestData["Data"].ToObject<ForgotPasswordModel>();
             if (string.IsNullOrEmpty(Data.Email))
             {
