@@ -46,7 +46,6 @@
         <h3>Submit for e-Sign</h3>
         <form action="/PdfSign/SubmitRequest" method="post" style="display: none;">
             <input type="hidden" name="msg" value="@Model.XmlData" style="display: none;" />
-
             <input type="submit" id="submit-button" value="Submit" />
         </form>
     }
@@ -58,7 +57,6 @@
 
     <script>
         $(document).ready(function () {
-
             // Show the loader when the form is submitted
             $("form").submit(function () {
                 $("#loader-overlay").fadeIn();

@@ -41,7 +41,7 @@ namespace zipSign.Controllers
             string baseDirectory = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"];
             string filePath = objModel.File.Replace('/', '\\').TrimStart('\\'); // Replace forward slashes with backslashes
             string pdfPath = Path.Combine(baseDirectory, filePath);
-            string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
+            string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JARFiles\\Runnable_eSign2.1_multiple_LogFile.jar";
             string txtFilePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\CoordinatesTXTFile\\Coordinatesfile.txt";
             int pageCount = GetPdfPageCount(pdfPath);
             int Coordinates = objModel.Coordinates;
@@ -49,8 +49,8 @@ namespace zipSign.Controllers
             string aspId = "ASPYSPLMUMTEST223";
             string authMode = "1";
             _ = objModel.Fileid;
-            //string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
-            string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            string resp_url = $"http://localhost:50460/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
+            //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(objModel.File)}";
             string certificatePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\DSC_.p12\\YoekiDSC1.p12";
             string certificatePassward = "Creative0786!@#";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
@@ -236,7 +236,7 @@ namespace zipSign.Controllers
             string filePath = filePathfromUpload.Replace('/', '\\').TrimStart('\\'); // Replace forward slashes with backslashes
             string pdfReadServerPath = Path.Combine(baseDirectory, filePath);
 
-            string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JAR Files\\Runnable_eSign2.1_multiple_LogFile.jar";
+            string jarPath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\JARFiles\\Runnable_eSign2.1_multiple_LogFile.jar";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";
             int serverTime = 15;
             string nameToShowOnSignatureStamp = "Aadhar_E-sign";

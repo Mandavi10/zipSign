@@ -230,7 +230,7 @@ namespace zipSign.Controllers
             obj.Add(new DataItems("Path", DSCCM.Path));
             obj.Add(new DataItems("Role", DSCCM.Role));
             obj.Add(new DataItems("PasswordType", DSCCM.PasswordType));
-            obj.Add(new DataItems("UploadedBy", "1"));
+            obj.Add(new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])));
             obj.Add(new DataItems("QueryType", "UploadCertificate"));
 
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);
@@ -263,7 +263,6 @@ namespace zipSign.Controllers
         }
 
 
-
         [HttpPost]
         public JsonResult SearchandShowDataForCertificate(pagination objpage)
         {
@@ -276,7 +275,9 @@ namespace zipSign.Controllers
             {
                 QueryType = "SearchforSigned";
                 obj.Add(new DataItems("UploadedFileName", objpage.keyword));
+                
             }
+            obj.Add(new DataItems("UploadedBy", Convert.ToInt32(Session["UserId"])));
             obj.Add(new DataItems("QueryType", QueryType));
             obj.Add(new DataItems("PageCount", objpage.pagecount));
             statusClass = bal.GetFunctionWithResult(pro.Sp_CertificateManagement, obj);

@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <style>
     #usermodal .modal-dialog {
         width: 1024px !important;
@@ -20,7 +19,6 @@
     }
 </style>
 <script>
-
     var columnDefs = [
         { headerName: 'Sr. No.', field: 'srNo', width: 80, sortable: true, resizable: false, suppressMovable: true },
         {
@@ -40,23 +38,18 @@
         },
 
     ];
-
-
     var rowData = [];
-
     var gridOptions = {
         columnDefs: columnDefs,
         rowData: rowData,
         pagination: false,
 
     };
-
     document.addEventListener('DOMContentLoaded', function () {
         var gridDiv = document.querySelector('#myGrid');
         new agGrid.Grid(gridDiv, gridOptions);
     });
 </script>
-
 <div class="container-fluid">
     <div class="block-header">
         <div class="row">
@@ -81,14 +74,11 @@
             </div>
         </div>
     </div>
-
     <div class="row clearfix">
         <div class="col-md-12">
             <div class="card">
                 <div class="body">
                     <form id="advanced-form" data-parsley-validate novalidate>
-
-
                         <div class="col-md-12 col-xs-12 col-sm-12 p-0">
                             <div class="col-md-12 p-0">
                                 <div class="col-md-12 col-sm-12 col-xs-12 p-0">
@@ -97,8 +87,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="row mt-2" id="DivPagination">
                             <div class="col-sm-12 col-md-5">
                                 <div class="dataTables_info" id="Ddd" role="status" aria-live="polite"></div>
@@ -118,21 +106,16 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
 <script src="~/Content/js/jquery-3.6.4.min.js"></script>
 <script src="~/JavaScript/AllUsers.js"></script>
 <script src="~/Content/js/mainscripts.bundle.js"></script>
 <script src="~/Content/js/bootstrap.min.js"></script>
-
-
 <div class="modal fade" id="usermodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -320,7 +303,3 @@
         </div>
     </div>
 </div>
-
-
-
-

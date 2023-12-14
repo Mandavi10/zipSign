@@ -49,8 +49,11 @@ $(document).ready(function () {
 
 
     $("#btnok1").click(function () {
+        debugger
+
         filepathsss = sessionStorage.getItem('LoaclPath');
         $.ajax({
+
             url: '/SignDocument/NewDoc',
             type: 'POST',
             dataType: 'json',

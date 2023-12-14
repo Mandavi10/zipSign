@@ -407,8 +407,6 @@ namespace zipSign.Controllers
                 Console.WriteLine("Error: " + ex.Message);
             }
         }
-
-
         public void GetUserDataForTrail(int Id, out string userName, out string userEmail)
         {
             userName = string.Empty;

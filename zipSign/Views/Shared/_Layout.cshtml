@@ -234,132 +234,137 @@
 	<div id="wrapper" class="theme-cyan">
 
 		<nav class="navbar navbar-fixed-top">
-			<div class="container-fluid">
-				<div class="navbar-brand col-md-8">
-					@*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-					<button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
-					@*   <a href="index.html">zipSign</a>*@
-					<nav aria-label="breadcrumb" class="position-relative breadtxt">
-						<ol class="breadcrumb m-0" style="display:block !important;">
-							<li class="breadcrumb-item active visitxt" aria-current="page">
-								<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
-								<button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
+            <div class="container-fluid">
+                <div class="navbar-brand col-md-5">
+                    @*<button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+            <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>*@
+                    @*   <a href="index.html">zipSign</a>*@
+                    <nav aria-label="breadcrumb" class="position-relative breadtxt">
+                        <ol class="breadcrumb m-0" style="display:block !important;">
+                            <li class="breadcrumb-item active visitxt" aria-current="page">
+                                <button type="button" class="btn-toggle-offcanvas"><i class="fa fa-bars"></i></button>
+                                <button type="button" class="btn-toggle-fullwidth"><i class="fa fa-bars"></i></button>
 
-							</li>
-							@*<li class="corpselli"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>*@
-						</ol>
-						<div class="allcorp" style="display:none">
+                            </li>
+                            @*<li class="corpselli"><i class="fa fa-angle-right pe-2 opencorp" aria-hidden="true"></i>Select Corporate</li>*@
+                        </ol>
+                        <div class="allcorp" style="display:none">
 
-							<div class="ulofcorp">
-								<div class="col-12 position-relative">
-									<input type="text" class="form-control searchofcorp" style="width:100% !important" />
-									<i class="fa fa-search serrcorp" aria-hidden="true"></i>
-								</div>
-								<ul class="scrolli">
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-									<li>Yoeki Soft pvt. Ltd</li>
-								</ul>
-							</div>
-						</div>
-					</nav>
-				</div>
+                            <div class="ulofcorp">
+                                <div class="col-12 position-relative">
+                                    <input type="text" class="form-control searchofcorp" style="width:100% !important" />
+                                    <i class="fa fa-search serrcorp" aria-hidden="true"></i>
+                                </div>
+                                <ul class="scrolli">
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                    <li>Yoeki Soft pvt. Ltd</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <label>Last Login :</label>
+                    <label><strong class="text-black" id="txtlastlogin">12/11/2023 4:26:25 PM</strong></label>&nbsp;&nbsp;&nbsp;
+                    <label>Today Time :</label>
+                    <label><iframe style="pointer-events: none; margin-bottom:-3px;" class="mt-0" src="https://free.timeanddate.com/clock/i8yd4h2c/n176/fc555/tct/pct/ftb/tt0/tw0/tm1/tb1" frameborder="0" width="180" height="18" allowtransparency="true"></iframe></label>
+                </div>
+                <div class="navbar-right">
+                    @*<form id="navbar-search" class="navbar-form search-form">
+                <input value="" class="form-control" placeholder="Search here..." type="text">
+                <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+            </form>*@
 
-				<div class="navbar-right">
-					@*<form id="navbar-search" class="navbar-form search-form">
-						<input value="" class="form-control" placeholder="Search here..." type="text">
-						<button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
-					</form>*@
+                    <div id="navbar-menu">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown" style="display:none">
+                                <a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                                    <i class="fa fa-bell"></i>
+                                    <span class="notification-dot"></span>
+                                </a>
+                                <ul class="dropdown-menu notifications">
+                                    <li class="header"><strong>You have 4 new Notifications</strong></li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-info text-warning"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
+                                                    <span class="timestamp">10:00 AM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-like text-success"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
+                                                    <span class="timestamp">11:30 AM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-pie-chart text-info"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Website visits from Twitter is 27% higher than last week.</p>
+                                                    <span class="timestamp">04:00 PM Today</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <i class="icon-info text-danger"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <p class="text">Error on website analytics configurations</p>
+                                                    <span class="timestamp">Yesterday</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                @*<a href="page-login.html" class="icon-menu"><i class="fa fa-power-off"></i></a>*@
+                                <div class="inidiv">
+                                    <span class="fa fa-user-o"></span>
 
-					<div id="navbar-menu">
-						<ul class="nav navbar-nav">
-							<li class="dropdown" style="display:none">
-								<a href="javascript:void(0);" class="dropdown-toggle icon-menu" data-toggle="dropdown">
-									<i class="fa fa-bell"></i>
-									<span class="notification-dot"></span>
-								</a>
-								<ul class="dropdown-menu notifications">
-									<li class="header"><strong>You have 4 new Notifications</strong></li>
-									<li>
-										<a href="javascript:void(0);">
-											<div class="media">
-												<div class="media-left">
-													<i class="icon-info text-warning"></i>
-												</div>
-												<div class="media-body">
-													<p class="text">Campaign <strong>Holiday Sale</strong> is nearly reach budget limit.</p>
-													<span class="timestamp">10:00 AM Today</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);">
-											<div class="media">
-												<div class="media-left">
-													<i class="icon-like text-success"></i>
-												</div>
-												<div class="media-body">
-													<p class="text">Your New Campaign <strong>Holiday Sale</strong> is approved.</p>
-													<span class="timestamp">11:30 AM Today</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);">
-											<div class="media">
-												<div class="media-left">
-													<i class="icon-pie-chart text-info"></i>
-												</div>
-												<div class="media-body">
-													<p class="text">Website visits from Twitter is 27% higher than last week.</p>
-													<span class="timestamp">04:00 PM Today</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);">
-											<div class="media">
-												<div class="media-left">
-													<i class="icon-info text-danger"></i>
-												</div>
-												<div class="media-body">
-													<p class="text">Error on website analytics configurations</p>
-													<span class="timestamp">Yesterday</span>
-												</div>
-											</div>
-										</a>
-									</li>
-									<li class="footer"><a href="javascript:void(0);" class="more">See all notifications</a></li>
-								</ul>
-							</li>
-							<li>
-								@*<a href="page-login.html" class="icon-menu"><i class="fa fa-power-off"></i></a>*@
-								<div class="inidiv">
-									<span class="fa fa-user-o"></span>
+                                    <ul class="profiletoggle">
+                                        <li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
 
-									<ul class="profiletoggle">
-										<li data-bs-toggle="modal" data-bs-target="#profilemodal" onclick="ShowProfile()"><i class="fa fa-user " aria-hidden="true"></i> Profile</li>
+                                        <li data-bs-toggle="modal" data-bs-target="#changepassmod"><i class="fa fa-key" aria-hidden="true"></i> Change Password</li>
 
-										<li data-bs-toggle="modal" data-bs-target="#changepassmod"><i class="fa fa-key" aria-hidden="true"></i> Change Password</li>
-
-										@*<li>Change Password</li>*@
-										<li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
+                                        @*<li>Change Password</li>*@
+                                        <li onclick="SignOut()"><i class="fa fa-sign-out " aria-hidden="true"></i> Sign Out</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
 		</nav>
 
 
@@ -875,7 +880,6 @@
 						type: 'GET',
 						dataType: 'json',
 						success: function (response) {
-
 							if (response.length > 0) {
 								var userData = response[0];
 								$('#usernameDisplay1').text(userData.UserName);
@@ -1042,6 +1046,6 @@
 			}
 		</script>*@
 	</div>
-
+    <script src="~/JavaScript/SigningRequest1.js"></script>
 </body>
 </html>

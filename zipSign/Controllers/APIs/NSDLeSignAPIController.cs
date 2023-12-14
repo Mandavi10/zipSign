@@ -35,8 +35,8 @@ namespace zipSign.Controllers.APIs
             string aspId = "ASPYSPLMUMTEST223";
             string authMode = "1";
             _ = Data.Fileid;
-            //string resp_url = $"http://10.10.10.135//NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(Data.File)}";
-            string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(Data.File)}";
+            string resp_url = $"http://10.10.10.135//NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(Data.File)}";
+            //string resp_url = $"https://uataadharsign.zipsign.in/NSDL/Page_Load?filePathfromUpload={HttpUtility.UrlEncode(Data.File)}";
             string certificatePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content\\DSC_.p12\\YoekiDSC1.p12";
             string certificatePassward = "Creative0786!@#";
             string tickImagePath = System.Configuration.ConfigurationManager.AppSettings["ConsumePath"] + "Content/images/signbg.png";

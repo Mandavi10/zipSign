@@ -67,6 +67,9 @@
     <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="eSign2_1_V1_0">
+      <HintPath>..\..\eSign2_1_V1_0.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelNumberFormat, Version=1.0.10.0, Culture=neutral, PublicKeyToken=23c6f5d73be07eca, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelNumberFormat.1.0.10\lib\net20\ExcelNumberFormat.dll</HintPath>
     </Reference>
@@ -301,6 +304,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\APIs\InsertSignerBulkController.cs" />
     <Compile Include="Controllers\APIs\NSDLeSignAPIController.cs" />
     <Compile Include="Controllers\APIs\LogOutAPIController.cs" />
     <Compile Include="Controllers\APIs\SendMobileOTPAPIController.cs" />
@@ -492,7 +496,7 @@
     <Content Include="Content\images\visa-card.png" />
     <Content Include="Content\images\washing-machine.png" />
     <Content Include="Content\images\weather_img.jpg" />
-    <Content Include="Content\JAR Files\Verasays-eSign-Web-4.0.jar" />
+    <Content Include="Content\JARFiles\Verasays-eSign-Web-4.0.jar" />
     <Content Include="Content\js\ag-grid-community.min.js" />
     <Content Include="Content\js\bootstrap-datepicker.min.js" />
     <Content Include="Content\js\bootstrap.js" />
@@ -509,8 +513,8 @@
     <Content Include="Content\js\moment.min.js" />
     <Content Include="Content\js\MyValidator.js" />
     <Content Include="Content\CoordinatesTXTFile\Coordinatesfile.txt" />
-    <Content Include="Content\JAR Files\eSign2.1_v1.0.jar" />
-    <Content Include="Content\JAR Files\eSign2.1_v1.1.jar" />
+    <Content Include="Content\JARFiles\eSign2.1_v1.0.jar" />
+    <Content Include="Content\JARFiles\eSign2.1_v1.1.jar" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\simple-Line-Icons.svg" />
     <Content Include="fonts\weathericons-regular-webfont.svg" />
@@ -540,8 +544,8 @@
     <Content Include="JavaScript\Upload1.js" />
     <Content Include="JavaScript\UserCreation.js" />
     <Content Include="JavaScript\UserProfile.js" />
-    <Content Include="Content\JAR Files\Runnable2_eSign2.1_Single.jar" />
-    <Content Include="Content\JAR Files\Runnable_eSign2.1_multiple_LogFile.jar" />
+    <Content Include="Content\JARFiles\Runnable2_eSign2.1_Single.jar" />
+    <Content Include="Content\JARFiles\Runnable_eSign2.1_multiple_LogFile.jar" />
     <Content Include="Content\css\font-awesome.scss" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
