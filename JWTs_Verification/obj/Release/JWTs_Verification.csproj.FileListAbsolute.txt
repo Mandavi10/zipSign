@@ -33,4 +33,4 @@ D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.csproj.CoreCompileInp
 D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.csproj.CopyComplete
 D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.dll
 D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.pdb
-D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.csproj.AssemblyReference.cache
+D:\zipSign\JWTs_Verification\obj\Release\JWTs_Verification.csprojAssemblyReference.cache

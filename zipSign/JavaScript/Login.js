@@ -10,7 +10,7 @@ $(document).ready(function () {
     $("#mobileotp").on('input', function () {
         $("#message1").empty();
     });
-    
+
 });
 var isvalidate = 0;
 //To Reload Captcha
@@ -61,7 +61,7 @@ $('#lblresend').click(function () {
 });
 //Login Function
 function Login() {
-   
+
     $("#email, #password, #signin-password, #mobileotp").on('input', function () {
         $("#message").empty();
         row = '';
@@ -74,17 +74,17 @@ function Login() {
     var password = $("#password").val();
     //window.textbox1 = textbox;
     var captchaInput = $('#signin-password').val();
-    
+
     $.ajax({
         url: '/Login/Login',
         type: 'POST',
         data: {
-            captchaInput: captchaInput,                 
+            captchaInput: captchaInput,
             Email: textbox,
             Mobile: textbox,
             Password: password,
         },
-        success: function (result) {    
+        success: function (result) {
             if (result && result.length > 0) {
                 sessionStorage.setItem('UserId', result[0].UserId);
                 var username = result[0].UserName;
@@ -126,7 +126,7 @@ function Login() {
                 }
 
             }
-            else if (result.status == 0) {    
+            else if (result.status == 0) {
                 $("#message").empty();
                 var row = '<div class="  col-md-12 p-1" role="alert">Please enter valid CAPTCHA</div>';
                 $("#message").append(row);
@@ -192,8 +192,8 @@ function SendLoginEmailOTP(textbox, username, mobile) {
             var Email = textbox;
             var mobileNumber = response.MobileNo;
             var lastTwoDigits = mobileNumber.slice(-2);
-            var StartingTwoNumber = mobileNumber.slice(0,2);
-            var formattedMobile = StartingTwoNumber+"xxxxxx" + lastTwoDigits;  
+            var StartingTwoNumber = mobileNumber.slice(0, 2);
+            var formattedMobile = StartingTwoNumber + "xxxxxx" + lastTwoDigits;
             var atIndex = Email.indexOf('@');
             if (atIndex !== -1) {
                 var localPart = Email.slice(0, atIndex);
@@ -203,7 +203,7 @@ function SendLoginEmailOTP(textbox, username, mobile) {
                     var xChars = '*'.repeat(remainingChars); // Create a string of 'x' characters of the calculated length
                     localPart = localPart[0] + localPart[1] + xChars + localPart[localPart.length - 2] + localPart[localPart.length - 1];
                 }
-                var formattedEmail = localPart + domainPart; 
+                var formattedEmail = localPart + domainPart;
                 var span = $("#lblemail .enterddata");
                 span.text("Please enter the OTP sent to " + formattedEmail + " and " + formattedMobile);
                 slide('next');
@@ -524,7 +524,7 @@ function SendPasswordResetLink(UserCode, Email) {
         success: function (response) {
             $("#loaderrr").hide();
             $('#successpopup1').modal('show');
-           // window.location.href = '/Login/Index';
+            // window.location.href = '/Login/Index';
             sessionStorage.clear();
             //console.log(response);
         },
